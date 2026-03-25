@@ -269,26 +269,27 @@
 <script>
 const API = '/api/sheets';
 const SHEET_ORDER = ['아이디어', '조사', '의사결정', '합의사항'];
+const CATEGORIES = ['법인/거버넌스', '브랜드', '콘텐츠', '인력', '시장/경쟁', '사업 모델', '마케팅', '재무'];
 const SHEET_CONFIG = {
   '아이디어': {
     sub: '구상',
     desc: '<strong>검증 전 구상들.</strong> 구체화되면 조사 또는 의사결정으로 이동.',
-    columns: ['항목', '내용', '출처', '검증방법', '비고'],
+    columns: ['카테고리', '항목', '내용', '출처', '검증방법', '비고'],
   },
   '조사': {
     sub: '데이터 수집',
     desc: '<strong>결정에 필요한 데이터 수집.</strong> 완료되면 의사결정의 근거/데이터에 반영.',
-    columns: ['조사 항목', '목적', '상태', '결과 요약', '비고'],
+    columns: ['카테고리', '조사 항목', '목적', '상태', '결과 요약', '비고'],
   },
   '의사결정': {
     sub: '선택지 + 근거',
     desc: '<strong>결정이 필요한 항목.</strong> 근거 데이터가 모이면 결정 → 합의사항으로 이동.',
-    columns: ['항목', '우선순위', '선택지', '근거/데이터', '담당', '비고'],
+    columns: ['카테고리', '항목', '우선순위', '선택지', '근거/데이터', '담당', '비고'],
   },
   '합의사항': {
     sub: '확정',
     desc: '이동길 + 이은경이 <strong>확정한 전제 조건과 역할분담</strong>. 더 이상 논의 불필요.',
-    columns: ['항목', '내용', '담당', '비고'],
+    columns: ['카테고리', '항목', '내용', '담당', '비고'],
   },
 };
 
@@ -300,63 +301,7 @@ const PERSON_COLORS = {
   '대화': { dot: 'dot-talk', card: '', label: '화' },
 };
 
-const INLINE_DATA = {
-  '아이디어': [
-    ["[아이디어] 검증 전 구상들. 구체화되면 의사결정 또는 합의사항으로 이동."],
-    ["항목","내용","출처","검증방법","비고"],
-    ["검증 전략","사업 모델 검증 방법","대화","","방법: 1.리마크 내 초등부 글쓰기반 개설(저비용/빠른피드백) 2.별도 직영 1호점(브랜드독립/투자필요) 3.병행"],
-    ["강사 모델","표준화된 교사 운영 (구몬 수준)","이동길","커리큘럼 표준화 후 테스트","고급 강사 육성보다 매뉴얼 기반 운영"],
-    ["브랜드 전략","이은경보다 브랜드가 커져야 함","이은경","","방법: 1.이은경 인지도는 초기 부스터로만 활용 2.브랜드 독자 인지도 구축 3.콘텐츠 복수화(글쓰기/인문독서/영어문해력)로 1인 의존 탈피"],
-    ["가족 상생 구조","언니, 여나에게도 이로운 구조 설계","이은경","","장기 과제"],
-    ["평생교육원 연계","교원 직무능력향상 자격증과정 개설","이은경","상담 완료","교사 양성 파이프라인으로 활용"],
-    ["달콤샘 수요 검증","대기자 1000명 = 인문독서 수요 검증됨","이은경","","영입 진행 중"]
-  ],
-  '조사': [
-    ["[조사] 결정에 필요한 데이터 수집. 완료되면 의사결정 시트의 근거/데이터 열에 반영."],
-    ["조사 항목","목적","상태","결과 요약","비고"],
-    ["초등 글쓰기 시장 규모","시장성 판단","대기","",""],
-    ["경쟁사 분석","기존 글쓰기 학원/프로그램 현황","대기","","프차 vs 독립 학원 vs 온라인"],
-    ["프차 법률/절차","공정위 정보공개서, 사업신고 절차","대기","","법인 형태 결정에 필요"],
-    ["수익 구조 시뮬레이션","가맹비/로열티/수강료 모델링","대기","",""],
-    ["리스크: 이은경 평판","공인 브랜드 프차 시 평판 방어 구조","대기","","구조적 방어 필요"],
-    ["리스크: 프차 경험 부재","학습 가능한 영역인지 평가","대기","","AI 학습 + 1년 준비로 커버 가능 (판단)"],
-    ["리스크: 강사 품질 편차","프차 확장 시 교육 품질 유지 방안","대기","","평생교육원 + 표준 매뉴얼"]
-  ],
-  '의사결정': [
-    ["[의사결정] 결정이 필요한 항목. 근거 데이터가 모이면 결정 → 합의사항으로 이동."],
-    ["항목","우선순위","선택지","근거/데이터","담당","비고"],
-    ["대표","긴급","","","공동","이은경이 공동대표 제안"],
-    ["지분 구조","긴급","","역할분담 확정 후 결정","공동",""],
-    ["최종 결정권자","긴급","영역별 분리 / 단일 결정권","","공동",""],
-    ["법인 형태","중요","주식회사 / 유한회사","","이동길","조사 필요"],
-    ["브랜드명","중요","","","이은경",""],
-    ["마케팅 담당","보류","이은경 인지도 활용 / 별도 마케팅팀","","?",""],
-    ["영업 (가맹점 모집)","보류","직접 / 전문가 헤드헌팅","","?","이은경이 프차 마케팅 전문가 헤드헌팅 언급"],
-    ["영어 문해력 동시 런칭","보류","동시 / 후순위","","?","이은경이 지켜보는 콘텐츠 있음"],
-    ["검증 전략","중요","리마크 테스트 / 직영 1호점 / 병행","","공동",""]
-  ],
-  '합의사항': [
-    ["[합의사항] 이동길+이은경이 확정한 전제 조건과 역할분담. 더 이상 논의 불필요."],
-    ["항목","내용","담당","비고"],
-    ["사업 형태","초등 글쓰기 + 인문독서 프랜차이즈","공동",""],
-    ["법인","별도 신규 법인 설립","공동","각자 법인 → 법인 간 협업도 검토했으나 공동법인으로 방향"],
-    ["런칭 시기","2027년 (2026년은 설계/준비)","공동","이은경 규현 입시 종료 후"],
-    ["이성종/권보경 관여","없음","",""],
-    ["달콤인문 선생님","콘텐츠 파트너 (공동창업자 아님)","이은경","독서콘텐츠 제공 + 평생교육원에서 교사교육"],
-    ["","","",""],
-    ["역할: 이은경","","",""],
-    ["브랜드 기획","네이밍, BI, 포지셔닝","이은경",""],
-    ["커리큘럼 (글쓰기)","초등 글쓰기 핵심 커리큘럼 개발","이은경",""],
-    ["커리큘럼 (인문독서)","달콤샘 콘텐츠 → 프리미엄 브랜딩","이은경+달콤샘",""],
-    ["교사 교육/양성","평생교육원 자격증과정 연계","이은경","상담 완료, 바로 진행 가능"],
-    ["","","",""],
-    ["역할: 이동길","","",""],
-    ["경영/재무","법인 운영, 회계, 투자","이동길",""],
-    ["프랜차이즈 시스템 설계","매뉴얼, 표준화, 가맹 계약","이동길","AI 학습 병행하며 구축"],
-    ["가맹점 운영 관리","일상 운영, 품질관리(QC)","이동길",""],
-    ["시스템/자동화","IT, 관리 도구, AI 활용","이동길",""]
-  ]
-};
+const INLINE_DATA = {}; // API 폴백용 — API가 정상 작동하므로 빈 객체로 유지
 
 let allData = {};
 let currentTab = '아이디어';
@@ -414,7 +359,7 @@ function renderTabs() {
     const rows = allData[name] || [];
     const dataRows = rows.filter((r, idx) => idx >= 2 && r.some(c => c));
     const active = name === currentTab ? 'active' : '';
-    const cnt = dataRows.filter(r => !(r[0]||'').startsWith('[아카이브]') && !(r[0]||'').startsWith('역할:') && !(r[0]||'').startsWith('역할 :')).length;
+    const cnt = dataRows.filter(r => !(r[1]||'').startsWith('[아카이브]') && !(r[1]||'').startsWith('역할:') && !(r[1]||'').startsWith('역할 :')).length;
     const tab = `<div class="tab ${active}" onclick="switchTab('${name}')">
       ${name}<span class="count">${cnt}</span>
       <span class="tab-sub">${config.sub}</span>
@@ -433,8 +378,8 @@ function renderPanel() {
   const config = SHEET_CONFIG[currentTab];
   const rows = allData[currentTab] || [];
   const allDataRows = rows.slice(2).filter(r => r.some(c => c));
-  const dataRows = allDataRows.filter(r => !(r[0]||'').startsWith('[아카이브]'));
-  const archivedRows = allDataRows.filter(r => (r[0]||'').startsWith('[아카이브]'));
+  const dataRows = allDataRows.filter(r => !(r[1]||'').startsWith('[아카이브]'));
+  const archivedRows = allDataRows.filter(r => (r[1]||'').startsWith('[아카이브]'));
 
   let html = `
     <div class="panel-header">
@@ -443,43 +388,26 @@ function renderPanel() {
     </div>
   `;
 
-  if (currentTab === '의사결정') {
-    ['긴급', '중요', '보류'].forEach(pri => {
-      const priRows = dataRows.filter(r => (r[1] || '') === pri);
-      if (priRows.length === 0) return;
-      html += `<div class="section-title">${pri}</div><div class="card-grid">`;
-      priRows.forEach(row => renderCard(row, rows.indexOf(row)));
-      html += `</div>`;
-    });
-    const noPri = dataRows.filter(r => !['긴급','중요','보류'].includes(r[1] || ''));
-    if (noPri.length > 0) {
-      html += `<div class="section-title">미분류</div><div class="card-grid">`;
-      noPri.forEach(row => renderCard(row, rows.indexOf(row)));
-      html += `</div>`;
-    }
-  } else if (currentTab === '조사') {
-    ['대기', '진행중'].forEach(st => {
-      const stRows = dataRows.filter(r => (r[2] || '') === st);
-      if (stRows.length === 0) return;
-      html += `<div class="section-title">${st}</div><div class="card-grid">`;
-      stRows.forEach(row => renderCard(row, rows.indexOf(row)));
-      html += `</div>`;
-    });
-    // 완료 → 아카이브로 표시
-    const doneRows = dataRows.filter(r => (r[2] || '') === '완료');
-    if (doneRows.length > 0) {
-      archivedRows.push(...doneRows.map(r => { const c = [...r]; c[0] = '[아카이브:조사] ' + c[0]; return c; }));
-    }
-    const noSt = dataRows.filter(r => !['대기','진행중','완료'].includes(r[2] || ''));
-    if (noSt.length > 0) {
-      html += `<div class="section-title">미분류</div><div class="card-grid">`;
-      noSt.forEach(row => renderCard(row, rows.indexOf(row)));
-      html += `</div>`;
-    }
-  } else {
-    html += `<div class="card-grid">`;
-    dataRows.forEach(row => renderCard(row, rows.indexOf(row)));
+  // 카테고리별 그룹핑 (모든 탭 공통)
+  const usedCats = [...new Set(dataRows.map(r => (r[0]||'').trim()).filter(c => c))];
+  const orderedCats = CATEGORIES.filter(c => usedCats.includes(c));
+  const uncategorized = dataRows.filter(r => !(r[0]||'').trim());
+
+  orderedCats.forEach(cat => {
+    const catRows = dataRows.filter(r => (r[0]||'').trim() === cat);
+    if (catRows.length === 0) return;
+    html += `<div class="section-title">${cat}</div><div class="card-grid">`;
+    catRows.forEach(row => renderCard(row, rows.indexOf(row)));
     html += `</div>`;
+  });
+
+  if (uncategorized.length > 0) {
+    uncategorized.forEach(row => {
+      const title = (row[1]||'').trim();
+      if (title.startsWith('역할:') || title.startsWith('역할 :')) {
+        html += `<div class="section-title">${title}</div>`;
+      }
+    });
   }
 
   // Archive section
@@ -489,16 +417,16 @@ function renderPanel() {
     </div>`;
     html += `<div class="archive-section" id="archive-section">`;
 
-    const fromResearch = archivedRows.filter(r => (r[0]||'').includes('[아카이브:조사]'));
-    const fromAgreed = archivedRows.filter(r => (r[0]||'').includes('[아카이브:합의]'));
-    const fromOther = archivedRows.filter(r => !(r[0]||'').includes('[아카이브:조사]') && !(r[0]||'').includes('[아카이브:합의]'));
+    const fromResearch = archivedRows.filter(r => (r[1]||'').includes('[아카이브:조사]'));
+    const fromAgreed = archivedRows.filter(r => (r[1]||'').includes('[아카이브:합의]'));
+    const fromOther = archivedRows.filter(r => !(r[1]||'').includes('[아카이브:조사]') && !(r[1]||'').includes('[아카이브:합의]'));
 
     if (fromResearch.length > 0) {
       html += `<div class="archive-label">조사에서 옮김 (${fromResearch.length})</div><div class="card-grid">`;
       fromResearch.forEach(row => {
         const ri = rows.indexOf(row);
         const cleanRow = [...row];
-        cleanRow[0] = cleanRow[0].replace('[아카이브:조사] ', '').replace('[아카이브] ', '');
+        cleanRow[1] = (cleanRow[1]||'').replace('[아카이브:조사] ', '').replace('[아카이브] ', '');
         renderCard(cleanRow, ri >= 0 ? ri : -1);
       });
       html += `</div>`;
@@ -508,7 +436,7 @@ function renderPanel() {
       fromAgreed.forEach(row => {
         const ri = rows.indexOf(row);
         const cleanRow = [...row];
-        cleanRow[0] = cleanRow[0].replace('[아카이브:합의] ', '').replace('[아카이브] ', '');
+        cleanRow[1] = (cleanRow[1]||'').replace('[아카이브:합의] ', '').replace('[아카이브] ', '');
         renderCard(cleanRow, ri >= 0 ? ri : -1);
       });
       html += `</div>`;
@@ -518,7 +446,7 @@ function renderPanel() {
       fromOther.forEach(row => {
         const ri = rows.indexOf(row);
         const cleanRow = [...row];
-        cleanRow[0] = cleanRow[0].replace('[아카이브] ', '');
+        cleanRow[1] = (cleanRow[1]||'').replace('[아카이브] ', '');
         renderCard(cleanRow, ri >= 0 ? ri : -1);
       });
       html += `</div>`;
@@ -529,21 +457,20 @@ function renderPanel() {
   document.getElementById('mainContent').innerHTML = html;
 
   function renderCard(row, realIdx) {
-    const title = row[0] || '';
+    const title = row[1] || '';
     const cols = config.columns;
     if (!title) return;
 
     if (title.startsWith('역할:') || title.startsWith('역할 :')) {
-      html += `</div><div class="section-title">${title}</div><div class="card-grid">`;
-      return;
+      return; // 카테고리 그룹핑에서 이미 처리
     }
 
     // Determine card color
     let cardClass = '';
     let personCol = -1;
-    if (currentTab === '의사결정') { personCol = 4; }
-    else if (currentTab === '합의사항') { personCol = 2; }
-    else if (currentTab === '아이디어') { personCol = 2; }
+    if (currentTab === '의사결정') { personCol = 5; }
+    else if (currentTab === '합의사항') { personCol = 3; }
+    else if (currentTab === '아이디어') { personCol = 3; }
 
     if (personCol >= 0) {
       const person = (row[personCol] || '').trim();
@@ -553,12 +480,12 @@ function renderPanel() {
       }
     }
 
-    // Build content
+    // Build content (skip index 0=카테고리, 1=항목)
     let contentHtml = '';
-    for (let i = 1; i < cols.length; i++) {
+    for (let i = 2; i < cols.length; i++) {
       const val = row[i] || '';
       if (!val) continue;
-      if (cols[i] === '우선순위') continue;
+      if (cols[i] === '카테고리' || cols[i] === '우선순위') continue;
       if (cols[i] === '담당' || cols[i] === '출처') {
         contentHtml += personBadgeHtml(val);
       } else if (cols[i] === '상태') {
@@ -574,8 +501,9 @@ function renderPanel() {
       }
     }
 
-    const priHtml = currentTab === '의사결정' && row[1]
-      ? `<span class="priority-tag priority-${row[1]==='긴급'?'urgent':row[1]==='중요'?'important':'hold'}">${row[1]}</span>` : '';
+    const pri = currentTab === '의사결정' ? (row[2] || '') : '';
+    const priHtml = pri
+      ? `<span class="priority-tag priority-${pri==='긴급'?'urgent':pri==='중요'?'important':'hold'}">${pri}</span>` : '';
 
     const actionsHtml = realIdx >= 0 ? `
       <div class="card-actions">
@@ -600,6 +528,11 @@ function renderPanel() {
 }
 
 function buildFieldHtml(col, i, val) {
+  if (col === '카테고리') {
+    return `<div class="form-group"><label>${col}</label>
+      <select id="field_${i}"><option value="">선택</option>
+      ${CATEGORIES.map(c => `<option value="${c}" ${val===c?'selected':''}>${c}</option>`).join('')}</select></div>`;
+  }
   if (col === '우선순위') {
     return `<div class="form-group"><label>${col}</label>
       <select id="field_${i}"><option value="">선택</option>
@@ -702,7 +635,7 @@ async function archiveCard(rowIdx) {
   const config = SHEET_CONFIG[currentTab];
   const prefix = currentTab === '조사' ? '[아카이브:조사] ' : currentTab === '합의사항' ? '[아카이브:합의] ' : '[아카이브] ';
   const values = [...row];
-  if (!values[0].startsWith('[아카이브]')) values[0] = prefix + values[0];
+  if (!(values[1]||'').startsWith('[아카이브]')) values[1] = prefix + values[1];
   const endCol = String.fromCharCode(64 + config.columns.length);
   try {
     await fetch(API, {
