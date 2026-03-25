@@ -215,6 +215,14 @@
   }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
+  /* NEW / 수정 badges */
+  .badge-new, .badge-edited {
+    display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 4px;
+    font-weight: 700; margin-left: 6px; vertical-align: middle; letter-spacing: 0.5px;
+  }
+  .badge-new { background: #da3633; color: #fff; }
+  .badge-edited { background: #0969da; color: #fff; }
+
   /* Mobile responsive */
   @media (max-width: 768px) {
     header { padding: 16px 20px; flex-direction: column; gap: 8px; align-items: flex-start; }
@@ -353,6 +361,27 @@ const INLINE_DATA = {
 let allData = {};
 let currentTab = '아이디어';
 let editingRow = null;
+let changeMap = {}; // { 'sheetName-rowIdx': 'new' | 'edited' }
+
+function buildChangeMap(data) {
+  const prev = JSON.parse(localStorage.getItem('brainstorm_prev') || '{}');
+  const map = {};
+  for (const sheet of SHEET_ORDER) {
+    const curRows = data[sheet] || [];
+    const prevRows = prev[sheet] || [];
+    for (let i = 2; i < curRows.length; i++) {
+      const row = curRows[i];
+      if (!row || !row.some(c => c)) continue;
+      const key = `${sheet}-${i}`;
+      if (i >= prevRows.length || !prevRows[i] || !prevRows[i].some(c => c)) {
+        map[key] = 'new';
+      } else if (JSON.stringify(row) !== JSON.stringify(prevRows[i])) {
+        map[key] = 'edited';
+      }
+    }
+  }
+  return map;
+}
 
 async function loadData() {
   try {
@@ -361,8 +390,10 @@ async function loadData() {
   } catch (e) {
     allData = INLINE_DATA;
   }
+  changeMap = buildChangeMap(allData);
   renderTabs();
   renderPanel();
+  localStorage.setItem('brainstorm_prev', JSON.stringify(allData));
 }
 
 function getPersonInfo(name) {
@@ -561,7 +592,7 @@ function renderPanel() {
     html += `
       <div class="card ${cardClass}" ${realIdx >= 0 ? `onclick="openEditModal(${realIdx})"` : ''}>
         ${actionsHtml}
-        <div class="card-title">${title}${priHtml}</div>
+        <div class="card-title">${title}${priHtml}${(() => { const c = changeMap[`${currentTab}-${realIdx}`]; return c === 'new' ? '<span class="badge-new">NEW</span>' : c === 'edited' ? '<span class="badge-edited">수정</span>' : ''; })()}</div>
         ${contentHtml}
       </div>
     `;
