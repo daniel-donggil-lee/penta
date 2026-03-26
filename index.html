@@ -816,13 +816,15 @@ function renderMeetingPanel(config, rows, allDataRows) {
     }
   });
 
-  meetings.reverse().forEach(m => {
+  meetings.reverse().forEach((m, mi) => {
     const dateDisplay = formatDateWithDay(m.date.replace(/\s*\(.*\)/, ''));
+    const isLatest = mi === 0;
     html += `<div class="roadmap-group">
-      <div class="roadmap-group-header">
-        <span class="roadmap-group-title">${m.num} — ${dateDisplay}</span>
-        <span style="font-size:12px;color:#656d76">${m.attendees}</span>
-      </div>`;
+      <div class="roadmap-group-header" style="cursor:pointer" onclick="var el=document.getElementById('meeting-${mi}'); var open=el.style.display==='none'; el.style.display=open?'block':'none'; this.querySelector('.toggle-icon').textContent=open?'▼':'▶'">
+        <span class="roadmap-group-title"><span class="toggle-icon">${isLatest ? '▼' : '▶'}</span> ${m.num} — ${dateDisplay}</span>
+        <span style="font-size:12px;color:#656d76">${m.attendees} · ${m.items.length}건</span>
+      </div>
+      <div id="meeting-${mi}" class="${isLatest ? 'show' : ''}" style="display:${isLatest ? 'block' : 'none'}">`;
 
     m.items.forEach(item => {
       const tag = item.agenda.match(/^\[(.+?)\]/) ? item.agenda.match(/^\[(.+?)\]/)[1] : '';
@@ -839,7 +841,7 @@ function renderMeetingPanel(config, rows, allDataRows) {
       }
     });
 
-    html += `</div>`;
+    html += `</div></div>`;
   });
 
   document.getElementById('mainContent').innerHTML = html;
