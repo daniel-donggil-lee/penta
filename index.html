@@ -987,9 +987,8 @@ function renderTodoPanel(config, rows, allDataRows) {
       const dueDate = due ? new Date(due) : null;
       const isOverdue = dueDate && dueDate < today && status !== '완료';
       const isDone = status === '완료';
-      const isProgress = status === '진행중';
-      const checkClass = isDone ? 'done' : isProgress ? 'in-progress' : '';
-      const checkIcon = isDone ? '✓' : isProgress ? '▶' : '';
+      const checkClass = isDone ? 'done' : '';
+      const checkIcon = isDone ? '✓' : '';
       const changeBadge = changeMap[`할일-${realIdx}`] === 'new' ? '<span class="badge-new">NEW</span>' : changeMap[`할일-${realIdx}`] === 'edited' ? '<span class="badge-edited">수정</span>' : '';
 
       html += `<div class="todo-row" onclick="openEditModal(${realIdx})">
