@@ -138,6 +138,45 @@
   .status-wait { background: #fff8c5; color: #9a6700; border: 1px solid #e8d48b; }
   .status-progress { background: #ddf4ff; color: #0969da; border: 1px solid #a8d4f5; }
   .status-done { background: #dafbe1; color: #1a7f37; border: 1px solid #a7e3b8; }
+  .status-scheduled { background: #f0f0f0; color: #656d76; border: 1px solid #d1d9e0; }
+  .status-delayed { background: #ffebe9; color: #cf222e; border: 1px solid #f5a3a3; }
+
+  /* Roadmap */
+  .roadmap-group { background: #fff; border: 1px solid #d1d9e0; border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
+  .roadmap-group-header { padding: 14px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d9e0; display: flex; justify-content: space-between; align-items: center; }
+  .roadmap-group-title { font-size: 14px; font-weight: 600; color: #1f2328; }
+  .roadmap-row { padding: 12px 20px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: background 0.15s; }
+  .roadmap-row:hover { background: #f6f8fa; }
+  .roadmap-row:last-child { border-bottom: none; }
+  .roadmap-milestone { flex: 1; font-size: 14px; font-weight: 500; }
+  .roadmap-date { font-size: 13px; color: #656d76; min-width: 90px; }
+  .progress-bar { height: 6px; background: #e8e8e8; border-radius: 3px; flex: 1; max-width: 120px; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.3s; }
+  .progress-fill-green { background: #1a7f37; }
+  .progress-fill-blue { background: #0969da; }
+  .progress-text { font-size: 12px; color: #656d76; min-width: 40px; text-align: right; }
+  .progress-summary { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; padding: 16px 20px; background: #fff; border: 1px solid #d1d9e0; border-radius: 8px; }
+  .progress-summary .progress-bar { max-width: 200px; height: 8px; }
+  .progress-summary-label { font-size: 14px; font-weight: 600; color: #1f2328; }
+
+  /* Todo */
+  .todo-group { background: #fff; border: 1px solid #d1d9e0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+  .todo-group-header { padding: 12px 20px; background: #f6f8fa; border-bottom: 1px solid #d1d9e0; font-size: 13px; font-weight: 600; color: #656d76; display: flex; align-items: center; gap: 8px; }
+  .todo-row { padding: 10px 20px; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: background 0.15s; }
+  .todo-row:hover { background: #f6f8fa; }
+  .todo-row:last-child { border-bottom: none; }
+  .todo-check { width: 20px; height: 20px; border: 2px solid #d1d9e0; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; font-size: 12px; }
+  .todo-check:hover { border-color: #0969da; }
+  .todo-check.done { background: #1a7f37; border-color: #1a7f37; color: #fff; }
+  .todo-check.in-progress { background: #ddf4ff; border-color: #0969da; color: #0969da; }
+  .todo-title { flex: 1; font-size: 14px; }
+  .todo-title.done { text-decoration: line-through; color: #656d76; }
+  .todo-due { font-size: 12px; color: #656d76; min-width: 80px; text-align: right; }
+  .todo-due.overdue { color: #cf222e; font-weight: 600; }
+  .todo-summary { display: flex; gap: 16px; margin-bottom: 16px; padding: 14px 20px; background: #fff; border: 1px solid #d1d9e0; border-radius: 8px; font-size: 13px; color: #656d76; }
+  .todo-summary strong { color: #1f2328; }
+  .todo-summary .cnt-overdue { color: #cf222e; font-weight: 600; }
+  .tab-divider { color: #d1d9e0; font-size: 16px; display: flex; align-items: center; padding: 0 8px; }
 
   /* Card actions */
   .card-actions {
@@ -268,9 +307,23 @@
 
 <script>
 const API = '/api/sheets';
-const SHEET_ORDER = ['아이디어', '조사', '의사결정', '합의사항'];
+const SHEET_ORDER = ['로드맵', '할일', '아이디어', '조사', '의사결정', '합의사항'];
 const CATEGORIES = ['법인/거버넌스', '브랜드', '콘텐츠', '인력', '시장/경쟁', '사업 모델', '마케팅', '재무'];
+const PHASE_NAMES = {
+  'P0': '사업 설계', 'P1': '콘텐츠 개발', 'P2': '본점 준비',
+  'P3': '본점 운영', 'P4': '직영 확장', 'P5': '가맹 시작',
+};
 const SHEET_CONFIG = {
+  '로드맵': {
+    sub: '마일스톤',
+    desc: '<strong>Phase별 마일스톤과 목표일.</strong> 전체 사업 진행 상황을 한눈에.',
+    columns: ['Phase', '마일스톤', '목표일', '상태', '담당', '완료일', '비고'],
+  },
+  '할일': {
+    sub: '태스크',
+    desc: '<strong>이번 주/이번 달 해야 할 일.</strong> 마일스톤에 연결된 구체적 태스크.',
+    columns: ['마일스톤', '할일', '담당', '기한', '상태', '완료일', '비고'],
+  },
   '아이디어': {
     sub: '구상',
     desc: '<strong>검증 전 구상들.</strong> 구체화되면 조사 또는 의사결정으로 이동.',
@@ -304,7 +357,7 @@ const PERSON_COLORS = {
 const INLINE_DATA = {}; // API 폴백용 — API가 정상 작동하므로 빈 객체로 유지
 
 let allData = {};
-let currentTab = '아이디어';
+let currentTab = '로드맵';
 let editingRow = null;
 let changeMap = {}; // { 'sheetName-rowIdx': 'new' | 'edited' }
 
@@ -354,17 +407,25 @@ function personBadgeHtml(name) {
 function renderTabs() {
   const bar = document.getElementById('tabBar');
   const arrow = '<span style="color:#bbb;font-size:16px;display:flex;align-items:center;padding:0 4px">&rarr;</span>';
+  const divider = '<span class="tab-divider">|</span>';
   bar.innerHTML = SHEET_ORDER.map((name, i) => {
     const config = SHEET_CONFIG[name];
     const rows = allData[name] || [];
     const dataRows = rows.filter((r, idx) => idx >= 2 && r.some(c => c));
     const active = name === currentTab ? 'active' : '';
-    const cnt = dataRows.filter(r => !(r[1]||'').startsWith('[아카이브]') && !(r[1]||'').startsWith('역할:') && !(r[1]||'').startsWith('역할 :')).length;
+    let cnt;
+    if (name === '할일') {
+      cnt = dataRows.filter(r => (r[4]||'') !== '완료').length;
+    } else {
+      cnt = dataRows.filter(r => !(r[1]||'').startsWith('[아카이브]') && !(r[1]||'').startsWith('역할:') && !(r[1]||'').startsWith('역할 :')).length;
+    }
     const tab = `<div class="tab ${active}" onclick="switchTab('${name}')">
       ${name}<span class="count">${cnt}</span>
       <span class="tab-sub">${config.sub}</span>
     </div>`;
-    return i < SHEET_ORDER.length - 1 ? tab + arrow : tab;
+    if (i === 1) return tab + divider; // 할일 뒤에 구분선
+    if (i < SHEET_ORDER.length - 1 && i > 1) return tab + arrow; // 브레인스토밍 탭 사이 화살표
+    return tab;
   }).join('');
 }
 
@@ -378,6 +439,16 @@ function renderPanel() {
   const config = SHEET_CONFIG[currentTab];
   const rows = allData[currentTab] || [];
   const allDataRows = rows.slice(2).filter(r => r.some(c => c));
+
+  // 로드맵 전용 렌더링
+  if (currentTab === '로드맵') {
+    return renderRoadmapPanel(config, rows, allDataRows);
+  }
+  // 할일 전용 렌더링
+  if (currentTab === '할일') {
+    return renderTodoPanel(config, rows, allDataRows);
+  }
+
   const dataRows = allDataRows.filter(r => !(r[1]||'').startsWith('[아카이브]'));
   const archivedRows = allDataRows.filter(r => (r[1]||'').startsWith('[아카이브]'));
 
@@ -528,6 +599,21 @@ function renderPanel() {
 }
 
 function buildFieldHtml(col, i, val) {
+  if (col === 'Phase') {
+    const opts = Object.entries(PHASE_NAMES).map(([k,v]) => `<option value="${k}" ${val===k?'selected':''}>${k}: ${v}</option>`).join('');
+    return `<div class="form-group"><label>${col}</label>
+      <select id="field_${i}"><option value="">선택</option>${opts}</select></div>`;
+  }
+  if (col === '마일스톤' && currentTab === '할일') {
+    const milestones = (allData['로드맵'] || []).slice(2).map(r => r[1]).filter(Boolean);
+    const opts = [...new Set(milestones)].map(m => `<option value="${m}" ${val===m?'selected':''}>${m}</option>`).join('');
+    return `<div class="form-group"><label>${col}</label>
+      <select id="field_${i}"><option value="">선택</option>${opts}</select></div>`;
+  }
+  if (['기한','목표일','완료일'].includes(col)) {
+    return `<div class="form-group"><label>${col}</label>
+      <input type="date" id="field_${i}" value="${val||''}"></div>`;
+  }
   if (col === '카테고리') {
     return `<div class="form-group"><label>${col}</label>
       <select id="field_${i}"><option value="">선택</option>
@@ -556,6 +642,14 @@ function buildFieldHtml(col, i, val) {
       <option value="대화" ${val==='대화'?'selected':''}>대화</option></select></div>`;
   }
   if (col === '상태') {
+    if (currentTab === '로드맵') {
+      return `<div class="form-group"><label>${col}</label>
+        <select id="field_${i}"><option value="">선택</option>
+        <option value="예정" ${val==='예정'?'selected':''}>예정</option>
+        <option value="진행중" ${val==='진행중'?'selected':''}>진행중</option>
+        <option value="완료" ${val==='완료'?'selected':''}>완료</option>
+        <option value="지연" ${val==='지연'?'selected':''}>지연</option></select></div>`;
+    }
     return `<div class="form-group"><label>${col}</label>
       <select id="field_${i}"><option value="">선택</option>
       <option value="대기" ${val==='대기'?'selected':''}>대기</option>
@@ -686,6 +780,189 @@ function showToast(msg) {
 document.getElementById('modal').addEventListener('click', (e) => {
   if (e.target === document.getElementById('modal')) closeModal();
 });
+
+// ─── 로드맵 렌더링 ───
+function renderRoadmapPanel(config, rows, allDataRows) {
+  const total = allDataRows.length;
+  const done = allDataRows.filter(r => (r[3]||'') === '완료').length;
+  const inProgress = allDataRows.filter(r => (r[3]||'') === '진행중').length;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+  let html = `
+    <div class="panel-header">
+      <div class="panel-desc">${config.desc}</div>
+      <button class="btn btn-primary" style="white-space:nowrap" onclick="openAddModal()">+ 추가</button>
+    </div>
+    <div class="progress-summary">
+      <span class="progress-summary-label">전체 진행률</span>
+      <div class="progress-bar"><div class="progress-fill progress-fill-green" style="width:${pct}%"></div></div>
+      <span class="progress-text">${done}/${total}</span>
+      <span style="font-size:12px;color:#656d76">완료 ${done} · 진행중 ${inProgress} · 예정 ${total - done - inProgress}</span>
+    </div>
+  `;
+
+  // Phase별 그룹핑
+  const phases = [...new Set(allDataRows.map(r => (r[0]||'').trim()).filter(Boolean))];
+  phases.forEach(phase => {
+    const phaseRows = allDataRows.filter(r => (r[0]||'').trim() === phase);
+    const phaseDone = phaseRows.filter(r => (r[3]||'') === '완료').length;
+    const phasePct = phaseRows.length > 0 ? Math.round((phaseDone / phaseRows.length) * 100) : 0;
+    const phaseLabel = PHASE_NAMES[phase] || phase;
+
+    html += `<div class="roadmap-group">
+      <div class="roadmap-group-header">
+        <span class="roadmap-group-title">${phase}: ${phaseLabel}</span>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="progress-bar"><div class="progress-fill progress-fill-blue" style="width:${phasePct}%"></div></div>
+          <span class="progress-text">${phaseDone}/${phaseRows.length}</span>
+        </div>
+      </div>`;
+
+    phaseRows.forEach(row => {
+      const realIdx = rows.indexOf(row);
+      const milestone = row[1] || '';
+      const date = row[2] || '';
+      const status = row[3] || '예정';
+      const person = row[4] || '';
+      const pi = getPersonInfo(person);
+      const sc = status === '예정' ? 'status-scheduled' : status === '진행중' ? 'status-progress' : status === '완료' ? 'status-done' : 'status-delayed';
+      const changeBadge = changeMap[`로드맵-${realIdx}`] === 'new' ? '<span class="badge-new">NEW</span>' : changeMap[`로드맵-${realIdx}`] === 'edited' ? '<span class="badge-edited">수정</span>' : '';
+
+      html += `<div class="roadmap-row" onclick="openEditModal(${realIdx})">
+        <span class="roadmap-milestone">${milestone}${changeBadge}</span>
+        <span class="roadmap-date">${date}</span>
+        <span class="dot ${pi.dot}" style="width:20px;height:20px;font-size:9px">${pi.label}</span>
+        <span class="status-badge ${sc}">${status}</span>
+      </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  document.getElementById('mainContent').innerHTML = html;
+}
+
+// ─── 할일 렌더링 ───
+function renderTodoPanel(config, rows, allDataRows) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const weekLater = new Date(today); weekLater.setDate(weekLater.getDate() + 7);
+  const active = allDataRows.filter(r => (r[4]||'') !== '완료');
+  const completed = allDataRows.filter(r => (r[4]||'') === '완료');
+  const overdue = active.filter(r => {
+    const d = r[3] ? new Date(r[3]) : null;
+    return d && d < today;
+  });
+  const thisWeek = active.filter(r => {
+    const d = r[3] ? new Date(r[3]) : null;
+    return d && d >= today && d <= weekLater;
+  });
+
+  let html = `
+    <div class="panel-header">
+      <div class="panel-desc">${config.desc}</div>
+      <button class="btn btn-primary" style="white-space:nowrap" onclick="openAddModal()">+ 추가</button>
+    </div>
+    <div class="todo-summary">
+      <span><strong>미완료</strong> ${active.length}건</span>
+      <span>이번 주 <strong>${thisWeek.length}</strong>건</span>
+      ${overdue.length > 0 ? `<span class="cnt-overdue">지연 ${overdue.length}건</span>` : ''}
+      <span>완료 ${completed.length}건</span>
+    </div>
+  `;
+
+  // 마일스톤별 그룹핑 (미완료)
+  const milestones = [...new Set(active.map(r => (r[0]||'').trim()).filter(Boolean))];
+  milestones.forEach(ms => {
+    const msRows = active.filter(r => (r[0]||'').trim() === ms);
+    html += `<div class="todo-group">
+      <div class="todo-group-header">${ms}</div>`;
+
+    msRows.forEach(row => {
+      const realIdx = rows.indexOf(row);
+      const title = row[1] || '';
+      const person = row[2] || '';
+      const due = row[3] || '';
+      const status = row[4] || '대기';
+      const pi = getPersonInfo(person);
+      const dueDate = due ? new Date(due) : null;
+      const isOverdue = dueDate && dueDate < today && status !== '완료';
+      const isDone = status === '완료';
+      const isProgress = status === '진행중';
+      const checkClass = isDone ? 'done' : isProgress ? 'in-progress' : '';
+      const checkIcon = isDone ? '✓' : isProgress ? '▶' : '';
+      const changeBadge = changeMap[`할일-${realIdx}`] === 'new' ? '<span class="badge-new">NEW</span>' : changeMap[`할일-${realIdx}`] === 'edited' ? '<span class="badge-edited">수정</span>' : '';
+
+      html += `<div class="todo-row" onclick="openEditModal(${realIdx})">
+        <div class="todo-check ${checkClass}" onclick="event.stopPropagation(); toggleTodoStatus(${realIdx})">${checkIcon}</div>
+        <span class="todo-title ${isDone ? 'done' : ''}">${title}${changeBadge}</span>
+        <span class="dot ${pi.dot}" style="width:18px;height:18px;font-size:8px">${pi.label}</span>
+        <span class="todo-due ${isOverdue ? 'overdue' : ''}">${due}${isOverdue ? ' ⚠' : ''}</span>
+      </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  // 완료 항목 접기
+  if (completed.length > 0) {
+    html += `<div class="archive-toggle" onclick="document.getElementById('todo-done-section').classList.toggle('show'); this.querySelector('span').textContent = document.getElementById('todo-done-section').classList.contains('show') ? '▼' : '▶'">
+      <span>▶</span> 완료 (${completed.length})
+    </div>`;
+    html += `<div class="archive-section" id="todo-done-section">`;
+
+    completed.forEach(row => {
+      const realIdx = rows.indexOf(row);
+      const title = row[1] || '';
+      const person = row[2] || '';
+      const completedDate = row[5] || '';
+      const pi = getPersonInfo(person);
+
+      html += `<div class="todo-row" style="opacity:0.5" onclick="openEditModal(${realIdx})">
+        <div class="todo-check done" onclick="event.stopPropagation(); toggleTodoStatus(${realIdx})">✓</div>
+        <span class="todo-title done">${title}</span>
+        <span class="dot ${pi.dot}" style="width:18px;height:18px;font-size:8px">${pi.label}</span>
+        <span class="todo-due">${completedDate || ''}</span>
+      </div>`;
+    });
+
+    html += `</div>`;
+  }
+
+  document.getElementById('mainContent').innerHTML = html;
+}
+
+// ─── 할일 상태 토글 ───
+async function toggleTodoStatus(rowIdx) {
+  const rows = allData['할일'] || [];
+  const row = rows[rowIdx] || [];
+  const config = SHEET_CONFIG['할일'];
+  const values = [...row];
+  while (values.length < config.columns.length) values.push('');
+
+  const current = (values[4] || '').trim();
+  if (current === '대기') {
+    values[4] = '진행중';
+  } else if (current === '진행중') {
+    values[4] = '완료';
+    values[5] = new Date().toISOString().slice(0, 10);
+  } else if (current === '완료') {
+    values[4] = '대기';
+    values[5] = '';
+  } else {
+    values[4] = '진행중';
+  }
+
+  const endCol = String.fromCharCode(64 + config.columns.length);
+  try {
+    await fetch(API, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sheet: '할일', range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}`, values }),
+    });
+    showToast(`상태: ${values[4]}`);
+    await loadData();
+  } catch (e) { showToast('상태 변경 실패'); }
+}
 
 loadData();
 </script>

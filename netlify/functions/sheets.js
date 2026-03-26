@@ -1,7 +1,7 @@
 const { google } = require('googleapis');
 
 const SPREADSHEET_ID = '1pdW8Xif8ZA75UbkAAbnn02wosNbO5kNnmuJ462E-nqw';
-const SHEET_NAMES = ['합의사항', '의사결정', '아이디어', '조사'];
+const SHEET_NAMES = ['합의사항', '의사결정', '아이디어', '조사', '로드맵', '할일'];
 
 function getAuth() {
   const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT);
