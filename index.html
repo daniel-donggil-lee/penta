@@ -1015,12 +1015,15 @@ async function toggleTodoStatus(rowIdx) {
     values[5] = new Date().toISOString().slice(0, 10);
   }
 
+  // UI 즉시 반영
+  allData['할일'][rowIdx] = values;
+  showToast(values[4] === '완료' ? '✓ 완료' : '↩ 복원');
+  renderTabs();
+  renderPanel();
+
+  // API는 백그라운드로
   const endCol = String.fromCharCode(64 + config.columns.length);
-  try {
-    await gasPost({ action: 'update', sheet: '할일', range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}`, values });
-    showToast(`상태: ${values[4]}`);
-    setTimeout(() => loadData(), 1000);
-  } catch (e) { showToast('상태 변경 실패'); }
+  gasPost({ action: 'update', sheet: '할일', range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}`, values });
 }
 
 loadData();
