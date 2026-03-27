@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공동창업 계약서 (초안) — 생각의숲</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+
+  :root {
+    --text: #1a1a1a;
+    --text-sub: #444;
+    --border: #ccc;
+    --bg: #ffffff;
+    --accent: #1a2e1a;
+    --highlight: #fffde7;
+    --note-bg: #f5f5f0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Serif KR', Georgia, serif;
+    background: #f0ede6;
+    color: var(--text);
+    line-height: 2;
+    font-size: 15px;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 40px auto;
+    background: var(--bg);
+    padding: 60px 64px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    border-radius: 4px;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; padding: 40px 50px; }
+    .no-print { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .page { padding: 32px 24px; margin: 16px; }
+  }
+
+  /* ── Title ── */
+  .title-block {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid var(--text);
+  }
+  .title-block h1 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    margin-bottom: 8px;
+  }
+  .title-block .sub {
+    font-size: 15px;
+    color: var(--text-sub);
+    font-weight: 400;
+  }
+  .title-block .draft {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 4px 20px;
+    border: 2px solid #c62828;
+    color: #c62828;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+
+  /* ── Preamble ── */
+  .preamble {
+    margin-bottom: 36px;
+    text-indent: 1em;
+  }
+
+  /* ── Articles ── */
+  .article {
+    margin-bottom: 32px;
+  }
+  .article h2 {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ddd;
+  }
+  .article h3 {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 20px 0 8px;
+  }
+  .clause {
+    margin-bottom: 8px;
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+  }
+  .clause .num {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .sub-clause {
+    margin-bottom: 6px;
+    padding-left: 3em;
+    text-indent: -1.5em;
+    font-size: 14.5px;
+  }
+
+  /* ── Note boxes ── */
+  .note {
+    background: var(--note-bg);
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    margin: 16px 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13.5px;
+    color: var(--text-sub);
+    line-height: 1.8;
+  }
+  .note strong { color: var(--text); }
+  .note.warning {
+    background: #fff8e1;
+    border-left-color: #f9a825;
+  }
+
+  /* ── Table ── */
+  .role-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .role-table th {
+    background: var(--accent);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .role-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+  }
+  .role-table tr:hover { background: #f9f9f5; }
+
+  /* ── Signature ── */
+  .signature-block {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 2px solid var(--text);
+  }
+  .sig-date {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 48px;
+  }
+  .sig-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+  }
+  .sig-person {
+    flex: 1;
+  }
+  .sig-person .label {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    margin-bottom: 12px;
+  }
+  .sig-person .name-line {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .sig-person .field-label {
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .sig-person .field-value {
+    flex: 1;
+    border-bottom: 1px solid #999;
+    min-height: 24px;
+    font-size: 14px;
+    padding-bottom: 2px;
+  }
+  .sig-person .seal {
+    width: 80px;
+    height: 80px;
+    border: 2px dashed #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 16px;
+    margin-left: auto;
+  }
+
+  /* ── Print button ── */
+  .print-bar {
+    text-align: center;
+    margin: 24px 0;
+  }
+  .print-bar button {
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .print-bar button:hover { background: #2d5a27; }
+</style>
+</head>
+<body>
+
+<div class="print-bar no-print">
+  <button onclick="window.print()">인쇄 / PDF 저장</button>
+</div>
+
+<div class="page">
+
+<!-- ════════ 제목 ════════ -->
+<div class="title-block">
+  <h1>공 동 창 업 계 약 서</h1>
+  <p class="sub">생각의숲 사업 관련</p>
+  <div class="draft">초 안</div>
+</div>
+
+<!-- ════════ 전문 ════════ -->
+<p class="preamble">
+이은경(이하 "갑")과 이동길(이하 "을")은 초등 글쓰기 및 인문독서 교육 사업(이하 "본 사업")을 공동으로 창업하고 운영함에 있어, 상호 간의 권리와 의무를 명확히 하고 신의성실의 원칙에 따라 아래와 같이 계약을 체결한다.
+</p>
+
+<!-- ════════ 제1조 ════════ -->
+<div class="article">
+  <h2>제1조 (목적)</h2>
+  <p class="clause"><span class="num">①</span> 본 계약은 갑과 을이 공동으로 설립하는 법인(이하 "회사")의 지분 구조, 역할 분담, 의사결정 방식, 수익 배분, 엑싯(Exit) 시 정산 방법 등을 정함을 목적으로 한다.</p>
+</div>
+
+<!-- ════════ 제2조 ════════ -->
+<div class="article">
+  <h2>제2조 (사업의 내용)</h2>
+  <p class="clause"><span class="num">①</span> 회사의 사업 목적은 다음과 같다.</p>
+  <p class="sub-clause">1. 초등 글쓰기 및 인문독서 교육 프랜차이즈 사업</p>
+  <p class="sub-clause">2. 온라인 교육 콘텐츠 구독 서비스</p>
+  <p class="sub-clause">3. 교사 인증 교육 및 평생교육원 운영</p>
+  <p class="sub-clause">4. 교육 관련 콘텐츠 IP 개발 및 라이선싱</p>
+  <p class="sub-clause">5. 기타 상호 합의에 의해 추가되는 교육 관련 사업</p>
+  <p class="clause"><span class="num">②</span> 회사의 상호(브랜드명)는 갑과 을이 합의하여 별도로 정한다.</p>
+</div>
+
+<!-- ════════ 제3조 ════════ -->
+<div class="article">
+  <h2>제3조 (법인 설립)</h2>
+  <p class="clause"><span class="num">①</span> 회사는 주식회사 형태로 설립하며, 설립 시기는 2026년 내로 한다.</p>
+  <p class="clause"><span class="num">②</span> 설립 비용은 갑과 을이 지분 비율에 따라 분담한다.</p>
+  <p class="clause"><span class="num">③</span> 본점 소재지는 갑과 을이 합의하여 정한다.</p>
+</div>
+
+<!-- ════════ 제4조 ════════ -->
+<div class="article">
+  <h2>제4조 (지분 구조)</h2>
+  <p class="clause"><span class="num">①</span> 회사의 지분은 다음과 같이 배분한다.</p>
+
+  <div class="role-table" style="margin: 16px 0;">
+    <table class="role-table">
+      <thead><tr><th>구분</th><th>갑 (이은경)</th><th>을 (이동길)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>지분율</strong></td><td><strong>60%</strong></td><td><strong>40%</strong></td></tr>
+        <tr><td>출자 형태</td><td>현금 출자 + 콘텐츠 IP 현물출자</td><td>현금 출자 + 시스템/기술 현물출자</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="clause"><span class="num">②</span> 갑의 콘텐츠 IP(저서, 강연 콘텐츠, 브랜드 사용권 등) 및 을의 기술 자산(자동화 시스템, AI 엔진 등)의 현물출자 가액은 설립 시 상호 합의하여 정한다.</p>
+  <p class="clause"><span class="num">③</span> 향후 투자 유치 시 지분 희석은 갑과 을의 지분 비율에 비례하여 동일하게 적용한다.</p>
+
+  <div class="note warning">
+    <strong>검토 필요:</strong> 현물출자 가액 산정 방법(감정평가 vs 합의), 스톡옵션 풀 사전 설정 여부(통상 10~15%), 우선주/보통주 구분 필요 시 별도 정관 반영
+  </div>
+</div>
+
+<!-- ════════ 제5조 ════════ -->
+<div class="article">
+  <h2>제5조 (역할 및 직무)</h2>
+  <p class="clause"><span class="num">①</span> 갑과 을의 역할은 다음과 같이 분담한다.</p>
+
+  <table class="role-table">
+    <thead><tr><th>영역</th><th>담당</th><th>세부 내용</th></tr></thead>
+    <tbody>
+      <tr><td>브랜드 / 콘텐츠</td><td><strong>갑</strong></td><td>커리큘럼 설계, 교재 개발, 브랜드 방향 결정</td></tr>
+      <tr><td>교사 교육</td><td><strong>갑</strong></td><td>평생교육원 운영, 교사 인증 프로그램 설계</td></tr>
+      <tr><td>대외 마케팅</td><td><strong>갑</strong></td><td>유튜브, 인스타, 강연 등 대외 브랜드 활동</td></tr>
+      <tr><td>경영 / 운영</td><td><strong>을</strong></td><td>법인 운영, 재무, 인사, 가맹점 관리</td></tr>
+      <tr><td>시스템 / 기술</td><td><strong>을</strong></td><td>AI 시스템, 자동화, 플랫폼 개발</td></tr>
+      <tr><td>프랜차이즈 설계</td><td><strong>을</strong></td><td>가맹 시스템 설계, 가맹점 모집 및 관리</td></tr>
+    </tbody>
+  </table>
+
+  <p class="clause"><span class="num">②</span> 각 당사자는 자신의 담당 영역에서 자율적으로 업무를 수행하되, 회사의 중요 사항은 제6조에 따른 의사결정 절차를 따른다.</p>
+</div>
+
+<!-- ════════ 제6조 ════════ -->
+<div class="article">
+  <h2>제6조 (의사결정)</h2>
+  <p class="clause"><span class="num">①</span> 다음 각 호의 사항은 갑과 을 <strong>전원 합의</strong>로 결정한다.</p>
+  <p class="sub-clause">1. 신규 투자 유치 및 투자 조건</p>
+  <p class="sub-clause">2. 연간 사업계획 및 예산 승인</p>
+  <p class="sub-clause">3. 임원 선임 및 해임</p>
+  <p class="sub-clause">4. 1회 1,000만 원 이상의 지출</p>
+  <p class="sub-clause">5. 신규 사업 진출 또는 기존 사업 중단</p>
+  <p class="sub-clause">6. 회사의 합병, 분할, 해산</p>
+  <p class="sub-clause">7. 지분의 양도, 담보 제공</p>
+
+  <p class="clause"><span class="num">②</span> 제1항 이외의 일상적 경영 사항은 각 담당 영역의 책임자가 결정하되, 상대방에게 사전 또는 사후 통보한다.</p>
+
+  <p class="clause"><span class="num">③</span> 갑과 을 사이에 의견이 일치하지 않는 경우, 다음의 절차를 따른다.</p>
+  <p class="sub-clause">1. 1차: 양측 간 서면 논의 (7일 이내)</p>
+  <p class="sub-clause">2. 2차: 외부 자문인(회계사, 법률가 등) 의견 청취 (14일 이내)</p>
+  <p class="sub-clause">3. 3차: 제12조에 따른 분쟁 해결 절차</p>
+
+  <div class="note warning">
+    <strong>검토 필요:</strong> 대표이사를 공동대표로 할지, 단독대표 + 이사 구조로 할지 결정 필요. 공동대표 시 인감 공동날인 범위 설정 필요.
+  </div>
+</div>
+
+<!-- ════════ 제7조 ════════ -->
+<div class="article">
+  <h2>제7조 (보수)</h2>
+  <p class="clause"><span class="num">①</span> 갑과 을의 보수(급여)는 회사의 재무 상황을 고려하여 이사회에서 정한다.</p>
+  <p class="clause"><span class="num">②</span> 사업 초기(매출 발생 전)에는 무보수를 원칙으로 하되, 갑과 을의 합의로 최소 생활비 수준의 보수를 지급할 수 있다.</p>
+  <p class="clause"><span class="num">③</span> 갑과 을의 보수는 동일 금액을 원칙으로 한다.</p>
+</div>
+
+<!-- ════════ 제8조 ════════ -->
+<div class="article">
+  <h2>제8조 (수익 배분)</h2>
+  <p class="clause"><span class="num">①</span> 회사의 당기순이익에 대한 배당은 지분율(갑 60%, 을 40%)에 따라 배분한다.</p>
+  <p class="clause"><span class="num">②</span> 배당 시기 및 금액은 갑과 을이 합의하여 결정하되, 회사의 재투자 필요분을 우선 확보한 후 잔여 이익에 대해 배당한다.</p>
+</div>
+
+<!-- ════════ 제9조 (핵심) ════════ -->
+<div class="article" style="background: var(--highlight); padding: 24px; border-radius: 8px; margin: 32px -24px;">
+  <h2 style="color: #b71c1c;">제9조 (엑싯 시 정산) ★ 핵심 조항</h2>
+  <p class="clause"><span class="num">①</span> 다음 각 호의 "엑싯 이벤트" 발생 시, <strong>엑싯 대금은 갑과 을이 50 : 50으로 균등 배분</strong>한다.</p>
+  <p class="sub-clause">1. 회사 전체 또는 사업부의 매각 (M&A)</p>
+  <p class="sub-clause">2. 기업공개 (IPO) 후 보호예수 해제 시점의 지분 가치 기준</p>
+  <p class="sub-clause">3. 제3자에 대한 지분 전부 매각</p>
+  <p class="sub-clause">4. 회사 해산 및 청산</p>
+
+  <p class="clause"><span class="num">②</span> 제1항의 "엑싯 대금"이란, 엑싯 이벤트로 인해 주주에게 귀속되는 총 금액(매각대금, IPO 시 지분가치, 잔여재산 분배금 등)에서 다음을 공제한 금액을 말한다.</p>
+  <p class="sub-clause">1. 회사의 잔존 부채</p>
+  <p class="sub-clause">2. 엑싯 관련 비용 (중개수수료, 세금, 법무비용 등)</p>
+  <p class="sub-clause">3. 우선주 투자자에 대한 우선배분액 (해당 시)</p>
+
+  <p class="clause"><span class="num">③</span> 본 조의 50:50 배분 약정은 운영 중 지분율(60:40)과 별개로 적용되며, 이는 갑의 콘텐츠 기여와 을의 시스템/운영 기여가 엑싯 시점에서는 동등한 가치를 가진다는 양 당사자의 합의를 반영한 것이다.</p>
+
+  <p class="clause"><span class="num">④</span> 엑싯 이벤트의 진행 여부 및 조건은 갑과 을 전원의 합의로 결정한다. 일방이 원치 않는 엑싯을 강제할 수 없다.</p>
+
+  <div class="note">
+    <strong>해설:</strong> 운영 중에는 갑 60:을 40 지분으로 배당을 받지만, 회사를 매각하거나 상장할 때의 최종 정산은 50:50으로 합니다. 이는 두 사람의 기여가 종류는 다르지만 가치는 동등하다는 뜻입니다.
+  </div>
+</div>
+
+<!-- ════════ 제10조 ════════ -->
+<div class="article">
+  <h2>제10조 (지분 양도 제한)</h2>
+  <p class="clause"><span class="num">①</span> 갑과 을은 상대방의 서면 동의 없이 자신의 지분을 제3자에게 양도, 담보 제공, 기타 처분할 수 없다.</p>
+  <p class="clause"><span class="num">②</span> 일방이 지분을 양도하고자 하는 경우, 상대방에게 <strong>우선매수권(Right of First Refusal)</strong>을 부여한다. 상대방은 통지를 받은 날로부터 30일 이내에 동일 조건으로 매수 의사를 표시할 수 있다.</p>
+  <p class="clause"><span class="num">③</span> 일방이 지분 전부를 매각하는 경우, 상대방은 동일 조건으로 함께 매각할 수 있는 권리(Tag-along Right)를 가진다.</p>
+</div>
+
+<!-- ════════ 제11조 ════════ -->
+<div class="article">
+  <h2>제11조 (경업 금지 및 비밀 유지)</h2>
+  <p class="clause"><span class="num">①</span> 갑과 을은 본 계약 기간 및 종료 후 2년간, 상대방의 서면 동의 없이 본 사업과 동일 또는 유사한 사업을 직접 또는 간접적으로 영위하지 아니한다.</p>
+  <p class="clause"><span class="num">②</span> 갑과 을은 본 사업 수행 과정에서 알게 된 영업비밀, 고객 정보, 기술 정보 등을 본 사업의 목적 이외에 사용하거나 제3자에게 공개하지 아니한다.</p>
+  <p class="clause"><span class="num">③</span> 단, 갑의 기존 저술 활동, 강연, 유튜브 운영은 경업에 해당하지 않는 것으로 한다. 을의 리마크영어국어학원 운영 또한 경업에 해당하지 않는 것으로 한다.</p>
+
+  <div class="note">
+    <strong>해설:</strong> 각자의 기존 사업(이은경의 저술/강연, 이동길의 리마크 학원)은 경업에 해당하지 않도록 명시적으로 예외 처리했습니다.
+  </div>
+</div>
+
+<!-- ════════ 제12조 ════════ -->
+<div class="article">
+  <h2>제12조 (탈퇴 및 해지)</h2>
+  <p class="clause"><span class="num">①</span> 갑 또는 을이 본 사업에서 탈퇴하고자 하는 경우, 6개월 전에 서면으로 통보하여야 한다.</p>
+  <p class="clause"><span class="num">②</span> 탈퇴 시 잔류자는 탈퇴자의 지분을 공정가치로 매수할 수 있는 우선매수권을 가진다.</p>
+  <p class="clause"><span class="num">③</span> 공정가치는 갑과 을이 합의하여 정하되, 합의가 이루어지지 않는 경우 독립된 회계법인의 가치평가에 따른다. 가치평가 비용은 회사가 부담한다.</p>
+  <p class="clause"><span class="num">④</span> 탈퇴 시에도 제9조의 엑싯 정산 비율(50:50)은 적용하지 아니하고, 탈퇴 시점의 지분율(60:40)에 따라 공정가치를 산정한다.</p>
+
+  <div class="note warning">
+    <strong>중요:</strong> 엑싯(매각/상장) 시에는 50:50이지만, 중도 탈퇴 시에는 지분율(60:40) 기준입니다. 이는 엑싯까지 함께 가는 것에 대한 인센티브입니다.
+  </div>
+</div>
+
+<!-- ════════ 제13조 ════════ -->
+<div class="article">
+  <h2>제13조 (지적재산권)</h2>
+  <p class="clause"><span class="num">①</span> 본 사업을 위해 새로 창작하는 교육 콘텐츠, 커리큘럼, 소프트웨어, 브랜드 자산 등 일체의 지적재산권은 회사에 귀속한다.</p>
+  <p class="clause"><span class="num">②</span> 갑이 본 계약 이전에 보유한 기존 저작물(기 출판 서적 등)의 저작권은 갑에게 유보되며, 회사는 이를 사업 목적 범위 내에서 사용할 수 있는 비독점적 라이선스를 부여받는다.</p>
+  <p class="clause"><span class="num">③</span> 을이 본 계약 이전에 보유한 기존 기술 자산(리마크 학원 자동화 시스템 등)의 소유권은 을에게 유보되며, 회사는 이를 사업 목적 범위 내에서 사용할 수 있는 비독점적 라이선스를 부여받는다.</p>
+  <p class="clause"><span class="num">④</span> 회사 해산 또는 엑싯 시, 제2항 및 제3항의 기존 IP는 각 원소유자에게 복귀한다.</p>
+</div>
+
+<!-- ════════ 제14조 ════════ -->
+<div class="article">
+  <h2>제14조 (분쟁 해결)</h2>
+  <p class="clause"><span class="num">①</span> 본 계약과 관련하여 분쟁이 발생한 경우, 갑과 을은 우선 성실히 협의하여 해결한다.</p>
+  <p class="clause"><span class="num">②</span> 협의가 이루어지지 않는 경우, 대한상사중재원의 중재로 최종 해결한다.</p>
+  <p class="clause"><span class="num">③</span> 중재 비용은 패소자가 부담함을 원칙으로 하되, 중재판정부의 결정에 따른다.</p>
+</div>
+
+<!-- ════════ 제15조 ════════ -->
+<div class="article">
+  <h2>제15조 (베스팅)</h2>
+  <p class="clause"><span class="num">①</span> 갑과 을의 지분은 다음의 베스팅(Vesting) 일정에 따라 확정된다.</p>
+  <p class="sub-clause">1. 계약 체결 시: 전체 지분의 25% 즉시 확정</p>
+  <p class="sub-clause">2. 이후 36개월간: 매월 균등 확정 (월 약 2.08%씩)</p>
+  <p class="sub-clause">3. 1년 클리프(Cliff): 최초 12개월 이내 탈퇴 시 미확정 지분은 소멸</p>
+
+  <p class="clause"><span class="num">②</span> 베스팅 완료 전 탈퇴 시, 미확정 지분은 잔류자에게 귀속되며, 확정 지분에 대해서만 제12조의 절차를 적용한다.</p>
+
+  <div class="note">
+    <strong>해설:</strong> 베스팅은 '일정 기간 함께 일해야 지분이 확정되는' 제도입니다. 4년 전체를 채워야 100% 지분이 확정되고, 중간에 나가면 미확정분은 반납합니다. 이는 공동창업의 리스크를 줄이는 표준적인 장치입니다.
+  </div>
+</div>
+
+<!-- ════════ 제16조 ════════ -->
+<div class="article">
+  <h2>제16조 (기타)</h2>
+  <p class="clause"><span class="num">①</span> 본 계약의 수정 또는 변경은 갑과 을 전원의 서면 합의에 의해서만 가능하다.</p>
+  <p class="clause"><span class="num">②</span> 본 계약에 명시되지 아니한 사항은 상법, 민법 등 관련 법령 및 상관습에 따른다.</p>
+  <p class="clause"><span class="num">③</span> 본 계약은 2부를 작성하여 갑과 을이 각 1부씩 보관한다.</p>
+</div>
+
+<!-- ════════ 서명 ════════ -->
+<div class="signature-block">
+  <p class="sig-date">2026년 &nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;일</p>
+
+  <div class="sig-row">
+    <div class="sig-person">
+      <div class="label">갑 (甲)</div>
+      <div class="name-line">
+        <span class="field-label">성 명:</span>
+        <span class="field-value">이 은 경</span>
+      </div>
+      <div class="name-line">
+        <span class="field-label">주 소:</span>
+        <span class="field-value"></span>
+      </div>
+      <div class="name-line">
+        <span class="field-label">주민등록번호:</span>
+        <span class="field-value"></span>
+      </div>
+      <div class="seal">(인)</div>
+    </div>
+
+    <div class="sig-person">
+      <div class="label">을 (乙)</div>
+      <div class="name-line">
+        <span class="field-label">성 명:</span>
+        <span class="field-value">이 동 길</span>
+      </div>
+      <div class="name-line">
+        <span class="field-label">주 소:</span>
+        <span class="field-value"></span>
+      </div>
+      <div class="name-line">
+        <span class="field-label">주민등록번호:</span>
+        <span class="field-value"></span>
+      </div>
+      <div class="seal">(인)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ 부록 안내 ════════ -->
+<div style="margin-top: 48px; padding-top: 24px; border-top: 1px dashed #ccc;">
+  <div class="note warning">
+    <strong>본 문서는 초안입니다.</strong><br>
+    반드시 법률 전문가(변호사)의 검토를 거친 후 최종 서명하시기 바랍니다.<br>
+    특히 다음 사항은 전문가 자문이 필요합니다:<br>
+    &bull; 대표이사 구조 (공동대표 vs 단독+이사)<br>
+    &bull; 현물출자 가액 산정 방법<br>
+    &bull; 스톡옵션 풀 설정 여부<br>
+    &bull; 세무상 엑싯 정산 50:50 구조의 최적 설계 (주주간계약 vs 정관 반영)<br>
+    &bull; 베스팅 조건 세부 조정
+  </div>
+</div>
+
+</div><!-- /page -->
+
+</body>
+</html>
