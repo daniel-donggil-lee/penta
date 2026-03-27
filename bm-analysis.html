@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>생각의숲 사업모델 분석 보고서 v2</title>
+<title>생각의숲 사업모델 분석</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -14,7 +14,6 @@
   }
   .container { max-width: 920px; margin: 0 auto; padding: 40px 20px; }
 
-  /* Header */
   .header {
     background: linear-gradient(135deg, #2c5f2d 0%, #3a7d44 100%);
     color: white;
@@ -26,7 +25,6 @@
   .header .subtitle { font-size: 15px; opacity: 0.8; }
   .header .update { font-size: 13px; opacity: 0.6; margin-top: 8px; }
 
-  /* Cards */
   .card {
     background: white;
     border-radius: 12px;
@@ -41,260 +39,115 @@
     padding-bottom: 12px;
     border-bottom: 2px solid #e8f5e9;
   }
-  .card h3 {
-    font-size: 17px;
-    color: #444;
-    margin: 24px 0 12px;
-  }
-  .card h4 {
-    font-size: 15px;
-    color: #555;
-    margin: 16px 0 8px;
-  }
+  .card h3 { font-size: 17px; color: #444; margin: 24px 0 12px; }
 
-  /* Alert boxes */
   .alert {
     border-radius: 8px;
     padding: 16px 20px;
     margin: 12px 0;
     font-size: 15px;
   }
-  .alert-red { background: #fef2f2; border-left: 4px solid #ef4444; }
-  .alert-orange { background: #fff7ed; border-left: 4px solid #f97316; }
-  .alert-green { background: #f0fdf4; border-left: 4px solid #22c55e; }
   .alert-blue { background: #eff6ff; border-left: 4px solid #3b82f6; }
+  .alert-green { background: #f0fdf4; border-left: 4px solid #22c55e; }
   .alert-purple { background: #faf5ff; border-left: 4px solid #a855f7; }
+  .alert-gray { background: #f9fafb; border-left: 4px solid #9ca3af; }
   .alert strong { display: block; margin-bottom: 4px; }
 
-  /* Tables */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 16px 0;
-    font-size: 13px;
-  }
-  th {
-    background: #2c5f2d;
-    color: white;
-    padding: 10px 12px;
-    text-align: left;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-  td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #eee;
-  }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  th { background: #2c5f2d; color: white; padding: 10px 12px; text-align: left; font-weight: 600; white-space: nowrap; }
+  td { padding: 10px 12px; border-bottom: 1px solid #eee; }
   tr:nth-child(even) td { background: #fafafa; }
   .num { text-align: center; }
-  .red { color: #ef4444; font-weight: 700; }
-  .green { color: #2c5f2d; font-weight: 700; }
-  .blue { color: #3b82f6; font-weight: 700; }
-  .gray { color: #999; }
   .bold { font-weight: 700; }
   .highlight-row td { background: #f0fdf4 !important; }
 
-  /* Responsive table wrapper */
-  .table-wrap { overflow-x: auto; }
+  /* 중립 비교 테이블 — 판단 컬러 없음 */
+  .neutral-table th { background: #374151; }
+  .neutral-table .col-a { background: #faf5ff !important; }
+  .neutral-table .col-b { background: #eff6ff !important; }
 
-  /* Tier cards */
-  .tier {
-    border-radius: 10px;
-    padding: 20px 24px;
-    margin: 12px 0;
-  }
-  .tier-1 { background: #f0fdf4; border: 2px solid #bbf7d0; }
-  .tier-2 { background: #ecfdf5; border: 2px solid #86efac; }
-  .tier-3 { background: #dcfce7; border: 2px solid #4ade80; }
-  .tier h4 { font-size: 17px; margin-bottom: 8px; color: #2c5f2d; }
-  .tier ul { margin-left: 20px; font-size: 14px; }
-  .tier li { margin: 4px 0; }
-  .tier .purpose { font-size: 13px; color: #666; margin-top: 8px; font-style: italic; }
-
-  /* Model comparison grid */
-  .model-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 16px 0;
-  }
-  .model-card {
-    border-radius: 10px;
-    padding: 20px;
-    border: 2px solid #e5e7eb;
-    position: relative;
-  }
-  .model-card.recommended {
-    border-color: #2c5f2d;
-    background: #f0fdf4;
-  }
-  .model-card .badge {
-    position: absolute;
-    top: -10px;
-    right: 16px;
-    background: #2c5f2d;
-    color: white;
-    font-size: 11px;
-    padding: 2px 10px;
-    border-radius: 10px;
-  }
-  .model-card h4 { font-size: 16px; margin-bottom: 8px; }
-  .model-card p { font-size: 13px; color: #555; margin-bottom: 8px; }
-  .model-card .stats { font-size: 13px; }
-  .model-card .stats span {
-    display: inline-block;
-    background: #f3f4f6;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin: 2px 4px 2px 0;
-    font-size: 12px;
-  }
-
-  /* Timeline */
-  .timeline {
-    border-left: 3px solid #2c5f2d;
-    margin: 16px 0 16px 12px;
-    padding-left: 24px;
-  }
-  .timeline-item {
-    position: relative;
-    margin-bottom: 20px;
-  }
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -31px;
-    top: 6px;
-    width: 12px;
-    height: 12px;
-    background: #2c5f2d;
-    border-radius: 50%;
-  }
-  .timeline-item .year {
-    font-weight: 700;
-    color: #2c5f2d;
-    font-size: 16px;
-  }
-  .timeline-item .desc { font-size: 14px; color: #555; }
-
-  /* Message box */
-  .message-box {
-    background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 100%);
-    border-radius: 12px;
-    padding: 28px 32px;
-    margin: 16px 0;
-    font-size: 15px;
-    line-height: 2;
-  }
-  .message-box p { margin-bottom: 12px; }
-
-  /* Decision list */
-  .decision-list { list-style: none; margin: 12px 0; }
-  .decision-list li {
-    padding: 10px 16px;
-    margin: 6px 0;
-    border-radius: 8px;
-    font-size: 14px;
-  }
-  .decision-list .urgent { background: #fef2f2; border-left: 4px solid #ef4444; }
-  .decision-list .important { background: #fff7ed; border-left: 4px solid #f97316; }
-
-  /* VS box */
-  .vs-box {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 16px;
-    align-items: center;
-    margin: 16px 0;
-  }
-  .vs-side {
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  .vs-left { background: #fef2f2; }
-  .vs-right { background: #f0fdf4; }
-  .vs-label { font-size: 13px; color: #888; margin-bottom: 4px; }
-  .vs-value { font-size: 28px; font-weight: 800; }
-  .vs-value.bad { color: #ef4444; }
-  .vs-value.good { color: #2c5f2d; }
-  .vs-mid { font-size: 24px; color: #ccc; }
-
-  /* Insight cards */
-  .insight-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 16px 0;
-  }
-  .insight-card {
-    border-radius: 10px;
-    padding: 20px;
-    border: 2px solid #e5e7eb;
-  }
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .insight-card { border-radius: 10px; padding: 20px; border: 2px solid #e5e7eb; }
   .insight-card h4 { font-size: 15px; margin-bottom: 8px; }
   .insight-card .metric { font-size: 28px; font-weight: 800; margin: 8px 0; }
   .insight-card .detail { font-size: 13px; color: #666; }
 
-  /* Positioning map */
   .pos-map {
-    background: #f9fafb;
-    border-radius: 12px;
-    padding: 32px;
-    text-align: center;
-    font-family: 'SF Mono', 'Menlo', monospace;
-    font-size: 13px;
-    line-height: 2;
-    white-space: pre;
-    overflow-x: auto;
+    background: #f9fafb; border-radius: 12px; padding: 32px; text-align: center;
+    font-family: 'SF Mono', 'Menlo', monospace; font-size: 13px; line-height: 2;
+    white-space: pre; overflow-x: auto;
   }
+
+  /* BM 카드 — 두 모델 대등하게 */
+  .bm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 16px 0; }
+  .bm-card {
+    border-radius: 12px; padding: 24px; border: 2px solid #d1d5db;
+  }
+  .bm-card.eunkyung { border-color: #c084fc; background: #faf5ff; }
+  .bm-card.donggil { border-color: #60a5fa; background: #eff6ff; }
+  .bm-card .bm-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 1px;
+    margin-bottom: 4px; text-transform: uppercase;
+  }
+  .bm-card.eunkyung .bm-label { color: #7c3aed; }
+  .bm-card.donggil .bm-label { color: #2563eb; }
+  .bm-card h4 { font-size: 18px; margin-bottom: 12px; }
+  .bm-card ul { margin-left: 18px; font-size: 14px; }
+  .bm-card li { margin: 4px 0; }
+
+  .model-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  .model-card { border-radius: 10px; padding: 20px; border: 2px solid #e5e7eb; }
+  .model-card h4 { font-size: 16px; margin-bottom: 8px; }
+  .model-card p { font-size: 13px; color: #555; margin-bottom: 8px; }
+  .model-card .stats { font-size: 13px; }
+  .model-card .stats span {
+    display: inline-block; background: #f3f4f6; padding: 2px 8px;
+    border-radius: 4px; margin: 2px 4px 2px 0; font-size: 12px;
+  }
+
+  .timeline { border-left: 3px solid #2c5f2d; margin: 16px 0 16px 12px; padding-left: 24px; }
+  .timeline-item { position: relative; margin-bottom: 20px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -31px; top: 6px;
+    width: 12px; height: 12px; background: #2c5f2d; border-radius: 50%;
+  }
+  .timeline-item .year { font-weight: 700; color: #2c5f2d; font-size: 16px; }
+  .timeline-item .desc { font-size: 14px; color: #555; }
+
+  .decision-list { list-style: none; margin: 12px 0; }
+  .decision-list li { padding: 10px 16px; margin: 6px 0; border-radius: 8px; font-size: 14px; }
+  .decision-list .urgent { background: #fef2f2; border-left: 4px solid #ef4444; }
+  .decision-list .important { background: #fff7ed; border-left: 4px solid #f97316; }
+
+  .source-badge {
+    display: inline-block; background: #2c5f2d; color: white;
+    font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-left: 8px;
+  }
+
+  .mono-block {
+    background: #f9fafb; border-radius: 10px; padding: 20px;
+    font-family: 'SF Mono', 'Menlo', monospace; font-size: 13px; line-height: 2.2;
+  }
+
+  .nav {
+    display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap;
+    position: sticky; top: 0; background: #f5f5f0; padding: 12px 0; z-index: 10;
+  }
+  .nav a {
+    text-decoration: none; padding: 8px 16px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; color: #2c5f2d; background: white;
+    border: 1px solid #d1d5db; transition: all 0.2s;
+  }
+  .nav a:hover { background: #f0fdf4; border-color: #2c5f2d; }
 
   p { margin-bottom: 12px; }
   ul { margin: 8px 0 8px 20px; }
   li { margin: 4px 0; }
   .small { font-size: 13px; color: #888; }
 
-  /* Nav tabs */
-  .nav {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-    position: sticky;
-    top: 0;
-    background: #f5f5f0;
-    padding: 12px 0;
-    z-index: 10;
-  }
-  .nav a {
-    text-decoration: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #2c5f2d;
-    background: white;
-    border: 1px solid #d1d5db;
-    transition: all 0.2s;
-  }
-  .nav a:hover { background: #f0fdf4; border-color: #2c5f2d; }
-
-  /* Badge styles */
-  .source-badge {
-    display: inline-block;
-    background: #2c5f2d;
-    color: white;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 4px;
-    margin-left: 8px;
-  }
-
   @media (max-width: 768px) {
-    .model-grid, .insight-grid { grid-template-columns: 1fr; }
-    .vs-box { grid-template-columns: 1fr; }
-    .vs-mid { transform: rotate(90deg); text-align: center; }
-    .nav { flex-wrap: wrap; }
+    .bm-grid, .model-grid, .insight-grid { grid-template-columns: 1fr; }
     .header { padding: 30px 20px; }
     .header h1 { font-size: 24px; }
     .card { padding: 20px; }
@@ -306,228 +159,103 @@
 
 <!-- NAV -->
 <div class="nav">
-  <a href="#conclusions">핵심 결론</a>
-  <a href="#competitors">경쟁사 실데이터</a>
-  <a href="#insights">인사이트</a>
-  <a href="#model">은경 모델 분석</a>
-  <a href="#donggil">이동길 BM</a>
-  <a href="#alternatives">대안 모델 6종</a>
-  <a href="#message">은경님께</a>
+  <a href="#competitors">경쟁사 데이터</a>
+  <a href="#eunkyung">은경 BM</a>
+  <a href="#donggil">동길 BM</a>
+  <a href="#compare">비교</a>
+  <a href="#alternatives">대안 모델</a>
+  <a href="#next">다음 단계</a>
 </div>
 
 <!-- HEADER -->
 <div class="header">
-  <h1>생각의숲 사업모델 분석 보고서</h1>
-  <div class="subtitle">은경님 "헬스장형 회원제" 제안 분석 + 대안 모델 탐색</div>
-  <div class="update">v2 | 2026-03-27 | 공정위 정보공개서 2024년 실데이터 반영 (5개 브랜드)</div>
+  <h1>생각의숲 사업모델 분석</h1>
+  <div class="subtitle">두 가지 BM 제안 + 경쟁사 정보공개서 실데이터</div>
+  <div class="update">2026-03-27 | 공정위 정보공개서 2024년 기준 5개 브랜드 분석</div>
 </div>
 
-<!-- 1. 핵심 결론 -->
-<div class="card" id="conclusions">
-  <h2>핵심 결론 3가지</h2>
+<!-- 1. 보고서 개요 -->
+<div class="card">
+  <h2>보고서 개요</h2>
+  <p>이 보고서는 생각의숲의 오프라인 BM을 설계하기 위해 <strong>두 가지 제안</strong>과 <strong>경쟁사 실데이터</strong>를 정리한 문서입니다.</p>
 
-  <div class="alert alert-red">
-    <strong>1. 은경님 모델의 방향은 옳지만, 숫자 조정이 필요합니다</strong>
-    50% 업그레이드 전환율은 업계 벤치마크(15~25%)의 2배 이상이고, 25명/슬롯은 교육 품질을 담보하기 어렵습니다.
+  <div class="bm-grid">
+    <div class="bm-card eunkyung">
+      <div class="bm-label">은경의 BM</div>
+      <h4>헬스장형 회원제</h4>
+      <ul>
+        <li>기본/프리미엄 2단계</li>
+        <li>2시간 블록, 25명/타임</li>
+        <li>기본 10만 → 프리미엄 20만 전환</li>
+      </ul>
+    </div>
+    <div class="bm-card donggil">
+      <div class="bm-label">동길의 BM</div>
+      <h4>횟수제 코칭 스튜디오</h4>
+      <ul>
+        <li>주1~5회 횟수별 과금</li>
+        <li>60분/90분 블록, 15명/슬롯</li>
+        <li>주1회 10만 ~ 주5회 35만</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="alert alert-orange">
-    <strong>2. 정보공개서 실데이터: 책나무 월 776만 vs 자라다 월 2,767만 — 포지셔닝이 수익을 결정합니다</strong>
-    같은 교육업이어도 저가 대량 모델(책나무)보다 니치 프리미엄 모델(자라다남아미술)이 가맹점 수익 3.6배. 생각의숲은 프리미엄 니치로 가야 합니다.
-  </div>
-
-  <div class="alert alert-green">
-    <strong>3. "이은경"은 교육 프랜차이즈 역사상 전례 없는 자산입니다</strong>
-    60권 저자 + 15만 유튜브를 '학원 월세+강사 인건비' 구조에만 가두면 가치의 10%도 못 씁니다. 다층 수익 모델이 정답입니다.
-  </div>
+  <p class="small">경쟁사 데이터는 공정위 정보공개서(franchise.ftc.go.kr) 2024년 원본에서 직접 추출했습니다.</p>
 </div>
 
 <!-- 2. 경쟁사 실데이터 -->
 <div class="card" id="competitors">
-  <h2>경쟁사 실데이터 <span class="source-badge">공정위 정보공개서 2024</span></h2>
+  <h2>경쟁사 실데이터 <span class="source-badge">정보공개서 2024</span></h2>
 
   <h3>A. 동종업종 (독서/글쓰기 교육)</h3>
   <div class="table-wrap">
   <table>
-    <tr>
-      <th>항목</th><th>책나무</th><th>한우리</th><th>플라톤(한솔)</th><th>ERC영어독서</th>
-    </tr>
-    <tr>
-      <td><strong>업종</strong></td>
-      <td>독서코칭</td>
-      <td>독서토론/논술</td>
-      <td>독서논술 (방문)</td>
-      <td>영어독서</td>
-    </tr>
-    <tr>
-      <td><strong>가맹점 수</strong></td>
-      <td class="num bold">417개</td>
-      <td class="num">524개</td>
-      <td class="num">17개 (+직영39)</td>
-      <td class="num">168개</td>
-    </tr>
-    <tr>
-      <td><strong>3년 추세</strong></td>
-      <td class="num green">0→222→417 (폭발)</td>
-      <td class="num">안정</td>
-      <td class="num red">17→17→17 (정체)</td>
-      <td class="num">138→151→168</td>
-    </tr>
-    <tr>
-      <td><strong>2024 신규/해지</strong></td>
-      <td class="num">+198 / -3</td>
-      <td class="num gray">미확인</td>
-      <td class="num red">0 / 0</td>
-      <td class="num">+23 / -6</td>
-    </tr>
-    <tr>
-      <td><strong>월 평균 매출</strong></td>
-      <td class="num bold">776만원</td>
-      <td class="num bold">1,260만원</td>
-      <td class="num">3,011만원 ★</td>
-      <td class="num gray">미공개</td>
-    </tr>
-    <tr>
-      <td><strong>연 매출 상한/하한</strong></td>
-      <td class="num">4.6억 / <span class="red">260만</span></td>
-      <td class="num gray">미확인</td>
-      <td class="num">9.4억 / 8,790만</td>
-      <td class="num gray">-</td>
-    </tr>
-    <tr>
-      <td><strong>가맹금 합계</strong></td>
-      <td class="num">716만원</td>
-      <td class="num">~5,000만원</td>
-      <td class="num">1,220~2,600만</td>
-      <td class="num">725만원</td>
-    </tr>
-    <tr>
-      <td><strong>로열티</strong></td>
-      <td class="num">없음 (교재비 대체)</td>
-      <td class="num gray">미확인</td>
-      <td class="num">매출 3~5%</td>
-      <td class="num">없음 (교재 차액)</td>
-    </tr>
-    <tr>
-      <td><strong>총 창업비</strong></td>
-      <td class="num">~6,786만</td>
-      <td class="num">~5,000만</td>
-      <td class="num">~2,100만</td>
-      <td class="num">~725만</td>
-    </tr>
-    <tr>
-      <td><strong>본부 매출(2024)</strong></td>
-      <td class="num">42.8억</td>
-      <td class="num gray">미확인</td>
-      <td class="num">1,277억</td>
-      <td class="num gray">미확인</td>
-    </tr>
+    <tr><th>항목</th><th>책나무</th><th>한우리</th><th>플라톤(한솔)</th><th>ERC영어독서</th></tr>
+    <tr><td><strong>업종</strong></td><td>독서코칭</td><td>독서토론/논술</td><td>독서논술 (방문)</td><td>영어독서</td></tr>
+    <tr><td><strong>가맹점 수</strong></td><td class="num bold">417개</td><td class="num">524개</td><td class="num">17개 (+직영39)</td><td class="num">168개</td></tr>
+    <tr><td><strong>3년 추세</strong></td><td class="num">0→222→417</td><td class="num">안정</td><td class="num">17→17→17</td><td class="num">138→151→168</td></tr>
+    <tr><td><strong>월 평균 매출</strong></td><td class="num bold">776만원</td><td class="num bold">1,260만원</td><td class="num">3,011만원 *</td><td class="num" style="color:#999">미공개</td></tr>
+    <tr><td><strong>연 매출 상한/하한</strong></td><td class="num">4.6억 / 260만</td><td class="num" style="color:#999">미확인</td><td class="num">9.4억 / 8,790만</td><td class="num" style="color:#999">-</td></tr>
+    <tr><td><strong>가맹금 합계</strong></td><td class="num">716만원</td><td class="num">~5,000만원</td><td class="num">1,220~2,600만</td><td class="num">725만원</td></tr>
+    <tr><td><strong>로열티</strong></td><td class="num">없음 (교재비)</td><td class="num" style="color:#999">미확인</td><td class="num">매출 3~5%</td><td class="num">없음 (교재 차액)</td></tr>
+    <tr><td><strong>총 창업비</strong></td><td class="num">~6,786만</td><td class="num">~5,000만</td><td class="num">~2,100만</td><td class="num">~725만</td></tr>
   </table>
   </div>
-  <p class="small">★ 플라톤은 방문교육 모델이라 점포형과 직접 비교 불가 (지사당 복수 교사/학생 합산)</p>
+  <p class="small">* 플라톤은 방문교육 모델이라 점포형과 직접 비교 불가 (지사당 복수 교사/학생 합산)</p>
 
   <h3>B. 이종업종 벤치마크 (니치 전문 교육)</h3>
   <div class="table-wrap">
   <table>
-    <tr>
-      <th>항목</th><th>자라다남아미술</th><th>깊은생각(수학)</th>
-    </tr>
-    <tr>
-      <td><strong>업종</strong></td>
-      <td>남아 전문 미술교육</td>
-      <td>초중고 수학교육</td>
-    </tr>
-    <tr>
-      <td><strong>가맹점 수</strong></td>
-      <td class="num">58개 (+직영4)</td>
-      <td class="num">12개 (+직영6)</td>
-    </tr>
-    <tr>
-      <td><strong>3년 추세</strong></td>
-      <td class="num green">36→49→58</td>
-      <td class="num green">0→7→12</td>
-    </tr>
-    <tr>
-      <td><strong>월 수강료</strong></td>
-      <td class="num bold">22만원</td>
-      <td class="num">38~48만원</td>
-    </tr>
-    <tr class="highlight-row">
-      <td><strong>월 평균 매출</strong></td>
-      <td class="num green bold">2,767만원</td>
-      <td class="num green bold">4,361만원</td>
-    </tr>
-    <tr>
-      <td><strong>연 매출 상한/하한</strong></td>
-      <td class="num">6.9억 / 8,676만</td>
-      <td class="num">9.9억 / 1.4억</td>
-    </tr>
-    <tr>
-      <td><strong>가맹금</strong></td>
-      <td class="num">1,870만원</td>
-      <td class="num">1,300만원</td>
-    </tr>
-    <tr>
-      <td><strong>로열티</strong></td>
-      <td class="num bold">매출의 9%</td>
-      <td class="num">연 1,100만 (정액)</td>
-    </tr>
-    <tr>
-      <td><strong>본부 매출(2024)</strong></td>
-      <td class="num">53.1억</td>
-      <td class="num">38.8억</td>
-    </tr>
+    <tr><th>항목</th><th>자라다남아미술</th><th>깊은생각(수학)</th></tr>
+    <tr><td><strong>업종</strong></td><td>남아 전문 미술교육</td><td>초중고 수학교육</td></tr>
+    <tr><td><strong>가맹점 수</strong></td><td class="num">58개 (+직영4)</td><td class="num">12개 (+직영6)</td></tr>
+    <tr><td><strong>월 수강료</strong></td><td class="num bold">22만원</td><td class="num">38~48만원</td></tr>
+    <tr class="highlight-row"><td><strong>월 평균 매출</strong></td><td class="num bold">2,767만원</td><td class="num bold">4,361만원</td></tr>
+    <tr><td><strong>로열티</strong></td><td class="num bold">매출의 9%</td><td class="num">연 1,100만 (정액)</td></tr>
   </table>
   </div>
-</div>
 
-<!-- 3. 인사이트 -->
-<div class="card" id="insights">
-  <h2>정보공개서에서 발견한 4대 인사이트</h2>
-
+  <h3>인사이트</h3>
   <div class="insight-grid">
     <div class="insight-card" style="border-color: #ef4444;">
-      <h4>책나무 — 저가 대량의 함정</h4>
-      <div class="metric red">월 776만원</div>
-      <div class="detail">
-        2년 만에 417개 (폭발 성장)<br>
-        그러나 하한 <strong>연 260만원</strong> (월 22만!)<br>
-        = 사실상 영업 중단 가맹점 존재<br>
-        본부만 18배 성장 (2.3억→43억)
-      </div>
+      <h4>책나무 — 저가 대량 모델</h4>
+      <div class="metric" style="color:#ef4444;">월 776만</div>
+      <div class="detail">2년 만에 417개 폭발 성장<br>하한 연 260만원 (월 22만)<br>본부만 18배 성장 (2.3억→43억)</div>
     </div>
-
     <div class="insight-card" style="border-color: #22c55e;">
-      <h4>자라다 — 니치 프리미엄의 증거</h4>
-      <div class="metric green">월 2,767만원</div>
-      <div class="detail">
-        "남아 미술"이라는 극소 니치로 58개점<br>
-        객단가 22만원, 로열티 9%에도 성장<br>
-        직영(월5,887만) = 가맹의 2.1배<br>
-        <strong>= 생각의숲 벤치마크 1순위</strong>
-      </div>
+      <h4>자라다 — 니치 프리미엄 모델</h4>
+      <div class="metric" style="color:#22c55e;">월 2,767만</div>
+      <div class="detail">"남아 미술" 극소 니치로 58개점<br>객단가 22만, 로열티 9%에도 성장<br>직영(월5,887만) = 가맹의 2.1배</div>
     </div>
-
     <div class="insight-card" style="border-color: #f97316;">
-      <h4>플라톤 — 시대에 뒤처진 모델</h4>
-      <div class="metric" style="color: #f97316;">3년간 신규 0건</div>
-      <div class="detail">
-        방문교육 시대 종료<br>
-        70개→56개로 축소 중<br>
-        가맹 17개 고정, 직영만 감소<br>
-        <strong>모델이 시대에 맞아야 함</strong>
-      </div>
+      <h4>플라톤 — 정체 모델</h4>
+      <div class="metric" style="color:#f97316;">3년간 신규 0건</div>
+      <div class="detail">방문교육 시대 종료<br>70개→56개 축소 중</div>
     </div>
-
     <div class="insight-card" style="border-color: #3b82f6;">
-      <h4>깊은생각 — 직영→가맹 성공 패턴</h4>
-      <div class="metric blue">월 4,361만원</div>
-      <div class="detail">
-        직영 6개 먼저 → 가맹 12개 확장<br>
-        프리미엄 공간(60평 1.5억 인테리어)<br>
-        로열티 연 1,100만 정액 = 커질수록 유리<br>
-        <strong>생각의숲이 따라야 할 순서</strong>
-      </div>
+      <h4>깊은생각 — 직영→가맹 패턴</h4>
+      <div class="metric" style="color:#3b82f6;">월 4,361만</div>
+      <div class="detail">직영 6개 먼저 → 가맹 12개 확장<br>프리미엄 공간(60평 1.5억 인테리어)</div>
     </div>
   </div>
 
@@ -535,7 +263,7 @@
   <div class="pos-map">
            프리미엄 (객단가 20만+)
                         |
-        자라다(22만)     |  &#11088; 생각의숲 (12~25만)
+        자라다(22만)     |  생각의숲 (10~35만)
         [미술 니치]       |  [글쓰기 전문+이은경 브랜드]
                         |
    범용 ----------------+------------------ 전문(니치)
@@ -546,169 +274,84 @@
                         |    ERC(교재중심, 매출불명)
            저가 (객단가 10만 이하)
   </div>
-  <p class="small" style="text-align: center; margin-top: 8px;">자라다가 "니치 전문 + 프리미엄"으로 월 2,767만원 → 생각의숲 포지셔닝의 핵심 근거</p>
 </div>
 
-<!-- 4. 은경 모델 분석 -->
-<div class="card" id="model">
-  <h2>은경님 모델 분석: 살릴 것 & 조정할 것</h2>
+<!-- 3. 은경의 BM -->
+<div class="card" id="eunkyung">
+  <h2 style="border-color: #e9d5ff;">은경의 BM: 헬스장형 회원제</h2>
 
-  <h3>살려야 할 핵심 아이디어</h3>
-  <ul>
-    <li><strong>회원제 구조</strong> — 진입장벽 낮춰 회원부터 확보</li>
-    <li><strong>타임 운영</strong> — 공간 효율 극대화</li>
-    <li><strong>성인 확장</strong> — 오전 유휴시간 활용</li>
-  </ul>
-
-  <h3>조정이 필요한 부분</h3>
-  <table>
-    <tr>
-      <th>항목</th><th>은경님 원안</th><th>이동길 의견</th><th>이유</th>
-    </tr>
-    <tr>
-      <td>블록 시간</td>
-      <td class="num">2시간</td>
-      <td class="num green">60~90분</td>
-      <td>초등 저학년 집중력 한계, 90분이 맥스</td>
-    </tr>
-    <tr>
-      <td>슬롯당 인원</td>
-      <td class="num">25명</td>
-      <td class="num green">15명</td>
-      <td>30평에 25명 = 1인당 4m2, 독서실 느낌</td>
-    </tr>
-    <tr>
-      <td>가격 체계</td>
-      <td class="num">기본/프리미엄 2단계</td>
-      <td class="num green">주당 횟수별 차등</td>
-      <td>학부모는 "주 몇 회"로 생각, 업셀링이 자연스러움</td>
-    </tr>
-    <tr>
-      <td>전환 구조</td>
-      <td class="num">기본→프리미엄 (50%)</td>
-      <td class="num green">주1회→주2~3회 (횟수 추가)</td>
-      <td>"하루만 더"는 거의 모든 학부모가 수용</td>
-    </tr>
-  </table>
-
-  <h3>핵심 차이: 헬스장 vs 교육</h3>
-  <p>헬스장은 <strong>기구가 가르치므로</strong> 강사 없이 25명이 동시에 운동 가능합니다.<br>
-  글쓰기 교육은 <strong>교사가 가르쳐야 하므로</strong> 강사 없이 앉아있으면 그건 독서실입니다.<br>
-  → 기본 회원에게도 <strong>최소한의 교육적 터치포인트</strong>가 있어야 합니다.</p>
-</div>
-
-<!-- 5. 이동길 BM: 횟수제 코칭 스튜디오 -->
-<div class="card" id="donggil">
-  <h2>이동길의 BM 제안: 횟수제 코칭 스튜디오</h2>
   <div class="alert alert-purple">
     <strong>핵심 아이디어</strong>
-    서비스 등급(티어)이 아니라 <strong>주당 방문 횟수</strong>로 과금. 학부모가 가장 직관적으로 이해하는 구조이고, "하루만 더 추가해보세요"라는 업셀링이 자연스럽게 작동합니다.
+    헬스장/스키장처럼 <strong>기본 회원권(저가)</strong>으로 빠르게 모객하고, 프리미엄 코칭으로 업그레이드하는 구조. 공간 효율을 극대화하고, 오전 성인반으로 유휴시간을 활용합니다.
   </div>
 
-  <h3>60분 + 90분 혼합 가격표</h3>
+  <h3>모델 요약</h3>
   <table>
-    <tr>
-      <th>주당 횟수</th><th>블록</th><th>월 수강료</th><th>시간당 단가</th><th>타겟</th>
-    </tr>
-    <tr>
-      <td class="num">주1회</td>
-      <td class="num">60분</td>
-      <td class="num">10만원</td>
-      <td class="num">25,000원</td>
-      <td>초1~2 입문 / 체험</td>
-    </tr>
-    <tr>
-      <td class="num">주2회</td>
-      <td class="num">60분</td>
-      <td class="num">16만원</td>
-      <td class="num">20,000원</td>
-      <td>초1~3 메인</td>
-    </tr>
-    <tr class="highlight-row">
-      <td class="num bold">주2회</td>
-      <td class="num bold">90분</td>
-      <td class="num bold green">20만원</td>
-      <td class="num">16,667원</td>
-      <td><strong>초3~6 메인</strong></td>
-    </tr>
-    <tr class="highlight-row">
-      <td class="num bold">주3회</td>
-      <td class="num bold">90분</td>
-      <td class="num bold green">27만원</td>
-      <td class="num">15,000원</td>
-      <td><strong>초4~6 심화 (핵심 상품)</strong></td>
-    </tr>
-    <tr>
-      <td class="num">주4회</td>
-      <td class="num">90분</td>
-      <td class="num">32만원</td>
-      <td class="num">13,333원</td>
-      <td>예비중 / 올인</td>
-    </tr>
-    <tr>
-      <td class="num">주5회</td>
-      <td class="num">90분</td>
-      <td class="num">35만원</td>
-      <td class="num">11,667원</td>
-      <td>소수 (거의 매일)</td>
-    </tr>
-  </table>
-  <p class="small">횟수가 늘수록 시간당 단가가 내려감 → <strong>주3회가 가성비 최적 구간</strong> → 자연스러운 메인 상품</p>
-
-  <h3>왜 3티어가 아니라 횟수제인가</h3>
-  <table>
-    <tr>
-      <th></th><th>3티어 (서비스 차등)</th><th>횟수제 (빈도 차등)</th>
-    </tr>
-    <tr>
-      <td><strong>학부모 이해</strong></td>
-      <td>"씨앗? 가지? 뭐가 다른 거예요?"</td>
-      <td class="green">"주 몇 번 가냐"로 끝</td>
-    </tr>
-    <tr>
-      <td><strong>업셀링</strong></td>
-      <td>"상위 과정 올려보세요" (큰 결정)</td>
-      <td class="green">"하루만 더 추가해보세요" (작은 결정)</td>
-    </tr>
-    <tr>
-      <td><strong>운영</strong></td>
-      <td>티어별 다른 수업 설계 필요</td>
-      <td class="green">같은 수업, 횟수만 다름</td>
-    </tr>
-    <tr>
-      <td><strong>업계 친숙도</strong></td>
-      <td>독자적 (설명 필요)</td>
-      <td class="green">책나무/리드인과 동일 구조</td>
-    </tr>
+    <tr><th>항목</th><th>내용</th></tr>
+    <tr><td>공간</td><td class="num">30평</td></tr>
+    <tr><td>블록 시간</td><td class="num">2시간</td></tr>
+    <tr><td>타임당 인원</td><td class="num">25명</td></tr>
+    <tr><td>기본 회원</td><td class="num">~10만원/월</td></tr>
+    <tr><td>프리미엄 (주1독서 + 주1글쓰기)</td><td class="num">~20만원/월</td></tr>
+    <tr><td>프리미엄 전환율 기대</td><td class="num">50%</td></tr>
+    <tr><td>최대 회원</td><td class="num">100명</td></tr>
+    <tr><td>추가 수입</td><td>오전 성인반, 주말 타임</td></tr>
   </table>
 
-  <h3>학년별 블록 설계</h3>
+  <h3>강점</h3>
+  <ul>
+    <li><strong>낮은 진입장벽</strong> — 10만원이면 부담 없이 가입</li>
+    <li><strong>공간 효율 극대화</strong> — 타임제 운영으로 30평에서 100명 관리</li>
+    <li><strong>검증된 모델 차용</strong> — 헬스장/스키장은 수십년 검증된 멤버십 모델</li>
+    <li><strong>성인반 확장</strong> — 오전 유휴시간 활용, 추가 매출</li>
+    <li><strong>프랜차이즈 적합성</strong> — 시스템화하기 쉬운 구조</li>
+  </ul>
+
+  <h3>수익 시뮬레이션 (30평 기준)</h3>
+
+  <table>
+    <tr><th></th><th>시나리오 A (보수적)</th><th>시나리오 B (기본)</th><th>시나리오 C (낙관)</th></tr>
+    <tr><td><strong>기본 회원</strong></td><td class="num">42명 x 10만</td><td class="num">48명 x 10만</td><td class="num">50명 x 10만</td></tr>
+    <tr><td><strong>프리미엄</strong></td><td class="num">18명(30%) x 20만</td><td class="num">32명(40%) x 20만</td><td class="num">50명(50%) x 20만</td></tr>
+    <tr><td><strong>성인반</strong></td><td class="num">-</td><td class="num">10명 x 15만</td><td class="num">15명 x 15만</td></tr>
+    <tr><td><strong>월 매출</strong></td><td class="num bold">780만원</td><td class="num bold">1,270만원</td><td class="num bold">1,725만원</td></tr>
+    <tr><td>비용 합계</td><td class="num">-900만</td><td class="num">-1,200만</td><td class="num">-1,500만</td></tr>
+    <tr><td><strong>월 영업이익</strong></td><td class="num">-120만 (적자)</td><td class="num bold">70만 (5.5%)</td><td class="num bold">225만 (13%)</td></tr>
+  </table>
+</div>
+
+<!-- 4. 동길의 BM -->
+<div class="card" id="donggil">
+  <h2 style="border-color: #bfdbfe;">동길의 BM: 횟수제 코칭 스튜디오</h2>
+
+  <div class="alert alert-blue">
+    <strong>핵심 아이디어</strong>
+    서비스 등급이 아니라 <strong>주당 방문 횟수</strong>로 과금. 학부모가 가장 직관적으로 이해하는 구조이고, "하루만 더 추가해보세요"라는 업셀링이 자연스럽게 작동합니다. 초등 저학년 집중력을 고려해 60분/90분 혼합 블록을 사용합니다.
+  </div>
+
+  <h3>가격표 (60분 + 90분 혼합)</h3>
+  <table>
+    <tr><th>주당 횟수</th><th>블록</th><th>월 수강료</th><th>시간당 단가</th><th>타겟</th></tr>
+    <tr><td class="num">주1회</td><td class="num">60분</td><td class="num">10만원</td><td class="num">25,000원</td><td>초1~2 입문</td></tr>
+    <tr><td class="num">주2회</td><td class="num">60분</td><td class="num">16만원</td><td class="num">20,000원</td><td>초1~3 메인</td></tr>
+    <tr class="highlight-row"><td class="num bold">주2회</td><td class="num bold">90분</td><td class="num bold">20만원</td><td class="num">16,667원</td><td><strong>초3~6 메인</strong></td></tr>
+    <tr class="highlight-row"><td class="num bold">주3회</td><td class="num bold">90분</td><td class="num bold">27만원</td><td class="num">15,000원</td><td><strong>초4~6 심화 (핵심 상품)</strong></td></tr>
+    <tr><td class="num">주4회</td><td class="num">90분</td><td class="num">32만원</td><td class="num">13,333원</td><td>예비중 / 올인</td></tr>
+    <tr><td class="num">주5회</td><td class="num">90분</td><td class="num">35만원</td><td class="num">11,667원</td><td>소수</td></tr>
+  </table>
+  <p class="small">횟수가 늘수록 시간당 단가가 내려감 → 주3회가 가성비 최적 구간 → 자연스러운 메인 상품</p>
+
+  <h3>학년별 블록</h3>
   <table>
     <tr><th>대상</th><th>블록</th><th>구성</th></tr>
-    <tr>
-      <td>초1~2</td>
-      <td class="num">60분</td>
-      <td>독서 30분 + 표현활동/피드백 30분</td>
-    </tr>
-    <tr>
-      <td>초3~4</td>
-      <td class="num">60~90분</td>
-      <td>독서 30분 + 글쓰기 코칭 30~60분</td>
-    </tr>
-    <tr>
-      <td>초5~6</td>
-      <td class="num">90분</td>
-      <td>독서 30분 + 글쓰기/토론 60분</td>
-    </tr>
-    <tr>
-      <td>예비중</td>
-      <td class="num">90분</td>
-      <td>독서 20분 + 심화 글쓰기/토론 70분</td>
-    </tr>
+    <tr><td>초1~2</td><td class="num">60분</td><td>독서 30분 + 표현활동/피드백 30분</td></tr>
+    <tr><td>초3~4</td><td class="num">60~90분</td><td>독서 30분 + 글쓰기 코칭 30~60분</td></tr>
+    <tr><td>초5~6</td><td class="num">90분</td><td>독서 30분 + 글쓰기/토론 60분</td></tr>
+    <tr><td>예비중</td><td class="num">90분</td><td>독서 20분 + 심화 글쓰기/토론 70분</td></tr>
   </table>
 
-  <h3>일일 타임테이블 (30평 기준)</h3>
-  <div style="background: #f9fafb; border-radius: 10px; padding: 20px; font-family: 'SF Mono', 'Menlo', monospace; font-size: 13px; line-height: 2.2;">
+  <h3>일일 타임테이블</h3>
+  <div class="mono-block">
     09:30-11:00 &nbsp; 성인 글쓰기 (15명)<br>
     11:00-12:30 &nbsp; 교사 준비 / 원장 상담<br>
     ──────────── 점심 ────────────<br>
@@ -722,185 +365,121 @@
     13:30-15:00 &nbsp; [토3] 성인 주말반 (15명)
   </div>
 
-  <h3>좌석 용량 계산</h3>
+  <h3>좌석 용량</h3>
   <table>
-    <tr><th></th><th>좌석 수</th><th>산출</th></tr>
+    <tr><th></th><th>좌석</th><th>산출</th></tr>
     <tr><td>평일</td><td class="num bold">300석/주</td><td>4슬롯 x 15석 x 5일</td></tr>
     <tr><td>토요일</td><td class="num">45석/주</td><td>3슬롯 x 15석</td></tr>
-    <tr><td><strong>합계</strong></td><td class="num bold green">345석/주</td><td></td></tr>
-    <tr><td>가동률 90%</td><td class="num">310석/주</td><td>피크 슬롯 쏠림 감안</td></tr>
-    <tr><td>평균 방문 2.5회/주</td><td class="num" colspan="2"></td></tr>
-    <tr><td><strong>최대 학생 수</strong></td><td class="num bold green">약 120명</td><td>310석 &divide; 2.5회</td></tr>
+    <tr><td><strong>합계</strong></td><td class="num bold">345석/주</td><td></td></tr>
+    <tr><td>가동률 90%</td><td class="num">310석/주</td><td></td></tr>
+    <tr><td><strong>최대 학생 수</strong></td><td class="num bold">약 120명</td><td>310석 / 평균 2.5회</td></tr>
   </table>
 
-  <h3>수익 시뮬레이션 — 100명 기준 (안정기)</h3>
+  <h3>수익 시뮬레이션 (100명 기준, 안정기)</h3>
   <table>
     <tr><th>주당 횟수</th><th>학생 수</th><th>월 수강료</th><th>소계</th></tr>
-    <tr>
-      <td>주1회 60분</td><td class="num">10명 (10%)</td><td class="num">10만</td><td class="num">100만</td>
-    </tr>
-    <tr>
-      <td>주2회 60분</td><td class="num">15명 (15%)</td><td class="num">16만</td><td class="num">240만</td>
-    </tr>
-    <tr class="highlight-row">
-      <td>주2회 90분</td><td class="num bold">25명 (25%)</td><td class="num">20만</td><td class="num bold">500만</td>
-    </tr>
-    <tr class="highlight-row">
-      <td>주3회 90분</td><td class="num bold">30명 (30%)</td><td class="num">27만</td><td class="num bold">810만</td>
-    </tr>
-    <tr>
-      <td>주4회 90분</td><td class="num">15명 (15%)</td><td class="num">32만</td><td class="num">480만</td>
-    </tr>
-    <tr>
-      <td>주5회 90분</td><td class="num">5명 (5%)</td><td class="num">35만</td><td class="num">175만</td>
-    </tr>
-    <tr>
-      <td>성인 주1회</td><td class="num">15명</td><td class="num">12만</td><td class="num">180만</td>
-    </tr>
-    <tr style="background: #f0fdf4;">
-      <td><strong>합계</strong></td>
-      <td class="num bold">학생 100명 + 성인 15명</td>
-      <td class="num bold">평균 23만원</td>
-      <td class="num bold green">2,485만원</td>
-    </tr>
+    <tr><td>주1회 60분</td><td class="num">10명</td><td class="num">10만</td><td class="num">100만</td></tr>
+    <tr><td>주2회 60분</td><td class="num">15명</td><td class="num">16만</td><td class="num">240만</td></tr>
+    <tr class="highlight-row"><td>주2회 90분</td><td class="num bold">25명</td><td class="num">20만</td><td class="num bold">500만</td></tr>
+    <tr class="highlight-row"><td>주3회 90분</td><td class="num bold">30명</td><td class="num">27만</td><td class="num bold">810만</td></tr>
+    <tr><td>주4회 90분</td><td class="num">15명</td><td class="num">32만</td><td class="num">480만</td></tr>
+    <tr><td>주5회 90분</td><td class="num">5명</td><td class="num">35만</td><td class="num">175만</td></tr>
+    <tr><td>성인 주1회</td><td class="num">15명</td><td class="num">12만</td><td class="num">180만</td></tr>
+    <tr style="background:#eff6ff;"><td><strong>합계</strong></td><td class="num bold">학생 100 + 성인 15</td><td class="num">평균 23만</td><td class="num bold">2,485만원</td></tr>
   </table>
 
   <table>
-    <tr><th>비용 항목</th><th>금액</th></tr>
-    <tr><td>임대료 (미사 30평)</td><td class="num">-200만</td></tr>
+    <tr><th>비용</th><th>금액</th></tr>
+    <tr><td>임대료</td><td class="num">-200만</td></tr>
     <tr><td>교사 4명</td><td class="num">-1,000만</td></tr>
     <tr><td>관리비/교재/마케팅/기타</td><td class="num">-300만</td></tr>
-    <tr style="background: #f0fdf4;">
-      <td><strong>월 영업이익</strong></td>
-      <td class="num bold green">985만원 (마진 40%)</td>
-    </tr>
+    <tr style="background:#eff6ff;"><td><strong>월 영업이익</strong></td><td class="num bold">985만원 (마진 40%)</td></tr>
   </table>
 
-  <h3>성장 단계별 시나리오</h3>
+  <h3>성장 단계별</h3>
   <table>
-    <tr><th>단계</th><th>학생 수</th><th>평균 객단가</th><th>월 매출</th><th>월 영업이익</th></tr>
-    <tr>
-      <td>오픈 6개월 (입문기)</td>
-      <td class="num">40명</td>
-      <td class="num">20만</td>
-      <td class="num">800만</td>
-      <td class="num red">-50만 (적자)</td>
-    </tr>
-    <tr>
-      <td>12개월 (안정기)</td>
-      <td class="num">70명</td>
-      <td class="num">22만</td>
-      <td class="num">1,540만</td>
-      <td class="num green">390만 (25%)</td>
-    </tr>
-    <tr class="highlight-row">
-      <td><strong>24개월 (성숙기)</strong></td>
-      <td class="num bold">100명</td>
-      <td class="num bold">23~25만</td>
-      <td class="num bold">2,300~2,500만</td>
-      <td class="num bold green">800~1,000만 (35~40%)</td>
-    </tr>
-  </table>
-
-  <h3>자라다남아미술 벤치마크 비교</h3>
-  <div class="vs-box">
-    <div class="vs-side vs-left" style="background: #eff6ff;">
-      <div class="vs-label">자라다 실적 (정보공개서)</div>
-      <div class="vs-value" style="color: #3b82f6;">2,767만</div>
-      <div class="vs-label">58개 가맹점 평균</div>
-    </div>
-    <div class="vs-mid">&asymp;</div>
-    <div class="vs-side vs-right">
-      <div class="vs-label">생각의숲 목표 (100명)</div>
-      <div class="vs-value good">2,500만</div>
-      <div class="vs-label">마진 40%</div>
-    </div>
-  </div>
-  <p style="text-align:center; font-size:14px; color:#666;">"남아 미술" 니치도 이 수준 → "이은경 글쓰기" 니치는 <strong>충분히 도달 가능</strong></p>
-
-  <h3>책나무와 뭐가 다른가?</h3>
-  <div class="alert alert-green">
-    <strong>가격 구조는 비슷하지만, 안에 담긴 경험이 다릅니다</strong>
-    같은 "주2회 60분"이어도:<br>
-    &bull; 책나무: 프랜차이즈 로고 + 가맹점주가 채용한 강사 + 독서감상문<br>
-    &bull; 생각의숲: <strong>이은경 브랜드 + 인증 교사 + AI 1차 첨삭 + 사고력 피드백 + 성장 포트폴리오</strong><br><br>
-    같은 가격이면 학부모는 이은경 선생님 브랜드를 선택합니다. 가격으로 싸우는 게 아니라 브랜드로 이기는 구조입니다.
-  </div>
-
-  <h3>손익분기점</h3>
-  <table>
-    <tr><th>항목</th><th>수치</th></tr>
-    <tr><td>월 고정비</td><td class="num">850만원 (교사2 + 임대 + 기타)</td></tr>
-    <tr><td>평균 객단가 (초기 믹스)</td><td class="num">약 20만원</td></tr>
-    <tr><td><strong>BEP 학생 수</strong></td><td class="num green">43명</td></tr>
-    <tr><td>BEP 도달 예상</td><td class="num">오픈 후 6~9개월</td></tr>
+    <tr><th>단계</th><th>학생</th><th>객단가</th><th>월 매출</th><th>영업이익</th></tr>
+    <tr><td>6개월 (입문)</td><td class="num">40명</td><td class="num">20만</td><td class="num">800만</td><td class="num">-50만</td></tr>
+    <tr><td>12개월 (안정)</td><td class="num">70명</td><td class="num">22만</td><td class="num">1,540만</td><td class="num">390만 (25%)</td></tr>
+    <tr class="highlight-row"><td><strong>24개월 (성숙)</strong></td><td class="num bold">100명</td><td class="num">23~25만</td><td class="num bold">2,300~2,500만</td><td class="num bold">800~1,000만</td></tr>
   </table>
 </div>
 
-<!-- 6. 대안 모델 6종 -->
+<!-- 5. 두 모델 비교 -->
+<div class="card" id="compare">
+  <h2>두 모델 비교</h2>
+  <p>공통 전제: 하남 미사 30평, 동일 임대료/시장 환경</p>
+
+  <div class="table-wrap">
+  <table class="neutral-table">
+    <tr><th>항목</th><th class="col-a">은경 BM</th><th class="col-b">동길 BM</th></tr>
+    <tr><td><strong>과금 구조</strong></td><td class="num col-a">기본/프리미엄 2단계</td><td class="num col-b">주1~5회 횟수별</td></tr>
+    <tr><td><strong>블록 시간</strong></td><td class="num col-a">2시간</td><td class="num col-b">60분 / 90분</td></tr>
+    <tr><td><strong>슬롯 인원</strong></td><td class="num col-a">25명</td><td class="num col-b">15명</td></tr>
+    <tr><td><strong>가격 범위</strong></td><td class="num col-a">10~20만원</td><td class="num col-b">10~35만원</td></tr>
+    <tr><td><strong>최대 학생</strong></td><td class="num col-a">100명</td><td class="num col-b">~120명</td></tr>
+    <tr><td><strong>업셀링</strong></td><td class="num col-a">기본→프리미엄 전환</td><td class="num col-b">횟수 추가</td></tr>
+    <tr><td><strong>목표 월매출 (안정기)</strong></td><td class="num col-a">1,270만원</td><td class="num col-b">2,300~2,500만원</td></tr>
+    <tr><td><strong>BEP</strong></td><td class="num col-a">~55명</td><td class="num col-b">~43명</td></tr>
+    <tr><td><strong>강점</strong></td><td class="col-a" style="font-size:13px">저가 진입 → 빠른 모객<br>검증된 멤버십 모델<br>시스템 단순</td><td class="col-b" style="font-size:13px">높은 객단가<br>학년별 맞춤 블록<br>자연스러운 업셀링</td></tr>
+  </table>
+  </div>
+
+  <h3>벤치마크 대비</h3>
+  <div class="table-wrap">
+  <table class="neutral-table">
+    <tr><th></th><th>책나무 (실적)</th><th class="col-a">은경 BM (목표)</th><th class="col-b">동길 BM (목표)</th><th>자라다 (실적)</th></tr>
+    <tr><td><strong>월 매출</strong></td><td class="num">776만</td><td class="num col-a">1,270만</td><td class="num col-b">2,500만</td><td class="num">2,767만</td></tr>
+    <tr><td><strong>객단가</strong></td><td class="num">~18만</td><td class="num col-a">~15만</td><td class="num col-b">~23만</td><td class="num">22만</td></tr>
+    <tr><td><strong>모델 유형</strong></td><td class="num">저가 대량</td><td class="num col-a">회원제</td><td class="num col-b">횟수제</td><td class="num">니치 프리미엄</td></tr>
+  </table>
+  </div>
+
+  <div class="alert alert-gray">
+    <strong>논의 포인트</strong>
+    두 모델은 결합도 가능합니다. 예를 들어 은경 BM의 "저가 진입 + 성인 오전반"과 동길 BM의 "횟수별 과금 + 학년별 블록"을 조합하는 하이브리드도 검토할 수 있습니다.
+  </div>
+</div>
+
+<!-- 6. 대안 모델 B~F -->
 <div class="card" id="alternatives">
-  <h2>대안 비즈니스 모델 6종</h2>
-  <p>오프라인 학원만이 답이 아닙니다. 이 상황에서 만들 수 있는 모든 모델을 분석했습니다.</p>
+  <h2>대안 비즈니스 모델</h2>
+  <p>오프라인 코칭 스튜디오(은경/동길 BM) 외에 만들 수 있는 모델들입니다.</p>
 
   <div class="model-grid">
-    <div class="model-card recommended">
-      <div class="badge">이동길 BM</div>
-      <h4>A. 횟수제 코칭 스튜디오</h4>
-      <p>60~90분 블록 + 주1~5회 횟수별 과금 + 15명 슬롯 + 온라인 확장</p>
-      <div class="stats">
-        <span>초기투자 7천~1.2억</span>
-        <span style="background:#dcfce7">마진 35~40%</span>
-        <span>100명 = 월2,500만</span>
-      </div>
-    </div>
-
     <div class="model-card">
       <h4>B. 온라인 퍼스트</h4>
-      <p>이은경 마스터클래스 + AI 첨삭 구독. 임대료 0, 마진 최고</p>
+      <p>이은경 마스터클래스 + AI 첨삭 구독. 임대료 0</p>
       <div class="stats">
-        <span>초기투자 3~5천만</span>
-        <span style="background:#dcfce7">마진 60~70%</span>
-        <span>리스크 저</span>
+        <span>초기투자 3~5천만</span><span>마진 60~70%</span><span>리스크 저</span>
       </div>
     </div>
-
     <div class="model-card">
       <h4>C. 콘텐츠 라이선싱</h4>
-      <p>기존 학원에 커리큘럼 공급 (프랜차이즈 아님, 규제 최소)</p>
+      <p>기존 학원에 커리큘럼 공급 (프랜차이즈 아님)</p>
       <div class="stats">
-        <span>초기투자 2~3천만</span>
-        <span>마진 50~60%</span>
-        <span>리스크 중</span>
+        <span>초기투자 2~3천만</span><span>마진 50~60%</span><span>리스크 중</span>
       </div>
     </div>
-
     <div class="model-card">
       <h4>D. 교사 인증 시스템</h4>
-      <p>평생교육원으로 "생각의숲 인증 코치" 양성 네트워크</p>
+      <p>평생교육원으로 "생각의숲 인증 코치" 양성</p>
       <div class="stats">
-        <span>초기투자 1~2천만</span>
-        <span style="background:#dcfce7">마진 70%+</span>
-        <span>리스크 저</span>
+        <span>초기투자 1~2천만</span><span>마진 70%+</span><span>리스크 저</span>
       </div>
     </div>
-
     <div class="model-card">
       <h4>E. 글쓰기 키트 구독</h4>
-      <p>월 배송 키트 (추천도서 + 워크북 + 온라인 첨삭 1회)</p>
+      <p>월 배송 키트 (추천도서 + 워크북 + 온라인 첨삭)</p>
       <div class="stats">
-        <span>초기투자 5천~1억</span>
-        <span>마진 30~40%</span>
-        <span>리스크 중</span>
+        <span>초기투자 5천~1억</span><span>마진 30~40%</span><span>리스크 중</span>
       </div>
     </div>
-
     <div class="model-card">
       <h4>F. 풀스택 플랫폼</h4>
-      <p>A~E 전부 통합한 궁극 모델 (단계적 확장)</p>
+      <p>오프라인 + 온라인 + 콘텐츠 + 교사양성 통합</p>
       <div class="stats">
-        <span>투자 단계별 분산</span>
-        <span>마진 40~50%</span>
-        <span>리스크 고</span>
+        <span>투자 단계별 분산</span><span>마진 40~50%</span><span>리스크 고</span>
       </div>
     </div>
   </div>
@@ -909,11 +488,11 @@
   <div class="timeline">
     <div class="timeline-item">
       <div class="year">2026년 — 검증</div>
-      <div class="desc">온라인 구독(B) + 교사 인증 1기(D) → 리스크 없이 수요 검증</div>
+      <div class="desc">온라인 구독(B) + 교사 인증 1기(D) → 수요 검증</div>
     </div>
     <div class="timeline-item">
       <div class="year">2027년 — 런칭</div>
-      <div class="desc">직영 1호점(A) 하남미사 + 키트 구독 테스트(E)</div>
+      <div class="desc">직영 1호점 하남미사 + 키트 구독 테스트(E)</div>
     </div>
     <div class="timeline-item">
       <div class="year">2028년 — 확장</div>
@@ -921,59 +500,32 @@
     </div>
     <div class="timeline-item">
       <div class="year">2029~ — 스케일</div>
-      <div class="desc">풀스택 플랫폼(F) 통합, 가맹 연 20~30개 확장</div>
+      <div class="desc">풀스택 플랫폼(F) 통합, 가맹 확장</div>
     </div>
   </div>
 </div>
 
-<!-- 7. 은경님께 -->
-<div class="card" id="message">
-  <h2>은경님께 드리는 핵심 메시지</h2>
-
-  <div class="message-box">
-    <p><strong>헬스장 모델의 핵심 아이디어는 훌륭합니다.</strong><br>
-    회원제, 타임 운영, 성인 확장 — 이 세 가지는 그대로 가져갑니다.</p>
-
-    <p><strong>다만 숫자를 현실에 맞춰야 합니다.</strong><br>
-    &bull; 25명 → 15명 (교육은 헬스장과 다릅니다)<br>
-    &bull; 50% 전환 → 25~35% (업계 벤치마크 기준)<br>
-    &bull; 10만원 → 12만원 (최소 피드백 포함, 프리미엄 이미지 유지)</p>
-
-    <p><strong>정보공개서가 말해주는 팩트:</strong><br>
-    &bull; "남아 미술"이라는 극소 니치도 월 2,767만원을 만듭니다 (자라다)<br>
-    &bull; 저가 대량(책나무)은 본부만 성장하고 가맹점 하한은 월 22만원<br>
-    &bull; 이은경 브랜드 + 글쓰기 전문 = 자라다보다 더 강력한 니치</p>
-
-    <p><strong>그리고 더 큰 그림이 있습니다.</strong><br>
-    "이은경"이라는 자산은 30평 학원 하나에 가두기엔 너무 큽니다.<br>
-    온라인 구독 + 교사 인증 + 커리큘럼 라이선싱까지 합치면,<br>
-    직영점 1개의 <strong>10배 이상 매출</strong>을 만들 수 있습니다.</p>
-
-    <p><strong>제안:</strong> 2026년에 온라인 구독과 교사 인증을 먼저 시작하고,<br>
-    2027년에 직영점을 여는 순서가 리스크도 낮고 검증도 됩니다.</p>
-  </div>
-</div>
-
-<!-- 8. 다음 단계 -->
-<div class="card">
-  <h2>다음 단계 (4월 안에 결정 필요)</h2>
+<!-- 7. 다음 단계 -->
+<div class="card" id="next">
+  <h2>다음 단계</h2>
 
   <ul class="decision-list">
     <li class="urgent">&#x1F534; 대표 구조 + 지분 합의</li>
-    <li class="urgent">&#x1F534; 6가지 모델 중 우선순위 합의 (A+B+D 동시 권장)</li>
-    <li class="important">&#x1F7E0; 기본 가격 결정 (10만 / 12만 / 15만)</li>
-    <li class="important">&#x1F7E0; 슬롯당 인원 결정 (15명 / 18명 / 25명)</li>
+    <li class="urgent">&#x1F534; 오프라인 BM 선택 (은경 BM / 동길 BM / 결합)</li>
+    <li class="important">&#x1F7E0; 가격 구간 확정</li>
+    <li class="important">&#x1F7E0; 슬롯 인원 확정</li>
     <li class="important">&#x1F7E0; 하남 미사 상권 현장 답사</li>
+    <li class="important">&#x1F7E0; 6가지 모델 중 우선순위 합의</li>
   </ul>
 
   <p class="small" style="margin-top: 20px;">
     데이터 출처: 공정위 정보공개서 2024년 원본 — 책나무, 플라톤(한솔), 깊은생각(매쓰버스), 자라다남아미술(자라다교육), ERC영어독서클럽<br>
-    전체 보고서(수익 시뮬레이션 3개 시나리오, 리스크 매트릭스, 3개월 이탈 방지 시스템, 일일 운영 타임테이블 등)는 별도 MD 파일 참조
+    전체 상세 보고서: research/08_사업모델_분석.md 참조
   </p>
 </div>
 
 <p style="text-align: center; color: #aaa; font-size: 12px; margin-top: 24px;">
-  Daniel Flow AI | 생각의숲 사업모델 분석 v2 | 2026-03-27 | 정보공개서 실데이터 반영
+  Daniel Flow | 생각의숲 사업모델 분석 | 2026-03-27
 </p>
 
 </div>
