@@ -369,7 +369,7 @@
 
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbxN3NaaZpCPPZfH7gEJVOGnyzJp9kvH5KtTXBMh86gnp6OCxcFPN8dGaK7THmVQb9vJoQ/exec';
-const SHEET_ORDER = ['로드맵', '할일', '회의록', '아이디어', '조사', '의사결정', '합의사항', '공지사항', '리포트'];
+const SHEET_ORDER = ['공지사항', '로드맵', '할일', '회의록', '아이디어', '조사', '의사결정', '합의사항', '리포트'];
 
 const REPORTS = [
   { title: '전략 보고서 — 프리미엄 교육 시장 함의', desc: '4대 브랜드 분석 기반 입지·타깃·브랜드·경쟁 전략 종합 제언', file: 'strategy-report.html', date: '2026-03-31', category: '시장/경쟁' },
@@ -450,7 +450,7 @@ const PERSON_COLORS = {
 const INLINE_DATA = {}; // API 폴백용 — API가 정상 작동하므로 빈 객체로 유지
 
 let allData = {};
-let currentTab = '로드맵';
+let currentTab = '공지사항';
 let editingRow = null;
 let changeMap = {}; // { 'sheetName-rowIdx': 'new' | 'edited' }
 
@@ -531,9 +531,9 @@ function renderTabs() {
       ${name}<span class="count">${cnt}</span>
       <span class="tab-sub">${config.sub}</span>
     </div>`;
-    if (i === 2) return tab + divider; // 회의록 뒤에 구분선
-    if (name === '공지사항') return tab + divider; // 공지사항 뒤에 구분선 (리포트 분리)
-    if (i < SHEET_ORDER.length - 1 && i > 2 && name !== '리포트' && name !== '공지사항') return tab + arrow; // 브레인스토밍 탭 사이 화살표
+    if (name === '공지사항') return tab + divider; // 공지사항 뒤에 구분선
+    if (i === 3) return tab + divider; // 회의록 뒤에 구분선
+    if (i < SHEET_ORDER.length - 1 && i > 3 && name !== '리포트') return tab + arrow; // 브레인스토밍 탭 사이 화살표
     return tab;
   }).join('');
 }
