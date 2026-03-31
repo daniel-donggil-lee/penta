@@ -74,7 +74,10 @@ async function exportArticle(htmlFile, outputBase) {
   console.log(`\n📝 텍스트 추출 중...`);
   const text = await page.evaluate(() => {
     const t = s => (document.querySelector(s) || {}).innerText?.trim() || '';
-    const all = (s) => Array.from(document.querySelectorAll(s)).map(el => el.innerText.trim()).filter(Boolean);
+    // .section-label은 디자인용 내부 레이블 — 블로그 본문에서 제외
+    const all = (s) => Array.from(document.querySelectorAll(s))
+      .filter(el => !el.classList.contains('section-label'))
+      .map(el => el.innerText.trim()).filter(Boolean);
 
     return {
       title:       t('.hero-title'),
@@ -94,7 +97,7 @@ async function exportArticle(htmlFile, outputBase) {
       s4h2:        t('#s4 h2'),
       s4body:      all('#s4 p').join('\n\n'),
       s5h2:        t('#s5 h2'),
-      s5intro:     t('#s5 > p'),
+      s5intro:     all('#s5 > p').filter(Boolean)[0] || '',
       tips: Array.from(document.querySelectorAll('.tip-list li')).map(li => ({
         num:   (li.querySelector('.tip-num') || {}).innerText?.trim() || '',
         title: (li.querySelector('.tip-content strong') || {}).innerText?.trim() || '',
