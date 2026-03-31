@@ -18,6 +18,7 @@
     --g100: #EBF0E8;
     --cream: #F7F4EE;
     --gold: #B8965A;
+    --gold2: #D4B07A;
     --ink: #1C1C1E;
     --ink2: #4A4A4A;
     --gray: #8A8A8A;
@@ -26,347 +27,173 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: var(--fn);
-    background: #E8E3DB;
-    min-height: 100vh;
-  }
+  body { font-family: var(--fn); background: #E8E3DB; min-height: 100vh; }
 
   /* ── Header ── */
   header {
-    background: var(--g800);
-    padding: 28px 48px 24px;
-    display: flex;
-    align-items: flex-end;
-    gap: 20px;
-    justify-content: space-between;
+    background: var(--g800); padding: 28px 48px 24px;
+    display: flex; align-items: flex-end; justify-content: space-between;
   }
-  .hd-left { display: flex; align-items: flex-end; gap: 20px; }
-  .logo {
-    font-family: var(--fs);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--cream);
-    letter-spacing: -0.3px;
-    line-height: 1;
-  }
-  .logo span {
-    display: block;
-    font-family: var(--fn);
-    font-size: 11px;
-    font-weight: 400;
-    color: var(--g300);
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-  }
+  .logo { font-family: var(--fs); font-size: 22px; font-weight: 600; color: var(--cream); letter-spacing: -0.3px; line-height: 1; }
+  .logo span { display: block; font-family: var(--fn); font-size: 11px; font-weight: 400; color: var(--g300); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 5px; }
   .back-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 7px 16px;
-    background: transparent;
-    border: 1px solid rgba(168,197,176,0.35);
-    border-radius: 4px;
-    color: var(--g300);
-    font-family: var(--fn);
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all 0.18s;
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 16px;
+    background: transparent; border: 1px solid rgba(168,197,176,0.35); border-radius: 4px;
+    color: var(--g300); font-family: var(--fn); font-size: 12px; letter-spacing: 0.5px;
+    cursor: pointer; text-decoration: none; transition: all 0.18s;
   }
   .back-btn:hover { background: rgba(168,197,176,0.1); color: var(--cream); }
 
-  /* ── Filter bar ── */
-  .filter-bar {
+  /* ── 콘텐츠 타입 탭 ── */
+  .type-tabs {
     background: var(--g900);
     padding: 0 48px;
     display: flex;
-    gap: 0;
     border-bottom: 1px solid rgba(168,197,176,0.12);
   }
+  .type-tab {
+    padding: 14px 24px; font-family: var(--fn); font-size: 13px; font-weight: 600;
+    color: var(--g400); letter-spacing: 0.5px; background: none; border: none;
+    border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.18s;
+  }
+  .type-tab:hover { color: var(--cream); }
+  .type-tab.active { color: var(--cream); border-bottom-color: var(--gold); }
+  .type-tab .tcnt {
+    display: inline-block; background: rgba(168,197,176,0.15); color: var(--g300);
+    font-size: 10px; padding: 1px 7px; border-radius: 10px; margin-left: 6px;
+  }
+  .type-tab.active .tcnt { background: rgba(184,150,90,0.2); color: var(--gold); }
+
+  /* ── 테마 필터 바 (카드뉴스 탭에서만 표시) ── */
+  .filter-bar {
+    background: var(--g800); padding: 0 48px;
+    display: flex; border-bottom: 1px solid rgba(168,197,176,0.08);
+    overflow-x: auto;
+  }
   .filter-btn {
-    padding: 13px 20px;
-    font-family: var(--fn);
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--g300);
-    letter-spacing: 0.6px;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.18s;
-    white-space: nowrap;
+    padding: 10px 16px; font-family: var(--fn); font-size: 11px; font-weight: 500;
+    color: var(--g300); letter-spacing: 0.6px; background: none; border: none;
+    border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.18s; white-space: nowrap;
   }
   .filter-btn:hover { color: var(--cream); }
-  .filter-btn.active { color: var(--cream); border-bottom-color: var(--gold); }
-  .filter-count {
-    display: inline-block;
-    background: rgba(168,197,176,0.15);
-    color: var(--g300);
-    font-size: 10px;
-    padding: 1px 6px;
-    border-radius: 10px;
-    margin-left: 5px;
-  }
-  .filter-btn.active .filter-count { background: rgba(184,150,90,0.2); color: var(--gold); }
+  .filter-btn.active { color: var(--cream); border-bottom-color: rgba(184,150,90,0.6); }
+  .filter-count { display: inline-block; background: rgba(168,197,176,0.12); color: var(--g400); font-size: 10px; padding: 1px 5px; border-radius: 8px; margin-left: 4px; }
+  .filter-btn.active .filter-count { color: var(--gold2); }
 
   /* ── Main ── */
-  main {
-    padding: 48px 48px 80px;
-    max-width: 1320px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--g500);
-    margin-bottom: 24px;
-  }
-
-  /* ── Card grid ── */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 28px;
-  }
-
-  .card-item {
-    background: var(--cream);
-    border-radius: 4px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(15,35,24,0.08);
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-  }
-  .card-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 28px rgba(15,35,24,0.14);
-  }
-
-  /* 미리보기 영역: iframe 축소 */
-  .preview-wrap {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    background: var(--g800);
-  }
-  .preview-wrap iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 540px;
-    height: 540px;
-    border: none;
-    transform-origin: top left;
-    transform: scale(0.407);
-    pointer-events: none;
-  }
-  .preview-overlay {
-    position: absolute;
-    inset: 0;
-    background: transparent;
-    z-index: 10;
-  }
-  .preview-badge {
-    position: absolute;
-    top: 12px; right: 12px;
-    background: rgba(15,35,24,0.72);
-    backdrop-filter: blur(4px);
-    color: var(--g300);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    padding: 4px 10px;
-    border-radius: 2px;
-    z-index: 11;
-  }
-
-  /* 카드 정보 */
-  .card-info {
-    padding: 20px 22px 22px;
-  }
-  .card-theme {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--g500);
-    background: var(--g100);
-    padding: 3px 9px;
-    border-radius: 2px;
-    margin-bottom: 10px;
-  }
-  .card-title {
-    font-family: var(--fs);
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--g900);
-    line-height: 1.45;
-    margin-bottom: 8px;
-    letter-spacing: -0.2px;
-  }
-  .card-desc {
-    font-size: 12px;
-    color: var(--ink2);
-    line-height: 1.7;
-    margin-bottom: 16px;
-  }
-  .card-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 14px;
-    border-top: 1px solid #E8E4DC;
-  }
-  .card-date {
-    font-size: 11px;
-    color: var(--gray);
-  }
-  .card-actions {
-    display: flex;
-    gap: 8px;
-  }
-  .btn-view {
-    padding: 6px 14px;
-    background: var(--g800);
-    color: var(--cream);
-    border: none;
-    font-family: var(--fn);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    border-radius: 2px;
-    text-decoration: none;
-    transition: background 0.15s;
-  }
-  .btn-view:hover { background: var(--g700); }
-  .btn-png {
-    padding: 6px 14px;
-    background: transparent;
-    color: var(--g500);
-    border: 1px solid var(--g300);
-    font-family: var(--fn);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.15s;
-  }
-  .btn-png:hover { background: var(--g100); color: var(--g800); border-color: var(--g500); }
-
-  /* 빈 상태 */
-  .empty-state {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 80px 20px;
-    color: var(--gray);
-  }
-  .empty-state .empty-icon { font-size: 36px; margin-bottom: 14px; opacity: 0.4; }
-  .empty-state p { font-size: 14px; }
+  main { padding: 40px 48px 80px; max-width: 1320px; margin: 0 auto; }
 
   /* ── 통계 바 ── */
   .stats-bar {
-    display: flex;
-    gap: 32px;
-    margin-bottom: 36px;
-    padding: 20px 28px;
-    background: var(--cream);
-    border-radius: 4px;
-    border-left: 3px solid var(--g500);
+    display: flex; gap: 32px; margin-bottom: 36px; padding: 18px 28px;
+    background: var(--cream); border-radius: 4px; border-left: 3px solid var(--g500);
   }
   .stat { text-align: center; }
-  .stat-n {
-    font-family: var(--fs);
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--g800);
-    line-height: 1;
-    margin-bottom: 4px;
+  .stat-n { font-family: var(--fs); font-size: 26px; font-weight: 600; color: var(--g800); line-height: 1; margin-bottom: 4px; }
+  .stat-l { font-size: 11px; color: var(--gray); letter-spacing: 0.5px; }
+  .stat-divider { width: 1px; background: #D8D4CC; align-self: stretch; }
+
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--g500); margin-bottom: 20px; }
+
+  /* ── 카드뉴스 그리드 ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+  .card-item {
+    background: var(--cream); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(15,35,24,0.08); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
   }
-  .stat-l {
-    font-size: 11px;
-    color: var(--gray);
-    letter-spacing: 0.5px;
+  .card-item:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(15,35,24,0.14); }
+  .preview-wrap { position: relative; width: 100%; height: 200px; overflow: hidden; background: var(--g800); }
+  .preview-wrap iframe { position: absolute; top: 0; left: 0; width: 540px; height: 540px; border: none; transform-origin: top left; transform: scale(0.37); pointer-events: none; }
+  .preview-overlay { position: absolute; inset: 0; background: transparent; z-index: 10; }
+  .preview-badge { position: absolute; top: 10px; right: 10px; background: rgba(15,35,24,0.72); backdrop-filter: blur(4px); color: var(--g300); font-size: 10px; font-weight: 600; letter-spacing: 0.8px; padding: 3px 9px; border-radius: 2px; z-index: 11; }
+  .card-info { padding: 18px 20px 20px; }
+  .card-theme { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--g500); background: var(--g100); padding: 3px 8px; border-radius: 2px; margin-bottom: 8px; }
+  .card-title { font-family: var(--fs); font-size: 15px; font-weight: 600; color: var(--g900); line-height: 1.45; margin-bottom: 6px; }
+  .card-desc { font-size: 12px; color: var(--ink2); line-height: 1.7; margin-bottom: 14px; }
+  .card-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #E8E4DC; }
+  .card-date { font-size: 11px; color: var(--gray); }
+  .btn-view { padding: 5px 12px; background: var(--g800); color: var(--cream); border: none; font-family: var(--fn); font-size: 11px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; border-radius: 2px; text-decoration: none; transition: background 0.15s; }
+  .btn-view:hover { background: var(--g700); }
+
+  /* ── 웹 아티클 리스트 ── */
+  .article-list { display: flex; flex-direction: column; gap: 20px; }
+  .article-item {
+    background: var(--cream); border-radius: 4px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(15,35,24,0.07); display: flex;
+    transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
   }
-  .stat-divider {
-    width: 1px;
-    background: #D8D4CC;
-    align-self: stretch;
+  .article-item:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(15,35,24,0.12); }
+  .article-thumb {
+    width: 220px; min-width: 220px; height: 140px;
+    object-fit: cover; object-position: center;
   }
+  .article-body-wrap { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+  .article-theme { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--g500); background: var(--g100); padding: 3px 8px; border-radius: 2px; margin-bottom: 8px; }
+  .article-title { font-family: var(--fs); font-size: 18px; font-weight: 600; color: var(--g900); line-height: 1.4; margin-bottom: 6px; letter-spacing: -0.2px; }
+  .article-desc { font-size: 13px; color: var(--ink2); line-height: 1.65; flex: 1; }
+  .article-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; margin-top: 14px; border-top: 1px solid #E8E4DC; }
+  .article-source { font-size: 11px; color: var(--gray); }
+  .article-actions { display: flex; gap: 8px; }
+  .btn-article { padding: 6px 14px; background: var(--g800); color: var(--cream); border: none; font-family: var(--fn); font-size: 11px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; border-radius: 2px; text-decoration: none; transition: background 0.15s; }
+  .btn-article:hover { background: var(--g700); }
+  .btn-naver { padding: 6px 14px; background: transparent; color: var(--g500); border: 1px solid var(--g300); font-family: var(--fn); font-size: 11px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; border-radius: 2px; transition: all 0.15s; text-decoration: none; }
+  .btn-naver:hover { background: var(--g100); color: var(--g800); border-color: var(--g500); }
+
+  /* 빈 상태 */
+  .empty-state { text-align: center; padding: 80px 20px; color: var(--gray); }
+  .empty-state .empty-icon { font-size: 36px; margin-bottom: 14px; opacity: 0.4; }
+  .empty-state p { font-size: 14px; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="hd-left">
-    <div class="logo">
-      <span>생각의숲</span>
-      마케팅 콘텐츠
-    </div>
-  </div>
+  <div class="logo"><span>생각의숲</span>마케팅 콘텐츠</div>
   <a href="index.html" class="back-btn">← 사업 보드로</a>
 </header>
 
-<div class="filter-bar" id="filterBar">
-  <button class="filter-btn active" data-theme="전체" onclick="filterCards('전체')">
-    전체 <span class="filter-count" id="cnt-전체">0</span>
+<!-- 콘텐츠 타입 탭 -->
+<div class="type-tabs">
+  <button class="type-tab active" id="tab-cardnews" onclick="switchType('cardnews')">
+    카드뉴스 <span class="tcnt" id="cnt-cardnews">0</span>
   </button>
-  <button class="filter-btn" data-theme="뇌과학/인지" onclick="filterCards('뇌과학/인지')">
-    뇌과학/인지 <span class="filter-count" id="cnt-뇌과학/인지">0</span>
-  </button>
-  <button class="filter-btn" data-theme="문해력위기" onclick="filterCards('문해력위기')">
-    문해력위기 <span class="filter-count" id="cnt-문해력위기">0</span>
-  </button>
-  <button class="filter-btn" data-theme="입시변화" onclick="filterCards('입시변화')">
-    입시변화 <span class="filter-count" id="cnt-입시변화">0</span>
-  </button>
-  <button class="filter-btn" data-theme="글쓰기효과" onclick="filterCards('글쓰기효과')">
-    글쓰기효과 <span class="filter-count" id="cnt-글쓰기효과">0</span>
-  </button>
-  <button class="filter-btn" data-theme="AI교육" onclick="filterCards('AI교육')">
-    AI교육 <span class="filter-count" id="cnt-AI교육">0</span>
-  </button>
-  <button class="filter-btn" data-theme="독서효과" onclick="filterCards('독서효과')">
-    독서효과 <span class="filter-count" id="cnt-독서효과">0</span>
+  <button class="type-tab" id="tab-article" onclick="switchType('article')">
+    웹 아티클 <span class="tcnt" id="cnt-article">0</span>
   </button>
 </div>
 
-<main>
+<!-- 테마 필터 (카드뉴스 탭) -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-theme="전체" onclick="filterCards('전체')">전체 <span class="filter-count" id="fcnt-전체">0</span></button>
+  <button class="filter-btn" data-theme="뇌과학/인지" onclick="filterCards('뇌과학/인지')">뇌과학/인지 <span class="filter-count" id="fcnt-뇌과학/인지">0</span></button>
+  <button class="filter-btn" data-theme="문해력위기" onclick="filterCards('문해력위기')">문해력위기 <span class="filter-count" id="fcnt-문해력위기">0</span></button>
+  <button class="filter-btn" data-theme="입시변화" onclick="filterCards('입시변화')">입시변화 <span class="filter-count" id="fcnt-입시변화">0</span></button>
+  <button class="filter-btn" data-theme="글쓰기효과" onclick="filterCards('글쓰기효과')">글쓰기효과 <span class="filter-count" id="fcnt-글쓰기효과">0</span></button>
+  <button class="filter-btn" data-theme="AI교육" onclick="filterCards('AI교육')">AI교육 <span class="filter-count" id="fcnt-AI교육">0</span></button>
+  <button class="filter-btn" data-theme="독서효과" onclick="filterCards('독서효과')">독서효과 <span class="filter-count" id="fcnt-독서효과">0</span></button>
+</div>
 
-  <div class="stats-bar" id="statsBar">
-    <div class="stat">
-      <div class="stat-n" id="totalCards">0</div>
-      <div class="stat-l">카드뉴스 시리즈</div>
-    </div>
+<main>
+  <!-- 통계 바 -->
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-n" id="stat-cardnews">0</div><div class="stat-l">카드뉴스</div></div>
     <div class="stat-divider"></div>
-    <div class="stat">
-      <div class="stat-n" id="totalSlides">0</div>
-      <div class="stat-l">제작 슬라이드</div>
-    </div>
+    <div class="stat"><div class="stat-n" id="stat-slides">0</div><div class="stat-l">슬라이드</div></div>
     <div class="stat-divider"></div>
-    <div class="stat">
-      <div class="stat-n" id="totalThemes">0</div>
-      <div class="stat-l">커버 테마</div>
-    </div>
+    <div class="stat"><div class="stat-n" id="stat-articles">0</div><div class="stat-l">웹 아티클</div></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><div class="stat-n" id="stat-themes">0</div><div class="stat-l">커버 테마</div></div>
   </div>
 
   <div class="section-label" id="sectionLabel">카드뉴스 시리즈</div>
-
-  <div class="card-grid" id="cardGrid">
-  </div>
-
+  <div id="contentArea"></div>
 </main>
 
 <script>
-const CONTENT = [
+/* ══════════════════════════════════════════════
+   데이터
+══════════════════════════════════════════════ */
+const CARDNEWS = [
   {
     title: 'Z세대 뇌과학',
     theme: '뇌과학/인지',
@@ -374,7 +201,7 @@ const CONTENT = [
     file: 'cardnews-genz-brain.html',
     date: '2026-03-31',
     cards: 10,
-    hook: 'photo-1503676260728-1c00da094a0b',   // Unsplash ID (훅카드 배경)
+    hook: 'photo-1503676260728-1c00da094a0b',
     source: 'YTN · 재러드 쿠니 호바스 박사',
   },
   {
@@ -389,55 +216,90 @@ const CONTENT = [
   },
 ];
 
+const ARTICLES = [
+  {
+    title: '손글씨가 아이의 뇌를 바꾼다',
+    theme: '뇌과학/인지',
+    desc: '타이핑보다 손글씨 쓸 때 뇌 연결성이 3배 이상 활성화됩니다. NTNU 신경과학 연구가 밝힌 쓰기 교육의 과학적 근거와 초등 시기의 결정적 중요성.',
+    file: 'article-handwriting-brain.html',
+    date: '2026-03-31',
+    thumb: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=440&auto=format&fit=crop&q=80',
+    source: 'NTNU · 농민신문 2024',
+    naverKit: true,
+  },
+];
+
+/* ══════════════════════════════════════════════
+   상태
+══════════════════════════════════════════════ */
+let currentType  = 'cardnews';
 let currentTheme = '전체';
 
-function initCounts() {
+/* ══════════════════════════════════════════════
+   초기화
+══════════════════════════════════════════════ */
+function init() {
+  // 통계
+  document.getElementById('stat-cardnews').textContent = CARDNEWS.length;
+  document.getElementById('stat-slides').textContent   = CARDNEWS.reduce((s, c) => s + c.cards, 0);
+  document.getElementById('stat-articles').textContent = ARTICLES.length;
+  const allThemes = new Set([...CARDNEWS.map(c => c.theme), ...ARTICLES.map(a => a.theme)]);
+  document.getElementById('stat-themes').textContent   = allThemes.size;
+
+  // 타입 탭 카운트
+  document.getElementById('cnt-cardnews').textContent = CARDNEWS.length;
+  document.getElementById('cnt-article').textContent  = ARTICLES.length;
+
+  // 테마 필터 카운트
+  document.getElementById('fcnt-전체').textContent = CARDNEWS.length;
   const themes = {};
-  CONTENT.forEach(c => {
-    themes[c.theme] = (themes[c.theme] || 0) + 1;
-  });
-  document.getElementById('cnt-전체').textContent = CONTENT.length;
+  CARDNEWS.forEach(c => { themes[c.theme] = (themes[c.theme] || 0) + 1; });
   Object.entries(themes).forEach(([t, n]) => {
-    const el = document.getElementById('cnt-' + t);
+    const el = document.getElementById('fcnt-' + t);
     if (el) el.textContent = n;
   });
 
-  // stats
-  document.getElementById('totalCards').textContent = CONTENT.length;
-  document.getElementById('totalSlides').textContent = CONTENT.reduce((s, c) => s + c.cards, 0);
-  document.getElementById('totalThemes').textContent = new Set(CONTENT.map(c => c.theme)).size;
+  render();
+}
+
+/* ══════════════════════════════════════════════
+   탭 전환
+══════════════════════════════════════════════ */
+function switchType(type) {
+  currentType = type;
+  document.querySelectorAll('.type-tab').forEach(b => b.classList.toggle('active', b.id === 'tab-' + type));
+  document.getElementById('filterBar').style.display = type === 'cardnews' ? 'flex' : 'none';
+  document.getElementById('sectionLabel').textContent = type === 'cardnews' ? '카드뉴스 시리즈' : '웹 아티클';
+  render();
 }
 
 function filterCards(theme) {
   currentTheme = theme;
-  document.querySelectorAll('.filter-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.theme === theme);
-  });
-  renderCards();
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+  render();
 }
 
-function renderCards() {
-  const filtered = currentTheme === '전체'
-    ? CONTENT
-    : CONTENT.filter(c => c.theme === currentTheme);
+/* ══════════════════════════════════════════════
+   렌더링
+══════════════════════════════════════════════ */
+function render() {
+  if (currentType === 'cardnews') renderCardnews();
+  else renderArticles();
+}
 
-  const grid = document.getElementById('cardGrid');
+function renderCardnews() {
+  const filtered = currentTheme === '전체' ? CARDNEWS : CARDNEWS.filter(c => c.theme === currentTheme);
+  const area = document.getElementById('contentArea');
 
-  if (filtered.length === 0) {
-    grid.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">📭</div>
-        <p>아직 이 테마의 카드뉴스가 없습니다</p>
-      </div>`;
+  if (!filtered.length) {
+    area.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><p>아직 이 테마의 카드뉴스가 없습니다</p></div>`;
     return;
   }
 
-  grid.innerHTML = filtered.map((c, i) => {
-    const globalIdx = CONTENT.indexOf(c);
-    return `
-    <div class="card-item" onclick="openCard(${globalIdx})">
+  area.innerHTML = `<div class="card-grid">${filtered.map(c => `
+    <div class="card-item" onclick="window.open('${c.file}','_blank')">
       <div class="preview-wrap">
-        <iframe src="${c.file}" scrolling="no" loading="lazy" title="${c.title} 미리보기"></iframe>
+        <iframe src="${c.file}" scrolling="no" loading="lazy"></iframe>
         <div class="preview-overlay"></div>
         <div class="preview-badge">${c.cards}장</div>
       </div>
@@ -447,21 +309,40 @@ function renderCards() {
         <div class="card-desc">${c.desc}<br><span style="color:var(--gray);font-size:11px;margin-top:4px;display:block;">출처: ${c.source}</span></div>
         <div class="card-meta">
           <span class="card-date">${c.date}</span>
-          <div class="card-actions">
-            <a href="${c.file}" target="_blank" class="btn-view" onclick="event.stopPropagation()">전체 보기</a>
+          <a href="${c.file}" target="_blank" class="btn-view" onclick="event.stopPropagation()">전체 보기</a>
+        </div>
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+function renderArticles() {
+  const area = document.getElementById('contentArea');
+
+  if (!ARTICLES.length) {
+    area.innerHTML = `<div class="empty-state"><div class="empty-icon">📝</div><p>아직 작성된 웹 아티클이 없습니다</p></div>`;
+    return;
+  }
+
+  area.innerHTML = `<div class="article-list">${ARTICLES.map(a => `
+    <div class="article-item" onclick="window.open('${a.file}','_blank')">
+      <img class="article-thumb" src="${a.thumb}" alt="${a.title}">
+      <div class="article-body-wrap">
+        <div>
+          <div class="article-theme">${a.theme}</div>
+          <div class="article-title">${a.title}</div>
+          <div class="article-desc">${a.desc}</div>
+        </div>
+        <div class="article-meta">
+          <span class="article-source">${a.date} · ${a.source}${a.naverKit ? ' · 네이버 키트 포함' : ''}</span>
+          <div class="article-actions">
+            <a href="${a.file}" target="_blank" class="btn-article" onclick="event.stopPropagation()">아티클 보기</a>
           </div>
         </div>
       </div>
-    </div>`;
-  }).join('');
+    </div>`).join('')}</div>`;
 }
 
-function openCard(idx) {
-  window.open(CONTENT[idx].file, '_blank');
-}
-
-initCounts();
-renderCards();
+init();
 </script>
 
 </body>

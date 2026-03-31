@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>손글씨가 아이의 뇌를 바꾼다 — 생각의숲</title>
+<meta name="description" content="타이핑보다 손글씨 쓸 때 뇌 연결성이 3배 이상 활성화됩니다. 노르웨이 신경과학 연구가 밝힌 쓰기 교육의 과학적 근거.">
+<meta property="og:title" content="손글씨가 아이의 뇌를 바꾼다">
+<meta property="og:description" content="NTNU 연구 — 손글씨 vs 타이핑, 뇌에서 무슨 일이 일어나는가">
+<meta property="og:image" content="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --g900: #0F2318;
+    --g800: #1E3D2F;
+    --g700: #2D5A40;
+    --g500: #4A7C59;
+    --g400: #6B9E7A;
+    --g300: #A8C5B0;
+    --g100: #EBF0E8;
+    --cream: #F7F4EE;
+    --cream2: #FEFCF8;
+    --gold: #B8965A;
+    --gold2: #D4B07A;
+    --ink: #1C1C1E;
+    --ink2: #3A3A3C;
+    --ink3: #5A5A5C;
+    --gray: #8A8A8A;
+    --fn: 'Pretendard', -apple-system, sans-serif;
+    --fs: 'Noto Serif KR', Georgia, serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--fn);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.8;
+  }
+
+  /* ── 상단 내비 ── */
+  .site-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(247,244,238,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(30,61,47,0.08);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--fs);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--g800);
+    text-decoration: none;
+    letter-spacing: -0.2px;
+  }
+  .nav-back {
+    font-size: 12px;
+    color: var(--g500);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.15s;
+  }
+  .nav-back:hover { color: var(--g800); }
+
+  /* ── 히어로 ── */
+  #s0 {
+    position: relative;
+    width: 100%;
+    height: 540px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+  .hero-ov {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(15,35,24,0.15) 0%,
+      rgba(15,35,24,0.55) 60%,
+      rgba(15,35,24,0.88) 100%
+    );
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px 56px;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold2);
+    background: rgba(184,150,90,0.18);
+    border: 1px solid rgba(184,150,90,0.35);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-family: var(--fs);
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.35;
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.72);
+    letter-spacing: 0.2px;
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-date {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
+  }
+  .hero-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--g300);
+    background: rgba(168,197,176,0.15);
+    padding: 3px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── 본문 래퍼 ── */
+  .article-body {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 40px 100px;
+  }
+
+  /* ── 섹션 공통 ── */
+  .section {
+    padding: 56px 0 0;
+  }
+  .section + .section {
+    border-top: 1px solid rgba(30,61,47,0.08);
+    margin-top: 56px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--g400);
+    margin-bottom: 18px;
+  }
+
+  h2 {
+    font-family: var(--fs);
+    font-size: clamp(20px, 2.8vw, 26px);
+    font-weight: 600;
+    color: var(--g900);
+    line-height: 1.45;
+    letter-spacing: -0.3px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--ink2);
+    line-height: 1.9;
+    margin-bottom: 18px;
+  }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── 리드 요약 박스 (#s1) ── */
+  #s1 {
+    background: var(--g800);
+    padding: 48px 40px;
+    margin: 0 -40px;
+  }
+  .summary-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--g300);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .summary-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .summary-list li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+  .summary-list li::before {
+    content: '';
+    display: block;
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    background: var(--g500);
+    border-radius: 50%;
+    margin-top: 2px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='white' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* ── 섹션 이미지 ── */
+  .section-img {
+    width: calc(100% + 80px);
+    margin: 28px -40px;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── 데이터 하이라이트 박스 ── */
+  .data-box {
+    background: var(--g100);
+    border-left: 3px solid var(--g500);
+    padding: 24px 28px;
+    margin: 28px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .data-box .data-num {
+    font-family: var(--fs);
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--g700);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .data-box .data-label {
+    font-size: 14px;
+    color: var(--ink3);
+    line-height: 1.6;
+  }
+  .data-box .data-source {
+    font-size: 11px;
+    color: var(--gray);
+    margin-top: 10px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ── 인용구 ── */
+  blockquote {
+    border-left: 2px solid var(--gold);
+    padding: 6px 24px;
+    margin: 28px 0;
+  }
+  blockquote p {
+    font-family: var(--fs);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--g800);
+    font-style: italic;
+    line-height: 1.7;
+  }
+  blockquote cite {
+    display: block;
+    font-size: 12px;
+    color: var(--gray);
+    font-style: normal;
+    margin-top: 8px;
+  }
+
+  /* ── 팁 리스트 ── */
+  .tip-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .tip-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .tip-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    background: var(--g800);
+    color: var(--gold2);
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-top: 2px;
+  }
+  .tip-content {
+    flex: 1;
+  }
+  .tip-content strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--g900);
+    margin-bottom: 4px;
+  }
+  .tip-content span {
+    font-size: 14px;
+    color: var(--ink3);
+    line-height: 1.65;
+  }
+
+  /* ── CTA 섹션 (#s6) ── */
+  #s6 {
+    background: var(--g900);
+    padding: 64px 40px;
+    margin: 56px -40px 0;
+    text-align: center;
+  }
+  .cta-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--g300);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .cta-brand {
+    font-family: var(--fs);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .cta-sub {
+    font-size: 15px;
+    color: var(--g300);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 14px 40px;
+    background: var(--gold);
+    color: var(--g900);
+    font-family: var(--fn);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.18s;
+  }
+  .cta-btn:hover { background: var(--gold2); }
+  .cta-tags {
+    margin-top: 28px;
+    font-size: 12px;
+    color: var(--g400);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── 푸터 ── */
+  .article-footer {
+    background: var(--g900);
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-brand {
+    font-family: var(--fs);
+    font-size: 14px;
+    color: var(--g300);
+  }
+  .footer-copy {
+    font-size: 11px;
+    color: var(--g500);
+  }
+
+  /* ── 반응형 ── */
+  @media (max-width: 600px) {
+    .site-nav { padding: 0 20px; }
+    .hero-inner { padding: 0 20px 48px; }
+    .article-body { padding: 0 20px 80px; }
+    #s1 { margin: 0 -20px; padding: 36px 20px; }
+    .section-img { width: calc(100% + 40px); margin: 24px -20px; }
+    #s6 { margin: 56px -20px 0; padding: 48px 20px; }
+    .article-footer { padding: 20px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 내비 -->
+<nav class="site-nav">
+  <a href="marketing.html" class="nav-logo">생각의숲</a>
+  <a href="marketing.html" class="nav-back">← 마케팅 콘텐츠</a>
+</nav>
+
+<!-- 히어로 -->
+<section id="s0" style="margin-top:56px;">
+  <img class="hero-img"
+    src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1400&auto=format&fit=crop&q=80"
+    alt="손글씨 쓰는 아이">
+  <div class="hero-ov"></div>
+  <div class="hero-inner">
+    <span class="hero-label">뇌과학 / 인지 발달</span>
+    <h1 class="hero-title">손글씨가<br>아이의 뇌를 바꾼다</h1>
+    <p class="hero-sub">신경과학이 말하는 쓰기 교육의 힘 — NTNU 연구</p>
+    <div class="hero-meta">
+      <span class="hero-date">2026.03.31</span>
+      <span class="hero-tag">뇌과학/인지</span>
+      <span class="hero-tag">출처: NTNU · 농민신문</span>
+    </div>
+  </div>
+</section>
+
+<!-- 본문 -->
+<div class="article-body">
+
+  <!-- 리드 요약 -->
+  <div id="s1">
+    <span class="summary-label">이 글의 핵심 3가지</span>
+    <ul class="summary-list">
+      <li>손글씨 쓸 때 뇌의 시각·운동·인지 영역이 동시에 활성화 — 타이핑 대비 연결성이 현저히 높음</li>
+      <li>이 활성화 패턴은 정보를 장기 기억으로 전환하는 '기억 공고화'와 직결됨</li>
+      <li>초등 시기는 이 뇌 회로가 형성되는 결정적 시간 — 스크린으로 대체할 수 없음</li>
+    </ul>
+  </div>
+
+  <!-- S2: 공감 훅 -->
+  <div id="s2" class="section">
+    <p class="section-label">공감 포인트</p>
+    <h2>요즘 아이 손글씨, 보신 적 있으신가요?</h2>
+    <p>받아쓰기 공책을 꺼내보면 글씨가 줄 밖으로 흘러내리고, 받침이 빠지거나 글자 크기가 들쑥날쑥한 경우가 많습니다. "글씨 연습 좀 시켜야 하나"라는 생각이 드시죠. 그런데 최근 연구들은 이 질문을 전혀 다른 방향으로 바꾸고 있습니다.</p>
+    <p>글씨가 예쁜지 여부가 아니라 — 손으로 직접 쓰고 있느냐, 아니냐가 핵심입니다. 태블릿으로 검색하고, AI로 숙제하고, 키보드로 발표 자료를 만드는 지금의 교실에서, '손으로 쓰는 시간'은 조용히 사라지고 있습니다.</p>
+    <img class="section-img"
+      src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=900&auto=format&fit=crop&q=80"
+      alt="교실에서 공부하는 아이들">
+  </div>
+
+  <!-- S3: 연구/데이터 -->
+  <div id="s3" class="section">
+    <p class="section-label">연구 데이터</p>
+    <h2>손글씨 쓸 때, 뇌에서는 무슨 일이 일어나는가</h2>
+    <p>2024년 노르웨이 과학기술대학교(NTNU) 연구팀은 대학생들에게 손글씨와 타이핑을 번갈아 시키면서 고해상도 뇌파(EEG)로 뇌 활동 패턴을 측정했습니다. 결론은 명확했습니다.</p>
+
+    <div class="data-box">
+      <div class="data-num">3배+</div>
+      <div class="data-label">손글씨 쓸 때 뇌 연결성 활성화 수준<br>타이핑과 비교했을 때의 차이 (뇌파 연결성 측정)</div>
+      <div class="data-source">출처: NTNU (Norwegian University of Science and Technology), 2024 / 농민신문 2024.01.27 보도</div>
+    </div>
+
+    <p>손으로 글자를 쓸 때 뇌의 <strong>시각 영역, 운동 영역, 인지 처리 영역</strong>이 동시에 활성화됐습니다. 글자의 모양을 눈으로 확인하고(시각), 펜을 움직이며 형태를 만들고(운동), 동시에 내용을 생각하는(인지) 세 가지가 한꺼번에 일어납니다.</p>
+
+    <blockquote>
+      <p>"손글씨 쓰기는 뇌가 정보를 더 깊이 처리하도록 강제하는 과정입니다. 타이핑은 이 과정을 건너뜁니다."</p>
+      <cite>— NTNU 연구팀 (2024)</cite>
+    </blockquote>
+
+    <p>특히 이 연결 패턴은 <strong>기억 공고화(memory consolidation)</strong> — 단기 기억을 장기 기억으로 전환하는 과정 — 과 깊이 연관돼 있습니다. 타이핑으로 필기한 내용은 더 빠르게 망각되는 경향이 있습니다.</p>
+
+    <img class="section-img"
+      src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?w=900&auto=format&fit=crop&q=80"
+      alt="뇌 연구 이미지">
+  </div>
+
+  <!-- S4: 우리 아이에게 -->
+  <div id="s4" class="section">
+    <p class="section-label">우리 아이에게 의미하는 것</p>
+    <h2>초등 시기가 결정적인 이유</h2>
+    <p>뇌 과학자들은 초등 1~4학년을 '뇌 회로 형성의 결정적 시기'로 봅니다. 이 시기에 어떤 방식으로 학습하느냐에 따라 이후 인지 처리 방식의 기본 패턴이 결정됩니다.</p>
+    <p>손글씨를 통해 형성된 시각-운동-인지 연결 회로는 단순히 '필기 능력'이 아닙니다. 이 회로는 이후 독해력, 작문력, 비판적 사고력과 연결됩니다. 읽은 내용을 구조화하고, 자신의 언어로 표현하는 능력 — 모두 이 회로 위에서 작동합니다.</p>
+
+    <div class="data-box">
+      <div class="data-num">초등 1~4학년</div>
+      <div class="data-label">손글씨 뇌 회로가 형성되는 결정적 시기<br>이 시기 이후에는 회로 형성 효율이 점차 낮아짐</div>
+      <div class="data-source">출처: 발달신경과학 연구 종합 (2023)</div>
+    </div>
+
+    <p>반대로, 이 시기에 손으로 쓰는 경험이 부족하면? 회로 자체가 약하게 형성됩니다. 이후 중학교에서 서술형 답안을 써야 할 때, 논술 시험장에 앉아야 할 때 — 그 차이는 글씨 실력이 아니라 사고를 문장으로 연결하는 힘에서 드러납니다.</p>
+  </div>
+
+  <!-- S5: 팁 -->
+  <div id="s5" class="section">
+    <p class="section-label">오늘부터 할 수 있는 것</p>
+    <h2>집에서 실천하는 손글씨 습관 3가지</h2>
+    <p>거창한 계획보다 매일 반복할 수 있는 작은 습관이 중요합니다. 아이의 뇌 회로는 꾸준한 자극으로 만들어집니다.</p>
+
+    <ul class="tip-list">
+      <li>
+        <span class="tip-num">1</span>
+        <div class="tip-content">
+          <strong>하루 10분, 오늘 있었던 일 한 단락 쓰기</strong>
+          <span>일기 형식이 아니어도 됩니다. "오늘 점심에 뭘 먹었는지, 어떤 생각이 들었는지" — 손으로 쓰는 것 자체가 목적입니다. 내용보다 습관이 먼저입니다.</span>
+        </div>
+      </li>
+      <li>
+        <span class="tip-num">2</span>
+        <div class="tip-content">
+          <strong>독서 후 기억에 남는 문장 1개 옮겨 적기</strong>
+          <span>책에서 마음에 든 문장을 손으로 따라 쓰는 것은 손글씨 훈련이면서 동시에 문해력 훈련입니다. 타이핑이 아닌 손글씨로 해야 뇌 활성화 효과가 있습니다.</span>
+        </div>
+      </li>
+      <li>
+        <span class="tip-num">3</span>
+        <div class="tip-content">
+          <strong>숙제 초안은 연필로 먼저</strong>
+          <span>발표 자료든 독후감이든, 키보드 전에 연필로 먼저 생각을 써보게 하세요. 초안을 손으로 쓰는 습관은 사고의 정리력을 크게 높입니다.</span>
+        </div>
+      </li>
+    </ul>
+
+    <img class="section-img"
+      src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=900&auto=format&fit=crop&q=80"
+      alt="책과 노트">
+  </div>
+
+  <!-- S6: CTA -->
+  <div id="s6">
+    <span class="cta-label">생각의숲</span>
+    <div class="cta-brand">생각의숲</div>
+    <p class="cta-sub">읽고, 쓰고, 생각하는 문해력 전문 교육센터<br>스크린 없이, 손으로 쓰는 공간을 준비하고 있습니다</p>
+    <a href="#" class="cta-btn">오픈 소식 받기 →</a>
+    <p class="cta-tags">#생각의숲 &nbsp;#초등글쓰기 &nbsp;#문해력 &nbsp;#손글씨 &nbsp;#뇌과학</p>
+  </div>
+
+</div>
+
+<!-- 푸터 -->
+<footer class="article-footer">
+  <span class="footer-brand">생각의숲 — 읽고, 쓰고, 생각하는 힘</span>
+  <span class="footer-copy">© 2026 생각의숲</span>
+</footer>
+
+</body>
+</html>
