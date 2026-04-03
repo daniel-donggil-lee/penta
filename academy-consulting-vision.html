@@ -48,6 +48,27 @@
   .section-title { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
   .section-desc { font-size: 14px; color: #666; margin-bottom: 24px; }
 
+  /* ── Lines Grid ── */
+  .lines-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 700px) { .lines-grid { grid-template-columns: 1fr; } }
+  .line-card {
+    border: 1px solid rgba(17,17,17,0.09); border-radius: 16px;
+    padding: 24px 22px; background: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .line-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .line-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 999px;
+    font-size: 14px; font-weight: 700; margin-bottom: 12px;
+  }
+  .line-num.l1 { background: #E8F5E9; color: #2E7D32; }
+  .line-num.l2 { background: #FFF3E0; color: #E65100; }
+  .line-num.l3 { background: #E3F2FD; color: #1565C0; }
+  .line-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .line-card .sub { font-size: 13px; color: #888; margin-bottom: 10px; }
+  .line-card p { font-size: 13px; color: #555; line-height: 1.6; }
+
   /* ── Dark Box ── */
   .dark-box {
     background: #111; color: #fff; border-radius: 16px;
@@ -246,6 +267,43 @@
     <p style="color:#C8A45A; font-weight:600; margin-top:8px;">하이그로잉은 첫 고객이 아니라, 이 여정의 0번 데이터 포인트다.</p>
   </div>
 
+  <!-- Customer Journeys -->
+  <div class="section">
+    <div class="section-label">CUSTOMER JOURNEYS</div>
+    <div class="section-title">고객 여정 3가지</div>
+    <div class="section-desc">은경누나 네트워크에서 들어오는 고객은 3가지 경로로 나뉩니다.</div>
+
+    <div class="lines-grid" style="margin-bottom:24px">
+      <div class="line-card" style="border-left:3px solid #2E7D32">
+        <div class="line-num l1" style="font-size:18px;width:auto;height:auto;padding:4px 12px">A</div>
+        <h3>온라인 → 오프라인</h3>
+        <div class="sub">개원 희망</div>
+        <p>온라인으로만 수업하던 교육자가 오프라인 학원을 열고 싶어함. 달콤쌤 케이스. 공간·인허가·시스템 전부 처음.</p>
+      </div>
+      <div class="line-card" style="border-left:3px solid #E65100">
+        <div class="line-num l2" style="font-size:18px;width:auto;height:auto;padding:4px 12px">B</div>
+        <h3>본점 → 가맹</h3>
+        <div class="sub">확장 희망</div>
+        <p>본점 1곳 운영 중, 프랜차이즈 확장 원함. 하이그로잉 케이스. 시스템 표준화가 핵심 병목.</p>
+      </div>
+      <div class="line-card" style="border-left:3px solid #1565C0">
+        <div class="line-num l3" style="font-size:18px;width:auto;height:auto;padding:4px 12px">C</div>
+        <h3>수동 → 자동화</h3>
+        <div class="sub">효율화 희망</div>
+        <p>조교 채용해서 월급 주면서 조교 눈치 보느라 바쁨. 자동화로 인건비 절감 + 원장 시간 확보가 급선무.</p>
+      </div>
+    </div>
+
+    <div class="dark-box" style="margin-bottom:0">
+      <h2>인큐베이터 모델</h2>
+      <p>은경누나의 학원 자체가 <span class="hl">교육자 인큐베이터</span> 역할을 한다.</p>
+      <p>"나랑 몇 년이든 함께 하고, 독립하고 싶을 때 언제든 말씀하셔라. <span class="hl">독립을 도와드리겠다.</span> 내 학원을 인큐베이터로 생각하라."<br>
+      <span style="font-size:12px;color:#888;">— 은경누나 → 달콤쌤</span></p>
+      <p style="margin-top:12px">온라인 교육자(달콤쌤 등)를 품어서 키우고 → 독립 시 <span class="hl">시스템 + 브랜드 + 운영 인프라</span>를 제공하며 내보냄.<br>
+      졸업생이 곧 고객이 되고, 고객이 곧 레퍼런스가 되는 <span class="hl">자기 순환 파이프라인</span>.</p>
+    </div>
+  </div>
+
   <!-- Level Roadmap -->
   <div class="section">
     <div class="section-label">GROWTH LEVELS</div>
@@ -298,13 +356,14 @@
           </div>
           <div class="lv-revenue">연 10억+</div>
         </div>
-        <div class="lv-desc">아무 학원이나 넣으면 프랜차이즈가 나오는 시스템. 은경누나 채널이 유통 파이프라인.</div>
+        <div class="lv-desc">아무 학원이나 넣으면 프랜차이즈가 나오는 시스템. 은경누나 인큐베이터에서 독립하는 교육자 = 자동 고객.</div>
         <div class="lv-tags">
           <span class="lv-tag">커리큘럼 자동 문서화</span>
           <span class="lv-tag">매뉴얼 AI 생성</span>
           <span class="lv-tag">브랜드 키트 자동화</span>
           <span class="lv-tag">다지점 대시보드</span>
           <span class="lv-tag">가맹 모집</span>
+          <span class="lv-tag">인큐베이터 졸업생 온보딩</span>
         </div>
       </div>
       <div class="level-arrow">↓</div>
@@ -412,6 +471,11 @@
         <div class="pc-top"><span class="pc-num">9</span><span class="pc-name">강사 채용 · 이탈</span></div>
         <div class="pc-detail">6개월 이직 → 반 전원 불안 → 연쇄 이탈. 채용 비용 반복.</div>
         <div class="pc-solve">→ 급여 자동 계산 + 수업 일지 + 대체강사 풀</div>
+      </div>
+      <div class="pain-card new" style="border-left-color:#C62828">
+        <div class="pc-top"><span class="pc-num" style="background:#C62828">!</span><span class="pc-name">조교 의존 구조</span></div>
+        <div class="pc-detail">조교 채용 → 월급 → 눈치 보기. 조교가 빠지면 학원이 멈춤. "내가 아는 분들은 모두 조교를 채용해서 월급 주면서 조교 눈치 보느라 바쁜 거든."</div>
+        <div class="pc-solve">→ 조교가 하던 일을 자동화로 대체 (출결, 연락, 수납, 스케줄링). 인건비 월 150~200만 절감.</div>
       </div>
       <div class="pain-card new">
         <div class="pc-top"><span class="pc-num">15</span><span class="pc-name">원장 번아웃 · 고립</span></div>
