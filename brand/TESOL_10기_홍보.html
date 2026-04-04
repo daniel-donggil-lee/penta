@@ -418,6 +418,38 @@
     margin-top: 7px;
     flex-shrink: 0;
   }
+
+  @media (max-width: 600px) {
+    /* 카드: 고정 크기 해제 → 뷰포트 맞춤 */
+    .card {
+      width: 100%;
+      height: auto;
+    }
+
+    /* 라벨: 540px 기준 calc 제거 */
+    .label {
+      margin-left: 0;
+    }
+
+    /* 카드 내부 패딩 축소 */
+    .card1, .card2, .card3, .card4, .card5 {
+      padding: 32px 24px;
+    }
+
+    /* 대형 폰트 축소 */
+    .c1-title     { font-size: clamp(48px, 13vw, 72px); }
+    .c1-title-sub { font-size: clamp(20px,  7vw, 28px); }
+    .c2-headline  { font-size: clamp(22px,  7vw, 32px); }
+    .c3-title     { font-size: clamp(26px,  8vw, 36px); }
+    .instructor-name { font-size: clamp(30px, 9vw, 44px); }
+
+    /* 강사 사진 축소 */
+    .instructor-photo,
+    .instructor-photo-placeholder {
+      width: 80px;
+      height: 96px;
+    }
+  }
 </style>
 </head>
 <body>
