@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>생각의숲 — Brand Identity Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --forest: #2D6A4F;
+  --forest-deep: #1B4332;
+  --forest-light: #40916C;
+  --ivory: #FAF3E0;
+  --ivory-dark: #F0E6C8;
+  --sprout: #74C69D;
+  --bark: #8B6F47;
+  --bark-light: #A68B5B;
+  --sky: #A8DADC;
+  --coral: #E07A5F;
+  --sunshine: #F4D35E;
+  --charcoal: #333333;
+  --warm-gray: #B5B5A8;
+  --warm-gray-light: #D4D4C8;
+  --white: #FFFFFF;
+  --sidebar-w: 280px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Pretendard', 'Noto Serif KR', sans-serif;
+  color: var(--charcoal);
+  background: var(--ivory);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--forest-deep);
+  color: var(--ivory);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-header {
+  padding: 40px 28px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-brand {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+
+.sidebar-sub {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.sidebar-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--sprout);
+  padding: 24px 28px 8px;
+  opacity: 0.7;
+}
+
+.sidebar nav { flex: 1; padding-bottom: 20px; }
+
+.sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 28px;
+  color: rgba(250, 243, 224, 0.6);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.25s ease;
+  border-left: 3px solid transparent;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  color: var(--ivory);
+  background: rgba(255,255,255,0.05);
+  border-left-color: var(--sprout);
+}
+
+.sidebar nav a .nav-icon {
+  width: 20px;
+  text-align: center;
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.sidebar nav a.sub-item { padding-left: 60px; font-size: 13px; }
+
+.sidebar-footer {
+  padding: 16px 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 11px;
+  opacity: 0.35;
+  text-align: center;
+}
+
+/* ===== MOBILE TOGGLE ===== */
+.mobile-toggle {
+  display: none;
+  position: fixed;
+  top: 16px; left: 16px;
+  z-index: 200;
+  width: 44px; height: 44px;
+  background: var(--forest);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.mobile-toggle span {
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--ivory);
+  position: relative;
+  transition: 0.3s;
+}
+.mobile-toggle span::before,
+.mobile-toggle span::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 2px;
+  background: var(--ivory);
+  transition: 0.3s;
+}
+.mobile-toggle span::before { top: -6px; }
+.mobile-toggle span::after { top: 6px; }
+
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 90;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--forest-deep);
+  color: var(--ivory);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(116,198,157,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(168,218,220,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(45,106,79,0.3) 0%, transparent 70%);
+}
+
+.hero-content { position: relative; z-index: 1; padding: 60px 40px; max-width: 700px; }
+
+.hero-leaf {
+  font-size: 48px;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 1s 0.2s forwards;
+}
+
+.hero-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 700;
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp 1s 0.4s forwards;
+}
+
+.hero-tagline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(12px, 2vw, 15px);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 1s 0.6s forwards;
+  color: var(--sprout);
+}
+
+.hero-desc {
+  margin-top: 32px;
+  font-size: 16px;
+  line-height: 2;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s forwards;
+  color: rgba(250,243,224,0.7);
+}
+
+.hero-divider {
+  width: 40px; height: 1px;
+  background: var(--sprout);
+  margin: 28px auto;
+  opacity: 0;
+  animation: fadeUp 1s 0.7s forwards;
+}
+
+.hero-meta {
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: fadeUp 1s 1s forwards;
+  color: rgba(250,243,224,0.35);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  padding: 80px 60px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section + .section { border-top: 1px solid var(--warm-gray-light); }
+
+.section-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  color: var(--sprout);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.section-title {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 700;
+  color: var(--forest-deep);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.section-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: var(--warm-gray);
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+
+/* ===== SUBSECTIONS ===== */
+h3 {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--forest);
+  margin: 48px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--sprout);
+  display: inline-block;
+}
+
+h3:first-of-type { margin-top: 0; }
+
+h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--bark);
+  margin: 32px 0 12px;
+}
+
+p {
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--charcoal);
+}
+
+strong { color: var(--forest-deep); font-weight: 600; }
+
+/* ===== BLOCKQUOTES ===== */
+blockquote {
+  position: relative;
+  margin: 28px 0;
+  padding: 24px 28px 24px 32px;
+  background: var(--white);
+  border-left: 4px solid var(--forest);
+  border-radius: 0 12px 12px 0;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 15px;
+  line-height: 2;
+  color: var(--forest-deep);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+blockquote.featured {
+  background: var(--forest);
+  color: var(--ivory);
+  border-left-color: var(--sprout);
+  border-radius: 12px;
+  padding: 36px 32px;
+  font-size: 17px;
+  text-align: center;
+}
+
+blockquote.story {
+  background: linear-gradient(135deg, var(--forest-deep), var(--forest));
+  color: var(--ivory);
+  border-left: none;
+  border-radius: 16px;
+  padding: 40px 36px;
+  font-size: 16px;
+  line-height: 2.2;
+}
+
+/* ===== TABLES ===== */
+.table-wrap {
+  overflow-x: auto;
+  margin: 24px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  font-size: 14px;
+}
+
+thead { background: var(--forest); color: var(--ivory); }
+thead th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  vertical-align: top;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: rgba(116,198,157,0.06); }
+
+/* ===== COLOR PALETTE ===== */
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.color-card {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  background: var(--white);
+  transition: transform 0.25s ease;
+}
+
+.color-card:hover { transform: translateY(-4px); }
+
+.color-swatch {
+  height: 100px;
+  position: relative;
+}
+
+.color-swatch::after {
+  content: attr(data-hex);
+  position: absolute;
+  bottom: 8px; right: 12px;
+  font-family: 'Playfair Display', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.2);
+  color: white;
+}
+
+.color-info {
+  padding: 14px 16px;
+}
+
+.color-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.color-name-en {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  color: var(--warm-gray);
+}
+
+.color-usage {
+  font-size: 12px;
+  color: var(--bark);
+  margin-top: 6px;
+}
+
+/* ===== LOGO CONCEPTS ===== */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.logo-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 32px 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.logo-card-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--white);
+  background: var(--forest);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.logo-card h4 { margin-top: 0; margin-bottom: 12px; }
+
+.logo-card p { font-size: 14px; color: #666; margin-bottom: 8px; }
+
+.logo-card .usage-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 3px 10px;
+  background: var(--ivory);
+  color: var(--bark);
+  border-radius: 20px;
+  margin-right: 4px;
+  margin-top: 8px;
+}
+
+/* ===== METAPHOR GRID ===== */
+.metaphor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.metaphor-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.metaphor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.metaphor-icon { font-size: 36px; margin-bottom: 12px; }
+.metaphor-label { font-weight: 600; font-size: 15px; color: var(--forest); margin-bottom: 4px; }
+.metaphor-meaning { font-size: 13px; color: var(--bark); margin-bottom: 8px; }
+.metaphor-desc { font-size: 12px; color: var(--warm-gray); line-height: 1.6; }
+
+/* ===== VALUES ===== */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 28px 0;
+}
+
+.value-card {
+  background: var(--forest);
+  color: var(--ivory);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.value-label {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.value-meaning {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.value-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* ===== PROMISE CARDS ===== */
+.promise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.promise-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 28px 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  border-top: 4px solid var(--forest);
+}
+
+.promise-to {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--sprout);
+  margin-bottom: 12px;
+}
+
+.promise-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 14px;
+  line-height: 2;
+  color: var(--charcoal);
+}
+
+/* ===== PITCH TABS ===== */
+.pitch-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.pitch-tab {
+  padding: 8px 20px;
+  border: 2px solid var(--forest);
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background: transparent;
+  color: var(--forest);
+  transition: all 0.2s ease;
+}
+
+.pitch-tab.active,
+.pitch-tab:hover {
+  background: var(--forest);
+  color: var(--ivory);
+}
+
+.pitch-content { display: none; }
+.pitch-content.active { display: block; }
+
+/* ===== TAGLINE SHOWCASE ===== */
+.tagline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.tagline-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--white);
+  padding: 20px 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: transform 0.2s ease;
+}
+
+.tagline-item:hover { transform: translateX(4px); }
+
+.tagline-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--sprout);
+  min-width: 40px;
+}
+
+.tagline-text {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--forest-deep);
+}
+
+.tagline-note {
+  font-size: 13px;
+  color: var(--warm-gray);
+  margin-top: 4px;
+}
+
+/* ===== DO/DONT ===== */
+.dodont-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.dodont-col { border-radius: 14px; padding: 24px; }
+
+.dodont-col.do-col {
+  background: rgba(116,198,157,0.1);
+  border: 1px solid rgba(116,198,157,0.3);
+}
+
+.dodont-col.dont-col {
+  background: rgba(224,122,95,0.08);
+  border: 1px solid rgba(224,122,95,0.2);
+}
+
+.dodont-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.do-col .dodont-label { color: var(--forest); }
+.dont-col .dodont-label { color: var(--coral); }
+
+.dodont-item {
+  font-size: 14px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  line-height: 1.6;
+}
+
+.dodont-item:last-child { border-bottom: none; }
+
+/* ===== SNS PREVIEW ===== */
+.sns-preview {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  margin: 24px 0;
+  max-width: 520px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.sns-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sns-avatar {
+  width: 44px; height: 44px;
+  background: var(--forest);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ivory);
+  font-family: 'Noto Serif KR', serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sns-name { font-weight: 600; font-size: 14px; }
+.sns-handle { font-size: 12px; color: var(--warm-gray); }
+
+.sns-body {
+  font-size: 14px;
+  line-height: 2;
+  white-space: pre-line;
+}
+
+.sns-body .highlight {
+  color: var(--forest);
+  font-weight: 600;
+}
+
+.sns-tags {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--sky);
+}
+
+/* ===== VOICE SPECTRUM ===== */
+.spectrum-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 12px 0;
+  font-size: 14px;
+}
+
+.spectrum-label {
+  min-width: 80px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--warm-gray);
+}
+
+.spectrum-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--ivory-dark);
+  border-radius: 4px;
+  position: relative;
+}
+
+.spectrum-dot {
+  position: absolute;
+  top: -4px;
+  width: 16px; height: 16px;
+  background: var(--forest);
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.spectrum-label-end {
+  min-width: 80px;
+  font-size: 13px;
+  color: var(--warm-gray);
+}
+
+/* ===== WORD CHIPS ===== */
+.word-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.word-chip {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.word-chip.recommend {
+  background: rgba(116,198,157,0.15);
+  color: var(--forest);
+  border: 1px solid rgba(116,198,157,0.3);
+}
+
+.word-chip.forbidden {
+  background: rgba(224,122,95,0.1);
+  color: var(--coral);
+  border: 1px solid rgba(224,122,95,0.2);
+  text-decoration: line-through;
+}
+
+/* ===== POSITIONING MAP ===== */
+.pos-map {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1;
+  margin: 24px auto;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.pos-axis-x, .pos-axis-y {
+  position: absolute;
+  background: var(--warm-gray-light);
+}
+
+.pos-axis-x { width: 80%; height: 1px; top: 50%; left: 10%; }
+.pos-axis-y { width: 1px; height: 80%; top: 10%; left: 50%; }
+
+.pos-label {
+  position: absolute;
+  font-size: 11px;
+  color: var(--warm-gray);
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.pos-label.top { top: 4%; left: 50%; transform: translateX(-50%); }
+.pos-label.bottom { bottom: 4%; left: 50%; transform: translateX(-50%); }
+.pos-label.left { left: 3%; top: 50%; transform: translateY(-50%); }
+.pos-label.right { right: 3%; top: 50%; transform: translateY(-50%); }
+
+.pos-dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.pos-dot-circle {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  margin: 0 auto 4px;
+}
+
+.pos-dot-label { font-size: 11px; white-space: nowrap; }
+
+.pos-dot.star .pos-dot-circle {
+  width: 24px; height: 24px;
+  background: var(--forest);
+  box-shadow: 0 0 0 6px rgba(45,106,79,0.2);
+}
+
+.pos-dot.star .pos-dot-label {
+  font-weight: 700;
+  color: var(--forest);
+  font-size: 12px;
+}
+
+.pos-dot.competitor .pos-dot-circle {
+  background: var(--warm-gray);
+}
+
+.pos-dot.competitor .pos-dot-label { color: var(--warm-gray); }
+
+/* ===== COMPETITION TABLE ===== */
+.comp-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--white);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.comp-name { font-weight: 600; min-width: 160px; font-size: 14px; }
+
+.comp-bar-wrap { flex: 1; }
+
+.comp-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--warm-gray-light);
+  position: relative;
+}
+
+.comp-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--warm-gray);
+}
+
+.comp-row.highlight .comp-bar-fill { background: var(--forest); }
+.comp-row.highlight .comp-name { color: var(--forest); }
+
+.comp-scale { min-width: 60px; text-align: right; font-size: 12px; color: var(--warm-gray); }
+
+/* ===== PRINT ===== */
+@media print {
+  .sidebar, .mobile-toggle, .mobile-overlay { display: none !important; }
+  .main { margin-left: 0 !important; }
+  .hero { min-height: auto; padding: 60px 40px; page-break-after: always; }
+  .section { padding: 40px 20px; page-break-inside: avoid; }
+  body { background: white; }
+  .color-card, .metaphor-card, .value-card, .promise-card, .logo-card, .tagline-item, .sns-preview {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .mobile-toggle { display: flex; }
+  .mobile-overlay.show { display: block; }
+  .main { margin-left: 0; }
+  .section { padding: 60px 24px; }
+  .hero-content { padding: 60px 24px; }
+  .dodont-grid { grid-template-columns: 1fr; }
+  .palette-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 500px) {
+  .palette-grid { grid-template-columns: 1fr; }
+  .metaphor-grid { grid-template-columns: 1fr; }
+  .values-grid { grid-template-columns: 1fr; }
+  .promise-grid { grid-template-columns: 1fr; }
+  .logo-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== MISC ===== */
+.ul-styled {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.ul-styled li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.ul-styled li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 16px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--sprout);
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge-forest { background: var(--forest); color: var(--ivory); }
+.badge-coral { background: var(--coral); color: var(--white); }
+.badge-sky { background: var(--sky); color: var(--forest-deep); }
+
+.space-lg { margin-top: 48px; }
+.space-md { margin-top: 32px; }
+
+.divider {
+  width: 40px; height: 2px;
+  background: var(--sprout);
+  margin: 40px 0;
+}
+
+.text-center { text-align: center; }
+.text-sm { font-size: 13px; }
+.text-muted { color: var(--warm-gray); }
+</style>
+</head>
+
+<body>
+
+<!-- Mobile Toggle -->
+<button class="mobile-toggle" onclick="toggleSidebar()" aria-label="메뉴">
+  <span></span>
+</button>
+<div class="mobile-overlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">생각의숲</div>
+    <div class="sidebar-sub">Brand Identity Book</div>
+  </div>
+
+  <div class="sidebar-label">Contents</div>
+  <nav>
+    <a href="#story"><span class="nav-icon">01</span>브랜드 스토리</a>
+    <a href="#why-now" class="sub-item">왜 지금, 왜 우리인가</a>
+    <a href="#metaphor" class="sub-item">"숲"의 의미 체계</a>
+    <a href="#mission" class="sub-item">미션 · 비전 · 핵심 가치</a>
+    <a href="#promise" class="sub-item">브랜드 약속</a>
+    <a href="#ai-era" class="sub-item">AI 시대와 글쓰기</a>
+
+    <a href="#positioning"><span class="nav-icon">02</span>포지셔닝</a>
+    <a href="#competitors" class="sub-item">경쟁 환경 맵</a>
+    <a href="#diff" class="sub-item">핵심 차별점</a>
+    <a href="#pitch" class="sub-item">엘리베이터 피치</a>
+
+    <a href="#visual"><span class="nav-icon">03</span>비주얼 아이덴티티</a>
+    <a href="#colors" class="sub-item">컬러 팔레트</a>
+    <a href="#logo" class="sub-item">로고 컨셉</a>
+    <a href="#typography" class="sub-item">타이포그래피</a>
+    <a href="#space" class="sub-item">공간 아이덴티티</a>
+
+    <a href="#verbal"><span class="nav-icon">04</span>버벌 아이덴티티</a>
+    <a href="#tagline" class="sub-item">태그라인</a>
+    <a href="#voice" class="sub-item">톤 앤 보이스</a>
+    <a href="#words" class="sub-item">금지어 / 권장어</a>
+    <a href="#sns" class="sub-item">SNS 전환 시안</a>
+  </nav>
+
+  <div class="sidebar-footer">2026.03 / Confidential</div>
+</aside>
+
+<!-- Main -->
+<div class="main">
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <div class="hero-leaf">&#127795;</div>
+      <h1 class="hero-title">생각의숲</h1>
+      <div class="hero-tagline">Forest of Thoughts</div>
+      <div class="hero-divider"></div>
+      <p class="hero-desc">읽고, 쓰고, 생각하는 아이를 키우는 곳<br>초등 글쓰기 · 인문독서 전문 교육 브랜드</p>
+      <p class="hero-meta">Brand Identity Book — 2026</p>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 01: 브랜드 스토리 -->
+  <!-- ============================================ -->
+  <section class="section" id="story">
+    <div class="reveal">
+      <div class="section-number">CHAPTER 01</div>
+      <h2 class="section-title">브랜드 스토리</h2>
+      <div class="section-subtitle">Brand Story &amp; Philosophy</div>
+    </div>
+
+    <div class="reveal" id="why-now">
+      <h3>왜 지금, 왜 우리인가</h3>
+
+      <h4>시대적 배경</h4>
+      <p>AI가 글을 대신 써주는 시대가 왔습니다. ChatGPT가 독후감을 쓰고, 보고서를 요약하고, 이메일을 작성합니다. 그런데 역설적이게도, 바로 이 시대에 <strong>"스스로 생각하고 쓰는 힘"</strong>이 가장 희소하고 강력한 능력이 되었습니다.</p>
+      <p>기계가 대체할 수 있는 글쓰기는 가치가 사라집니다. 하지만 <strong>자기만의 관점으로 세상을 해석하고, 논리적으로 사고를 정리하고, 글로 표현하는 힘</strong> — 이것은 AI가 절대 대신해줄 수 없는 인간 고유의 역량입니다.</p>
+
+      <h4>시장의 공백</h4>
+      <p>초등 사교육 시장은 <strong>13조 2,000억 원</strong> 규모입니다. 그런데 <strong>글쓰기만을 전문으로 하는 대형 프랜차이즈 브랜드는 단 하나도 없습니다.</strong></p>
+
+      <blockquote class="featured">글쓰기 전문 프리미엄 교육 — 이 시장은 비어 있습니다.</blockquote>
+
+      <h4>우리의 자격</h4>
+      <p><strong>이은경</strong>은 초등교사 15년, 저서 60여 권, 유튜브 15만 구독의 대한민국 대표 초등교육 전문가입니다.</p>
+      <p><strong>이동길</strong>은 리마크영어국어학원을 운영하며 중고등 국어 내신 시스템을 AI 기반으로 구축한 교육 운영 전문가입니다.</p>
+      <p><strong>콘텐츠를 만드는 사람과 시스템을 만드는 사람이 만났습니다.</strong></p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="metaphor">
+      <h3>"숲"의 의미 체계</h3>
+      <p>"생각의숲"은 단순한 상호가 아닙니다. 우리 교육 철학 전체를 담은 메타포입니다.</p>
+
+      <div class="metaphor-grid">
+        <div class="metaphor-card">
+          <div class="metaphor-icon">&#127794;</div>
+          <div class="metaphor-label">나무</div>
+          <div class="metaphor-meaning">아이 한 명 한 명</div>
+          <div class="metaphor-desc">각자의 속도로, 각자의 모양으로 자랍니다</div>
+        </div>
+        <div class="metaphor-card">
+          <div class="metaphor-icon">&#129716;</div>
+          <div class="metaphor-label">뿌리</div>
+          <div class="metaphor-meaning">사고력</div>
+          <div class="metaphor-desc">보이지 않지만 모든 성장의 기반입니다</div>
+        </div>
+        <div class="metaphor-card">
+          <div class="metaphor-icon">&#127807;</div>
+          <div class="metaphor-label">가지</div>
+          <div class="metaphor-meaning">표현력</div>
+          <div class="metaphor-desc">뿌리가 튼튼해야 가지가 뻗습니다</div>
+        </div>
+        <div class="metaphor-card">
+          <div class="metaphor-icon">&#127795;</div>
+          <div class="metaphor-label">숲</div>
+          <div class="metaphor-meaning">배움의 공동체</div>
+          <div class="metaphor-desc">혼자가 아니라 함께 자라는 환경입니다</div>
+        </div>
+        <div class="metaphor-card">
+          <div class="metaphor-icon">&#9728;&#65039;</div>
+          <div class="metaphor-label">햇빛</div>
+          <div class="metaphor-meaning">교사의 안내</div>
+          <div class="metaphor-desc">방향을 비춰주되, 자라는 건 나무 스스로입니다</div>
+        </div>
+        <div class="metaphor-card">
+          <div class="metaphor-icon">&#127822;</div>
+          <div class="metaphor-label">열매</div>
+          <div class="metaphor-meaning">결과물</div>
+          <div class="metaphor-desc">시간이 지나면 자연스럽게 맺힙니다</div>
+        </div>
+      </div>
+
+      <blockquote>"숲은 심은 다음 날 열매를 맺지 않습니다. 하지만 제대로 심은 숲은 반드시 울창해집니다."</blockquote>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="mission">
+      <h3>미션 · 비전 · 핵심 가치</h3>
+
+      <h4>미션</h4>
+      <blockquote class="featured">아이들이 스스로 생각하고, 자기 언어로 세상을 표현하는 힘을 기릅니다.</blockquote>
+
+      <h4>비전</h4>
+      <blockquote class="featured">대한민국 모든 아이에게 "생각하는 글쓰기"를 — 글쓰기 교육의 새로운 기준이 됩니다.</blockquote>
+
+      <h4>핵심 가치</h4>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-label">깊이</div>
+          <div class="value-meaning">빠른 결과보다 깊은 사고</div>
+          <div class="value-desc">정답 맞추기가 아니라 생각의 과정을 봅니다</div>
+        </div>
+        <div class="value-card">
+          <div class="value-label">성장</div>
+          <div class="value-meaning">비교가 아닌 자기 성장</div>
+          <div class="value-desc">어제의 나보다 오늘의 내가 더 잘 쓰면 됩니다</div>
+        </div>
+        <div class="value-card">
+          <div class="value-label">진심</div>
+          <div class="value-meaning">형식이 아닌 진짜 글쓰기</div>
+          <div class="value-desc">아이의 솔직한 생각이 담긴 글을 존중합니다</div>
+        </div>
+        <div class="value-card">
+          <div class="value-label">체계</div>
+          <div class="value-meaning">감이 아닌 시스템</div>
+          <div class="value-desc">검증된 커리큘럼과 훈련된 교사가 함께합니다</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="promise">
+      <h3>브랜드 약속</h3>
+      <div class="promise-grid">
+        <div class="promise-card">
+          <div class="promise-to">학부모에게</div>
+          <div class="promise-text">생각의숲에 맡기시면, 아이가 <strong>스스로 생각하고 표현하는 사람</strong>으로 자랍니다. AI 시대에 진짜 경쟁력은 '생각하는 힘'입니다.</div>
+        </div>
+        <div class="promise-card">
+          <div class="promise-to">아이에게</div>
+          <div class="promise-text">여기서는 틀려도 괜찮아. 네가 생각한 걸, 네 말로 써보는 거야. 그게 제일 멋진 글이야.</div>
+        </div>
+        <div class="promise-card">
+          <div class="promise-to">교사에게</div>
+          <div class="promise-text">생각의숲의 교사는 가르치는 사람이 아니라 <strong>생각을 꺼내주는 사람</strong>입니다. 체계적인 교사 양성 프로그램이 당신의 전문성을 뒷받침합니다.</div>
+        </div>
+        <div class="promise-card">
+          <div class="promise-to">가맹점 원장에게</div>
+          <div class="promise-text">검증된 콘텐츠, 표준화된 운영 매뉴얼, 본사의 지속적 지원 — 교육에 진심인 당신이 사업으로도 성공할 수 있는 구조를 만들었습니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="ai-era">
+      <h3>AI 시대, 왜 "손으로 쓰는 글쓰기"인가</h3>
+
+      <div class="dodont-grid">
+        <div class="dodont-col do-col">
+          <div class="dodont-label">AI가 대체할 수 없는 것</div>
+          <div class="dodont-item"><strong>"왜?"라고 묻는 힘</strong> — 비판적 사고</div>
+          <div class="dodont-item"><strong>자기 경험에서 의미를 찾는 힘</strong> — 성찰</div>
+          <div class="dodont-item"><strong>논리적으로 생각을 구조화하는 힘</strong> — 논증</div>
+          <div class="dodont-item"><strong>읽는 사람의 마음을 움직이는 힘</strong> — 공감과 설득</div>
+        </div>
+        <div class="dodont-col dont-col">
+          <div class="dodont-label">AI가 대체하는 것</div>
+          <div class="dodont-item">정보 요약, 문서 작성, 보고서 포맷팅</div>
+          <div class="dodont-item">문법 교정, 맞춤법 검사</div>
+          <div class="dodont-item">템플릿 기반 글쓰기 (독후감, 일기, 편지)</div>
+        </div>
+      </div>
+
+      <blockquote class="featured">AI가 글을 써주는 시대에, 아이에게 가르쳐야 할 것은 '글 쓰는 법'이 아니라 '생각하는 법'입니다.</blockquote>
+
+      <div class="space-md"></div>
+      <h4>브랜드 탄생 서사</h4>
+      <blockquote class="story">15년간 교실에서 아이들을 가르친 교사와, 학원 현장에서 교육 시스템을 설계해온 운영자가 같은 질문을 품었습니다.
+
+"AI가 글을 대신 써주는 시대에, 우리 아이들에게 정말 필요한 교육은 뭘까?"
+
+답은 하나였습니다. <strong>생각하는 힘.</strong>
+
+읽고, 생각하고, 자기 말로 쓰는 — 그 과정에서 아이들은 자기만의 뿌리를 내립니다. 한 그루 한 그루의 나무가 모여 숲이 되듯, 한 명 한 명의 아이가 자기 생각을 키워가는 곳.
+
+그래서 이름을 <strong>생각의숲</strong>이라 지었습니다.</blockquote>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 02: 포지셔닝 -->
+  <!-- ============================================ -->
+  <section class="section" id="positioning">
+    <div class="reveal">
+      <div class="section-number">CHAPTER 02</div>
+      <h2 class="section-title">포지셔닝</h2>
+      <div class="section-subtitle">Positioning &amp; Differentiation</div>
+    </div>
+
+    <div class="reveal" id="competitors">
+      <h3>경쟁 환경 맵</h3>
+
+      <h4>직접 경쟁군</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>브랜드</th><th>유형</th><th>강점</th><th>약점</th><th>규모</th></tr></thead>
+          <tbody>
+            <tr><td><strong>한우리독서토론논술</strong></td><td>프랜차이즈</td><td>30년 장수, 인지도</td><td>올드한 이미지, 디지털 전환 더딤</td><td>742개</td></tr>
+            <tr><td><strong>책나무</strong></td><td>프랜차이즈</td><td>독서코칭 특화</td><td>독후감 수준에 그침</td><td>200+</td></tr>
+            <tr><td><strong>리드인</strong></td><td>프랜차이즈</td><td>빠른 확장</td><td>영어/수학 샵인샵으로 정체성 흐려짐</td><td>300+</td></tr>
+            <tr><td><strong>소년논술</strong></td><td>독립 학원</td><td>프리미엄 포지셔닝 성공</td><td>1인 운영 한계</td><td>단일</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="space-md"></div>
+      <h4>포지셔닝 매트릭스: 전문성 x 가격</h4>
+      <div class="pos-map">
+        <div class="pos-axis-x"></div>
+        <div class="pos-axis-y"></div>
+        <div class="pos-label top">프리미엄</div>
+        <div class="pos-label bottom">대중</div>
+        <div class="pos-label left">종합</div>
+        <div class="pos-label right">전문</div>
+
+        <div class="pos-dot star" style="top: 22%; left: 72%;">
+          <div class="pos-dot-circle"></div>
+          <div class="pos-dot-label">생각의숲</div>
+        </div>
+        <div class="pos-dot competitor" style="top: 35%; left: 35%;">
+          <div class="pos-dot-circle"></div>
+          <div class="pos-dot-label">소년논술</div>
+        </div>
+        <div class="pos-dot competitor" style="top: 58%; left: 38%;">
+          <div class="pos-dot-circle"></div>
+          <div class="pos-dot-label">한우리</div>
+        </div>
+        <div class="pos-dot competitor" style="top: 62%; left: 42%;">
+          <div class="pos-dot-circle"></div>
+          <div class="pos-dot-label">책나무</div>
+        </div>
+        <div class="pos-dot competitor" style="top: 55%; left: 62%;">
+          <div class="pos-dot-circle"></div>
+          <div class="pos-dot-label">리드인</div>
+        </div>
+        <div class="pos-dot competitor" style="top: 72%; left: 28%;">
+          <div class="pos-dot-circle"></div>
+          <div class="pos-dot-label">빅4</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="diff">
+      <h3>핵심 차별점 3가지</h3>
+
+      <div class="logo-grid">
+        <div class="logo-card">
+          <div class="logo-card-label">차별점 1</div>
+          <h4>글쓰기 전문 프랜차이즈 — 최초</h4>
+          <p>독서코칭 학원은 많습니다. 글쓰기를 전문으로 하는 프랜차이즈는 생각의숲이 처음입니다.</p>
+          <ul class="ul-styled">
+            <li>책나무, 리드인 = 독서코칭이 본업, 글쓰기는 독후감 수준</li>
+            <li>한우리 = 논술(고학년), 초등 저학년 취약</li>
+            <li><strong>생각의숲</strong> = 글쓰기가 메인, 독서가 인풋</li>
+          </ul>
+        </div>
+        <div class="logo-card">
+          <div class="logo-card-label">차별점 2</div>
+          <h4>교사 양성 시스템</h4>
+          <p>좋은 선생님을 '찾는' 것이 아니라 '만드는' 시스템입니다.</p>
+          <ul class="ul-styled">
+            <li>부설 평생교육원 전문가 자격증 과정</li>
+            <li>자격증 소지자만 가맹 허용</li>
+            <li>품질의 구조적 보장</li>
+          </ul>
+        </div>
+        <div class="logo-card">
+          <div class="logo-card-label">차별점 3</div>
+          <h4>콘텐츠 복수화</h4>
+          <p>한 사람의 유명세가 아니라, 콘텐츠 자체의 힘으로 성장합니다.</p>
+          <ul class="ul-styled">
+            <li>이은경 커리큘럼 (글쓰기)</li>
+            <li>달콤인문 커리큘럼 (인문독서)</li>
+            <li>브랜드 독립적 인지도 구축</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="pitch">
+      <h3>엘리베이터 피치</h3>
+
+      <div class="pitch-tabs">
+        <button class="pitch-tab active" onclick="showPitch('p30')">30초 — 학부모</button>
+        <button class="pitch-tab" onclick="showPitch('p60')">1분 — 투자자</button>
+        <button class="pitch-tab" onclick="showPitch('p180')">3분 — 가맹설명회</button>
+      </div>
+
+      <div class="pitch-content active" id="p30">
+        <blockquote>"AI가 글을 대신 써주는 시대에, 정작 아이에게 필요한 건 '스스로 생각하고 쓰는 힘'입니다. 생각의숲은 초등 글쓰기만을 전문으로 하는 국내 유일의 프리미엄 교육 브랜드입니다. 읽고, 생각하고, 쓰는 — 이 과정을 체계적으로 훈련합니다."</blockquote>
+      </div>
+      <div class="pitch-content" id="p60">
+        <blockquote>"초등 사교육 시장 13조 중 글쓰기 전문 프랜차이즈는 하나도 없습니다. 한우리는 논술, 책나무는 독서코칭 — 글쓰기 전문은 빈자리입니다.
+        <br><br>생각의숲은 이 블루오션을 잡기 위해 두 가지를 갖추고 있습니다. 첫째, 이은경(저서 60권, 유튜브 15만)이 만든 검증된 콘텐츠. 둘째, 리마크학원에서 검증한 교육 시스템 운영 역량.
+        <br><br>부설 평생교육원을 통한 교사 양성 시스템으로 가맹점 품질을 구조적으로 관리합니다. 2027년 대치 본점 오픈 후 직영 2~3호점을 거쳐 가맹으로 확장합니다."</blockquote>
+      </div>
+      <div class="pitch-content" id="p180">
+        <blockquote>"학부모들은 글쓰기 교육이 필요하다는 걸 압니다. 하지만 영어·수학 학원비에 밀려 후순위로 밀립니다. 왜일까요? <strong>'여기 보내면 확실히 달라진다'는 확신을 주는 브랜드가 없었기 때문입니다.</strong>
+        <br><br><strong>첫째, 콘텐츠의 힘.</strong> 초등교사 15년, 저서 60권의 이은경이 설계한 글쓰기 커리큘럼입니다. 인문독서 전문가 달콤인문 선생님의 프리미엄 과정도 함께합니다.
+        <br><br><strong>둘째, 교사의 힘.</strong> 아무나 가맹할 수 없습니다. 부설 평생교육원의 전문가 과정을 수료하고 자격증을 취득한 분만 가맹 자격이 주어집니다.
+        <br><br><strong>셋째, 시스템의 힘.</strong> 본사에서 제공하는 표준 운영 매뉴얼, IT 관리 도구, 마케팅 지원이 있습니다. 교육에 집중하시면 됩니다. 운영은 시스템이 합니다.
+        <br><br>지금 이 시장에 '글쓰기 전문'이라는 포지션을 선점할 브랜드가 필요합니다. 생각의숲이 그 브랜드입니다."</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 03: 비주얼 아이덴티티 -->
+  <!-- ============================================ -->
+  <section class="section" id="visual">
+    <div class="reveal">
+      <div class="section-number">CHAPTER 03</div>
+      <h2 class="section-title">비주얼 아이덴티티</h2>
+      <div class="section-subtitle">Visual Identity System</div>
+    </div>
+
+    <div class="reveal" id="colors">
+      <h3>컬러 팔레트</h3>
+      <p>"숲"의 자연스러움과 "교육"의 신뢰감을 동시에 전달합니다. 기존 교육 브랜드(빨강·파랑·노랑 원색)와 확연히 구분되는 프리미엄 톤을 지향합니다.</p>
+
+      <h4>메인 컬러 (Primary)</h4>
+      <div class="palette-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background: #2D6A4F;" data-hex="#2D6A4F"></div>
+          <div class="color-info">
+            <div class="color-name">숲 그린</div>
+            <div class="color-name-en">Forest Green</div>
+            <div class="color-usage">로고, 간판, 핵심 UI 요소</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background: #FAF3E0;" data-hex="#FAF3E0"></div>
+          <div class="color-info">
+            <div class="color-name">따뜻한 아이보리</div>
+            <div class="color-name-en">Warm Ivory</div>
+            <div class="color-usage">배경, 종이 질감, 여백</div>
+          </div>
+        </div>
+      </div>
+
+      <h4>서브 컬러 (Secondary)</h4>
+      <div class="palette-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background: #74C69D;" data-hex="#74C69D"></div>
+          <div class="color-info">
+            <div class="color-name">새싹 그린</div>
+            <div class="color-name-en">Sprout Green</div>
+            <div class="color-usage">강조, 아이콘, 일러스트</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background: #8B6F47;" data-hex="#8B6F47"></div>
+          <div class="color-info">
+            <div class="color-name">나무 브라운</div>
+            <div class="color-name-en">Bark Brown</div>
+            <div class="color-usage">텍스트 보조, 내추럴 액센트</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background: #A8DADC;" data-hex="#A8DADC"></div>
+          <div class="color-info">
+            <div class="color-name">하늘 블루</div>
+            <div class="color-name-en">Sky Blue</div>
+            <div class="color-usage">인문독서 과정, 보조</div>
+          </div>
+        </div>
+      </div>
+
+      <h4>액센트 컬러 (Accent)</h4>
+      <div class="palette-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background: #E07A5F;" data-hex="#E07A5F"></div>
+          <div class="color-info">
+            <div class="color-name">열매 코랄</div>
+            <div class="color-name-en">Berry Coral</div>
+            <div class="color-usage">CTA 버튼, 중요 알림</div>
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="color-swatch" style="background: #F4D35E;" data-hex="#F4D35E"></div>
+          <div class="color-info">
+            <div class="color-name">햇빛 옐로</div>
+            <div class="color-name-en">Sunshine Yellow</div>
+            <div class="color-usage">수료증, 성취 배지</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="logo">
+      <h3>로고 컨셉</h3>
+      <p style="margin-bottom: 8px;"><strong>분위기:</strong> 따뜻하고 믿음직한, 그러면서 세련된. "동네 문구점"이 아니라 "프리미엄 서점" 느낌</p>
+      <p style="margin-bottom: 24px; color: var(--coral);"><strong>절대 피할 것:</strong> 유치한 캐릭터, 원색 조합, 알록달록한 유아용 느낌</p>
+
+      <div class="logo-grid">
+        <div class="logo-card">
+          <div class="logo-card-label">A안</div>
+          <h4>심볼 + 워드마크</h4>
+          <p>나무 한 그루를 최소한의 선으로 표현. 가지가 펜촉 또는 책 페이지로 변형되는 형태.</p>
+          <p>"생각의숲" 세리프 계열 서체 + "FOREST OF THOUGHTS" 보조</p>
+          <span class="usage-tag">간판</span>
+          <span class="usage-tag">명함</span>
+          <span class="usage-tag">공식문서</span>
+        </div>
+        <div class="logo-card">
+          <div class="logo-card-label">B안</div>
+          <h4>워드마크 온리</h4>
+          <p>"숲" 글자의 세 개 "木"을 시각적으로 활용. 기하학적으로 정돈된 한글 레터링.</p>
+          <p>"숲" 글자 위에 작은 잎사귀 하나 (그린 컬러)</p>
+          <span class="usage-tag">SNS 프로필</span>
+          <span class="usage-tag">앱 아이콘</span>
+          <span class="usage-tag">소형 인쇄</span>
+        </div>
+        <div class="logo-card">
+          <div class="logo-card-label">C안</div>
+          <h4>엠블럼형</h4>
+          <p>원형 또는 방패형 엠블럼 안에 나무 심볼 + 텍스트. 대학 문장, 유럽 명문 학원 스타일.</p>
+          <p>권위감과 전통 → 프리미엄 + 신뢰</p>
+          <span class="usage-tag">교재 표지</span>
+          <span class="usage-tag">수료증</span>
+          <span class="usage-tag">유니폼</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="typography">
+      <h3>타이포그래피</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>용도</th><th>한글 서체</th><th>영문 서체</th><th>이유</th></tr></thead>
+          <tbody>
+            <tr><td><strong>제목 · 간판</strong></td><td>Pretendard Bold</td><td>Playfair Display</td><td>현대적 + 클래식 조합</td></tr>
+            <tr><td><strong>본문</strong></td><td>Noto Serif KR</td><td>Source Sans 3</td><td>글의 무게감 + 가독성</td></tr>
+            <tr><td><strong>교재 · 워크북</strong></td><td>KoPubWorld돋움</td><td>-</td><td>학습 자료 최적화</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="space">
+      <h3>공간 아이덴티티</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>공간</th><th>컨셉</th><th>주요 요소</th></tr></thead>
+          <tbody>
+            <tr><td><strong>로비</strong></td><td>"숲의 입구"</td><td>나무 소재 카운터, 식물 배치, 아이들 작품 전시 벽</td></tr>
+            <tr><td><strong>교실</strong></td><td>"나무 아래 배움터"</td><td>원목 책상, 간접 조명(웜톤), 벽면 전체 서가</td></tr>
+            <tr><td><strong>상담실</strong></td><td>"숲의 쉼터"</td><td>편한 소파, 커피/차, 학생 포트폴리오 열람대</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="space-md"></div>
+      <h4>가맹점 인테리어 기준</h4>
+      <div class="dodont-grid">
+        <div class="dodont-col do-col">
+          <div class="dodont-label">필수 / 권장</div>
+          <div class="dodont-item">원목 소재 (또는 원목 텍스처)</div>
+          <div class="dodont-item">식물 3곳 이상 배치</div>
+          <div class="dodont-item">아이 작품 전시 공간</div>
+          <div class="dodont-item">아이보리 벽면, 간접 조명</div>
+        </div>
+        <div class="dodont-col dont-col">
+          <div class="dodont-label">금지</div>
+          <div class="dodont-item">원색 인테리어</div>
+          <div class="dodont-item">플라스틱 가구</div>
+          <div class="dodont-item">캐릭터 벽지</div>
+          <div class="dodont-item">형광등 직접 노출</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- SECTION 04: 버벌 아이덴티티 -->
+  <!-- ============================================ -->
+  <section class="section" id="verbal">
+    <div class="reveal">
+      <div class="section-number">CHAPTER 04</div>
+      <h2 class="section-title">버벌 아이덴티티</h2>
+      <div class="section-subtitle">Verbal Identity</div>
+    </div>
+
+    <div class="reveal" id="tagline">
+      <h3>태그라인 후보</h3>
+      <div class="tagline-list">
+        <div class="tagline-item">
+          <div class="tagline-num">1</div>
+          <div>
+            <div class="tagline-text">읽고, 쓰고, 생각하는 아이</div>
+            <div class="tagline-note">3박자 리듬 · 가장 직관적</div>
+          </div>
+        </div>
+        <div class="tagline-item">
+          <div class="tagline-num">2</div>
+          <div>
+            <div class="tagline-text">생각이 자라는 곳</div>
+            <div class="tagline-note">"숲"과 "성장" 메타포 연결</div>
+          </div>
+        </div>
+        <div class="tagline-item">
+          <div class="tagline-num">3</div>
+          <div>
+            <div class="tagline-text">쓰는 아이가 생각하는 아이입니다</div>
+            <div class="tagline-note">글쓰기 = 사고력 등식 명확화</div>
+          </div>
+        </div>
+        <div class="tagline-item">
+          <div class="tagline-num">4</div>
+          <div>
+            <div class="tagline-text">글로 생각하고, 생각으로 자란다</div>
+            <div class="tagline-note">순환 구조 · 교육 철학 함축</div>
+          </div>
+        </div>
+        <div class="tagline-item">
+          <div class="tagline-num">5</div>
+          <div>
+            <div class="tagline-text">아이의 생각에 뿌리를 내려주는 곳</div>
+            <div class="tagline-note">숲 / 나무 메타포 활용</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="voice">
+      <h3>톤 앤 보이스</h3>
+
+      <p style="text-align: center; margin-bottom: 32px;">
+        <strong style="font-size: 17px;">따뜻하되 전문적 &middot; 쉽되 가볍지 않은 &middot; 확신 있되 겸손한</strong>
+      </p>
+
+      <div class="spectrum-item">
+        <div class="spectrum-label">유치한</div>
+        <div class="spectrum-bar"><div class="spectrum-dot" style="left: 68%;"></div></div>
+        <div class="spectrum-label-end">딱딱한</div>
+      </div>
+      <div class="spectrum-item">
+        <div class="spectrum-label">캐주얼</div>
+        <div class="spectrum-bar"><div class="spectrum-dot" style="left: 62%;"></div></div>
+        <div class="spectrum-label-end">포멀</div>
+      </div>
+      <div class="spectrum-item">
+        <div class="spectrum-label">감성적</div>
+        <div class="spectrum-bar"><div class="spectrum-dot" style="left: 42%;"></div></div>
+        <div class="spectrum-label-end">데이터형</div>
+      </div>
+      <div class="spectrum-item">
+        <div class="spectrum-label">자신감</div>
+        <div class="spectrum-bar"><div class="spectrum-dot" style="left: 35%;"></div></div>
+        <div class="spectrum-label-end">조심스러운</div>
+      </div>
+
+      <div class="space-lg"></div>
+      <h4>학부모 대상</h4>
+      <div class="dodont-grid">
+        <div class="dodont-col do-col">
+          <div class="dodont-label">DO</div>
+          <div class="dodont-item">"글쓰기는 모든 공부의 기초 체력입니다"</div>
+          <div class="dodont-item">"아이가 자기 생각을 표현하기 시작했어요"</div>
+          <div class="dodont-item">"아이의 속도에 맞춰 함께 걸어갑니다"</div>
+        </div>
+        <div class="dodont-col dont-col">
+          <div class="dodont-label">DON'T</div>
+          <div class="dodont-item">"글쓰기 안 시키면 뒤처집니다"</div>
+          <div class="dodont-item">"폭발적으로 실력이!" </div>
+          <div class="dodont-item">"단기간에 확실한 효과! 3개월 완성!"</div>
+        </div>
+      </div>
+
+      <h4>아이 대상</h4>
+      <div class="dodont-grid">
+        <div class="dodont-col do-col">
+          <div class="dodont-label">DO</div>
+          <div class="dodont-item">"네가 쓴 글이 제일 멋져"</div>
+          <div class="dodont-item">"어떤 생각이 들었어?"</div>
+          <div class="dodont-item">"틀려도 괜찮아, 네 생각이 중요해"</div>
+        </div>
+        <div class="dodont-col dont-col">
+          <div class="dodont-label">DON'T</div>
+          <div class="dodont-item">"잘했어! 역시 천재!"</div>
+          <div class="dodont-item">"정답이 뭘까?"</div>
+          <div class="dodont-item">"다시 써 와"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="words">
+      <h3>금지어 / 권장어</h3>
+
+      <h4>권장어</h4>
+      <div class="word-chips">
+        <span class="word-chip recommend">생각하는 힘</span>
+        <span class="word-chip recommend">자기 언어로</span>
+        <span class="word-chip recommend">함께 자라는</span>
+        <span class="word-chip recommend">깊이 있는</span>
+        <span class="word-chip recommend">체계적인</span>
+        <span class="word-chip recommend">뿌리를 내리다</span>
+        <span class="word-chip recommend">문해력</span>
+        <span class="word-chip recommend">사고력</span>
+        <span class="word-chip recommend">표현력</span>
+      </div>
+
+      <h4>금지어</h4>
+      <div class="word-chips">
+        <span class="word-chip forbidden">글쓰기 학원</span>
+        <span class="word-chip forbidden">성적 향상</span>
+        <span class="word-chip forbidden">특목고/영재</span>
+        <span class="word-chip forbidden">마감 임박</span>
+        <span class="word-chip forbidden">폭발적</span>
+        <span class="word-chip forbidden">엄마표 글쓰기</span>
+        <span class="word-chip forbidden">공부</span>
+        <span class="word-chip forbidden">남들보다</span>
+        <span class="word-chip forbidden">뒤처지지</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="reveal" id="sns">
+      <h3>SNS 전환 시 첫 포스팅 시안</h3>
+
+      <h4>시안 A: 선언형 (인스타그램)</h4>
+      <div class="sns-preview">
+        <div class="sns-header">
+          <div class="sns-avatar">숲</div>
+          <div>
+            <div class="sns-name">생각의숲</div>
+            <div class="sns-handle">@forest_of_thoughts</div>
+          </div>
+        </div>
+        <div class="sns-body"><span class="highlight">슬기로운 초등생활 → 생각의숲</span>
+
+안녕하세요, 이은경입니다.
+
+15년간 교실에서, 60권의 책에서, 유튜브에서 초등 학부모님들과 함께해왔습니다.
+
+이제 한 걸음 더 나아갑니다.
+
+AI가 글을 대신 써주는 시대, 아이들에게 정말 필요한 건 '스스로 생각하고 쓰는 힘'이라고 믿습니다.
+
+<span class="highlight">읽고, 쓰고, 생각하는 아이를 키우는 곳 — 생각의숲.</span>
+
+초등 글쓰기와 인문독서에 진심인 교육을 만들어갑니다.
+앞으로의 이야기를 함께 지켜봐 주세요.</div>
+        <div class="sns-tags">#생각의숲 #읽고쓰고생각하는아이 #초등글쓰기 #문해력교육</div>
+      </div>
+
+      <div class="space-lg"></div>
+      <h4>시안 C: 스토리형 (유튜브)</h4>
+      <div class="sns-preview">
+        <div class="sns-header">
+          <div class="sns-avatar">숲</div>
+          <div>
+            <div class="sns-name">생각의숲</div>
+            <div class="sns-handle">YouTube Community</div>
+          </div>
+        </div>
+        <div class="sns-body">15년 전, 처음 교실에 섰을 때 가장 안타까웠던 건 "선생님, 뭘 써야 해요?"라고 묻는 아이들이었습니다.
+
+쓸 말이 없는 게 아니라, 자기 생각을 꺼내본 적이 없는 거였어요.
+
+그때부터 지금까지, 저는 계속 같은 일을 하고 있습니다.
+아이들이 자기 생각을 발견하고, 자기 말로 표현하는 걸 돕는 일.
+
+이제 그 일에 이름을 붙였습니다.
+<span class="highlight">생각의숲</span>이라고요.
+
+곧 더 자세한 이야기를 들려드릴게요.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <section style="background: var(--forest-deep); color: var(--ivory); padding: 60px; text-align: center;">
+    <div style="font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 700; letter-spacing: 4px; margin-bottom: 12px;">생각의숲</div>
+    <div style="font-family: 'Playfair Display', serif; font-size: 13px; letter-spacing: 4px; opacity: 0.5; margin-bottom: 24px;">FOREST OF THOUGHTS</div>
+    <div style="width: 40px; height: 1px; background: var(--sprout); margin: 0 auto 24px;"></div>
+    <div style="font-size: 13px; opacity: 0.4; line-height: 1.8;">
+      Brand Identity Book — Confidential<br>
+      2026 &copy; 생각의숲. All rights reserved.
+    </div>
+  </section>
+
+</div>
+
+<script>
+// Sidebar toggle (mobile)
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.querySelector('.mobile-overlay').classList.toggle('show');
+}
+
+// Close sidebar on nav click (mobile)
+document.querySelectorAll('.sidebar nav a').forEach(a => {
+  a.addEventListener('click', () => {
+    if (window.innerWidth <= 900) toggleSidebar();
+  });
+});
+
+// Active nav highlighting
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.sidebar nav a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (s.offsetTop - 120 <= window.scrollY) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
+});
+
+// Pitch tabs
+function showPitch(id) {
+  document.querySelectorAll('.pitch-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.pitch-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
