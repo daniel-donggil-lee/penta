@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PENTA — 브랜드 기획서 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --black: #0a0a0a;
+    --gray-900: #111;
+    --gray-700: #333;
+    --gray-500: #666;
+    --gray-300: #999;
+    --gray-100: #f5f5f5;
+    --gray-50: #fafafa;
+    --white: #ffffff;
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --accent: #1a1a1a;
+    --border: #e8e8e8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* ── 커버 ── */
+  .cover {
+    min-height: 100vh;
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 80px 10%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 커버 상단 골드 그라디언트 라인 */
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+  }
+
+  .cover::before {
+    content: 'PENTA';
+    position: absolute;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(120px, 20vw, 280px);
+    font-weight: 900;
+    color: rgba(201,168,76,0.06);
+    letter-spacing: -0.05em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .cover-tag {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    padding: 6px 14px;
+    border: 1px solid rgba(201,168,76,0.4);
+    border-radius: 100px;
+    display: inline-block;
+  }
+
+  .cover h1 {
+    font-size: clamp(56px, 10vw, 120px);
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    margin-bottom: 24px;
+  }
+
+  .cover h1 span { color: var(--gold); }
+
+  .cover-sub {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 32px;
+  }
+
+  .cover-meta-item { }
+  .cover-meta-item .label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .cover-meta-item .value {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── 섹션 공통 ── */
+  .section {
+    padding: 96px 10%;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--black);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    background: var(--gold);
+    padding: 4px 14px;
+    border-radius: 100px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    bottom: 0.1em;
+    width: 5px;
+    background: var(--gold);
+    border-radius: 3px;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    color: var(--gray-500);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 64px;
+  }
+
+  /* ── PENTA 의미 ── */
+  .penta-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-bottom: 64px;
+  }
+
+  .penta-item {
+    background: var(--gray-50);
+    padding: 32px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .penta-item:hover { background: var(--black); }
+  .penta-item:hover .penta-letter,
+  .penta-item:hover .penta-name,
+  .penta-item:hover .penta-desc { color: var(--white); }
+  .penta-item:hover .penta-letter { color: var(--gold); }
+
+  .penta-letter {
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--black);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-bottom: 16px;
+    transition: color 0.2s;
+  }
+
+  .penta-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+
+  .penta-desc {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.6;
+    transition: color 0.2s;
+  }
+
+  /* ── 미션/비전 ── */
+  .mv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .mv-item {
+    background: var(--gray-50);
+    padding: 48px;
+  }
+
+  .mv-item.dark {
+    background: var(--black);
+  }
+
+  .mv-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--gray-300);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .mv-item.dark .mv-label { color: var(--gold); }
+
+  .mv-text {
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+  }
+
+  .mv-item.dark .mv-text { color: var(--white); }
+
+  /* ── 사업 구조 ── */
+  .brand-structure {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
+    margin-bottom: 64px;
+  }
+
+  .brand-main {
+    background: var(--black);
+    padding: 40px 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .brand-main-name {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.03em;
+  }
+
+  .brand-main-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .brand-subs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .brand-sub {
+    background: var(--gray-50);
+    padding: 32px;
+    border-left: 3px solid var(--gold);
+    transition: background 0.2s;
+  }
+
+  .brand-sub:hover { background: var(--gray-100); }
+
+  .brand-sub-num {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .brand-sub-name {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .brand-sub-eng {
+    font-size: 13px;
+    color: var(--gray-300);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+  }
+
+  .brand-sub-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.65;
+  }
+
+  .brand-sub-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray-700);
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  /* ── 펜타 지수 ── */
+  .index-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .index-visual {
+    background: var(--black);
+    padding: 48px;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .pentagon {
+    width: 200px;
+    height: 200px;
+    position: relative;
+  }
+
+  .pentagon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .index-score {
+    text-align: center;
+    margin-top: 24px;
+  }
+
+  .index-score .num {
+    font-size: 64px;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .index-score .label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  .index-points {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 8px;
+  }
+
+  .index-point { }
+
+  .index-point-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+
+  .index-point-desc {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  .index-hook {
+    background: var(--gold);
+    padding: 20px 24px;
+    margin-top: 24px;
+  }
+
+  .index-hook p {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  /* ── 수익 구조 ── */
+  .revenue-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .revenue-item {
+    background: var(--gray-50);
+    padding: 32px;
+  }
+
+  .revenue-num {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .revenue-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .revenue-desc {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.65;
+  }
+
+  /* ── 타임라인 ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.2));
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 40px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -29px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--black);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--black);
+  }
+
+  .tl-item.gold::before {
+    background: var(--gold);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+
+  .tl-date {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .tl-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .tl-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  /* ── 포지셔닝 ── */
+  .position-box {
+    background: var(--gray-50);
+    padding: 48px;
+    margin-bottom: 48px;
+  }
+
+  .position-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 32px;
+  }
+
+  .position-table th {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gray-300);
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .position-table td {
+    font-size: 14px;
+    color: var(--gray-700);
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .position-table tr.us td {
+    background: var(--black);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .position-table tr.us td:first-child { color: var(--gold); }
+
+  /* ── 미결 사항 ── */
+  .pending-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .pending-item {
+    background: var(--gray-50);
+    padding: 28px 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .pending-badge {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .badge-important { background: #FFF3CD; color: #856404; }
+  .badge-hold { background: var(--gray-100); color: var(--gray-500); }
+
+  .pending-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+
+  .pending-desc {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  /* ── 거버넌스 ── */
+  .gov-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .gov-item {
+    background: var(--gray-50);
+    padding: 32px;
+  }
+
+  .gov-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gray-300);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .gov-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .gov-note {
+    font-size: 13px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+
+  /* ── 반응형 ── */
+  @media (max-width: 900px) {
+    .penta-grid { grid-template-columns: repeat(3, 1fr); }
+    .brand-subs { grid-template-columns: 1fr 1fr; }
+    .mv-grid { grid-template-columns: 1fr; }
+    .index-wrap { grid-template-columns: 1fr; }
+    .revenue-grid { grid-template-columns: 1fr 1fr; }
+    .pending-grid { grid-template-columns: 1fr; }
+    .gov-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .section { padding: 64px 6%; }
+    .penta-grid { grid-template-columns: 1fr 1fr; }
+    .brand-subs { grid-template-columns: 1fr; }
+    .revenue-grid { grid-template-columns: 1fr; }
+    .gov-grid { grid-template-columns: 1fr; }
+    .cover { padding: 60px 6%; }
+    .cover-meta { flex-wrap: wrap; gap: 24px; }
+  }
+
+  /* ── divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ── 강조 텍스트 ── */
+  .highlight { color: var(--gold); }
+  .bold { font-weight: 700; }
+
+  /* ── 파트너 카드 ── */
+  .partner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .partner-card {
+    background: var(--gray-50);
+    padding: 36px 32px;
+  }
+
+  .partner-role {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .partner-name {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .partner-desc {
+    font-size: 14px;
+    color: var(--gray-500);
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════ COVER ══════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-tag">Brand Proposal · 2026</div>
+  <h1>PEN<span>T</span>A</h1>
+  <p class="cover-sub">초등 종합문해력 교육 프랜차이즈 브랜드<br>5개 영역의 완전한 문해력을 만드는 곳</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="label">Version</div>
+      <div class="value">v1.0 — 2026.04.06</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">대상</div>
+      <div class="value">이은경 · 이동길 내부용</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">런칭 목표</div>
+      <div class="value">2027년 1~2월</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Phase</div>
+      <div class="value">P0 — 사업 설계</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 01 PENTA란 ══════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">01 — Brand Identity</div>
+  <h2 class="section-title">PENTA는 5다</h2>
+  <p class="section-desc">PENTA는 단순한 이름이 아닙니다. 문해력을 구성하는 5개 핵심 영역의 이니셜이자, 5가 상징하는 완전성의 철학입니다. 어느 영역 하나 빠지면 완전한 문해력이 아닙니다.</p>
+
+  <div class="penta-grid">
+    <div class="penta-item">
+      <div class="penta-letter">P</div>
+      <div class="penta-name">독해 (Perceptive Reading)</div>
+      <div class="penta-desc">텍스트를 읽고 핵심·추론·맥락을 파악하는 힘</div>
+    </div>
+    <div class="penta-item">
+      <div class="penta-letter">E</div>
+      <div class="penta-name">어휘 (Expansive Vocabulary)</div>
+      <div class="penta-desc">개념어 체계화, 배경지식 확장, 사고의 도구어</div>
+    </div>
+    <div class="penta-item">
+      <div class="penta-letter">N</div>
+      <div class="penta-name">사고 (Navigating Thought)</div>
+      <div class="penta-desc">논리적 추론, 비판적 사고, 질문을 설계하는 힘</div>
+    </div>
+    <div class="penta-item">
+      <div class="penta-letter">T</div>
+      <div class="penta-name">표현 (Transforming Expression)</div>
+      <div class="penta-desc">구조적 글쓰기, 사고력 에세이, 논술로 완성</div>
+    </div>
+    <div class="penta-item">
+      <div class="penta-letter">A</div>
+      <div class="penta-name">소통 (Articulate Communication)</div>
+      <div class="penta-desc">말하기·토론·발표, 타인을 설득하는 힘</div>
+    </div>
+  </div>
+
+  <p style="font-size: 13px; color: var(--gray-300); text-align: center; letter-spacing: 0.05em;">
+    5개 영역이 모두 갖춰질 때, 비로소 완전한 문해력이 완성됩니다
+  </p>
+</section>
+
+<!-- ══════════════════════════════════ 02 미션/비전 ══════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">02 — Mission & Vision</div>
+  <h2 class="section-title">우리가 하는 일과<br>만들고 싶은 세상</h2>
+
+  <div class="mv-grid">
+    <div class="mv-item dark">
+      <div class="mv-label">Mission</div>
+      <div class="mv-text">아이들이 스스로 생각하고,<br>자기 언어로 세상을 표현하는<br>힘을 기릅니다.</div>
+    </div>
+    <div class="mv-item">
+      <div class="mv-label">Vision</div>
+      <div class="mv-text">초등 문해력 교육의 새로운 기준.<br>대한민국 모든 아이에게<br>완전한 문해력을.</div>
+    </div>
+  </div>
+
+  <div style="background: var(--gray-50); padding: 40px 48px;">
+    <div class="section-label" style="margin-bottom: 24px;">핵심 가치</div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;">
+      <div>
+        <div style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">깊이</div>
+        <div style="font-size: 13px; color: var(--gray-500); line-height: 1.6;">빠른 결과보다 깊은 사고. 생각의 과정을 봅니다.</div>
+      </div>
+      <div>
+        <div style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">성장</div>
+        <div style="font-size: 13px; color: var(--gray-500); line-height: 1.6;">비교가 아닌 자기 성장. 어제의 나보다 오늘의 내가.</div>
+      </div>
+      <div>
+        <div style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">체계</div>
+        <div style="font-size: 13px; color: var(--gray-500); line-height: 1.6;">감이 아닌 시스템. 검증된 커리큘럼과 훈련된 교사.</div>
+      </div>
+      <div>
+        <div style="font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 8px;">완전</div>
+        <div style="font-size: 13px; color: var(--gray-500); line-height: 1.6;">5개 영역이 모두 갖춰질 때 완전한 문해력.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 03 사업 구조 ══════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">03 — Business Structure</div>
+  <h2 class="section-title">하나의 브랜드,<br>4개의 사업</h2>
+  <p class="section-desc">펜타는 교육·아카데미·커머스·컨설팅의 4개 서브 브랜드로 운영됩니다. 각 사업부는 독립적으로 수익을 내면서, 서로를 강화하는 구조입니다.</p>
+
+  <div class="brand-structure">
+    <div class="brand-main">
+      <div>
+        <div class="brand-main-name">PENTA</div>
+        <div class="brand-main-desc">초등 종합문해력 교육 프랜차이즈 브랜드</div>
+      </div>
+    </div>
+    <div class="brand-subs">
+      <div class="brand-sub">
+        <div class="brand-sub-num">01</div>
+        <div class="brand-sub-name">펜타 에듀</div>
+        <div class="brand-sub-eng">PENTA EDU</div>
+        <div class="brand-sub-desc">초등 종합문해력 오프라인 수업. 기본 커리큘럼 + 심화 선택 과정(프리미엄 클래스)으로 구성된 하이브리드 모델.</div>
+        <div class="brand-sub-tags">
+          <span class="tag">오프라인 전용</span>
+          <span class="tag">직영 + 가맹</span>
+          <span class="tag">초등</span>
+        </div>
+      </div>
+      <div class="brand-sub">
+        <div class="brand-sub-num">02</div>
+        <div class="brand-sub-name">펜타 아카데미</div>
+        <div class="brand-sub-eng">PENTA ACADEMY</div>
+        <div class="brand-sub-desc">평생교육원 인가 기반 온라인 연수원 + 강사 플랫폼. 자격증 취득 후 펜타 학원, 가맹, 학교 방과후 3경로 취업 연결.</div>
+        <div class="brand-sub-tags">
+          <span class="tag">온라인</span>
+          <span class="tag">자격증</span>
+          <span class="tag">취업 연결</span>
+        </div>
+      </div>
+      <div class="brand-sub">
+        <div class="brand-sub-num">03</div>
+        <div class="brand-sub-name">펜타몰</div>
+        <div class="brand-sub-eng">PENTA MALL</div>
+        <div class="brand-sub-desc">교육 관련 유무형 상품 큐레이션 쇼핑몰. 스터디플래너 등 물리 상품 + 연수 과정 등 온라인 상품 통합 판매.</div>
+        <div class="brand-sub-tags">
+          <span class="tag">큐레이션</span>
+          <span class="tag">유무형</span>
+          <span class="tag">8월 오픈</span>
+        </div>
+      </div>
+      <div class="brand-sub">
+        <div class="brand-sub-num">04</div>
+        <div class="brand-sub-name">펜타웍스</div>
+        <div class="brand-sub-eng">PENTA WORKS</div>
+        <div class="brand-sub-desc">학원 표준화·자동화 컨설팅. 오프라인 학원(Track A)과 온라인 교육 사업자(Track B) 2트랙 운영.</div>
+        <div class="brand-sub-tags">
+          <span class="tag">B2B</span>
+          <span class="tag">SaaS</span>
+          <span class="tag">2트랙</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 사업 간 연결 구조 -->
+  <div style="background: var(--gray-50); padding: 40px 48px;">
+    <div class="section-label" style="margin-bottom: 24px;">4개 사업의 선순환 구조</div>
+    <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+      <div style="text-align: center; flex: 1; min-width: 140px;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 6px;">펜타 에듀</div>
+        <div style="font-size: 12px; color: var(--gray-500);">브랜드 검증<br>학생 데이터 확보</div>
+      </div>
+      <div style="color: var(--gold); font-size: 20px; font-weight: 300;">→</div>
+      <div style="text-align: center; flex: 1; min-width: 140px;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 6px;">펜타 아카데미</div>
+        <div style="font-size: 12px; color: var(--gray-500);">강사 양성<br>가맹 품질 관리</div>
+      </div>
+      <div style="color: var(--gold); font-size: 20px; font-weight: 300;">→</div>
+      <div style="text-align: center; flex: 1; min-width: 140px;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 6px;">가맹 확장</div>
+        <div style="font-size: 12px; color: var(--gray-500);">전국 네트워크<br>시장 점유</div>
+      </div>
+      <div style="color: var(--gold); font-size: 20px; font-weight: 300;">→</div>
+      <div style="text-align: center; flex: 1; min-width: 140px;">
+        <div style="font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 6px;">펜타웍스</div>
+        <div style="font-size: 12px; color: var(--gray-500);">네트워크 시스템화<br>B2B 확장</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 04 핵심 차별점 ══════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">04 — Differentiation</div>
+  <h2 class="section-title">펜타만 가진 것</h2>
+  <p class="section-desc">글쓰기 전문 프랜차이즈는 국내에 없습니다. 펜타가 처음입니다. 그리고 펜타에는 경쟁사가 복제할 수 없는 3가지 해자가 있습니다.</p>
+
+  <!-- 펜타 지수 -->
+  <div style="background: var(--black); padding: 56px 48px; margin-bottom: 2px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+      <div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px;">해자 01 — 펜타 지수</div>
+        <div style="font-size: clamp(24px, 3vw, 36px); font-weight: 800; color: var(--white); letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 20px;">
+          우리 아이 문해력,<br>몇 점인지 아세요?
+        </div>
+        <p style="font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 24px;">
+          펜타만의 종합문해력 진단 지수. 5개 영역을 측정해 레이더 차트로 시각화합니다. 황소 입테처럼 "전국 동학년 상위 N%"를 보여주는 전국 표준화 데이터베이스를 구축합니다.
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0;"></div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6);">무료 측정 → 유입 훅 → 등록 전환</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0;"></div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6);">약점 영역 감지 → 프리미엄 클래스 자동 추천</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0;"></div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.6);">전국 데이터 누적 → 특허 출원 검토</div>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+        <svg viewBox="0 0 200 200" width="180" height="180">
+          <polygon points="100,20 180,74 151,160 49,160 20,74" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <polygon points="100,44 156,83 135,148 65,148 44,83" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <polygon points="100,68 132,92 119,136 81,136 68,92" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1"/>
+          <polygon points="100,40 165,78 140,158 60,158 35,78" fill="rgba(201,168,76,0.15)" stroke="var(--gold)" stroke-width="2"/>
+          <circle cx="100" cy="40" r="4" fill="var(--gold)"/>
+          <circle cx="165" cy="78" r="4" fill="var(--gold)"/>
+          <circle cx="140" cy="158" r="4" fill="var(--gold)"/>
+          <circle cx="60" cy="158" r="4" fill="var(--gold)"/>
+          <circle cx="35" cy="78" r="4" fill="var(--gold)"/>
+          <text x="100" y="28" text-anchor="middle" fill="white" font-size="10" font-weight="700">P</text>
+          <text x="178" y="76" text-anchor="start" fill="white" font-size="10" font-weight="700">E</text>
+          <text x="150" y="172" text-anchor="middle" fill="white" font-size="10" font-weight="700">N</text>
+          <text x="50" y="172" text-anchor="middle" fill="white" font-size="10" font-weight="700">T</text>
+          <text x="14" y="76" text-anchor="start" fill="white" font-size="10" font-weight="700">A</text>
+        </svg>
+        <div style="text-align: center;">
+          <div style="font-size: 48px; font-weight: 900; color: var(--gold); letter-spacing: -0.04em; line-height: 1;">78</div>
+          <div style="font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px;">펜타 종합 지수 (샘플)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 연수원 + 취업 -->
+  <div style="background: var(--gray-50); padding: 48px; margin-bottom: 2px;">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px;">해자 02 — 배움 + 취업 연결</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;">
+      <div>
+        <div style="font-size: clamp(20px, 2.5vw, 28px); font-weight: 800; color: var(--black); letter-spacing: -0.02em; line-height: 1.35; margin-bottom: 16px;">
+          배우고 끝나지 않는다.<br>배우면 일할 수 있다.
+        </div>
+        <p style="font-size: 14px; color: var(--gray-500); line-height: 1.75;">
+          경력단절 여성이 자격증만 따고 취업 못하는 구조를 깹니다. 펜타 아카데미에서 자격증을 취득하면 3가지 경로로 바로 일할 수 있습니다.
+        </p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="background: var(--white); border: 1px solid var(--border); padding: 16px 20px; border-left: 3px solid var(--gold);">
+          <div style="font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 4px;">경로 1 — 펜타 학원 취직</div>
+          <div style="font-size: 12px; color: var(--gray-500);">직영 본원 및 가맹점 강사로 채용</div>
+        </div>
+        <div style="background: var(--white); border: 1px solid var(--border); padding: 16px 20px; border-left: 3px solid var(--gold);">
+          <div style="font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 4px;">경로 2 — 펜타 가맹 창업</div>
+          <div style="font-size: 12px; color: var(--gray-500);">자격증 소지자만 가맹 자격 부여</div>
+        </div>
+        <div style="background: var(--white); border: 1px solid var(--border); padding: 16px 20px; border-left: 3px solid var(--gold);">
+          <div style="font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 4px;">경로 3 — 학교 방과후 강사</div>
+          <div style="font-size: 12px; color: var(--gray-500);">공신력 있는 자격으로 학교 진입</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프리미엄 클래스 -->
+  <div style="background: var(--gray-50); padding: 48px;">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px;">해자 03 — 에르메스 전략</div>
+    <div style="font-size: clamp(20px, 2.5vw, 28px); font-weight: 800; color: var(--black); letter-spacing: -0.02em; line-height: 1.35; margin-bottom: 16px;">
+      돈이 있어도 아무나 들어올 수 없다
+    </div>
+    <p style="font-size: 14px; color: var(--gray-500); line-height: 1.75; margin-bottom: 32px; max-width: 560px;">
+      프리미엄 클래스는 기본 과정 적응 → 포트폴리오 분석 → 추천 → 부모 인터뷰 → 등록의 5단계를 거쳐야만 입학할 수 있습니다. 희소성이 가치를 만듭니다.
+    </p>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">인문독서 (달콤쌤)</div>
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">논증과추론</div>
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">질문설계</div>
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">개념어체계화</div>
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">사고력에세이</div>
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">논제분석훈련</div>
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">구조설계논술</div>
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">자료기반토론</div>
+      <div style="background: var(--white); padding: 14px 16px; font-size: 12px; font-weight: 600; color: var(--black);">하브루타토론</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 05 포지셔닝 ══════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">05 — Positioning</div>
+  <h2 class="section-title">이 자리는<br>비어 있었다</h2>
+  <p class="section-desc">초등 사교육 시장 13조 원 중 글쓰기 전문 프랜차이즈는 단 하나도 없습니다. 펜타가 이 자리를 가장 먼저 차지합니다.</p>
+
+  <div class="position-box">
+    <table class="position-table">
+      <thead>
+        <tr>
+          <th>브랜드</th>
+          <th>포지션</th>
+          <th>글쓰기 전문성</th>
+          <th>가맹 규모</th>
+          <th>한계</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="us">
+          <td>★ 펜타</td>
+          <td>초등 종합문해력 전문 프리미엄</td>
+          <td>핵심 (5개 영역)</td>
+          <td>준비 중</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>한우리</td>
+          <td>독서토론논술</td>
+          <td>고학년 논술 중심</td>
+          <td>742개</td>
+          <td>올드한 이미지, 초등 저학년 취약</td>
+        </tr>
+        <tr>
+          <td>책나무</td>
+          <td>독서코칭</td>
+          <td>독후감 수준</td>
+          <td>200+개</td>
+          <td>글쓰기 전문성 부재</td>
+        </tr>
+        <tr>
+          <td>리드인</td>
+          <td>독서코칭 + 영어/수학 샵인샵</td>
+          <td>약함</td>
+          <td>300+개</td>
+          <td>정체성 흐림</td>
+        </tr>
+        <tr>
+          <td>빅4(교원·대교 등)</td>
+          <td>전과목 패키지</td>
+          <td>패키지 부록 수준</td>
+          <td>수천 개</td>
+          <td>글쓰기 전문성 없음</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 06 파트너 ══════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">06 — Founding Team</div>
+  <h2 class="section-title">콘텐츠를 만드는 사람과<br>시스템을 만드는 사람</h2>
+
+  <div class="partner-grid">
+    <div class="partner-card" style="background: var(--black);">
+      <div class="partner-role" style="color: var(--gold);">공동대표 · 콘텐츠 · 최종결정권</div>
+      <div class="partner-name" style="color: var(--white);">이은경</div>
+      <div class="partner-desc" style="color: rgba(255,255,255,0.5);">초등교사 15년 · 저서 60여 권 · 유튜브 15만 구독<br><br>담당: 브랜드, 커리큘럼(초등), 교사 교육, 프리미엄 강사 섭외</div>
+    </div>
+    <div class="partner-card">
+      <div class="partner-role">공동대표 · 시스템 · 운영</div>
+      <div class="partner-name">이동길</div>
+      <div class="partner-desc">리마크영어국어학원 공동원장 · AI 기반 학원 시스템 구축 3년<br><br>담당: 경영, 운영, 시스템 자동화, 프랜차이즈 설계</div>
+    </div>
+    <div class="partner-card">
+      <div class="partner-role">심화 수업 대표 강사 (섭외 완료)</div>
+      <div class="partner-name">달콤쌤 외 라인업</div>
+      <div class="partner-desc">인문독서·논증과추론 등 프리미엄 클래스 전담 강사진. 영역별 전문가를 순차 섭외 예정.<br><br>현재 확정: 달콤쌤 (인문독서 + 논증과추론)<br>검토 중: 추리논증, 토론 등 추가 영역</div>
+    </div>
+  </div>
+
+  <!-- 거버넌스 -->
+  <div class="gov-grid">
+    <div class="gov-item">
+      <div class="gov-label">지분 구조</div>
+      <div class="gov-value">60 : 40</div>
+      <div class="gov-note">이은경 60% / 이동길 40%<br>의사결정권·투자유치 목적</div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-label">배당 · 엑싯</div>
+      <div class="gov-value" style="color: var(--gold);">50 : 50</div>
+      <div class="gov-note">수익 배분과 매각 정산은 동등.<br>기여 가치는 같다는 합의.</div>
+    </div>
+    <div class="gov-item">
+      <div class="gov-label">최종 결정권</div>
+      <div class="gov-value">이은경</div>
+      <div class="gov-note">의견 충돌 시 이은경 결정.<br>1,000만원+ 집행은 공동 합의.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 07 타임라인 ══════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">07 — Roadmap</div>
+  <h2 class="section-title">2026 — 2027<br>실행 타임라인</h2>
+  <p class="section-desc">2026년은 설계와 준비의 해. 2027년 1~2월, 대치 또는 분당 본점에서 연구수업으로 시작합니다.</p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px;">
+    <div>
+      <div style="font-size: 13px; font-weight: 700; color: var(--gray-300); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 32px;">2026</div>
+      <div class="timeline">
+        <div class="tl-item gold">
+          <div class="tl-date">4월</div>
+          <div class="tl-title">법인 설립</div>
+          <div class="tl-desc">주식회사 설립. 행정사 통해 업종 설정 (초창패 염두). 연수원 평생교육원 인가 진행.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">8월 말</div>
+          <div class="tl-title">펜타몰 오픈</div>
+          <div class="tl-desc">스터디플래너 첫 상품 출시. 큐레이션 쇼핑몰 런칭.</div>
+        </div>
+        <div class="tl-item gold">
+          <div class="tl-date">10월</div>
+          <div class="tl-title">펜타 아카데미 오픈</div>
+          <div class="tl-desc">연수 과정 5개 동시 오픈. 강사 자격증 1기 모집 시작.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">12월 20일</div>
+          <div class="tl-title">본점 인테리어 완공</div>
+          <div class="tl-desc">대치 또는 분당 본점. 공간 설계 완료.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size: 13px; font-weight: 700; color: var(--gray-300); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 32px;">2027</div>
+      <div class="timeline">
+        <div class="tl-item gold">
+          <div class="tl-date">1 — 2월</div>
+          <div class="tl-title">연구수업 시작 ★</div>
+          <div class="tl-desc">본점 정식 오픈. 커리큘럼 현장 검증. 학부모 피드백 수집.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">상반기</div>
+          <div class="tl-title">직영 2호점 검토</div>
+          <div class="tl-desc">교육투자지수 리포트 기반 후보 3곳 — <strong>서초구</strong> (2위·75.3점, 반포·양재) / <strong>과천시</strong> (3위·61.3점, 소형 교육특구) / <strong>송파구</strong> (6위·48.4점, 잠실·위례 대단지). 본점 운영 데이터 6개월 후 결정.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">하반기</div>
+          <div class="tl-title">가맹 시작</div>
+          <div class="tl-desc">자격증 소지자 대상 1기 가맹 모집. 수도권 신도시 우선.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ 08 미결 사항 ══════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">08 — Open Questions</div>
+  <h2 class="section-title">아직 결정하지 않은 것들</h2>
+  <p class="section-desc">기획서에서 열어두는 항목들. 회의에서 하나씩 닫아가야 합니다.</p>
+
+  <div class="pending-grid">
+    <div class="pending-item">
+      <span class="pending-badge badge-important">중요</span>
+      <div>
+        <div class="pending-title">심화 라인업 구성</div>
+        <div class="pending-desc">어떤 영역을 넣을지 (추리논증·변호사 등), 어떤 강사 카테고리를 만들지 먼저 확정 후 적합한 인물 탐색 순서로 진행.</div>
+      </div>
+    </div>
+    <div class="pending-item">
+      <span class="pending-badge badge-important">중요</span>
+      <div>
+        <div class="pending-title">법인 형태 세부 설계</div>
+        <div class="pending-desc">주식회사 방향 확정. 초창패 업종 설정, 연수원 별도 면세사업자 운영 여부 행정사 자문 필요.</div>
+      </div>
+    </div>
+    <div class="pending-item">
+      <span class="pending-badge badge-important">중요</span>
+      <div>
+        <div class="pending-title">본점 원장</div>
+        <div class="pending-desc">권보경(아내) 후보 거론 중. 이동길과 별도 상의 필요. 장기적 리마크→펜타 직영 전환 구상과 연결.</div>
+      </div>
+    </div>
+    <div class="pending-item">
+      <span class="pending-badge badge-important">중요</span>
+      <div>
+        <div class="pending-title">BM 세부 설계</div>
+        <div class="pending-desc">수업료 책정 (월정액 vs 횟수제 vs 결합), 프리미엄 클래스 가격 구조, 연수원 수강료 등 전체 수익 시뮬레이션 필요.</div>
+      </div>
+    </div>
+    <div class="pending-item">
+      <span class="pending-badge badge-hold">보류</span>
+      <div>
+        <div class="pending-title">마케팅 담당</div>
+        <div class="pending-desc">이은경 채널 전환 (슬기로운초등생활→펜타) 시점 및 방식. 별도 마케팅 인력 채용 여부.</div>
+      </div>
+    </div>
+    <div class="pending-item">
+      <span class="pending-badge badge-hold">보류</span>
+      <div>
+        <div class="pending-title">투자 유치</div>
+        <div class="pending-desc">가맹 시작 후 스케일업 시점에 검토. VC 네트워크 사전 구축 필요. 초창패 수상이 첫 레퍼런스.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ FOOTER ══════════════════════════════════ -->
+<section style="background: var(--black); padding: 64px 10%;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px;">
+    <div>
+      <div style="font-size: 32px; font-weight: 900; color: var(--white); letter-spacing: -0.03em; margin-bottom: 8px;">PENTA</div>
+      <div style="font-size: 13px; color: rgba(255,255,255,0.3);">초등 종합문해력 교육 프랜차이즈</div>
+    </div>
+    <div style="text-align: right;">
+      <div style="font-size: 12px; color: rgba(255,255,255,0.3); margin-bottom: 4px;">브랜드 기획서 v1.0</div>
+      <div style="font-size: 12px; color: rgba(255,255,255,0.3);">2026.04.06 — 내부 기밀 문서</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
