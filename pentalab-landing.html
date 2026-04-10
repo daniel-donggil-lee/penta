@@ -30,6 +30,7 @@ body {
   background: var(--white);
   color: var(--black);
   font-size: 16px;
+  word-break: keep-all;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -213,6 +214,7 @@ nav {
   border-radius: 12px;
   margin-bottom: 40px;
   width: fit-content;
+  max-width: 100%;
 }
 .tab-btn {
   padding: 10px 24px;
@@ -224,6 +226,7 @@ nav {
   color: var(--gray-400);
   cursor: pointer;
   transition: all .2s;
+  white-space: nowrap;
 }
 .tab-btn.active {
   background: var(--black);
@@ -259,6 +262,75 @@ nav {
   transition: opacity .2s;
 }
 .pain-card:hover::before { opacity: 1; }
+.pain-card { cursor: pointer; user-select: none; }
+.pain-card.selected {
+  background: var(--black);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.pain-card.selected::before { opacity: 1; }
+.pain-card.selected .pain-num { color: var(--gold); }
+.pain-card.selected .pain-text { color: var(--white); }
+.pain-check {
+  display: none;
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 20px; height: 20px;
+  background: var(--gold);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--black);
+}
+.pain-card.selected .pain-check { display: block; }
+
+.pain-quick-form {
+  display: none;
+  background: var(--black);
+  border-radius: 16px;
+  padding: 28px 32px;
+}
+.pain-quick-form.visible { display: block; }
+.pain-quick-header { color: var(--white); font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+.pain-quick-sub { color: rgba(255,255,255,0.45); font-size: 13px; margin-bottom: 20px; }
+.pain-count { color: var(--gold); }
+.pain-quick-row { display: flex; gap: 10px; }
+.pain-quick-input {
+  flex: 1;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 13px 16px;
+  font-size: 15px;
+  color: var(--white);
+  font-family: inherit;
+  outline: none;
+  transition: border-color .2s;
+}
+.pain-quick-input::placeholder { color: rgba(255,255,255,0.3); }
+.pain-quick-input:focus { border-color: var(--gold); }
+.pain-quick-btn {
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  border-radius: 10px;
+  padding: 13px 22px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .2s;
+}
+.pain-quick-btn:hover { background: var(--gold-light); }
+.pain-quick-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.pain-quick-note { margin-top: 10px; font-size: 11px; color: rgba(255,255,255,0.25); }
+.pain-quick-success { display: none; text-align: center; padding: 8px 0; }
+.pain-quick-success-icon { font-size: 30px; margin-bottom: 8px; }
+.pain-quick-success-title { font-size: 17px; font-weight: 800; color: var(--white); margin-bottom: 4px; }
+.pain-quick-success-sub { font-size: 13px; color: rgba(255,255,255,0.45); }
+
 .pain-num {
   font-size: 11px;
   font-weight: 700;
@@ -286,54 +358,76 @@ nav {
 }
 .pain-footer span { color: var(--gold); }
 
-/* ── BEFORE AFTER ── */
-#before-after { background: var(--gray-50); }
-.ba-tabs { display: flex; gap: 4px; background: var(--gray-200); padding: 4px; border-radius: 12px; margin-bottom: 40px; width: fit-content; }
-.ba-tab { padding: 10px 24px; border-radius: 9px; font-size: 14px; font-weight: 600; border: none; background: transparent; color: var(--gray-400); cursor: pointer; transition: all .2s; }
-.ba-tab.active { background: var(--white); color: var(--black); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+/* ── COMPARE TABLE ── */
+#before-after { background: var(--white); }
+.ba-tabs { display: flex; gap: 4px; background: var(--gray-200); padding: 4px; border-radius: 12px; margin-bottom: 40px; width: fit-content; max-width: 100%; }
+.ba-tab { padding: 10px 24px; border-radius: 9px; font-size: 14px; font-weight: 600; border: none; background: transparent; color: var(--gray-400); cursor: pointer; transition: all .2s; white-space: nowrap; }
+.ba-tab.active { background: var(--black); color: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 .ba-panel { display: none; }
-.ba-panel.active { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.ba-panel.active { display: block; }
 
-.ba-card {
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--gray-200);
+.compare-table { width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid var(--gray-200); }
+.compare-header {
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr;
+  background: var(--black);
 }
-.ba-before {
-  background: #fff5f5;
-  padding: 20px;
-  border-bottom: 1px solid var(--gray-200);
-}
-.ba-after {
-  background: #f0faf0;
-  padding: 20px;
-}
-.ba-label {
-  font-size: 10px;
+.compare-header-cell {
+  padding: 14px 20px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
+  letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.5);
 }
-.ba-before .ba-label { color: #e05252; }
-.ba-after .ba-label { color: #3a9e4a; }
-.ba-category {
+.compare-header-cell:first-child { color: rgba(255,255,255,0.3); }
+.compare-header-cell.bad { color: rgba(255,255,255,0.5); }
+.compare-header-cell.good { color: var(--gold); }
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr;
+  border-bottom: 1px solid var(--gray-100);
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-label {
+  padding: 18px 16px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--gray-400);
-  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+  background: var(--gray-50);
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--gray-100);
 }
-.ba-text {
+.compare-bad {
+  padding: 18px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+  background: #fafafa;
+  line-height: 1.5;
+  border-right: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+}
+.compare-good {
+  padding: 18px 20px;
   font-size: 14px;
   font-weight: 700;
-  color: var(--black);
+  color: #1a1a1a;
+  background: #fffcf4;
   line-height: 1.5;
+  border-left: 3px solid var(--gold);
+  display: flex;
+  align-items: center;
 }
-.ba-after .ba-text { color: #1a7a28; }
+.compare-bad::before { content: ''; margin-right: 8px; font-size: 12px; flex-shrink: 0; }
+.compare-good::before { content: '✓'; margin-right: 8px; font-size: 12px; color: var(--gold); font-weight: 900; flex-shrink: 0; }
 
 /* ── SERVICES ── */
-.service-tabs { display: flex; gap: 4px; background: var(--gray-100); padding: 4px; border-radius: 12px; margin-bottom: 40px; width: fit-content; }
-.service-tab { padding: 10px 24px; border-radius: 9px; font-size: 14px; font-weight: 600; border: none; background: transparent; color: var(--gray-400); cursor: pointer; transition: all .2s; }
+.service-tabs { display: flex; gap: 4px; background: var(--gray-100); padding: 4px; border-radius: 12px; margin-bottom: 40px; width: fit-content; max-width: 100%; }
+.service-tab { padding: 10px 24px; border-radius: 9px; font-size: 14px; font-weight: 600; border: none; background: transparent; color: var(--gray-400); cursor: pointer; transition: all .2s; white-space: nowrap; }
 .service-tab.active { background: var(--black); color: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 .service-panel { display: none; }
 .service-panel.active { display: block; }
@@ -851,9 +945,17 @@ footer {
 
   .section { padding: 72px 20px; }
 
+  .tab-wrap, .ba-tabs, .service-tabs { width: 100%; }
+  .tab-btn, .ba-tab, .service-tab { flex: 1; padding: 10px 12px; font-size: 13px; text-align: center; }
+
+  .pain-quick-row { flex-direction: column; }
+  .pain-quick-btn { width: 100%; }
+
   .proof-metrics { grid-template-columns: 1fr; }
   .pain-grid { grid-template-columns: 1fr 1fr; }
-  .ba-panel.active { grid-template-columns: 1fr; }
+  .compare-header, .compare-row { grid-template-columns: 80px 1fr 1fr; }
+  .compare-label { font-size: 11px; padding: 14px 10px; }
+  .compare-bad, .compare-good { font-size: 13px; padding: 14px 12px; }
   .service-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr 1fr; }
@@ -869,6 +971,21 @@ footer {
 @media (max-width: 480px) {
   .pain-grid { grid-template-columns: 1fr; }
   .steps-grid { grid-template-columns: 1fr; }
+  .compare-header { display: none; }
+  .compare-row {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .compare-label {
+    background: var(--black);
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+    padding: 8px 14px;
+    border-right: none;
+  }
+  .compare-bad { border-right: none; font-size: 13px; }
+  .compare-good { border-left: 3px solid var(--gold); font-size: 13px; }
 }
 </style>
 </head>
@@ -888,10 +1005,10 @@ footer {
       <span class="hero-tag">온라인 교육 사업자</span>
     </div>
     <h1 class="hero-h1">
-      교육 사업,<br>이제 <span class="gold">시스템</span>이<br>합니다
+      교육 사업,<br>이제 <span class="gold">시스템</span>이 합니다
     </h1>
     <p class="hero-sub">
-      오프라인 학원부터 팔로워 10만 온라인 강사까지 — 리마크 학원 3년 직접 운영으로 검증한 자동화 시스템을 이식합니다
+      오프라인 학원부터 팔로워 10만 온라인 강사까지 — 3년 직접 운영으로 검증한 자동화 시스템을 이식합니다
     </p>
     <div class="hero-ctas">
       <a href="#contact" class="btn-primary">무료 상담 신청 →</a>
@@ -900,7 +1017,7 @@ footer {
     <div class="hero-badges">
       <div class="hero-badge">
         <div class="hero-badge-num">3년</div>
-        <div class="hero-badge-label">리마크 직접 운영</div>
+        <div class="hero-badge-label">직접 운영 검증</div>
       </div>
       <div class="hero-badge">
         <div class="hero-badge-num">15개</div>
@@ -926,75 +1043,123 @@ footer {
     <p class="section-desc">오프라인 학원 원장도, 온라인 교육 사업자도 — 문제의 뿌리는 같습니다. 자동화 시스템의 부재.</p>
 
     <div class="tab-wrap">
-      <button class="tab-btn active" onclick="switchTab('pain','a')">Track A · 오프라인 학원</button>
-      <button class="tab-btn" onclick="switchTab('pain','b')">Track B · 온라인 교육 사업자</button>
+      <button class="tab-btn active" onclick="switchTab('pain','a')">오프라인 학원</button>
+      <button class="tab-btn" onclick="switchTab('pain','b')">온라인 교육 사업자</button>
     </div>
 
     <div id="pain-a" class="tab-panel active">
       <div class="pain-grid">
-        <div class="pain-card"><div class="pain-num">01</div><div class="pain-text">카톡 문의 늦게 답하면 그냥 이탈</div></div>
-        <div class="pain-card"><div class="pain-num">02</div><div class="pain-text">미납 체크 매달 수작업으로 처리</div></div>
-        <div class="pain-card"><div class="pain-num">03</div><div class="pain-text">학부모 리포트 원장이 직접 작성</div></div>
-        <div class="pain-card"><div class="pain-num">04</div><div class="pain-text">블로그·인스타 알면서도 못 하고 있음</div></div>
-        <div class="pain-card"><div class="pain-num">05</div><div class="pain-text">강사 나가면 원장이 다시 다 맡음</div></div>
-        <div class="pain-card"><div class="pain-num">06</div><div class="pain-text">2호점 꿈꾸지만 지금 본점도 불안</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">01</div><div class="pain-text">상담 문의 왔는데 2시간 뒤에 봤더니 이미 다른 학원 등록</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">02</div><div class="pain-text">미납자 확인하려고 매달 엑셀 뒤지는 데 반나절 날림</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">03</div><div class="pain-text">월말 학부모 리포트 원장이 직접 쓰는 데 3일</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">04</div><div class="pain-text">재등록 시즌마다 원장이 학부모 한 명씩 직접 연락</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">05</div><div class="pain-text">강사 1명 빠지면 수업 공백을 원장이 채움</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">06</div><div class="pain-text">블로그·인스타 올려야 하는 거 알지만 6개월째 손 못 댐</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">07</div><div class="pain-text">원생 출결·진도 현황이 어디에도 한눈에 안 보임</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">08</div><div class="pain-text">학부모 상담 일정 잡는 데 카톡 핑퐁 10번</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">09</div><div class="pain-text">2호점 꿈꾸지만 지금 본점 혼자 돌리기도 벅참</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">10</div><div class="pain-text">원생이 갑자기 그만둔다고 해도 왜 나가는지 데이터가 없음</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">11</div><div class="pain-text">신규 문의가 어디서 오는지(블로그? 맘카페? 지인?) 파악이 안 됨</div></div>
+        <div class="pain-card" onclick="togglePain(this,'a')"><div class="pain-check">✓</div><div class="pain-num">12</div><div class="pain-text">수업·상담·행정·마케팅 혼자 다 하다 번아웃</div></div>
       </div>
-      <div class="pain-footer">이 중 <span>1개라도</span> 해당되면, 펜타랩이 해결합니다 →</div>
+      <div class="pain-quick-form" id="pain-quick-a">
+        <div class="pain-quick-form-body">
+          <div class="pain-quick-header"><span class="pain-count"></span> 해당되시는군요. 연락처만 남겨주시면 바로 연락드립니다.</div>
+          <div class="pain-quick-sub">부담 없이 남겨주세요 · 영업 외 목적 사용 안 합니다</div>
+          <div class="pain-quick-row">
+            <input class="pain-quick-input" type="text" placeholder="전화번호 또는 이메일">
+            <button class="pain-quick-btn" onclick="submitQuickPain('a')">바로 신청 →</button>
+          </div>
+          <div class="pain-quick-note">확인 후 24시간 내 연락드립니다</div>
+        </div>
+        <div class="pain-quick-success">
+          <div class="pain-quick-success-icon">✅</div>
+          <div class="pain-quick-success-title">신청이 완료되었습니다</div>
+          <div class="pain-quick-success-sub">24시간 내 담당자가 직접 연락드립니다</div>
+        </div>
+      </div>
     </div>
 
     <div id="pain-b" class="tab-panel">
       <div class="pain-grid">
-        <div class="pain-card"><div class="pain-num">01</div><div class="pain-text">매 기수 수강생 관리 다 수동 (엑셀+카톡)</div></div>
-        <div class="pain-card"><div class="pain-num">02</div><div class="pain-text">Zoom 수업 알림 매번 직접 발송</div></div>
-        <div class="pain-card"><div class="pain-num">03</div><div class="pain-text">결제·환불 내가 직접 처리</div></div>
-        <div class="pain-card"><div class="pain-num">04</div><div class="pain-text">수강 완주율·만족도 데이터가 없음</div></div>
-        <div class="pain-card"><div class="pain-num">05</div><div class="pain-text">콘텐츠 파이프라인 없어서 올리다 말다</div></div>
-        <div class="pain-card"><div class="pain-num">06</div><div class="pain-text">팔로워는 늘어도 수익은 제자리</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">01</div><div class="pain-text">기수 오픈마다 입금 확인·명단 정리에 하루 날림</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">02</div><div class="pain-text">수업 전날 밤 Zoom 링크 하나씩 복붙해서 발송</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">03</div><div class="pain-text">환불 요청 오면 계좌이체 내역 뒤지고 수동 처리</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">04</div><div class="pain-text">기수 끝나도 몇 명이 중도 이탈했는지 모름</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">05</div><div class="pain-text">DM·댓글 답변에 매일 1~2시간 소비</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">06</div><div class="pain-text">콘텐츠 올리다 말다 반복 — 알고리즘은 꾸준한 채널만 밀어줌</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">07</div><div class="pain-text">다음 기수 대기 수요 있는데 공지 체계가 없어서 놓침</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">08</div><div class="pain-text">수강 신청·결제·안내가 따로따로 — 전부 수동 연결</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">09</div><div class="pain-text">팔로워는 늘어나는데 매출 그래프는 평평</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">10</div><div class="pain-text">플랫폼 수수료 40~60% 떼이고 나면 실제 손에 쥐는 게 너무 적음</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">11</div><div class="pain-text">잘 들었던 수강생이 다음 기수에 안 돌아오는 이유를 모름</div></div>
+        <div class="pain-card" onclick="togglePain(this,'b')"><div class="pain-check">✓</div><div class="pain-num">12</div><div class="pain-text">강의·마케팅·CS·결제 전부 혼자 처리 — 지속 가능하지 않음</div></div>
       </div>
-      <div class="pain-footer">이 중 <span>1개라도</span> 해당되면, 펜타랩이 해결합니다 →</div>
+      <div class="pain-quick-form" id="pain-quick-b">
+        <div class="pain-quick-form-body">
+          <div class="pain-quick-header"><span class="pain-count"></span> 해당되시는군요. 연락처만 남겨주시면 바로 연락드립니다.</div>
+          <div class="pain-quick-sub">부담 없이 남겨주세요 · 영업 외 목적 사용 안 합니다</div>
+          <div class="pain-quick-row">
+            <input class="pain-quick-input" type="text" placeholder="전화번호 또는 이메일">
+            <button class="pain-quick-btn" onclick="submitQuickPain('b')">바로 신청 →</button>
+          </div>
+          <div class="pain-quick-note">확인 후 24시간 내 연락드립니다</div>
+        </div>
+        <div class="pain-quick-success">
+          <div class="pain-quick-success-icon">✅</div>
+          <div class="pain-quick-success-title">신청이 완료되었습니다</div>
+          <div class="pain-quick-success-sub">24시간 내 담당자가 직접 연락드립니다</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── 03 BEFORE/AFTER ── -->
+<!-- ── 03 COMPARE TABLE ── -->
 <section id="before-after" class="section">
   <div class="section-inner">
-    <p class="section-eyebrow">Before / After</p>
-    <h2 class="section-title">펜타랩 도입 전 vs 후</h2>
-    <p class="section-desc">수치로 보이는 변화. 8주 구축 이후 실제 운영 방식이 바뀝니다.</p>
+    <p class="section-eyebrow">잘되는 학원 vs 안되는 학원</p>
+    <h2 class="section-title">차이는 시스템 하나입니다</h2>
+    <p class="section-desc">같은 시간, 같은 에너지로 — 시스템이 있는 쪽은 성장하고 없는 쪽은 소진됩니다.</p>
 
     <div class="ba-tabs">
-      <button class="ba-tab active" onclick="switchTab('ba','a')">Track A · 오프라인 학원</button>
-      <button class="ba-tab" onclick="switchTab('ba','b')">Track B · 온라인 사업자</button>
+      <button class="ba-tab active" onclick="switchTab('ba','a')">오프라인 학원</button>
+      <button class="ba-tab" onclick="switchTab('ba','b')">온라인 교육 사업자</button>
     </div>
 
     <div id="ba-a" class="ba-panel active">
-      <div class="ba-card">
-        <div class="ba-before"><div class="ba-label">Before</div><div class="ba-category">상담 문의</div><div class="ba-text">하루 뒤 답장 → 이미 다른 학원 등록</div></div>
-        <div class="ba-after"><div class="ba-label">After</div><div class="ba-text">15분 내 자동 응답 → 상담 전환율 3배</div></div>
-      </div>
-      <div class="ba-card">
-        <div class="ba-before"><div class="ba-label">Before</div><div class="ba-category">미납 관리</div><div class="ba-text">엑셀 + 수동 독촉 전화 매달 반복</div></div>
-        <div class="ba-after"><div class="ba-label">After</div><div class="ba-text">자동 감지 + 문자 발송으로 미납율 -80%</div></div>
-      </div>
-      <div class="ba-card">
-        <div class="ba-before"><div class="ba-label">Before</div><div class="ba-category">수업 운영</div><div class="ba-text">감으로 운영 — 데이터 없음</div></div>
-        <div class="ba-after"><div class="ba-label">After</div><div class="ba-text">실시간 대시보드 — 수강률·납부율 한눈에</div></div>
+      <div class="compare-table">
+        <div class="compare-header">
+          <div class="compare-header-cell">영역</div>
+          <div class="compare-header-cell bad">❌ 지금 이 모습이라면</div>
+          <div class="compare-header-cell good">✓ 펜타랩 도입 후</div>
+        </div>
+        <div class="compare-row"><div class="compare-label">상담 응대</div><div class="compare-bad">카톡 2시간 뒤에 봄 → 이미 다른 학원 등록</div><div class="compare-good">자동 응답 15분 내 → 상담 전환율 3배</div></div>
+        <div class="compare-row"><div class="compare-label">미납 관리</div><div class="compare-bad">매달 엑셀 뒤져서 독촉 전화 직접</div><div class="compare-good">미납 자동 감지 + 알림톡 발송, 미납율 -80%</div></div>
+        <div class="compare-row"><div class="compare-label">학부모 소통</div><div class="compare-bad">월말에 몰아서 연락 — 항의 먼저 들음</div><div class="compare-good">주간 자동 리포트 → 문제 생기기 전에 신뢰 쌓임</div></div>
+        <div class="compare-row"><div class="compare-label">마케팅</div><div class="compare-bad">블로그·인스타 6개월째 손 못 댐</div><div class="compare-good">자동 예약발행 파이프라인 — 매주 콘텐츠 나감</div></div>
+        <div class="compare-row"><div class="compare-label">재등록 관리</div><div class="compare-bad">원장이 학부모 한 명씩 직접 연락</div><div class="compare-good">이탈 징후 자동 감지 → 리텐션 메시지 발송</div></div>
+        <div class="compare-row"><div class="compare-label">현황 파악</div><div class="compare-bad">감으로 운영 — 뭐가 문제인지 모름</div><div class="compare-good">대시보드 — 납부율·수강률·이탈 한눈에</div></div>
+        <div class="compare-row"><div class="compare-label">강사 이탈</div><div class="compare-bad">매뉴얼 없어 원장이 바로 수업 투입</div><div class="compare-good">SOP 완비 — 신규 강사 1주 내 궤도에 오름</div></div>
+        <div class="compare-row"><div class="compare-label">1인 원장</div><div class="compare-bad">수업·상담·행정·마케팅 모두 혼자 — 번아웃</div><div class="compare-good">반복 업무 자동화 → 원장은 수업과 상담에만 집중</div></div>
       </div>
     </div>
 
     <div id="ba-b" class="ba-panel">
-      <div class="ba-card">
-        <div class="ba-before"><div class="ba-label">Before</div><div class="ba-category">기수 오픈</div><div class="ba-text">카톡 공지 + 수동 입금 확인 + 스프레드시트</div></div>
-        <div class="ba-after"><div class="ba-label">After</div><div class="ba-text">랜딩페이지 + 자동 결제 + CRM 자동 등록</div></div>
-      </div>
-      <div class="ba-card">
-        <div class="ba-before"><div class="ba-label">Before</div><div class="ba-category">Zoom 알림</div><div class="ba-text">수업 때마다 직접 공지 — 빠뜨리면 항의</div></div>
-        <div class="ba-after"><div class="ba-label">After</div><div class="ba-text">수업 전 자동 알림 발송 — 노쇼 -70%</div></div>
-      </div>
-      <div class="ba-card">
-        <div class="ba-before"><div class="ba-label">Before</div><div class="ba-category">콘텐츠</div><div class="ba-text">올리다 말다 — 업로드 일정 없음</div></div>
-        <div class="ba-after"><div class="ba-label">After</div><div class="ba-text">예약 발행 파이프라인 — 채널 성장 궤도 진입</div></div>
+      <div class="compare-table">
+        <div class="compare-header">
+          <div class="compare-header-cell">영역</div>
+          <div class="compare-header-cell bad">❌ 지금 이 모습이라면</div>
+          <div class="compare-header-cell good">✓ 펜타랩 도입 후</div>
+        </div>
+        <div class="compare-row"><div class="compare-label">기수 관리</div><div class="compare-bad">오픈마다 입금 확인+명단 정리 하루 날림</div><div class="compare-good">자동 결제 + CRM 즉시 등록, 당일 마감</div></div>
+        <div class="compare-row"><div class="compare-label">수업 운영</div><div class="compare-bad">전날 밤 Zoom 링크 하나씩 복붙 발송</div><div class="compare-good">수업 전 자동 알림 발송 — 노쇼 -70%</div></div>
+        <div class="compare-row"><div class="compare-label">결제·환불</div><div class="compare-bad">수동 확인·처리 — 실수 잦고 시간 소모</div><div class="compare-good">자동화 결제 시스템 — 이상 발생 즉시 알림</div></div>
+        <div class="compare-row"><div class="compare-label">이탈 관리</div><div class="compare-bad">기수 끝나도 완주율·이탈 원인 모름</div><div class="compare-good">실시간 이탈 감지 → 즉시 케어 메시지</div></div>
+        <div class="compare-row"><div class="compare-label">콘텐츠</div><div class="compare-bad">올리다 말다 반복 — 알고리즘은 꾸준한 채널만</div><div class="compare-good">예약 발행 파이프라인 — 채널 성장 궤도 진입</div></div>
+        <div class="compare-row"><div class="compare-label">수익 구조</div><div class="compare-bad">플랫폼 수수료 40~60% 떼이고 나면 남는 게 없음</div><div class="compare-good">자체 결제 구축 — 매출의 95% 직접 수취</div></div>
+        <div class="compare-row"><div class="compare-label">대기 수요</div><div class="compare-bad">다음 기수 공지 체계 없어 대기 수요 놓침</div><div class="compare-good">자동 웨이팅 리스트 → 기수 오픈 즉시 마감</div></div>
+        <div class="compare-row"><div class="compare-label">1인 운영</div><div class="compare-bad">강의·마케팅·CS·결제 전부 혼자 — 지속 불가</div><div class="compare-good">반복 업무 자동화 → 콘텐츠 제작에만 집중</div></div>
       </div>
     </div>
   </div>
@@ -1008,8 +1173,8 @@ footer {
     <p class="section-desc">지금 당장 필요한 것부터 시작하세요. 단계별로 확장 가능합니다.</p>
 
     <div class="service-tabs">
-      <button class="service-tab active" onclick="switchTab('service','a')">Track A · 오프라인 학원</button>
-      <button class="service-tab" onclick="switchTab('service','b')">Track B · 온라인 사업자</button>
+      <button class="service-tab active" onclick="switchTab('service','a')">오프라인 학원</button>
+      <button class="service-tab" onclick="switchTab('service','b')">온라인 사업자</button>
     </div>
 
     <!-- Track A -->
@@ -1169,7 +1334,7 @@ footer {
     <div class="why-grid">
       <div class="why-card">
         <span class="why-icon">🏫</span>
-        <div class="why-title">리마크 학원 3년 직접 운영</div>
+        <div class="why-title">3년 직접 운영, 검증된 시스템</div>
         <div class="why-text">말만 하는 컨설팅이 아닙니다. <strong>지금도 돌아가는 시스템을 그대로 이식</strong>합니다. 데모가 곧 레퍼런스.</div>
       </div>
       <div class="why-card">
@@ -1339,6 +1504,54 @@ function switchTab(group, track) {
     panelA.classList.remove('active');
     tabs[1].classList.add('active');
     tabs[0].classList.remove('active');
+  }
+}
+
+// ── Pain card toggle + quick lead capture ──
+function togglePain(card, track) {
+  card.classList.toggle('selected');
+  const panel = document.getElementById('pain-' + track);
+  const selected = panel.querySelectorAll('.pain-card.selected');
+  const form = document.getElementById('pain-quick-' + track);
+  const countEl = form.querySelector('.pain-count');
+  if (selected.length > 0) {
+    countEl.textContent = selected.length + '개';
+    form.classList.add('visible');
+  } else {
+    form.classList.remove('visible');
+  }
+}
+
+async function submitQuickPain(track) {
+  const panel = document.getElementById('pain-' + track);
+  const form = document.getElementById('pain-quick-' + track);
+  const input = form.querySelector('.pain-quick-input');
+  const btn = form.querySelector('.pain-quick-btn');
+  const contact = input.value.trim();
+  if (!contact) { input.focus(); return; }
+
+  btn.disabled = true;
+  btn.textContent = '전송 중...';
+
+  const selected = panel.querySelectorAll('.pain-card.selected');
+  const painTexts = Array.from(selected).map(c => c.querySelector('.pain-text').textContent).join(' / ');
+  const trackLabel = track === 'a' ? '오프라인 학원' : '온라인 사업자';
+  const ts = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+
+  const payload = JSON.stringify({
+    action: 'append', sheet: '상담신청',
+    values: [ts, '자가진단', trackLabel, '', painTexts, contact],
+  });
+  const url = GAS_URL + '?payload=' + encodeURIComponent(payload);
+
+  try {
+    await fetch(url, { method: 'GET', mode: 'no-cors' });
+    form.querySelector('.pain-quick-form-body').style.display = 'none';
+    form.querySelector('.pain-quick-success').style.display = 'block';
+  } catch {
+    btn.disabled = false;
+    btn.textContent = '바로 신청 →';
+    alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
   }
 }
 
