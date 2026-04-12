@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>서울대 멘토와 함께하는 자기주도 레벨업 캠프 — 삼척시 제안서</title>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0a0a0a;
+    --white: #ffffff;
+    --cream: #faf8f4;
+    --g50: #f7f7f5;
+    --g100: #eeece6;
+    --g200: #d9d6cd;
+    --g400: #999589;
+    --g600: #5a5750;
+    --g800: #2a2825;
+    --navy: #14213d;
+    --gold: #c49a3a;
+    --gold-light: #f5edd6;
+    --snu: #003876;
+    --accent: #b6292e;
+  }
+
+  html, body {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--g100);
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.2px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ─── A4 페이지 ─── */
+  .page {
+    width: 210mm;
+    height: 297mm;
+    background: var(--white);
+    margin: 12mm auto;
+    padding: 16mm 15mm 20mm;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  @media print {
+    @page { size: A4; margin: 0; }
+    html, body { background: white; }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      width: 210mm;
+      height: 297mm;
+      page-break-after: always;
+    }
+  }
+
+  /* ─── 공통 컴포넌트 ─── */
+  .page-num {
+    position: absolute;
+    bottom: 10mm;
+    right: 16mm;
+    font-size: 9pt;
+    color: var(--g400);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  .page-brand {
+    position: absolute;
+    bottom: 10mm;
+    left: 16mm;
+    font-size: 8.5pt;
+    color: var(--g400);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid var(--accent);
+    margin-bottom: 20px;
+  }
+  h1.page-title {
+    font-size: 32pt;
+    font-weight: 800;
+    letter-spacing: -1.4px;
+    line-height: 1.15;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  h1.page-title em { font-style: normal; color: var(--accent); }
+  .page-sub {
+    font-size: 12.5pt;
+    color: var(--g600);
+    font-weight: 500;
+    margin-bottom: 30px;
+    line-height: 1.55;
+  }
+  h2 {
+    font-size: 15pt;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin: 26px 0 14px;
+  }
+  h3 {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: var(--g800);
+    margin-bottom: 8px;
+    letter-spacing: -0.25px;
+  }
+  p, li {
+    font-size: 10.5pt;
+    line-height: 1.75;
+    color: var(--g800);
+  }
+  ul { list-style: none; }
+  ul li {
+    position: relative;
+    padding-left: 12px;
+    margin-bottom: 3px;
+  }
+  ul li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 9px;
+    width: 4px; height: 4px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+
+  /* ─── 표지 ─── */
+  .cover {
+    background: linear-gradient(135deg, #0f1d36 0%, #1a2f52 60%, #24406e 100%);
+    color: var(--white);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(196,154,58,0.18), transparent 50%),
+      radial-gradient(circle at 85% 85%, rgba(182,41,46,0.14), transparent 50%);
+    pointer-events: none;
+  }
+  .cover-top {
+    padding: 18mm 16mm 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    z-index: 2;
+  }
+  .cover-logos {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+  .logo-chip {
+    background: rgba(255,255,255,0.96);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 9.5pt;
+    font-weight: 700;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.2px;
+  }
+  .logo-chip .mark {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10pt;
+    font-weight: 900;
+  }
+  .logo-chip.snu .mark { background: var(--snu); color: white; font-family: serif; }
+  .logo-chip.sc .mark { background: #0a6b3a; color: white; }
+  .logo-chip.bzp .mark { background: var(--accent); color: white; }
+
+  .cover-date {
+    font-size: 9.5pt;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+  }
+
+  .cover-body {
+    padding: 0 16mm;
+    margin-top: 30mm;
+    margin-bottom: auto;
+    z-index: 2;
+    position: relative;
+  }
+  .cover-kicker {
+    display: inline-block;
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+    padding: 6px 14px;
+    border: 1px solid rgba(196,154,58,0.5);
+    border-radius: 999px;
+  }
+  .cover h1 {
+    font-size: 44pt;
+    font-weight: 900;
+    letter-spacing: -2.5px;
+    line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  .cover h1 em {
+    font-style: normal;
+    display: block;
+    font-size: 32pt;
+    font-weight: 800;
+    color: var(--gold);
+  }
+  .cover-tagline {
+    font-size: 13pt;
+    font-weight: 500;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.6;
+    max-width: 140mm;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  .cover-footer {
+    padding: 0 16mm 18mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 2;
+    position: relative;
+  }
+  .cover-to {
+    font-size: 10pt;
+  }
+  .cover-to .label {
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .cover-to .to {
+    font-size: 16pt;
+    font-weight: 800;
+  }
+  .cover-from {
+    text-align: right;
+    font-size: 9.5pt;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+  }
+  .cover-from strong {
+    display: block;
+    font-size: 13pt;
+    color: var(--white);
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+
+  /* ─── 카드/그리드 ─── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  .card {
+    background: var(--cream);
+    border: 1px solid var(--g100);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .card.navy {
+    background: var(--navy);
+    color: white;
+    border: none;
+  }
+  .card.navy h3, .card.navy p, .card.navy li { color: white; }
+  .card.navy li::before { background: var(--gold); }
+  .card.gold {
+    background: var(--gold-light);
+    border-color: #e6d6a8;
+  }
+  .card-num {
+    display: inline-block;
+    font-family: 'Georgia', serif;
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-right: 10px;
+    vertical-align: baseline;
+  }
+  .card-title {
+    font-size: 12.5pt;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+    display: inline;
+  }
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .card-head .card-num { margin-right: 0; margin-bottom: 0; }
+  .card-head .card-title { margin-bottom: 0; display: block; }
+  .card-desc {
+    font-size: 10pt;
+    color: var(--g600);
+    line-height: 1.65;
+  }
+
+  /* ─── 스탯 ─── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 20px 0 30px;
+  }
+  .stat {
+    background: var(--white);
+    border: 1px solid var(--g100);
+    border-left: 4px solid var(--accent);
+    padding: 18px 20px;
+    border-radius: 8px;
+  }
+  .stat .label { font-size: 9.5pt; color: var(--g600); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .stat .value { font-size: 22pt; font-weight: 800; letter-spacing: -0.8px; line-height: 1; }
+  .stat .unit { font-size: 11pt; color: var(--g600); font-weight: 600; margin-left: 2px; }
+
+  /* ─── 타임라인 ─── */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .tl-col {
+    background: var(--white);
+    border: 1px solid var(--g100);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .tl-head {
+    background: var(--navy);
+    color: white;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .tl-head.w2 { background: #1e3a5f; }
+  .tl-head.w3 { background: #2b4d7a; }
+  .tl-head.w4 { background: var(--gold); color: var(--ink); }
+  .tl-week {
+    font-size: 10pt;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    opacity: 0.85;
+  }
+  .tl-date {
+    font-size: 15pt;
+    font-weight: 800;
+    margin-top: 4px;
+  }
+  .tl-goal {
+    font-size: 11.5pt;
+    font-weight: 700;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  .tl-head.w4 .tl-goal { border-top-color: rgba(0,0,0,0.15); }
+  .tl-body {
+    padding: 16px 14px 18px;
+  }
+  .tl-body .period {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    margin-top: 12px;
+  }
+  .tl-body .period:first-child { margin-top: 0; }
+  .tl-body ul li {
+    font-size: 9.5pt;
+    line-height: 1.55;
+    padding-left: 10px;
+    margin-bottom: 3px;
+  }
+  .tl-body ul li::before { width: 3px; height: 3px; top: 7px; }
+
+  /* ─── 주차별 세부 표 ─── */
+  .week-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 18px 22px;
+    background: var(--navy);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    margin-top: 18px;
+  }
+  .week-header .wk {
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+  }
+  .week-header .date {
+    font-size: 13pt;
+    font-weight: 700;
+  }
+  .week-header .goal {
+    margin-left: auto;
+    font-size: 15pt;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .gyosi-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--g100);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+  }
+  .gyosi-table th {
+    background: var(--cream);
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--g800);
+    padding: 12px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--g100);
+    letter-spacing: -0.2px;
+  }
+  .gyosi-table td {
+    font-size: 9.5pt;
+    padding: 10px 12px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--g100);
+    line-height: 1.55;
+  }
+  .gyosi-table tr:last-child td { border-bottom: none; }
+  .gyosi-table .g-col { width: 8%; text-align: center; font-weight: 800; color: var(--accent); font-size: 12pt; }
+  .gyosi-table .t-col { width: 26%; font-weight: 700; color: var(--g800); font-size: 10pt; }
+  .gyosi-table .m-col { width: 8%; text-align: center; color: var(--g600); font-weight: 700; font-size: 9.5pt; }
+  .gyosi-table .c-col { }
+  .gyosi-table td ul li { padding-left: 10px; margin-bottom: 3px; font-size: 9.5pt; line-height: 1.55; }
+  .gyosi-table td ul li::before { top: 7px; width: 3px; height: 3px; }
+  .gyosi-table td.t-col { border-right: 2px solid var(--g100); }
+
+  /* ─── 프로세스 flow ─── */
+  .flow {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .flow-step {
+    flex: 1;
+    background: var(--cream);
+    border: 1px solid var(--g100);
+    border-radius: 12px;
+    padding: 18px 16px;
+    position: relative;
+  }
+  .flow-step .step-num {
+    font-size: 9pt;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .flow-step .step-title {
+    font-size: 12pt;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .flow-step .step-desc {
+    font-size: 9.5pt;
+    color: var(--g600);
+    line-height: 1.55;
+  }
+  .flow-arrow {
+    align-self: center;
+    color: var(--g200);
+    font-size: 18pt;
+    font-weight: 700;
+  }
+
+  /* ─── 멘토 카드 ─── */
+  .mentor-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .mentor {
+    display: flex;
+    gap: 18px;
+    padding: 20px;
+    border: 1px solid var(--g100);
+    border-radius: 12px;
+    background: var(--white);
+  }
+  .mentor-photo {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--snu), #0055a5);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24pt;
+    font-weight: 800;
+    font-family: 'Georgia', serif;
+    flex-shrink: 0;
+  }
+  .mentor-info h3 { font-size: 12.5pt; margin-bottom: 3px; }
+  .mentor-info .affil { font-size: 10pt; color: var(--snu); font-weight: 700; margin-bottom: 8px; }
+  .mentor-info .desc { font-size: 9.5pt; color: var(--g600); line-height: 1.6; }
+
+  /* ─── 진단도구 ─── */
+  .diag {
+    border: 1px solid var(--g100);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    background: var(--cream);
+  }
+  .diag-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .diag-tag {
+    font-size: 9pt;
+    font-weight: 800;
+    color: white;
+    background: var(--accent);
+    padding: 4px 12px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+  }
+  .diag-title { font-size: 15pt; font-weight: 800; letter-spacing: -0.3px; }
+  .diag-phases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .diag-phase {
+    background: white;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--g100);
+  }
+  .diag-phase h4 {
+    font-size: 10pt;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+  .diag-phase p { font-size: 9.5pt; line-height: 1.6; }
+
+  /* ─── 기대효과 박스 ─── */
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .outcome {
+    background: var(--navy);
+    color: white;
+    padding: 28px 20px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  .outcome .big {
+    font-size: 32pt;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+  }
+  .outcome .cap {
+    font-size: 10pt;
+    font-weight: 600;
+    line-height: 1.55;
+    opacity: 0.9;
+  }
+
+  /* ─── 마지막 페이지 ─── */
+  .contact-box {
+    background: var(--navy);
+    color: white;
+    padding: 22px 24px;
+    border-radius: 12px;
+    margin-top: 14px;
+  }
+  .contact-box .co {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .contact-box .name {
+    font-size: 20pt;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    margin-bottom: 4px;
+  }
+  .contact-box .tagline {
+    font-size: 10pt;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .contact-item { font-size: 9.5pt; }
+  .contact-item .k { color: rgba(255,255,255,0.6); font-size: 8.5pt; letter-spacing: 1px; margin-bottom: 2px; font-weight: 600; }
+  .contact-item .v { font-weight: 700; }
+
+  .mentor-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(120deg, #eef2fa, #fef6e3);
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 14px 0;
+  }
+  .snu-seal {
+    width: 56px; height: 56px;
+    background: var(--snu);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    font-weight: 800;
+    font-size: 16pt;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+    border: 3px solid white;
+    box-shadow: 0 2px 10px rgba(0,56,118,0.3);
+  }
+  .mentor-banner .txt { font-size: 10pt; line-height: 1.55; color: var(--g800); }
+  .mentor-banner .txt strong { color: var(--snu); }
+
+  /* 유틸 */
+  .mt-sm { margin-top: 14px; }
+  .mt-md { margin-top: 22px; }
+  .mt-lg { margin-top: 32px; }
+  .divider { height: 1px; background: var(--g100); margin: 26px 0; }
+  .small-note { font-size: 9pt; color: var(--g400); font-style: italic; margin-top: 10px; }
+  .highlight { background: linear-gradient(transparent 60%, var(--gold-light) 60%); font-weight: 700; }
+
+  /* 일일 루틴 */
+  .routine {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 0;
+    border: 1px solid var(--g100);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 14px;
+  }
+  .routine-time {
+    background: var(--navy);
+    color: white;
+    padding: 18px;
+    text-align: center;
+    font-weight: 800;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .routine-time .clock { font-size: 16pt; letter-spacing: -0.5px; }
+  .routine-time .day { font-size: 9pt; color: var(--gold); letter-spacing: 1px; margin-top: 4px; }
+  .routine-desc { padding: 18px 20px; border-bottom: 1px solid var(--g100); font-size: 10pt; line-height: 1.65; }
+  .routine-desc:last-child { border-bottom: none; }
+  .routine-time:last-of-type { border-bottom: none; }
+  .routine-desc strong { display: block; font-size: 11.5pt; margin-bottom: 4px; }
+
+  .escalation {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .esc-step {
+    flex: 1;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--g100);
+    position: relative;
+  }
+  .esc-step.s1 { background: #fff9ed; border-color: #f0e0b8; }
+  .esc-step.s2 { background: #fdf1e6; border-color: #f0d0b0; }
+  .esc-step.s3 { background: #fbe9ea; border-color: #f0b8bc; }
+  .esc-step .sn { font-size: 9pt; font-weight: 800; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .esc-step.s1 .sn { color: #a0751a; }
+  .esc-step.s2 .sn { color: #a85a1a; }
+  .esc-step.s3 .sn { color: #a81c22; }
+  .esc-step strong { font-size: 12pt; display: block; margin-bottom: 5px; }
+  .esc-step p { font-size: 9.5pt; color: var(--g600); line-height: 1.6; }
+
+  /* 산출물 */
+  .deliverable {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--g100);
+  }
+  .deliverable:last-child { border-bottom: none; }
+  .deliverable .icon {
+    width: 56px; height: 56px;
+    border-radius: 12px;
+    background: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20pt;
+    color: var(--gold);
+    font-weight: 800;
+    font-family: 'Georgia', serif;
+  }
+  .deliverable strong { font-size: 12.5pt; display: block; margin-bottom: 4px; }
+  .deliverable p { font-size: 10pt; color: var(--g600); line-height: 1.65; }
+
+  /* 인쇄 버튼 */
+  .toolbar {
+    position: fixed;
+    top: 16px; right: 16px;
+    z-index: 1000;
+    display: flex;
+    gap: 8px;
+  }
+  .toolbar button {
+    background: var(--ink);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  @media print { .toolbar { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button onclick="window.print()">PDF로 저장 / 인쇄</button>
+</div>
+
+<!-- ══════════ PAGE 1 — 표지 ══════════ -->
+<div class="page cover">
+  <div class="cover-top">
+    <div class="cover-date">2026. 04.</div>
+  </div>
+
+  <div class="cover-body">
+    <div class="cover-kicker">SAMCHEOK EDU SPECIAL ZONE · 2026</div>
+    <h1>
+      서울대 멘토와 함께하는
+      <em>자기주도 레벨업 캠프</em>
+    </h1>
+    <p class="cover-tagline">
+      삼척시 교육특구 사업 · 초등 5·6학년 대상<br>
+      4주간의 진단 → 실행 → 점검 → 완성, 스스로 공부하는 아이로.
+    </p>
+  </div>
+
+  <div class="cover-footer">
+    <div class="cover-to">
+      <div class="label">PROPOSAL TO</div>
+      <div class="to">삼척시 · 교육특구추진단</div>
+    </div>
+    <div class="cover-from">
+      <strong>범잡는 포수</strong>
+      교육기획 · 운영 총괄<br>
+      대표 이은경
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PAGE 2 — 사업 배경 & 목적 ══════════ -->
+<div class="page">
+  <div class="section-label">01 · BACKGROUND</div>
+  <h1 class="page-title">왜, <em>자기주도 캠프</em>인가.</h1>
+  <p class="page-sub">초등 고학년은 학습 습관의 방향이 결정되는 분기점입니다. 이 시기에 형성된 <span class="highlight">스스로 공부하는 힘</span>은 중·고등 학업 성취의 결정적 토대가 됩니다.</p>
+
+  <div class="grid-2 mt-md">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">사교육 의존의 한계</div>
+      <div class="card-desc">지시 받는 공부만 해 온 학생은 중학교 진학 후 급증하는 학습량 앞에서 방향을 잃기 쉽습니다. '시키는 공부'는 오래 지속되지 않습니다.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">지역 교육 격차</div>
+      <div class="card-desc">수도권에 비해 지방 학생들은 다양한 학습 롤모델을 접할 기회가 제한적입니다. 또래와 멘토를 통한 자극이 절실한 상황입니다.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">진단 없는 일방 처방</div>
+      <div class="card-desc">학생마다 학습 유형과 자기주도 수준이 다른데, 획일적 커리큘럼으로는 개인의 문제 지점에 접근할 수 없습니다.</div>
+    </div>
+    <div class="card">
+      <div class="card-num">04</div>
+      <div class="card-title">가정 연계 부재</div>
+      <div class="card-desc">학원과 가정이 따로 돌아갈 때 학습 효과는 쉽게 흩어집니다. 가정이 '관리자'가 아닌 '환경 설계자'로 전환되어야 합니다.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2>본 프로그램의 목적</h2>
+  <div class="card navy mt-sm">
+    <h3 style="color:var(--gold); letter-spacing:1px; font-size:9pt; margin-bottom:8px;">PROGRAM MISSION</h3>
+    <p style="font-size:13pt; font-weight:700; line-height:1.5; color:white; letter-spacing:-0.3px;">
+      삼척 초등 5·6학년 학생이 <span style="color:var(--gold)">자신의 학습 유형과 실행 수준을 이해</span>하고,<br>
+      서울대 멘토의 밀착 코칭으로 <span style="color:var(--gold)">스스로 계획하고 실천하는 습관</span>을 4주 안에 구조화한다.
+    </p>
+  </div>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">02 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 3 — 프로그램 개요 & 4대 차별점 ══════════ -->
+<div class="page">
+  <div class="section-label">02 · OVERVIEW</div>
+  <h1 class="page-title">한눈에 보는 <em>프로그램 구조</em></h1>
+  <p class="page-sub">4주 · 대면 4회 + 주중 비대면 코칭 상시 · 서울대 멘토 : 학생 = 1 : 5 소수정예</p>
+
+  <div class="stats">
+    <div class="stat"><div class="label">대상</div><div class="value">5·6<span class="unit">학년</span></div></div>
+    <div class="stat"><div class="label">정원</div><div class="value">20<span class="unit">명 (4모둠)</span></div></div>
+    <div class="stat"><div class="label">운영기간</div><div class="value">4<span class="unit">주 · 토</span></div></div>
+    <div class="stat"><div class="label">멘토:학생</div><div class="value">1 : 5</div></div>
+  </div>
+
+  <h2>4대 차별화 포인트</h2>
+  <div class="grid-2 mt-sm">
+    <div class="card gold">
+      <div class="card-num" style="color:var(--accent)">①</div>
+      <div class="card-title">서울대 재학생 4인 전담 멘토진</div>
+      <div class="card-desc">최상위 자기주도 학습을 구현해 낸 대학생들이 초등 학생과 4주간 1:5로 매칭됩니다. <strong>관계 기반 멘토링</strong>으로 '지식'이 아닌 <strong>'습관'을 전수</strong>합니다.</div>
+    </div>
+    <div class="card gold">
+      <div class="card-num" style="color:var(--accent)">②</div>
+      <div class="card-title">이중 진단 기반 맞춤 설계</div>
+      <div class="card-desc"><strong>학습 유형 진단</strong>과 <strong>자기주도력 진단</strong> — 두 축의 데이터로 학생별 약점을 특정하고 개인 최적 코칭 전략을 설계합니다. 획일적 커리큘럼이 놓치는 <strong>개인 병목</strong>에 접근합니다.</div>
+    </div>
+    <div class="card gold">
+      <div class="card-num" style="color:var(--accent)">③</div>
+      <div class="card-title">주중 매일 저녁 9시 플래너 코칭</div>
+      <div class="card-desc">대면 수업 1회로 끝나지 않습니다. 전담 코치 3명이 <strong>매일 밤 9시 플래너에 개별 코멘트</strong>를 남기며, 행동 수정 중심 피드백으로 4주 내내 실행을 관리합니다.</div>
+    </div>
+    <div class="card gold">
+      <div class="card-num" style="color:var(--accent)">④</div>
+      <div class="card-title">가정 연계 리포트 & 실행 가이드</div>
+      <div class="card-desc">캠프 종료 시 학생·학부모에게 <strong>진단 결과와 실천 전략 리포트</strong>를 제공합니다. 학부모를 '환경 설계자'로 전환시켜 4주 이후에도 습관이 유지되게 합니다.</div>
+    </div>
+  </div>
+
+  <h2 class="mt-md">프로그램 운영 구조 · 4 STEP</h2>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="step-num">STEP 1</div>
+      <div class="step-title">진단</div>
+      <div class="step-desc">학습 유형·자기주도력 2중 진단으로 출발점 확정</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="step-num">STEP 2</div>
+      <div class="step-title">멘토링</div>
+      <div class="step-desc">서울대 멘토 1:5 대면 상담 · 개인 목표 설계</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="step-num">STEP 3</div>
+      <div class="step-title">실행</div>
+      <div class="step-desc">주간 플래너 작성 · 매일 비대면 코칭 · 주간 미션</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="step-num">STEP 4</div>
+      <div class="step-title">성찰·다짐</div>
+      <div class="step-desc">수료 리포트 · 이후 유지 전략 · 가정 연계</div>
+    </div>
+  </div>
+
+  <div class="card navy mt-md">
+    <h3 style="color:var(--gold); letter-spacing:1.5px; font-size:9.5pt; margin-bottom:10px;">PROGRAM PROMISE</h3>
+    <p style="font-size:12.5pt; font-weight:700; line-height:1.6; color:white; letter-spacing:-0.3px;">
+      4주 후, 학생은 <span style="color:var(--gold)">자신의 학습 유형을 이해</span>하고 <span style="color:var(--gold)">스스로 플래너를 작성·실행</span>할 수 있으며,<br>
+      가정에는 <span style="color:var(--gold)">자녀 맞춤 학습 가이드</span>가 남습니다. 습관은 캠프가 끝나도 계속됩니다.
+    </p>
+  </div>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">03 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 4 — 4주 여정 맵 ══════════ -->
+<div class="page">
+  <div class="section-label">03 · JOURNEY MAP</div>
+  <h1 class="page-title">4주, <em>한 아이의 변화</em>를 설계합니다.</h1>
+  <p class="page-sub">매 주차가 독립된 수업이 아닌, 진단 → 실행 → 점검 → 완성의 <span class="highlight">한 흐름으로 설계된 여정</span>입니다.</p>
+
+  <div class="timeline">
+    <div class="tl-col">
+      <div class="tl-head">
+        <div class="tl-week">WEEK 01</div>
+        <div class="tl-date">8. 22. SAT</div>
+        <div class="tl-goal">진단과 설계</div>
+      </div>
+      <div class="tl-body">
+        <div class="period">14:00 – 14:50</div>
+        <ul><li>개강식 · 오리엔테이션</li><li>학습 유형 진단</li><li>자기 주도력 진단</li></ul>
+        <div class="period">15:00 – 15:50</div>
+        <ul><li>모둠 배정 · 멘토 매칭</li><li>개인 목표 설정</li><li>개별 멘토링</li></ul>
+        <div class="period">16:00 – 16:50</div>
+        <ul><li>1주차 학습 계획 작성</li><li>피드백 · 수정 · 최종 제출</li></ul>
+      </div>
+    </div>
+
+    <div class="tl-col">
+      <div class="tl-head w2">
+        <div class="tl-week">WEEK 02</div>
+        <div class="tl-date">8. 29. SAT</div>
+        <div class="tl-goal">실행과 점검</div>
+      </div>
+      <div class="tl-body">
+        <div class="period">14:00 – 14:50</div>
+        <ul><li>1주차 실천 결과 점검</li><li>실패 원인 분석 강의</li><li>서울대 멘토 개별 상담</li></ul>
+        <div class="period">15:00 – 15:50</div>
+        <ul><li>학습 유형 분석지 배부</li><li>유형별 나만의 공부법</li><li>개별 멘토링</li></ul>
+        <div class="period">16:00 – 16:50</div>
+        <ul><li>2주차 계획 작성</li><li>피드백 · 수정 · 최종 제출</li></ul>
+      </div>
+    </div>
+
+    <div class="tl-col">
+      <div class="tl-head w3">
+        <div class="tl-week">WEEK 03</div>
+        <div class="tl-date">9. 20. SAT</div>
+        <div class="tl-goal">지속력 강화</div>
+      </div>
+      <div class="tl-body">
+        <div class="period">14:00 – 14:50</div>
+        <ul><li>2주차 실천 결과 점검</li><li>실패 원인 분석 강의</li><li>서울대 멘토 개별 상담</li></ul>
+        <div class="period">15:00 – 15:50</div>
+        <ul><li>자기주도력 분석지 배부</li><li>실행 수준별 공부법</li><li>개별 멘토링</li></ul>
+        <div class="period">16:00 – 16:50</div>
+        <ul><li>3주차 계획 작성</li><li>피드백 · 수정 · 최종 제출</li></ul>
+      </div>
+    </div>
+
+    <div class="tl-col">
+      <div class="tl-head w4">
+        <div class="tl-week">WEEK 04</div>
+        <div class="tl-date">9. 29. SAT</div>
+        <div class="tl-goal">완성과 다짐</div>
+      </div>
+      <div class="tl-body">
+        <div class="period">14:00 – 14:50</div>
+        <ul><li>3주차 실천 결과 점검</li><li>실패 원인 분석 강의</li><li>서울대 멘토 개별 상담</li></ul>
+        <div class="period">15:00 – 15:50</div>
+        <ul><li>4주차 학습 계획 작성</li><li>개별 피드백 · 수정 · 제출</li></ul>
+        <div class="period">16:00 – 16:50</div>
+        <ul><li>소감 발표 (학생 · 멘토)</li><li>수료식 · 수료증 수여</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="mentor-banner mt-lg">
+    <div class="snu-seal">SNU</div>
+    <div class="txt">
+      <strong>서울대 멘토 1인당 학생 5명 전담</strong> — 4주간 한 멘토가 같은 학생들을 지속적으로 관찰·피드백합니다. <strong>관계 기반 코칭</strong>을 통해 단발 특강이 아닌, 지속 가능한 습관 형성이 가능합니다.
+    </div>
+  </div>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">04 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 5 — 1주차 세부 ══════════ -->
+<div class="page">
+  <div class="section-label">04 · WEEK 1 DETAIL</div>
+  <h1 class="page-title">1주차 · <em>진단과 설계</em></h1>
+  <p class="page-sub">나를 아는 것이 학습의 시작입니다. 두 축의 진단으로 자신의 현재 지점을 정확히 파악합니다.</p>
+
+  <div class="week-header">
+    <div class="wk">WEEK 01</div>
+    <div class="date">2026. 8. 22. SAT · 14:00 – 16:50</div>
+    <div class="goal">진단과 설계</div>
+  </div>
+  <table class="gyosi-table">
+    <thead>
+      <tr><th class="g-col">교시</th><th class="t-col">주제</th><th class="m-col">분</th><th class="c-col">세부 내용</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="g-col" rowspan="3">1</td>
+        <td class="t-col">개강식</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>프로그램 목표·운영 구조 안내로 전체 학습 흐름 이해</li><li>멘토 소개 후 멘토링 방식과 역할 명확히 전달</li><li>코치 소개 후 학습 관리 체계와 지원 구조 안내</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">학습 유형 진단 검사</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>학습 유형 진단의 목적과 문항 이해 설명</li><li>개별 검사 문항 설문을 통해 학습 습관·패턴 진단</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">자기 주도력 진단 검사</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>자기 주도력의 개념과 진단 기준 강의식 안내</li><li>행동 기반 진단 문항에 응답하여 실행 수준 점검</li></ul></td>
+      </tr>
+      <tr>
+        <td class="g-col" rowspan="3">2</td>
+        <td class="t-col">모둠 배정 · 자기소개</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>멘토 1 : 학생 5 모둠별 자기소개로 기본 정보 공유</li><li>학습 경험과 목표를 함께 나누며 서로 이해</li><li>자연스러운 관계 형성과 참여 분위기 조성</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">캠프 개인 목표 설정</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>목표 설정 기준과 예시를 멘토가 조별 안내</li><li>개인별 현재 수준 기반 구체적 목표 작성</li><li>실행 가능한 수준으로 목표 점검·보완</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">목표 관련 개별 멘토링</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>설정한 목표를 바탕으로 멘토가 개별 상담 진행</li><li>구체성·적절성 점검하여 보완 방향 제시</li><li>실행 가능한 수준으로 재설정 후 계획 반영</li></ul></td>
+      </tr>
+      <tr>
+        <td class="g-col" rowspan="3">3</td>
+        <td class="t-col">1주차 학습 계획 작성</td>
+        <td class="m-col">15′</td>
+        <td><ul><li>1주차 학습 목표와 계획 수립 방법 안내</li><li>개인별 일정·과목 고려한 주간 계획 작성</li><li>수정 · 보완 위한 초안 형태 작성</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">계획 개별 피드백 · 상담</td>
+        <td class="m-col">15′</td>
+        <td><ul><li>학생 개인별 피드백 제공 및 질문 답변</li><li>학습량·시간 배분·목표 적절성 중심 상담</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">계획 수정·보완 후 최종 제출</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>개별 피드백 반영하여 1주차 계획 수정</li><li>학습량·시간 배분 점검하며 실행 가능성 보완</li><li>최종 계획을 플래너에 정리·기록</li></ul></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">05 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 6 — 2주차 세부 ══════════ -->
+<div class="page">
+  <div class="section-label">05 · WEEK 2 DETAIL</div>
+  <h1 class="page-title">2주차 · <em>실행과 점검</em></h1>
+  <p class="page-sub">첫 주의 실천을 돌아보고, 학습 유형에 맞는 '나만의 공부법'을 찾는 시간입니다.</p>
+
+  <div class="week-header">
+    <div class="wk">WEEK 02</div>
+    <div class="date">2026. 8. 29. SAT · 14:00 – 16:50</div>
+    <div class="goal">실행과 점검</div>
+  </div>
+  <table class="gyosi-table">
+    <thead>
+      <tr><th class="g-col">교시</th><th class="t-col">주제</th><th class="m-col">분</th><th class="c-col">세부 내용</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="g-col" rowspan="3">1</td>
+        <td class="t-col">1주차 실천 결과 점검</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>주중 학습 기록 데이터와 개인 플래너 기반 점검</li><li>실행률과 어려웠던 점을 모둠별로 나눔</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">실패 원인 분석 강의</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>학습 실패의 주요 원인 유형 멘토 설명</li><li>실행 과정에서 자주 발생하는 문제 사례 안내</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">서울대 멘토 개별 피드백</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>학생별 학습 기록·실천 결과 기반 개별 피드백</li><li>학습 습관·시간 활용·목표 설정 중심 상담</li></ul></td>
+      </tr>
+      <tr>
+        <td class="g-col" rowspan="3">2</td>
+        <td class="t-col">학습 유형 분석지 안내</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>분석지 배부 및 구성·항목 안내</li><li>개인별 유형·특징 설명으로 학습 패턴 이해</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">유형별 나만의 공부법 찾기</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>진단 결과 기반 학습 특성 정리</li><li>유형 맞춤 공부법·전략 구체적 탐색</li><li>자신의 상황에 맞는 공부법 선정</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">학습 유형 개별 멘토링</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>진단 결과 기반 개별 상담</li><li>강점·보완점 중심 학습 방향 구체화</li><li>개인에게 적합한 공부 방법 설계·적용</li></ul></td>
+      </tr>
+      <tr>
+        <td class="g-col" rowspan="3">3</td>
+        <td class="t-col">2주차 학습 계획 작성</td>
+        <td class="m-col">15′</td>
+        <td><ul><li>2주차 목표·계획 수립 방법 안내</li><li>개인별 일정·과목 고려한 주간 계획 작성</li><li>수정·보완 위한 초안 작성</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">계획 개별 피드백 · 상담</td>
+        <td class="m-col">15′</td>
+        <td><ul><li>학생 개인별 피드백 제공 및 질문 답변</li><li>학습량·시간 배분·목표 적절성 중심 상담</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">계획 수정·보완 후 최종 제출</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>개별 피드백 반영하여 2주차 계획 수정</li><li>학습량·시간 배분 점검하며 실행 가능성 보완</li><li>최종 계획을 플래너에 정리·기록</li></ul></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">06 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 7 — 3주차 세부 ══════════ -->
+<div class="page">
+  <div class="section-label">06 · WEEK 3 DETAIL</div>
+  <h1 class="page-title">3주차 · <em>지속력 강화</em></h1>
+  <p class="page-sub">학습이 흔들리기 쉬운 시점. 자기주도력 진단으로 실행 문제를 특정하고 대처 전략을 구체화합니다.</p>
+
+  <div class="week-header">
+    <div class="wk">WEEK 03</div>
+    <div class="date">2026. 9. 20. SAT · 14:00 – 16:50</div>
+    <div class="goal">지속력 강화</div>
+  </div>
+  <table class="gyosi-table">
+    <thead>
+      <tr><th class="g-col">교시</th><th class="t-col">주제</th><th class="m-col">분</th><th class="c-col">세부 내용</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="g-col" rowspan="3">1</td>
+        <td class="t-col">2주차 실천 결과 점검</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>주중 학습 기록 데이터와 개인 플래너 기반 점검</li><li>실행률과 어려웠던 점을 모둠별로 나눔</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">실패 원인 분석 강의</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>학습 실패의 주요 원인 유형 멘토 설명</li><li>실행 과정에서 자주 발생하는 문제 사례 안내</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">서울대 멘토 개별 피드백</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>학생별 학습 기록·실천 결과 기반 개별 피드백</li><li>학습 습관·시간 활용·목표 설정 중심 상담</li></ul></td>
+      </tr>
+      <tr>
+        <td class="g-col" rowspan="3">2</td>
+        <td class="t-col">자기주도력 분석지 안내</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>분석지 배부 및 구성·항목 안내</li><li>개인별 유형·특징 설명으로 학습 패턴 이해</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">실행 수준별 공부법 찾기</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>자기주도력 진단 기반 실행 수준 점검</li><li>부족한 영역 보완 공부 전략 탐색</li><li>실천 중심의 최적화 공부법 선정</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">자기주도력 개별 멘토링</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>진단 결과 기반 개별 상담</li><li>실행 습관·시간 관리 개선 방향 제시</li><li>실천 전략 설계하여 공부 계획 반영</li></ul></td>
+      </tr>
+      <tr>
+        <td class="g-col" rowspan="3">3</td>
+        <td class="t-col">3주차 학습 계획 작성</td>
+        <td class="m-col">15′</td>
+        <td><ul><li>3주차 목표·계획 수립 방법 안내</li><li>개인별 일정·과목 고려한 주간 계획 작성</li><li>수정·보완 위한 초안 작성</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">계획 개별 피드백 · 상담</td>
+        <td class="m-col">15′</td>
+        <td><ul><li>학생 개인별 피드백 제공 및 질문 답변</li><li>학습량·시간 배분·목표 적절성 중심 상담</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">계획 수정·보완 후 최종 제출</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>개별 피드백 반영하여 3주차 계획 수정</li><li>학습량·시간 배분 점검하며 실행 가능성 보완</li><li>최종 계획을 플래너에 정리·기록</li></ul></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">07 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 8 — 4주차 세부 ══════════ -->
+<div class="page">
+  <div class="section-label">07 · WEEK 4 DETAIL</div>
+  <h1 class="page-title">4주차 · <em>완성과 다짐</em></h1>
+  <p class="page-sub">4주간의 여정을 돌아보며 성장을 확인하고, 캠프 이후에도 지속될 '나만의 학습 루틴'을 완성합니다.</p>
+
+  <div class="week-header">
+    <div class="wk">WEEK 04</div>
+    <div class="date">2026. 9. 29. SAT · 14:00 – 16:50</div>
+    <div class="goal">완성과 다짐</div>
+  </div>
+  <table class="gyosi-table">
+    <thead>
+      <tr><th class="g-col">교시</th><th class="t-col">주제</th><th class="m-col">분</th><th class="c-col">세부 내용</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="g-col" rowspan="3">1</td>
+        <td class="t-col">3주차 실천 결과 점검</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>주중 학습 기록 데이터와 개인 플래너 기반 점검</li><li>실행률과 어려웠던 점을 모둠별로 나눔</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">실패 원인 분석 강의</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>학습 실패의 주요 원인 유형 멘토 설명</li><li>실행 과정에서 자주 발생하는 문제 사례 안내</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">서울대 멘토 개별 피드백</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>학생별 학습 기록·실천 결과 기반 개별 피드백</li><li>학습 습관·시간 활용·목표 설정 중심 상담</li></ul></td>
+      </tr>
+      <tr>
+        <td class="g-col" rowspan="3">2</td>
+        <td class="t-col">4주차 학습 계획 작성</td>
+        <td class="m-col">15′</td>
+        <td><ul><li>4주차 목표·계획 수립 방법 안내</li><li>개인별 일정·과목 고려한 주간 계획 작성</li><li>수정·보완 위한 초안 작성</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">계획 개별 피드백 · 상담</td>
+        <td class="m-col">15′</td>
+        <td><ul><li>학생 개인별 피드백 제공 및 질문 답변</li><li>학습량·시간 배분·목표 적절성 중심 상담</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">계획 수정·보완 후 최종 제출</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>개별 피드백 반영하여 4주차 계획 수정</li><li>학습량·시간 배분 점검하며 실행 가능성 보완</li><li>최종 계획을 플래너에 정리·기록</li></ul></td>
+      </tr>
+      <tr>
+        <td class="g-col" rowspan="3">3</td>
+        <td class="t-col">소감 · 다짐 발표 (학생)</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>학생 대표의 캠프 경험·주요 변화 소감 발표</li><li>학습 과정에서 느낀 점·성장 사례 공유</li><li>전체 학생의 성취감과 동기 강화</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">소감 발표 (멘토)</td>
+        <td class="m-col">20′</td>
+        <td><ul><li>멘토 전원이 학생 변화에 대해 소감 발표</li><li>성장 사례와 인상 깊은 경험 공유</li><li>향후 학습 방향 조언·격려 메시지</li></ul></td>
+      </tr>
+      <tr>
+        <td class="t-col">수료식</td>
+        <td class="m-col">10′</td>
+        <td><ul><li>캠프 참여 과정·성과 돌아보며 변화 정리</li><li>개인 목표 달성 여부·성장 내용 발표</li><li>수료증 수여 및 향후 학습 방향 설정</li></ul></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">08 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 9 — 주중 비대면 코칭 ══════════ -->
+<div class="page">
+  <div class="section-label">08 · WEEKDAY COACHING</div>
+  <h1 class="page-title">주 1회 수업이 아닙니다, <em>매일 밤 9시</em>.</h1>
+  <p class="page-sub">대면 수업만으론 습관이 형성되지 않습니다. 전담 코치 3명이 <span class="highlight">매일 저녁 9시 플래너를 확인하고 개별 코멘트</span>를 남깁니다.</p>
+
+  <h2>① 정기 코칭 루틴</h2>
+  <div class="routine">
+    <div class="routine-time">
+      <div class="clock">21:00</div>
+      <div class="day">EVERY DAY</div>
+    </div>
+    <div class="routine-desc">
+      <strong>플래너 제출 (학생 → 온라인 플랫폼)</strong>
+      당일 작성한 학습 플래너를 네이버 밴드 등 플랫폼에 제출 (학부모 아이디 연동)
+    </div>
+    <div class="routine-time">
+      <div class="clock">21:00<br>- 23:00</div>
+      <div class="day">FEEDBACK</div>
+    </div>
+    <div class="routine-desc">
+      <strong>전담 코치 개별 코멘트</strong>
+      단순 확인이 아닌 <strong>행동 수정 중심 피드백</strong> (예: 시간 배분 조정, 목표 단위 세분화, 실행 전략 제안)
+    </div>
+    <div class="routine-time">
+      <div class="clock">WEEK</div>
+      <div class="day">1회</div>
+    </div>
+    <div class="routine-desc">
+      <strong>주간 미션 부여</strong>
+      개인별 맞춤 성장 과제 (예: "3일 연속 계획한 시간에 공부 시작하기", "한 과목 개념 정리 노트 완성하기")
+    </div>
+  </div>
+
+  <h2 class="mt-md">② 이탈 방지 3단계 개입 시스템</h2>
+  <div class="escalation">
+    <div class="esc-step s1">
+      <div class="sn">STEP 01</div>
+      <strong>리마인드</strong>
+      <p>미제출·미이행 시 즉시 리마인드 메시지 발송</p>
+    </div>
+    <div class="esc-step s2">
+      <div class="sn">STEP 02</div>
+      <strong>원인 파악</strong>
+      <p>2회 이상 누적 시 개별 연락하여 원인 파악·해결</p>
+    </div>
+    <div class="esc-step s3">
+      <div class="sn">STEP 03</div>
+      <strong>재설계</strong>
+      <p>지속 미이행 시 보호자 공유 및 학습 리듬 재설계</p>
+    </div>
+  </div>
+
+  <h2 class="mt-md">③ 성취 기반 동기 강화 · 관계 기반 코칭</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3>주간 우수 수행자</h3>
+      <p style="font-size:9pt">매주 우수 수행자 선정 및 피드백 공개 (닉네임 활용으로 긍정적 자극)</p>
+    </div>
+    <div class="card">
+      <h3>리워드 · 인증서</h3>
+      <p style="font-size:9pt">소규모 리워드 제공과 단계별 인증서로 성취감 강화</p>
+    </div>
+    <div class="card">
+      <h3>성장 데이터 시각화</h3>
+      <p style="font-size:9pt">개인별 변화 데이터를 차트로 축적하여 스스로의 성장 체감</p>
+    </div>
+  </div>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">09 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 10 — 진단도구 ══════════ -->
+<div class="page">
+  <div class="section-label">09 · DIAGNOSTIC TOOLS</div>
+  <h1 class="page-title">두 축의 진단으로 <em>정확한 출발점</em>을.</h1>
+  <p class="page-sub">'학습 유형'과 '자기주도력' 두 진단을 통해 학생의 현재 상태를 다각도로 파악하고, 프로그램 내·외에서 지속적으로 활용합니다.</p>
+
+  <div class="diag">
+    <div class="diag-head">
+      <div class="diag-tag">TOOL 01</div>
+      <div class="diag-title">학습 유형 진단</div>
+    </div>
+    <p style="font-size:9.5pt; color:var(--g600)">학생의 학습 습관·선호 방식·정보 처리 유형을 분석하여 <strong>맞춤형 공부법</strong>을 설계합니다.</p>
+    <div class="diag-phases">
+      <div class="diag-phase">
+        <h4>프로그램 내 즉시 적용</h4>
+        <p>진단 결과를 바탕으로 개인별 학습 특성 분석 → 맞춤형 코칭 전략에 반영. 주간 플래너 작성·피드백에 지속 적용.</p>
+      </div>
+      <div class="diag-phase">
+        <h4>개인 맞춤 리포트</h4>
+        <p>학생·학부모에게 학습 유형·행동 패턴·강점·추천 학습 전략을 담은 분석 리포트 제공.</p>
+      </div>
+      <div class="diag-phase">
+        <h4>프로그램 이후 활용</h4>
+        <p>학생은 자신의 유형을 기준으로 지속 학습 계획 수립, 학부모는 통제 중심이 아닌 지원 중심 개입으로 전환.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="diag">
+    <div class="diag-head">
+      <div class="diag-tag">TOOL 02</div>
+      <div class="diag-title">자기주도력 진단</div>
+    </div>
+    <p style="font-size:9.5pt; color:var(--g600)">학생의 <strong>시작·지속·완성</strong> 실행 수준을 정량 측정하여 실행상의 병목을 구체적으로 특정합니다.</p>
+    <div class="diag-phases">
+      <div class="diag-phase">
+        <h4>프로그램 내 즉시 적용</h4>
+        <p>실행 수준(시작·지속·완성)을 분석하여 맞춤 코칭 전략 반영. 미루기·목표 과다·시간 관리 등 원인 구체 진단.</p>
+      </div>
+      <div class="diag-phase">
+        <h4>개인 맞춤 리포트</h4>
+        <p>실행 습관·시간 활용·목표 설정에 대한 평가와 보완 전략 안내. 구체적 실천 방법 중심 가이드.</p>
+      </div>
+      <div class="diag-phase">
+        <h4>프로그램 이후 활용</h4>
+        <p>학습이 흔들릴 때 스스로 원인을 점검하고 조정하는 기준으로 활용. 가정에서도 환경·습관 지원 중심 개입.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card gold mt-md">
+    <h3>진단 → 코칭 → 리포트의 연결 고리</h3>
+    <p style="font-size:9.5pt">두 진단은 단발 검사에 그치지 않고 <strong>4주 내내 코칭의 기준점</strong>으로 활용됩니다. 프로그램 종료 후에는 리포트 형태로 가정으로 연결되어, 캠프 이후에도 유지 가능한 자기주도 학습 루틴 형성의 기반이 됩니다.</p>
+  </div>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">10 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 11 — 서울대 멘토진 ══════════ -->
+<div class="page">
+  <div class="section-label">10 · MENTOR TEAM</div>
+  <h1 class="page-title"><em>서울대 재학생</em> 전담 멘토 4인.</h1>
+  <p class="page-sub">지식 전달이 아닌 <span class="highlight">최상위 자기주도 학습 경험</span>을 전수하는 멘토진. 20명 학생을 4모둠으로 나누어 멘토 1인이 학생 5명을 4주간 전담합니다.</p>
+
+  <div class="mentor-banner">
+    <div class="snu-seal">SNU</div>
+    <div class="txt">
+      전 멘토진은 <strong>서울대학교 재학생 또는 졸업생</strong>으로 구성되며, 범잡는 포수의 사전 교육 과정(멘토링 스킬·진단도구 이해·윤리 규정)을 이수한 후 투입됩니다. 멘토 최종 프로필은 계약 체결 후 확정·공유 드립니다.
+    </div>
+  </div>
+
+  <div class="mentor-grid">
+    <div class="mentor">
+      <div class="mentor-photo">M1</div>
+      <div class="mentor-info">
+        <h3>멘토 A</h3>
+        <div class="affil">서울대학교 · 재학</div>
+        <div class="desc">자기주도 학습법을 체계화하여 수능 상위권을 달성한 경험을 바탕으로, 초등 학습자의 계획 수립과 실행력 코칭에 강점을 가집니다.</div>
+      </div>
+    </div>
+    <div class="mentor">
+      <div class="mentor-photo">M2</div>
+      <div class="mentor-info">
+        <h3>멘토 B</h3>
+        <div class="affil">서울대학교 · 재학</div>
+        <div class="desc">다양한 학습 유형의 또래를 관찰·지원한 경험을 통해, 학생별 맞춤 공부법을 함께 찾아가는 개별 멘토링에 특화되어 있습니다.</div>
+      </div>
+    </div>
+    <div class="mentor">
+      <div class="mentor-photo">M3</div>
+      <div class="mentor-info">
+        <h3>멘토 C</h3>
+        <div class="affil">서울대학교 · 재학</div>
+        <div class="desc">실패 경험을 극복하며 쌓은 학습 지속력 노하우를 중심으로, 학생의 정서적 동기 부여와 관계 기반 코칭에 강점을 가집니다.</div>
+      </div>
+    </div>
+    <div class="mentor">
+      <div class="mentor-photo">M4</div>
+      <div class="mentor-info">
+        <h3>멘토 D</h3>
+        <div class="affil">서울대학교 · 재학</div>
+        <div class="desc">시간 관리·목표 분해 등 실행 전략 설계 능력이 뛰어나며, 학생 개인별 플래너 피드백과 미션 설계에 전문성을 가집니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-md">지원 체계</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3 style="color:var(--accent)">대면 멘토 4인</h3>
+      <p style="font-size:9pt">서울대 재학·졸업생. 토요일 대면 세션 1:5 전담 운영.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent)">비대면 코치 3인</h3>
+      <p style="font-size:9pt">주중 매일 21:00 플래너 확인·피드백. 학습 관리 체계 운영.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent)">운영 매니저 1인</h3>
+      <p style="font-size:9pt">전체 운영 총괄·학부모 소통·이탈 방지 3단계 개입 관리.</p>
+    </div>
+  </div>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">11 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 12 — 학부모 지원 체계 ══════════ -->
+<div class="page">
+  <div class="section-label">11 · PARENT PARTNERSHIP</div>
+  <h1 class="page-title">학부모는 <em>환경 설계자</em>입니다.</h1>
+  <p class="page-sub">관리자가 아닌 <span class="highlight">환경 설계자이자 실행 지원자</span>로서의 역할 — 캠프 전·중·후 3단계에 걸쳐 구체적인 가이드를 제공합니다.</p>
+
+  <div class="flow mt-md">
+    <div class="flow-step">
+      <div class="step-num">BEFORE</div>
+      <div class="step-title">캠프 시작 전</div>
+      <div class="step-desc">준비와 환경 조성</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="step-num">DURING</div>
+      <div class="step-title">캠프 기간 중</div>
+      <div class="step-desc">과정 기반 지원</div>
+    </div>
+    <div class="flow-arrow">›</div>
+    <div class="flow-step">
+      <div class="step-num">AFTER</div>
+      <div class="step-title">캠프 이후</div>
+      <div class="step-desc">습관 유지·확장</div>
+    </div>
+  </div>
+
+  <h2>단계별 역할</h2>
+  <div class="grid-3 mt-sm">
+    <div class="card">
+      <div class="card-num">01</div>
+      <div class="card-title">캠프 시작 전</div>
+      <ul style="font-size:9pt">
+        <li>프로그램 목적·방향 사전 안내 및 대화</li>
+        <li>학습 시간·공간 정리로 안정적 학습 환경 조성</li>
+        <li>진단 결과 함께 확인하며 현실적 기대 수준 설정</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-num">02</div>
+      <div class="card-title">캠프 기간 중</div>
+      <ul style="font-size:9pt">
+        <li>플래너 실천 여부 가볍게 점검 (과잉 관리 지양)</li>
+        <li>결과가 아닌 <strong>과정과 노력</strong>에 집중한 피드백</li>
+        <li>멘토링 방향과 일관된 가정 내 기준 유지</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-num">03</div>
+      <div class="card-title">캠프 이후 실천</div>
+      <ul style="font-size:9pt">
+        <li>캠프에서 형성된 학습 습관 일상 속 반복 환경 조성</li>
+        <li>진단 리포트 기반 자녀 맞춤 학습 방식 적용</li>
+        <li>정기적 대화로 학습 상태 점검·방향 조정</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 class="mt-md">진단 결과 분석지 활용 가이드</h2>
+  <div class="card navy">
+    <ul style="font-size:10pt">
+      <li>진단 결과를 바탕으로 자녀의 학습 특성·실행 패턴을 이해합니다.</li>
+      <li>자녀의 유형에 맞는 학습 환경과 생활 리듬을 가정에서 조성합니다.</li>
+      <li>결과를 기준으로 과정과 실행·변화를 중심으로 대화하고 지원합니다.</li>
+    </ul>
+  </div>
+
+  <div class="card gold mt-md">
+    <h3>가정과 캠프의 동일한 언어</h3>
+    <p style="font-size:9.5pt">가정과 캠프가 <strong>같은 진단 데이터·같은 피드백 방식</strong>을 공유할 때, 학생은 일관된 메시지 속에서 습관을 형성합니다. 우리의 리포트는 학부모가 '무엇을 보고·어떻게 말할지'를 구체적으로 안내하여 가정과 캠프를 하나의 흐름으로 연결합니다.</p>
+  </div>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">12 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 13 — 기대효과 & 산출물 ══════════ -->
+<div class="page">
+  <div class="section-label">12 · OUTCOMES & DELIVERABLES</div>
+  <h1 class="page-title">캠프가 끝나도 <em>남는 것들</em>.</h1>
+  <p class="page-sub">4주간의 여정이 학생과 가정에 구체적인 자산으로 남도록 설계했습니다.</p>
+
+  <h2>정량적 기대 효과</h2>
+  <div class="outcome-grid">
+    <div class="outcome">
+      <div class="big">8회</div>
+      <div class="cap">대면 수업 4회 + 비대면 코칭 상시<br>총 커리큘럼 단계</div>
+    </div>
+    <div class="outcome">
+      <div class="big">28일</div>
+      <div class="cap">매일 저녁 9시 플래너 피드백<br>개별 코멘트 누적</div>
+    </div>
+    <div class="outcome">
+      <div class="big">1 : 5</div>
+      <div class="cap">서울대 멘토 1인당 학생 5명<br>전담 관계 구조</div>
+    </div>
+  </div>
+
+  <h2 class="mt-md">학생이 받아 가는 산출물</h2>
+  <div>
+    <div class="deliverable">
+      <div class="icon">P</div>
+      <div>
+        <strong>개인 학습 플래너 (4주 완성본)</strong>
+        <p>매주 수정·보완한 학습 계획과 실행 기록이 축적된 개인 자산. 캠프 이후 자기주도 학습의 템플릿으로 활용.</p>
+      </div>
+    </div>
+    <div class="deliverable">
+      <div class="icon">R</div>
+      <div>
+        <strong>학습 유형 진단 리포트</strong>
+        <p>학습 습관·행동 패턴·강점·추천 학습 전략을 담은 개인 맞춤 리포트. 학생·학부모 공동 제공.</p>
+      </div>
+    </div>
+    <div class="deliverable">
+      <div class="icon">S</div>
+      <div>
+        <strong>자기주도력 진단 리포트</strong>
+        <p>실행 수준(시작·지속·완성)별 평가와 보완 전략. 구체적 실천 방법 중심의 실행 가이드.</p>
+      </div>
+    </div>
+    <div class="deliverable">
+      <div class="icon">C</div>
+      <div>
+        <strong>수료증 · 성장 데이터 기록</strong>
+        <p>4주간의 변화 데이터가 시각화된 기록과 수료증. 학생의 성취감과 다음 학습의 동기 부여.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="mt-md">정성적 기대 효과</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>학생</h3>
+      <ul style="font-size:9pt"><li>자신의 학습 유형과 실행 패턴에 대한 이해 형성</li><li>스스로 계획하고 점검하는 학습 루틴 내재화</li><li>서울대 멘토를 롤모델 삼는 학습 동기 강화</li></ul>
+    </div>
+    <div class="card">
+      <h3>가정</h3>
+      <ul style="font-size:9pt"><li>통제·관리 중심 → 환경·습관 지원 중심 개입으로 전환</li><li>자녀 학습 특성에 대한 구체적 이해</li><li>지속 가능한 대화 프레임 확보</li></ul>
+    </div>
+  </div>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">13 / 14</div>
+</div>
+
+<!-- ══════════ PAGE 14 — 운영조직 & 문의 ══════════ -->
+<div class="page">
+  <div class="section-label">13 · CONTACT</div>
+  <h1 class="page-title" style="font-size:40pt; line-height:1.2;"><span style="font-size:46pt; font-weight:900;">함께,</span><br><em>삼척 아이들의 4주</em>를<br>설계하겠습니다.</h1>
+  <p class="page-sub">본 제안서에 대한 문의·논의 사항은 아래 연락처로 주시면 빠르게 응답 드리겠습니다.</p>
+
+  <div class="contact-box">
+    <div class="co">OPERATED BY</div>
+    <div class="name">범잡는 포수</div>
+    <div class="tagline">교육 콘텐츠 기획·운영 전문 · 삼척시 교육특구사업 운영 파트너</div>
+    <div class="contact-grid">
+      <div class="contact-item"><div class="k">대표</div><div class="v">이 은 경</div></div>
+      <div class="contact-item"><div class="k">사업 영역</div><div class="v">자기주도학습 캠프 기획·운영</div></div>
+      <div class="contact-item"><div class="k">연락처</div><div class="v">(제안서 채택 후 공유)</div></div>
+      <div class="contact-item"><div class="k">이메일</div><div class="v">(제안서 채택 후 공유)</div></div>
+    </div>
+  </div>
+
+  <h2 class="mt-lg">운영 조직도</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3>기획 · 총괄</h3>
+      <p style="font-size:9pt">범잡는 포수 (대표 이은경)<br>프로그램 설계 · 삼척시 협업 · 전체 운영 책임</p>
+    </div>
+    <div class="card">
+      <h3>멘토링 운영</h3>
+      <p style="font-size:9pt">서울대 재학생 멘토 4인<br>1:5 전담 대면 세션 · 개별 상담·피드백</p>
+    </div>
+    <div class="card">
+      <h3>학습 관리</h3>
+      <p style="font-size:9pt">전담 비대면 코치 3인 + 운영 매니저 1인<br>주중 매일 플래너 피드백 · 이탈 방지 개입</p>
+    </div>
+  </div>
+
+  <h2 class="mt-md">협력 체계</h2>
+  <div class="grid-3">
+    <div class="card gold">
+      <h3 style="color:var(--accent)">삼척시 · 교육특구추진단</h3>
+      <p style="font-size:9pt">사업 총괄·예산·학생 모집 · 행정 지원</p>
+    </div>
+    <div class="card gold">
+      <h3 style="color:var(--accent)">범잡는 포수</h3>
+      <p style="font-size:9pt">프로그램 기획·멘토 관리·운영 실무 일체</p>
+    </div>
+    <div class="card gold">
+      <h3 style="color:var(--accent)">서울대 멘토 풀</h3>
+      <p style="font-size:9pt">재학생 멘토진 구성·교육·현장 투입</p>
+    </div>
+  </div>
+
+  <p class="small-note" style="text-align:center; margin-top:30px; font-size:10pt; color:var(--g600); font-style:normal; font-weight:600;">
+    감사합니다.
+  </p>
+
+  <div class="page-brand">SAMCHEOK × 범잡는 포수 × 서울대 멘토</div>
+  <div class="page-num">14 / 14</div>
+</div>
+
+</body>
+</html>
