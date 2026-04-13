@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주식회사 펜타 정관 (초안)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Noto+Serif+KR:wght@400;600;700&display=swap');
+  :root {
+    --text: #1a1a1a;
+    --text-sub: #444;
+    --border: #ccc;
+    --bg: #ffffff;
+    --accent: #1a2e1a;
+    --highlight: #fffde7;
+    --note-bg: #f5f5f0;
+    --gold: #c9a84c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Serif KR', Georgia, serif;
+    background: #f0ede6;
+    color: var(--text);
+    line-height: 2;
+    font-size: 15px;
+  }
+  .page {
+    max-width: 820px;
+    margin: 40px auto;
+    background: var(--bg);
+    padding: 60px 64px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    border-radius: 4px;
+  }
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; padding: 40px 50px; }
+    .no-print { display: none; }
+  }
+  @media (max-width: 600px) {
+    .page { padding: 32px 24px; margin: 16px; }
+  }
+  .title-block {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 2px solid var(--text);
+  }
+  .title-block h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 10px;
+    margin-bottom: 12px;
+  }
+  .title-block .sub {
+    font-size: 14px;
+    color: var(--text-sub);
+  }
+  .title-block .draft {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 4px 20px;
+    border: 2px solid #c62828;
+    color: #c62828;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+  .toc {
+    background: var(--note-bg);
+    border-left: 3px solid var(--gold);
+    padding: 20px 28px;
+    margin-bottom: 40px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+  }
+  .toc h3 { margin-bottom: 10px; color: var(--accent); }
+  .toc ol { padding-left: 24px; }
+  .toc li { margin-bottom: 4px; }
+  .chapter {
+    margin-top: 40px;
+    margin-bottom: 24px;
+    padding: 12px 20px;
+    background: var(--accent);
+    color: white;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+  .article { margin-bottom: 28px; }
+  .article h2 {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #ddd;
+  }
+  .article.highlight {
+    background: var(--highlight);
+    padding: 20px 24px;
+    border-radius: 6px;
+    border-left: 4px solid var(--gold);
+  }
+  .article.highlight h2 { color: #b71c1c; }
+  .clause {
+    margin-bottom: 8px;
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+  }
+  .clause .num {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .sub-clause {
+    margin-bottom: 6px;
+    padding-left: 3em;
+    text-indent: -1.5em;
+    font-size: 14.5px;
+  }
+  .note {
+    background: var(--note-bg);
+    border-left: 3px solid var(--accent);
+    padding: 12px 18px;
+    margin: 14px 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13.5px;
+    color: var(--text-sub);
+    line-height: 1.8;
+  }
+  .note strong { color: var(--text); }
+  .note.warning {
+    background: #fff8e1;
+    border-left-color: #f9a825;
+  }
+  .signature-block {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 2px solid var(--text);
+  }
+  .sig-date {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 48px;
+  }
+  .sig-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+  }
+  .sig-person { flex: 1; }
+  .sig-person .label {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sub);
+    margin-bottom: 12px;
+  }
+  .sig-person .name-line {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sig-person .field-label {
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .sig-person .field-value {
+    flex: 1;
+    border-bottom: 1px solid var(--text);
+    min-height: 24px;
+    padding: 0 8px;
+  }
+  .sig-person .seal {
+    display: inline-block;
+    margin-left: 12px;
+    padding: 4px 16px;
+    border: 1px solid var(--text);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<div class="title-block">
+  <h1>주식회사 펜타 정관</h1>
+  <p class="sub">ARTICLES OF INCORPORATION OF PENTA Co., Ltd.</p>
+  <p class="draft">초안 DRAFT</p>
+</div>
+
+<div class="toc">
+  <h3>목차</h3>
+  <ol>
+    <li>제1장 총칙 (제1조~제5조)</li>
+    <li>제2장 주식 (제6조~제12조)</li>
+    <li>제3장 주주총회 (제13조~제19조)</li>
+    <li>제4장 이사·이사회 (제20조~제28조)</li>
+    <li>제5장 대표이사 (제29조~제31조)</li>
+    <li>제6장 감사 (제32조~제34조)</li>
+    <li>제7장 계산 (제35조~제40조)</li>
+    <li>부칙</li>
+  </ol>
+</div>
+
+<div class="note warning">
+  <strong>본 정관은 주주간계약서(2026-04-13 초안)의 특별 합의사항을 반영한 초안입니다.</strong><br>
+  핵심 특별조항: ① 이사 해임 3/4 특별결의(제25조) ② 이사 임기 5년(제22조) ③ 공동대표이사(제29조) ④ 자기주식 취득 근거(제11조) ⑤ 차등배당(제37조). 법무사·변호사 검토 후 최종 확정 요망.
+</div>
+
+<!-- ══════════════════ 제1장 ══════════════════ -->
+<div class="chapter">제1장 총칙</div>
+
+<div class="article">
+  <h2>제1조 (상호)</h2>
+  <p>본 회사는 "주식회사 펜타"(영문: PENTA Co., Ltd.)라 한다.</p>
+</div>
+
+<div class="article">
+  <h2>제2조 (목적)</h2>
+  <p>본 회사는 다음의 사업을 영위함을 목적으로 한다.</p>
+  <p class="sub-clause">1. 교육서비스업(초등 문해력 학원 운영 및 가맹사업)</p>
+  <p class="sub-clause">2. 교육콘텐츠·교재 출판 및 판매업</p>
+  <p class="sub-clause">3. 평생교육원 운영 및 교원 연수 프로그램 개발업</p>
+  <p class="sub-clause">4. 교육 SaaS 및 AI 기반 학원 운영 자동화 솔루션 개발·공급업</p>
+  <p class="sub-clause">5. 온라인·오프라인 쇼핑몰 운영업(펜타몰)</p>
+  <p class="sub-clause">6. 프랜차이즈 사업 및 가맹점 모집·관리업</p>
+  <p class="sub-clause">7. 교육 인재 에이전시 및 강연·컨설팅업</p>
+  <p class="sub-clause">8. 위 각 호에 부대하는 일체의 사업</p>
+</div>
+
+<div class="article">
+  <h2>제3조 (본점의 소재지 및 지점)</h2>
+  <p class="clause"><span class="num">①</span> 본 회사의 본점은 경기도 하남시에 둔다.</p>
+  <p class="clause"><span class="num">②</span> 본 회사는 이사회 결의로 국내외에 지점, 출장소, 사무소 및 현지법인을 둘 수 있다.</p>
+</div>
+
+<div class="article">
+  <h2>제4조 (공고방법)</h2>
+  <p>본 회사의 공고는 회사 인터넷 홈페이지(www.penta.kr)에 게재한다. 다만, 전산장애 또는 기타 부득이한 사유로 게재할 수 없을 때에는 서울특별시에서 발행하는 일간 매일경제신문에 게재한다.</p>
+</div>
+
+<div class="article">
+  <h2>제5조 (정관의 효력)</h2>
+  <p>본 정관은 회사 설립등기일부터 효력을 발생한다.</p>
+</div>
+
+<!-- ══════════════════ 제2장 ══════════════════ -->
+<div class="chapter">제2장 주식</div>
+
+<div class="article">
+  <h2>제6조 (수권주식총수)</h2>
+  <p>본 회사가 발행할 주식의 총수는 <strong>200만 주</strong>로 한다.</p>
+</div>
+
+<div class="article">
+  <h2>제7조 (1주의 금액)</h2>
+  <p>본 회사가 발행하는 주식 1주의 금액은 <strong>500원</strong>으로 한다.</p>
+</div>
+
+<div class="article">
+  <h2>제8조 (설립 시 발행하는 주식의 총수)</h2>
+  <p>본 회사가 설립 시 발행하는 주식의 총수는 <strong>10만 주</strong>(자본금 <strong>5,000만 원</strong>)로 하며, 보통주로 한다. 주주별 배정·출자 형태는 아래 <strong>두 가지 옵션 중 설립 직전 갑·을 합의로 하나를 선택</strong>한다.</p>
+  <p class="sub-clause"><strong>[옵션 A · 현금 단순화]</strong></p>
+  <p class="sub-clause">1. 이은경 — 5만 1천 주(2,550만 원): 현금 2,550만 원</p>
+  <p class="sub-clause">2. 이동길 — 4만 9천 주(2,450만 원): 현금 2,450만 원</p>
+  <p class="sub-clause" style="margin-top:10px;"><strong>[옵션 B · 현물출자 포함]</strong></p>
+  <p class="sub-clause">1. 이은경 — 5만 1천 주(2,550만 원): 현금 1,550만 원 + 현물출자 1,000만 원(콘텐츠 IP·브랜드 사용권 등, 감정·합의 산정)</p>
+  <p class="sub-clause">2. 이동길 — 4만 9천 주(2,450만 원): 현금 2,450만 원</p>
+  <div class="note">
+    <strong>옵션 비교:</strong> A는 구조가 단순하고 현물 평가·증여세 논란이 없어 설립이 빠르다. B는 갑의 콘텐츠 IP·브랜드 기여를 자본금에 명시적으로 반영한다는 상징성이 있으나, 감정평가 또는 상호 합의 가액 산정 절차가 필요하다.<br>
+    <strong>51:49 구조 채택 이유:</strong> ① 여성기업 확인 요건(대표·지분 50% 초과) 충족 → 공공조달 5% 의무구매·영구 자격 확보. ② 기여 대등성 반영. ③ Series A 대응 시 상호 호환 구조(제17조 ⑩⑪)에 수학적으로 최적.
+  </div>
+</div>
+
+<div class="article">
+  <h2>제9조 (주식의 종류)</h2>
+  <p class="clause"><span class="num">①</span> 본 회사가 발행할 주식은 보통주식과 종류주식으로 한다.</p>
+  <p class="clause"><span class="num">②</span> 본 회사는 이익배당, 잔여재산분배, 의결권 행사, 주식의 상환 및 전환에 관하여 내용이 다른 종류주식을 발행할 수 있으며, 그 종류·수·내용은 이사회의 결의로 정한다.</p>
+  <p class="clause"><span class="num">③</span> 본 회사는 「벤처기업육성에 관한 특별조치법」 제16조의11에 따라, 벤처기업 확인을 받은 비상장 기간 중 <strong>1주당 최대 10개의 의결권을 가지는 복수의결권주식</strong>을 발행할 수 있다. 발행 대상·수량·의결권 수·존속 기간·상실 사유 등 구체적 사항은 주주총회 특별결의(발행주식총수의 4분의 3 이상 찬성)로 정한다.</p>
+  <p class="clause"><span class="num">④</span> 복수의결권주식은 다음 각 호의 어느 하나에 해당하는 때에는 보통주식으로 전환되며, 해당 사유의 효력 발생일부터 그 효력이 상실된다.</p>
+  <p class="sub-clause">1. 발행인이 법 소정의 창업주 요건을 상실한 때</p>
+  <p class="sub-clause">2. 복수의결권주식을 상속·양도(법 제16조의11 제7항 각 호의 예외 제외)한 때</p>
+  <p class="sub-clause">3. 회사가 유가증권시장·코스닥시장에 상장된 날부터 3년이 경과한 때</p>
+  <p class="sub-clause">4. 법령 또는 정관에서 정한 기타 상실 사유에 해당하는 때</p>
+  <div class="note">
+    <strong>취지:</strong> Series A 이후 투자유치로 지분이 희석되더라도 주대표(창업주)가 안정적 경영권을 확보할 수 있도록 근거 조항을 미리 신설한다. 주주간계약서 제17조(Series A 대응)의 Layer 1(복수의결권)·Layer 3(Voting Agreement) 카드와 연동된다. 실제 발행은 벤처기업 확인 취득 후 주주총회 특별결의를 거쳐 실행한다.
+  </div>
+</div>
+
+<div class="article">
+  <h2>제10조 (신주인수권)</h2>
+  <p class="clause"><span class="num">①</span> 본 회사의 주주는 신주발행에 있어서 그가 소유한 주식의 수에 비례하여 <strong>신주를 우선적으로 인수할 권리</strong>를 가진다.</p>
+  <p class="clause"><span class="num">②</span> 제1항에도 불구하고 다음 각 호의 경우에는 이사회 결의로 주주 외의 자에게 신주를 배정할 수 있다.</p>
+  <p class="sub-clause">1. 자본시장과 금융투자업에 관한 법률 제165조의6에 따른 일반공모증자 방식으로 신주를 발행하는 경우</p>
+  <p class="sub-clause">2. 긴급한 자금조달을 위하여 국내외 금융기관 또는 기관투자자에게 신주를 발행하는 경우</p>
+  <p class="sub-clause">3. 회사가 경영상 필요로 외국인투자촉진법에 따른 외국인 투자를 위하여 신주를 발행하는 경우</p>
+  <p class="sub-clause">4. 주식매수선택권의 행사로 인하여 신주를 발행하는 경우</p>
+</div>
+
+<div class="article highlight">
+  <h2>제11조 (자기주식의 취득) ★ 특별조항</h2>
+  <p class="clause"><span class="num">①</span> 본 회사는 상법 제341조 및 제341조의2에서 정하는 바에 따라 <strong>자기주식을 취득할 수 있다.</strong></p>
+  <p class="clause"><span class="num">②</span> 본 회사는 주주간계약에서 정한 매수청구권(Put Option) 이행 등 특정 목적을 위하여 배당가능이익의 범위 내에서 자기주식을 취득할 수 있다.</p>
+  <div class="note">
+    <strong>취지:</strong> 주주간계약서 제16조(Put Option) 제5항의 "1순위 회사(자기주식 취득)" 이행 근거를 정관에 명시한다. 상법 제341조의 요건(배당가능이익 한도, 주주총회 결의)을 충족해야 한다.
+  </div>
+</div>
+
+<div class="article">
+  <h2>제12조 (주식양도의 제한)</h2>
+  <p class="clause"><span class="num">①</span> 본 회사의 주식을 양도할 때에는 <strong>이사회의 승인</strong>을 얻어야 한다.</p>
+  <p class="clause"><span class="num">②</span> 주주간계약에서 정한 우선매수권(ROFR), 동반매도참여권(Tag-along), 동반매도요구권(Drag-along) 등 양도에 관한 제한은 정관상 유효한 양도제한으로 본다.</p>
+</div>
+
+<!-- ══════════════════ 제3장 ══════════════════ -->
+<div class="chapter">제3장 주주총회</div>
+
+<div class="article">
+  <h2>제13조 (주주총회의 소집)</h2>
+  <p class="clause"><span class="num">①</span> 정기주주총회는 매 사업연도 종료 후 3월 이내에 소집하고, 임시주주총회는 필요에 따라 소집한다.</p>
+  <p class="clause"><span class="num">②</span> 주주총회는 대표이사가 이사회의 결의에 따라 소집한다.</p>
+</div>
+
+<div class="article">
+  <h2>제14조 (소집통지)</h2>
+  <p>주주총회를 소집할 때에는 회일의 2주 전에 각 주주에게 서면 또는 전자문서로 통지를 발송하여야 한다. 다만, 주주 전원의 동의가 있는 경우 소집절차를 생략할 수 있다.</p>
+</div>
+
+<div class="article">
+  <h2>제15조 (의장)</h2>
+  <p>주주총회의 의장은 대표이사로 하되, 대표이사가 2인 이상인 경우 주주총회에서 선임한 대표이사가 의장이 된다.</p>
+</div>
+
+<div class="article">
+  <h2>제16조 (결의)</h2>
+  <p class="clause"><span class="num">①</span> 주주총회의 결의는 법령 또는 본 정관에 다른 정함이 있는 경우를 제외하고는 출석한 주주의 의결권의 과반수와 발행주식총수의 4분의 1 이상의 수로 한다.</p>
+  <p class="clause"><span class="num">②</span> 상법 제434조에 따른 특별결의 사항은 출석한 주주의 의결권의 3분의 2 이상의 수와 발행주식총수의 3분의 1 이상의 수로 한다.</p>
+</div>
+
+<div class="article">
+  <h2>제17조 (의결권)</h2>
+  <p>각 주주는 소유하는 주식 1주에 대하여 1개의 의결권을 가진다.</p>
+</div>
+
+<div class="article">
+  <h2>제18조 (서면투표·전자투표)</h2>
+  <p>본 회사는 이사회 결의로 주주가 총회에 출석하지 아니하고 서면 또는 전자적 방법에 의하여 의결권을 행사할 수 있도록 할 수 있다.</p>
+</div>
+
+<div class="article">
+  <h2>제19조 (의사록)</h2>
+  <p>주주총회의 의사는 그 경과의 요령과 결과를 의사록에 기재하고 의장과 출석한 이사가 기명날인 또는 서명하여야 한다.</p>
+</div>
+
+<!-- ══════════════════ 제4장 ══════════════════ -->
+<div class="chapter">제4장 이사·이사회</div>
+
+<div class="article">
+  <h2>제20조 (이사의 수)</h2>
+  <p>본 회사의 이사는 <strong>2인 이상 5인 이하</strong>로 한다.</p>
+</div>
+
+<div class="article">
+  <h2>제21조 (이사의 선임)</h2>
+  <p class="clause"><span class="num">①</span> 이사는 주주총회에서 선임한다.</p>
+  <p class="clause"><span class="num">②</span> 이사 선임 결의는 출석한 주주의 의결권의 과반수와 발행주식총수의 4분의 1 이상의 수로 한다.</p>
+  <p class="clause"><span class="num">③</span> 2인 이상의 이사를 선임하는 경우에도 상법 제382조의2의 집중투표제는 적용하지 아니한다.</p>
+</div>
+
+<div class="article highlight">
+  <h2>제22조 (이사의 임기) ★ 특별조항</h2>
+  <p>이사의 임기는 <strong>5년</strong>으로 한다. 다만, 그 임기 중의 최종 결산기에 관한 정기주주총회의 종결 시까지 연장한다.</p>
+  <div class="note">
+    <strong>취지:</strong> 상법 기본값(3년)보다 임기를 연장하여 공동창업자(갑·을)의 이사직 안정성을 확보한다. 주주간계약서 제15조(베스팅 4년)와 정합성을 맞춘다.
+  </div>
+</div>
+
+<div class="article">
+  <h2>제23조 (이사의 보선)</h2>
+  <p>이사가 결원이 된 경우에는 그 후임자를 선임하기 위한 주주총회를 지체 없이 소집한다. 다만, 법령상 이사의 최소 인원을 충족하고 업무 수행에 지장이 없는 경우에는 그러하지 아니하다.</p>
+</div>
+
+<div class="article">
+  <h2>제24조 (이사의 직무)</h2>
+  <p>이사는 이사회에 출석하여 회사의 업무에 관한 중요한 사항에 대하여 의결하며, 법령과 정관이 정하는 바에 따라 회사의 업무를 집행한다.</p>
+</div>
+
+<div class="article highlight">
+  <h2>제25조 (이사의 해임) ★ 특별조항</h2>
+  <p class="clause"><span class="num">①</span> 이사의 해임은 주주총회의 특별결의에 의하되, 그 결의 요건을 상법 제385조에서 정한 요건(출석 의결권의 2/3 이상 및 발행주식총수의 1/3 이상)보다 가중하여, <strong>출석한 주주 의결권의 4분의 3 이상과 발행주식총수의 과반수의 수</strong>로 한다.</p>
+  <p class="clause"><span class="num">②</span> 전항의 해임 요건 가중은 공동창업자의 이사직 안정성을 보장하기 위한 것이며, 주주간계약에서 달리 정한 해임 사유(중대한 선관의무 위반 등)가 있는 경우에도 본 정관의 가중된 요건은 그대로 적용된다.</p>
+  <div class="note">
+    <strong>취지:</strong> 지분 51:49 구조에서 갑(51%) 단독으로는 을을 해임할 수 없도록 해임 요건을 3/4로 가중한다. 주주간계약서 제16조(Put Option)의 "해임/직위상실 트리거"와 결합하여 을의 이중 안전장치를 구성한다.
+  </div>
+</div>
+
+<div class="article">
+  <h2>제26조 (이사회의 구성)</h2>
+  <p>이사회는 이사 전원으로 구성한다.</p>
+</div>
+
+<div class="article">
+  <h2>제27조 (이사회의 결의)</h2>
+  <p class="clause"><span class="num">①</span> 이사회의 결의는 이사 과반수의 출석과 출석 이사 과반수로 한다.</p>
+  <p class="clause"><span class="num">②</span> 다음 각 호의 사항은 이사 전원의 동의로 결의한다.</p>
+  <p class="sub-clause">1. 주주간계약에서 정한 중요 사항(신규 투자 유치, 연간 예산, 임원 선·해임, 대규모 지출, 신규 사업 진출·중단, 합병·분할·해산, 지분 양도 등)</p>
+  <p class="sub-clause">2. 대표이사의 전결권 위임 한도의 변경</p>
+</div>
+
+<div class="article">
+  <h2>제28조 (이사회의 소집)</h2>
+  <p>이사회는 대표이사 또는 이사회에서 따로 정한 이사가 소집한다. 다만, 이사 전원의 동의가 있는 경우 소집절차를 생략할 수 있다.</p>
+</div>
+
+<!-- ══════════════════ 제5장 ══════════════════ -->
+<div class="chapter">제5장 대표이사</div>
+
+<div class="article highlight">
+  <h2>제29조 (대표이사) ★ 특별조항</h2>
+  <p class="clause"><span class="num">①</span> 본 회사는 이사회 결의로 이사 중에서 대표이사 <strong>2인을 선임하고 공동대표이사로 한다</strong>.</p>
+  <p class="clause"><span class="num">②</span> 공동대표이사는 회사를 대표할 때 <strong>공동으로 대표권을 행사</strong>한다. 다만, 상대방의 의사표시 수령은 각 대표이사가 단독으로 수령할 수 있다.</p>
+  <p class="clause"><span class="num">③</span> 이사회는 각 대표이사가 단독으로 집행할 수 있는 업무의 종류와 한도를 별도의 위임규정으로 정할 수 있다.</p>
+  <p class="clause"><span class="num">④</span> 대표이사 구조의 변경(공동대표 → 단독대표 등)은 주주간계약에서 정한 "Series A 재협상" 조건 충족 시 또는 주주 전원의 합의로만 가능하다.</p>
+  <div class="note">
+    <strong>취지:</strong> 주주간계약서 제17조와 연동. 공동대표이사 체제는 을(이동길)의 1차 방어선이며, 중요 대외 계약에 양 대표의 공동서명을 요구하여 일방적 해임·경영 배제를 구조적으로 차단한다.
+  </div>
+</div>
+
+<div class="article">
+  <h2>제30조 (대표이사의 직무)</h2>
+  <p>대표이사는 회사를 대표하고 업무를 총괄하며, 이사회의 결의에 따라 회사의 업무를 집행한다.</p>
+</div>
+
+<div class="article">
+  <h2>제31조 (대표이사의 유고)</h2>
+  <p>대표이사가 사고로 인하여 그 직무를 수행할 수 없을 때에는 다른 대표이사가 그 직무를 대행하며, 공동대표이사가 모두 사고인 때에는 이사회에서 정한 이사가 그 직무를 대행한다.</p>
+</div>
+
+<!-- ══════════════════ 제6장 ══════════════════ -->
+<div class="chapter">제6장 감사</div>
+
+<div class="article">
+  <h2>제32조 (감사의 수)</h2>
+  <p>본 회사는 상법 제409조 제4항에 따라 감사를 두지 아니한다. 다만, 자본금 총액이 10억 원 이상이 되는 경우 1인 이상의 감사를 선임한다.</p>
+</div>
+
+<div class="article">
+  <h2>제33조 (감사의 선임 및 임기)</h2>
+  <p class="clause"><span class="num">①</span> 감사는 주주총회에서 선임한다.</p>
+  <p class="clause"><span class="num">②</span> 감사의 임기는 취임 후 3년 내의 최종 결산기에 관한 정기주주총회 종결 시까지로 한다.</p>
+</div>
+
+<div class="article">
+  <h2>제34조 (감사의 직무)</h2>
+  <p>감사는 회사의 회계와 업무를 감사하며, 이사회에 출석하여 의견을 진술할 수 있다.</p>
+</div>
+
+<!-- ══════════════════ 제7장 ══════════════════ -->
+<div class="chapter">제7장 계산</div>
+
+<div class="article">
+  <h2>제35조 (사업연도)</h2>
+  <p>본 회사의 사업연도는 매년 <strong>1월 1일부터 12월 31일까지</strong>로 한다.</p>
+</div>
+
+<div class="article">
+  <h2>제36조 (재무제표의 작성·비치)</h2>
+  <p>대표이사는 매 결산기에 재무제표 및 영업보고서를 작성하여 감사 또는 주주총회에 제출한다.</p>
+</div>
+
+<div class="article highlight">
+  <h2>제37조 (이익의 배당 — 차등배당) ★ 특별조항</h2>
+  <p class="clause"><span class="num">①</span> 이익의 배당은 주주총회 결의로 정한다.</p>
+  <p class="clause"><span class="num">②</span> 본 회사는 상법 제464조 단서에 따라, <strong>주주 전원의 동의 또는 주주간계약에서 정한 바에 따라 주식의 수에 비례하지 아니하는 차등배당</strong>을 할 수 있다.</p>
+  <p class="clause"><span class="num">③</span> 차등배당의 구체적 비율은 주주간계약에서 정한 경제권 비율(50 : 50)에 따른다.</p>
+  <p class="clause"><span class="num">④</span> 성장기에는 재투자 필요분을 우선 확보한 후 잔여 이익에 대해 배당한다. 배당성향은 주주간 합의에 따라 조정한다.</p>
+  <div class="note">
+    <strong>취지:</strong> 지분은 51:49이나 경제권은 50:50으로 합의된 구조를 정관에 반영한다. 상법상 차등배당은 주주 전원의 동의가 있거나 정관에 근거 조항이 있는 경우 허용되므로, 본 조로 근거를 명시한다. 세무상 처리(증여 의제 여부)에 대해서는 설립 전 세무사 자문을 받는다.
+  </div>
+</div>
+
+<div class="article">
+  <h2>제38조 (배당금 지급청구권의 소멸시효)</h2>
+  <p>배당금의 지급청구권은 5년간 행사하지 아니하면 소멸시효가 완성된다.</p>
+</div>
+
+<div class="article">
+  <h2>제39조 (이익준비금)</h2>
+  <p>본 회사는 자본금의 2분의 1에 달할 때까지 매 결산기에 금전에 의한 이익배당액의 10분의 1 이상을 이익준비금으로 적립한다.</p>
+</div>
+
+<div class="article">
+  <h2>제40조 (외부감사)</h2>
+  <p>본 회사는 법령에 따른 외부감사 대상이 되는 경우 이사회에서 선정한 외부감사인에 의한 회계감사를 받는다.</p>
+</div>
+
+<!-- ══════════════════ 부칙 ══════════════════ -->
+<div class="chapter">부칙</div>
+
+<div class="article">
+  <h2>제1조 (시행일)</h2>
+  <p>본 정관은 회사 설립등기일부터 시행한다.</p>
+</div>
+
+<div class="article">
+  <h2>제2조 (최초의 사업연도)</h2>
+  <p>회사의 최초 사업연도는 회사 설립등기일부터 같은 해 12월 31일까지로 한다.</p>
+</div>
+
+<div class="article">
+  <h2>제3조 (발기인의 기명날인)</h2>
+  <p>본 정관을 증명하기 위하여 발기인 전원이 아래에 기명날인한다.</p>
+</div>
+
+<!-- ══════════════════ 서명 ══════════════════ -->
+<div class="signature-block">
+  <p class="sig-date">2026년 &nbsp;&nbsp;&nbsp;&nbsp;월 &nbsp;&nbsp;&nbsp;&nbsp;일</p>
+
+  <div class="sig-row">
+    <div class="sig-person">
+      <div class="label">발기인 1</div>
+      <div class="name-line">
+        <span class="field-label">성 명:</span>
+        <span class="field-value">이 은 경</span>
+      </div>
+      <div class="name-line">
+        <span class="field-label">주 소:</span>
+        <span class="field-value"></span>
+      </div>
+      <div class="name-line">
+        <span class="field-label">주민등록번호:</span>
+        <span class="field-value"></span>
+      </div>
+      <div class="seal">(인)</div>
+    </div>
+
+    <div class="sig-person">
+      <div class="label">발기인 2</div>
+      <div class="name-line">
+        <span class="field-label">성 명:</span>
+        <span class="field-value">이 동 길</span>
+      </div>
+      <div class="name-line">
+        <span class="field-label">주 소:</span>
+        <span class="field-value"></span>
+      </div>
+      <div class="name-line">
+        <span class="field-label">주민등록번호:</span>
+        <span class="field-value"></span>
+      </div>
+      <div class="seal">(인)</div>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 48px; padding-top: 24px; border-top: 1px dashed #ccc;">
+  <div class="note warning">
+    <strong>본 정관은 초안입니다.</strong><br>
+    반드시 법무사·변호사의 검토를 거친 후 설립등기 시 확정본으로 제출하시기 바랍니다.<br>
+    특히 다음 사항은 전문가 자문이 필요합니다:<br>
+    &bull; <strong>제11조 자기주식 취득 근거</strong> — 상법 제341조 요건(배당가능이익 한도) 실무 적용<br>
+    &bull; <strong>제22조 이사 임기 5년</strong> — 상법 제383조 상한 확인<br>
+    &bull; <strong>제25조 이사 해임 3/4 가중</strong> — 특별결의 가중의 유효성·등기 가능 여부<br>
+    &bull; <strong>제29조 공동대표이사</strong> — 공동대표 등기·위임규정 설계<br>
+    &bull; <strong>제37조 차등배당</strong> — 주주간 경제권 50:50을 차등배당으로 실현 시 세무상 증여 의제 리스크 검토<br>
+    &bull; 수권주식총수·1주 금액·설립 시 발행주식 수치는 자본금 구조에 맞춰 최종 조정 필요
+  </div>
+</div>
+
+</div><!-- /page -->
+
+</body>
+</html>

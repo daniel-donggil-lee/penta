@@ -1703,11 +1703,22 @@ async function loadComments() {
 }
 
 function renderAllComments() {
+  const dbg = document.getElementById('debug-banner');
+  let dbgInfo = [];
+  if (allComments[0]) {
+    const sample = allComments[0].article;
+    dbgInfo.push('서버값="' + sample + '" len=' + sample.length + ' codes=' + Array.from(sample).map(c=>c.charCodeAt(0)).join(','));
+    dbgInfo.push('ARTICLES[0]="' + ARTICLES[0] + '" codes=' + Array.from(ARTICLES[0]).map(c=>c.charCodeAt(0)).join(','));
+    dbgInfo.push('match=' + (sample === ARTICLES[0]));
+  }
   ARTICLES.forEach(articleId => {
     const comments = allComments.filter(c => c.article === articleId);
     const list = document.getElementById('list-' + articleId);
     const cnt = document.getElementById('cnt-' + articleId);
-    if (!list || !cnt) return;
+    if (!list || !cnt) {
+      if (articleId === '제1조') dbgInfo.push('제1조 DOM: list=' + !!list + ' cnt=' + !!cnt);
+      return;
+    }
 
     cnt.textContent = comments.length;
     cnt.className = comments.length > 0 ? 'cnt' : 'cnt zero';
@@ -1728,6 +1739,7 @@ function renderAllComments() {
       </div>`;
     }).join('');
   });
+  if (dbg && dbgInfo.length) dbg.textContent = '[DEBUG] ' + dbgInfo.join(' | ');
 }
 
 async function submitComment(articleId) {
