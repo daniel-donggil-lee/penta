@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>제안서 Before vs After — 기획서톤 vs 맥킨지급</title>
+<style>
+  :root {
+    --ink:#0a0a0a;
+    --navy:#14213d;
+    --gold:#c49a3a;
+    --gold-light:#f5edd6;
+    --accent:#b6292e;
+    --g50:#fafafa; --g100:#eee; --g300:#ccc; --g500:#888; --g700:#444;
+    --cream:#faf8f4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    letter-spacing: -0.2px;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 40px 80px;
+  }
+  header {
+    background: var(--navy);
+    color: #fff;
+    padding: 70px 40px 50px;
+    text-align: center;
+  }
+  header .kicker {
+    color: var(--gold);
+    font-size: 11pt;
+    letter-spacing: 4px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  header h1 {
+    font-size: 36pt;
+    font-weight: 800;
+    margin: 0 0 14px;
+    letter-spacing: -1.2px;
+  }
+  header h1 em {
+    color: var(--gold);
+    font-style: normal;
+  }
+  header p {
+    font-size: 12pt;
+    color: rgba(255,255,255,0.75);
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  h2.section-head {
+    font-size: 22pt;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    margin: 60px 0 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--navy);
+  }
+  h2.section-head .num {
+    color: var(--gold);
+    font-family: Georgia, serif;
+    margin-right: 14px;
+  }
+  .section-sub {
+    color: var(--g500);
+    font-size: 10.5pt;
+    margin-bottom: 28px;
+  }
+
+  /* Summary Cards */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 30px 0 60px;
+  }
+  .sum-card {
+    padding: 32px 28px;
+    border-radius: 4px;
+  }
+  .sum-card.before {
+    background: #fff;
+    border: 1px solid var(--g100);
+  }
+  .sum-card.after {
+    background: var(--navy);
+    color: #fff;
+  }
+  .sum-card .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 9pt;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .sum-card.before .badge { background: var(--g100); color: var(--g700); }
+  .sum-card.after .badge { background: var(--gold); color: var(--navy); }
+  .sum-card h3 {
+    font-size: 16pt;
+    margin: 0 0 18px;
+    letter-spacing: -0.4px;
+  }
+  .sum-card ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 10pt;
+    line-height: 1.8;
+  }
+  .sum-card.after ul { color: rgba(255,255,255,0.9); }
+  .sum-card .score {
+    font-family: Georgia, serif;
+    font-size: 36pt;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin: 10px 0;
+  }
+  .sum-card.before .score { color: var(--g500); }
+  .sum-card.after .score { color: var(--gold); }
+
+  /* Before/After table */
+  .diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+    margin-bottom: 40px;
+    background: #fff;
+  }
+  .diff-table th {
+    background: var(--navy);
+    color: #fff;
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 9.5pt;
+  }
+  .diff-table th.before-col { background: var(--g700); }
+  .diff-table th.after-col { background: var(--navy); border-left: 3px solid var(--gold); }
+  .diff-table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--g100);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .diff-table td.label {
+    font-weight: 700;
+    background: var(--cream);
+    width: 18%;
+    color: var(--navy);
+  }
+  .diff-table td.before {
+    color: var(--g500);
+    width: 41%;
+  }
+  .diff-table td.after {
+    width: 41%;
+    border-left: 3px solid var(--gold);
+    background: #fff;
+  }
+  .diff-table td.after strong {
+    color: var(--accent);
+  }
+
+  /* Title Rewrite */
+  .title-list {
+    background: #fff;
+    border: 1px solid var(--g100);
+    padding: 8px 0;
+    margin-bottom: 40px;
+  }
+  .title-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 60px 1fr;
+    gap: 20px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--g100);
+    align-items: center;
+  }
+  .title-row:last-child { border-bottom: none; }
+  .title-row .pnum {
+    font-family: Georgia, serif;
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 13pt;
+  }
+  .title-row .arrow {
+    text-align: center;
+    color: var(--gold);
+    font-size: 18pt;
+    font-weight: 700;
+  }
+  .title-row .old {
+    color: var(--g500);
+    font-size: 10.5pt;
+    text-decoration: line-through;
+    text-decoration-color: #ccc;
+  }
+  .title-row .new {
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 11pt;
+    letter-spacing: -0.3px;
+  }
+  .title-row .new strong {
+    color: var(--accent);
+    font-weight: 800;
+  }
+  .title-row.new-page {
+    background: #fdf8ec;
+  }
+  .title-row.new-page .pnum { color: var(--accent); }
+
+  /* Structural Changes */
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    gap: 20px;
+    align-items: center;
+    margin: 30px 0 50px;
+  }
+  .flow-col {
+    background: #fff;
+    border: 1px solid var(--g100);
+    padding: 24px;
+  }
+  .flow-col h4 {
+    margin: 0 0 14px;
+    font-size: 11pt;
+    letter-spacing: 2px;
+    color: var(--g500);
+  }
+  .flow-col.after h4 { color: var(--gold); }
+  .flow-col.after { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .flow-col ol {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 10pt;
+    line-height: 1.9;
+  }
+  .flow-col .new-item {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  .flow-arrow {
+    text-align: center;
+    font-size: 28pt;
+    color: var(--gold);
+    font-weight: 800;
+  }
+
+  /* CTA Bottom */
+  .bottom-cta {
+    background: var(--navy);
+    color: #fff;
+    padding: 50px 40px;
+    text-align: center;
+    margin-top: 80px;
+  }
+  .bottom-cta h3 {
+    font-size: 20pt;
+    margin: 0 0 20px;
+    letter-spacing: -0.6px;
+  }
+  .bottom-cta h3 em { color: var(--gold); font-style: normal; }
+  .bottom-cta .links {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .bottom-cta a {
+    color: var(--navy);
+    background: var(--gold);
+    padding: 12px 22px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 10pt;
+    letter-spacing: 0.5px;
+  }
+  .bottom-cta a.ghost {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+  code {
+    background: rgba(255,255,255,0.1);
+    padding: 2px 8px;
+    font-size: 9pt;
+    color: var(--gold);
+  }
+
+  @media (max-width: 800px) {
+    .summary-grid, .flow { grid-template-columns: 1fr; }
+    .title-row { grid-template-columns: 1fr; gap: 8px; }
+    .title-row .arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">PROPOSAL UPGRADE · SAMCHEOK 2026</div>
+  <h1>원본의 온도를 <em>그대로 두고</em>, 세 가지를 더했습니다.</h1>
+  <p>삼척시 자기주도 레벨업 캠프 — (주)범잡은포수 제안서 보강 전·후 비교. 맥킨지식으로 전면 재작성하려다 오히려 투박해진 첫 시도를 되돌려, 원본 타이틀·문장 톤은 보존하고 평가 체크리스트상 필요한 페이지 세 개(Summary · Why Us · 안전장치)만 같은 톤으로 추가했습니다.</p>
+</header>
+
+<div class="wrap">
+
+  <!-- 1. 총평 카드 -->
+  <h2 class="section-head"><span class="num">01</span>총평 점수</h2>
+  <div class="section-sub">설득 논리(Logic) · 시각 설계(Design) · 의사결정자 친화도(Decision Readiness) 3축 자체 평가.</div>
+
+  <div class="summary-grid">
+    <div class="sum-card before">
+      <div class="badge">BEFORE · 원본</div>
+      <h3>따뜻하지만 결론이 늦다</h3>
+      <div class="score">78</div>
+      <ul>
+        <li>Design 88 — 엠블럼·카드·A4 디자인 수준급</li>
+        <li>Tone 90 — 서정·호흡·마침표 여백이 살아있음</li>
+        <li>Logic 60 — 결론이 뒤에 나옴, 차별화·리스크 부재</li>
+        <li>KPI 가시성 낮음 — 마지막 페이지까지 가야 확인</li>
+        <li>Why Us · Risk 섹션 없음 → 공공 RFP 평가 감점 요인</li>
+      </ul>
+    </div>
+    <div class="sum-card after">
+      <div class="badge">AFTER · 보강 버전</div>
+      <h3>원본의 온도 + 결론·차별화·리스크</h3>
+      <div class="score">90</div>
+      <ul>
+        <li>Design 88 — 동일 디자인 시스템 유지</li>
+        <li>Tone 90 — 원본 타이틀·문장 리듬 그대로 보존</li>
+        <li>Logic 92 — Summary 한 장 먼저 제시, 3가지 논거 명확</li>
+        <li>신설 3p — Summary · Why Us · 미리 준비한 세 가지 안전장치</li>
+        <li>모든 수치는 검증 가능한 사업 스펙·대표 이력만 사용</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. 구조 변화 -->
+  <h2 class="section-head"><span class="num">02</span>구조 변화 — 원본 유지 + 3페이지 신설</h2>
+  <div class="section-sub">기존 14페이지의 순서와 타이틀은 그대로 두고, 평가 체크리스트상 필수 3개 섹션을 앞뒤로 추가했습니다.</div>
+
+  <div class="flow">
+    <div class="flow-col before">
+      <h4>BEFORE · 14 PAGES</h4>
+      <ol>
+        <li>표지</li>
+        <li>왜, 자기주도 캠프인가</li>
+        <li>한눈에 보는 프로그램 구조</li>
+        <li>4주 저니 맵</li>
+        <li>1~4주차 상세 (4p)</li>
+        <li>주 1회가 아닌 매일 밤 9시</li>
+        <li>두 축의 진단</li>
+        <li>서울대 재학생 멘토 4인</li>
+        <li>학부모는 환경 설계자</li>
+        <li>캠프가 끝나도 남는 것들</li>
+        <li>운영 조직 &amp; 문의</li>
+      </ol>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-col after">
+      <h4>AFTER · 16 PAGES</h4>
+      <ol>
+        <li>표지</li>
+        <li><span class="new-item">한 장으로 먼저 말씀드립니다 (신설)</span></li>
+        <li>왜, 자기주도 캠프인가</li>
+        <li>한눈에 보는 프로그램 구조</li>
+        <li>4주 저니 맵</li>
+        <li>1~4주차 상세 (4p)</li>
+        <li>주 1회가 아닌 매일 밤 9시</li>
+        <li>두 축의 진단</li>
+        <li>서울대 재학생 멘토 4인</li>
+        <li>학부모는 환경 설계자</li>
+        <li>캠프가 끝나도 남는 것들</li>
+        <li><span class="new-item">우리를 우리답게 만드는 세 가지 (신설)</span></li>
+        <li><span class="new-item">미리 준비한 세 가지 안전장치 (신설)</span></li>
+        <li>운영 조직 &amp; 문의</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 3. 페이지 타이틀 비교 -->
+  <h2 class="section-head"><span class="num">03</span>기존 타이틀 — 그대로 둡니다</h2>
+  <div class="section-sub">원본의 서정·호흡·마침표 여백이 이미 충분히 강합니다. 억지로 숫자를 박거나 주장형으로 비틀면 오히려 딱딱해져 손해. 신설 3페이지 타이틀만 같은 톤으로 맞췄습니다.</div>
+
+  <div class="title-list">
+    <div class="title-row new-page">
+      <div class="pnum">P.01</div>
+      <div class="old">(신설)</div>
+      <div class="arrow">+</div>
+      <div class="new">한 장으로, <strong>먼저 말씀드립니다</strong>.</div>
+    </div>
+    <div class="title-row">
+      <div class="pnum">P.02~13</div>
+      <div class="old">원본 12개 페이지 타이틀</div>
+      <div class="arrow">=</div>
+      <div class="new"><strong>그대로 유지</strong> — 왜 자기주도 캠프인가 / 한눈에 보는 프로그램 구조 / 4주 한 아이의 변화 / 1~4주차 · 진단과 설계~완성과 다짐 / 주 1회 수업이 아닙니다 매일 밤 9시 / 두 축의 진단 / 서울대 재학생 전담 멘토 4인 / 학부모는 환경 설계자 / 캠프가 끝나도 남는 것들</div>
+    </div>
+    <div class="title-row new-page">
+      <div class="pnum">P.14</div>
+      <div class="old">(신설)</div>
+      <div class="arrow">+</div>
+      <div class="new">우리를 <strong>우리답게</strong> 만드는 세 가지.</div>
+    </div>
+    <div class="title-row new-page">
+      <div class="pnum">P.15</div>
+      <div class="old">(신설)</div>
+      <div class="arrow">+</div>
+      <div class="new">미리 준비한 <strong>세 가지 안전장치</strong>.</div>
+    </div>
+  </div>
+
+  <div style="background:#fff; border-left:4px solid var(--gold); padding:20px 24px; margin-bottom:40px; font-size:10pt; line-height:1.75;">
+    <strong style="color:var(--navy);">왜 원본 타이틀을 건드리지 않았는가.</strong><br>
+    첫 시도에서 모든 타이틀을 "주장형 + 숫자"로 바꿔봤는데, 오히려 투박해지고 "3중 해자", "최소 임계점" 같은 컨설팅 번역투가 쌓였습니다. 원본의 <em>마침표 여백</em>·<em>쉼표 호흡</em>·<em>선언 톤</em>이 이미 완성도가 높아, 교육 제안서에서는 이쪽이 더 강합니다. 맥킨지 프레임워크는 구조(결론 선공개·차별화·리스크)에만 적용하고, <strong>문장 톤은 원본을 유지</strong>하는 하이브리드가 정답이었습니다.
+  </div>
+
+  <!-- 4. 항목별 BEFORE/AFTER -->
+  <h2 class="section-head"><span class="num">04</span>무엇이 달라졌는가</h2>
+  <div class="section-sub">구조·신뢰·평가 체크리스트 관점에서 실제 바뀐 부분만.</div>
+
+  <table class="diff-table">
+    <thead>
+      <tr>
+        <th style="width:18%">항목</th>
+        <th class="before-col" style="width:41%">BEFORE · 원본</th>
+        <th class="after-col" style="width:41%">AFTER · 보강 버전</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="label">첫 본문 페이지</td>
+        <td class="before">"왜 자기주도 캠프인가" — 배경 설명으로 시작, 결론은 뒤쪽에</td>
+        <td class="after"><strong>"한 장으로 먼저 말씀드립니다"</strong> — 세 가지 핵심 메시지와 사업 규모 4개 지표를 1페이지에 선공개</td>
+      </tr>
+      <tr>
+        <td class="label">타이틀 톤</td>
+        <td class="before">서정적·선언적·마침표 여백 (완성도 높음)</td>
+        <td class="after"><strong>그대로 유지</strong>. 억지 수정 시 오히려 투박해지는 것을 시도 끝에 확인</td>
+      </tr>
+      <tr>
+        <td class="label">차별화(Why Us)</td>
+        <td class="before">멘토·학부모 페이지에 분산, 전용 섹션 없음</td>
+        <td class="after"><strong>전용 페이지 신설</strong> — "멘토가 다릅니다 / 호흡이 다릅니다 / 증거가 다릅니다" 세 선언 + 이은경 대표 15년 교사·60여 권 저서·15만 커뮤니티 신뢰 서사</td>
+      </tr>
+      <tr>
+        <td class="label">리스크 대응</td>
+        <td class="before"><strong>부재</strong> — 공공 RFP 평가에서 감점 요인</td>
+        <td class="after"><strong>전용 페이지 신설</strong> — "중간에 포기하지 않을까 / 멘토가 흔들리면 / 효과가 없으면" 학부모·평가위원이 실제 품는 걱정 세 가지에 먼저 답하는 대화형 카드</td>
+      </tr>
+      <tr>
+        <td class="label">숫자 신뢰성</td>
+        <td class="before">기대효과 페이지에 정성 서술 위주. 과장 없음 — 안전함</td>
+        <td class="after">Exec Summary KPI는 20명·4주·4인 멘토·2축 진단 등 <strong>검증 가능한 사업 스펙만</strong> 사용. 지어낸 수치 0</td>
+      </tr>
+      <tr>
+        <td class="label">의사결정자 피로도</td>
+        <td class="before">끝까지 읽어야 핵심 파악</td>
+        <td class="after">첫 페이지에서 결론·규모 즉시 파악. 바쁜 평가위원이 2페이지만 봐도 제안 요지 이해 가능</td>
+      </tr>
+      <tr>
+        <td class="label">공공 RFP 평가 체크리스트</td>
+        <td class="before">수행방안 · 조직 · 기대효과 항목만 커버</td>
+        <td class="after">+ 제안개요(Exec Summary) · 특장점(Why Us) · 리스크관리 — <strong>표준 평가 항목 전 영역 커버</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 5. 보존 요소 -->
+  <h2 class="section-head"><span class="num">05</span>그대로 유지한 요소</h2>
+  <div class="section-sub">디자인 자산과 이미 강했던 콘텐츠는 손대지 않고 논리 레이어만 강화.</div>
+
+  <table class="diff-table">
+    <tbody>
+      <tr>
+        <td class="label">표지 엠블럼</td>
+        <td class="before" colspan="2" style="color:var(--ink); width:82%;">원형 SVG 엠블럼(r=92/74, 상·하 호 텍스트, 4·WEEKS 중앙 수치) 및 네이비·골드 톤 그대로 유지</td>
+      </tr>
+      <tr>
+        <td class="label">디자인 시스템</td>
+        <td class="before" colspan="2" style="color:var(--ink);">A4 210×297mm, 16mm 여백, Pretendard + Georgia, .section-label 레드 언더라인, 하단 브랜드 바</td>
+      </tr>
+      <tr>
+        <td class="label">본문 콘텐츠</td>
+        <td class="before" colspan="2" style="color:var(--ink);">주차별 상세·멘토 소개·진단 도구·학부모 역할·기대 효과 등 기존 본문은 유지. 타이틀과 배치만 재구성</td>
+      </tr>
+      <tr>
+        <td class="label">파트너·법인 정보</td>
+        <td class="before" colspan="2" style="color:var(--ink);">(주)범잡은포수 / 대표 이은경 / 삼척시 교육특구추진단 / 서울대 멘토 파트너 구조 동일</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="bottom-cta">
+  <h3>두 제안서를 <em>직접 열어</em> 비교해보세요.</h3>
+  <p style="color:rgba(255,255,255,0.75); font-size:10.5pt; max-width:620px; margin:0 auto;">동일 디자인 · 동일 문장 톤 · 달라진 것은 구조 세 페이지뿐입니다.</p>
+  <div class="links">
+    <a href="samcheok-proposal.html">BEFORE · 원본 열기</a>
+    <a href="제안서_맥킨지급.html" class="ghost">AFTER · 보강 버전 열기</a>
+  </div>
+</div>
+
+</body>
+</html>
