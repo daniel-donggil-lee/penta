@@ -1713,20 +1713,18 @@ const API = 'https://script.google.com/macros/s/AKfycbxN3NaaZpCPPZfH7gEJVOGnyzJp
 const SHEET = '계약서_댓글';
 let allComments = [];
 
-// 조항 목록
-const ARTICLES = [
-  '제1조', '제2조', '제3조', '제4조', '제5조', '제6조', '제7조',
-  '제8조', '제9조', '제10조', '제11조', '제12조', '제13조', '제14조', '제15조', '제16조', '제17조', '제18조'
-];
+// 조항 목록 (init에서 DOM 기준으로 동적 수집)
+let ARTICLES = [];
 
 function init() {
-  // 각 article에 댓글 버튼 + 영역 추가
+  // 각 article에 댓글 버튼 + 영역 추가 (제N조 + 제N조의M 모두 지원)
   document.querySelectorAll('.article').forEach(el => {
     const h2 = el.querySelector('h2');
     if (!h2) return;
-    const match = h2.textContent.match(/제\d+조/);
+    const match = h2.textContent.match(/제\d+조(?:의\d+)?/);
     if (!match) return;
     const articleId = match[0];
+    if (ARTICLES.indexOf(articleId) === -1) ARTICLES.push(articleId);
 
     // 버튼
     const btn = document.createElement('button');
