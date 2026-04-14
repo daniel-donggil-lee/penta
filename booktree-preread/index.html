@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>책나무 원격연수원 · 협회 설립 제안</title>
+<style>
+  :root {
+    --navy: #0a0a0a;
+    --gold: #C9A84C;
+    --gold-soft: #F5EFD9;
+    --ink: #1a1a1a;
+    --mute: #6b6b6b;
+    --line: #e8e8e8;
+    --bg: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 96px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--navy);
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    margin-top: 28px;
+  }
+  p { color: var(--ink); margin-bottom: 16px; }
+  p.lead { font-size: 19px; color: var(--mute); }
+  em { font-style: normal; background: var(--gold-soft); padding: 0 4px; border-radius: 2px; }
+
+  /* HERO */
+  .hero {
+    padding: 140px 0 120px;
+    background: var(--navy);
+    color: #fff;
+    border-bottom: none;
+  }
+  .hero .eyebrow { color: var(--gold); }
+  .hero h1 { color: #fff; font-size: 48px; }
+  .hero .lead { color: rgba(255,255,255,0.72); font-size: 20px; max-width: 620px; }
+  .hero .meta {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .hero .meta strong { color: var(--gold); font-weight: 600; }
+
+  /* 목차 */
+  .toc {
+    background: #fafafa;
+    padding: 32px 28px;
+    border-radius: 4px;
+    margin-top: 32px;
+  }
+  .toc ol { list-style: none; counter-reset: toc; }
+  .toc li {
+    counter-increment: toc;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 16px;
+    font-size: 15px;
+  }
+  .toc li:last-child { border-bottom: none; }
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    color: var(--gold);
+    font-weight: 700;
+    min-width: 28px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* cards */
+  .card {
+    border: 1px solid var(--line);
+    padding: 32px;
+    border-radius: 4px;
+    margin-top: 24px;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .card-title .num {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .card p { font-size: 15px; color: var(--mute); margin-bottom: 0; }
+
+  /* bulleted lists */
+  ul.clean {
+    list-style: none;
+    margin-top: 16px;
+  }
+  ul.clean li {
+    padding: 10px 0 10px 22px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+    font-size: 16px;
+  }
+  ul.clean li:last-child { border-bottom: none; }
+  ul.clean li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 19px;
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  ul.clean li strong { color: var(--navy); font-weight: 700; }
+
+  /* 일정 */
+  .timeline {
+    margin-top: 32px;
+    border-left: 2px solid var(--gold);
+    padding-left: 28px;
+  }
+  .timeline-item { padding-bottom: 28px; position: relative; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -35px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    background: var(--navy);
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+  }
+  .timeline-item .phase {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .timeline-item h4 {
+    font-size: 17px;
+    color: var(--navy);
+    font-weight: 700;
+    margin: 4px 0 6px;
+  }
+  .timeline-item p { font-size: 14px; color: var(--mute); margin: 0; }
+
+  /* quote */
+  blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 4px 0 4px 20px;
+    color: var(--mute);
+    font-size: 16px;
+    margin: 24px 0;
+    font-style: italic;
+  }
+
+  /* 다음 단계 */
+  .next-step {
+    background: var(--navy);
+    color: #fff;
+    padding: 56px 40px;
+    margin-top: 40px;
+    border-radius: 4px;
+  }
+  .next-step h3 { color: var(--gold); margin-top: 0; font-size: 14px; letter-spacing: 0.22em; font-weight: 700; }
+  .next-step p { color: rgba(255,255,255,0.85); font-size: 17px; }
+  .next-step p:last-child { margin-bottom: 0; }
+  .next-step strong { color: #fff; font-weight: 700; }
+
+  /* footer */
+  footer {
+    padding: 48px 0;
+    text-align: center;
+    color: var(--mute);
+    font-size: 13px;
+  }
+  footer .brand { color: var(--navy); font-weight: 700; letter-spacing: 0.1em; }
+
+  /* mobile */
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    section { padding: 72px 0; }
+    .hero { padding: 100px 0 80px; }
+    .hero h1 { font-size: 34px; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 24px; }
+    .wrap { padding: 0 20px; }
+    .next-step { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">For BOOKTREE · Pre-read</p>
+    <h1>책나무 교사 역량을,<br>오프라인 밖으로.</h1>
+    <p class="lead">
+      600개 가맹점에 흩어진 교사 품질을 본사가 다시 쥐는 방법.
+      원격연수원과 자격 체계를 통해 책나무 브랜드에 "표준"을 새깁니다.
+    </p>
+    <div class="meta">
+      <strong>PROPOSAL</strong> · 책나무 원격연수원 + 교육전문가협회 설립<br>
+      사전 공유 자료 · 본 미팅 전 일독용
+    </div>
+  </div>
+</section>
+
+<!-- 목차 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Contents</p>
+    <h2>이 문서에서 다루는 것</h2>
+    <p class="lead">
+      본 자료는 책나무 대표께 미팅 전 먼저 살펴보시도록 드리는 사전 공유본입니다.
+      실제 구현된 시스템은 본 미팅에서 직접 보여드립니다.
+    </p>
+    <div class="toc">
+      <ol>
+        <li>독서논술 업계가 지난 35년간 정답으로 수렴한 구조</li>
+        <li>책나무가 지금 비어 있는 자리</li>
+        <li>해법 ① 책나무 원격연수원</li>
+        <li>해법 ② 책나무교육전문가협회</li>
+        <li>수행 일정 — 6개월 턴키</li>
+        <li>왜 6개월이 필요한가 (방법론)</li>
+        <li>누가 수행하는가</li>
+        <li>다음 단계</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 01 업계 맥락 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">01 · Industry Context</p>
+    <h2>독서논술 업계가 지난 35년간<br>정답으로 수렴한 구조</h2>
+    <p class="lead">
+      독서논술 분야에서 규모를 갖춘 브랜드들은 예외 없이 동일한 구조로 수렴합니다.
+    </p>
+
+    <ul class="clean">
+      <li><strong>원격연수원</strong> — 교사 양성 과정을 온라인으로 상시 운영</li>
+      <li><strong>민간자격 등록 + 재단·협회 발급 체계</strong> — 공신력을 법인 구조로 확보</li>
+      <li><strong>교사 활동과 연동된 자격 유지</strong> — 본사 이탈을 구조적으로 차단</li>
+      <li><strong>수강료·자격비·연회비의 반복 매출 3축</strong> — 한 번 들어온 교사가 매년 매출로 회귀</li>
+    </ul>
+
+    <blockquote>
+      한우리독서문화운동본부가 35년에 걸쳐 완성한 이 구조는, 이제 독서논술 분야의 업계 표준이 되어 있습니다.
+      규모 있는 브랜드가 이 구조 없이 확장한 사례는 찾기 어렵습니다.
+    </blockquote>
+
+    <p>
+      책나무는 가맹 규모로는 업계 최상위권에 이미 도달했습니다.
+      그러나 이 네 가지 구조 중 어느 것도 갖추지 못한 상태로 여기까지 왔습니다.
+    </p>
+  </div>
+</section>
+
+<!-- 02 책나무 공백 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">02 · The Gap</p>
+    <h2>책나무가 지금<br>비어 있는 자리</h2>
+
+    <div class="card">
+      <div class="card-title"><span class="num">GAP 01</span> 원격연수원 부재</div>
+      <p>600개+ 가맹점의 교사 재교육이 지사·지점별 오프라인에 의존. 본사 차원의 표준화된 교사 역량 관리 채널이 없습니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">GAP 02</span> 자격 체계 미구현</div>
+      <p>강사 자격증 관련 특허(10-2386688)가 등록되어 있으나 실제 운영 시스템으로 구현되어 있지 않습니다. 약속된 기능이 서류 상태로 멈춰 있는 상태입니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">GAP 03</span> 교사 이탈 방지 장치 부재</div>
+      <p>우수 교사가 본사를 떠나 독립하거나 타 브랜드로 이동할 때 이를 구조적으로 붙잡을 수 있는 자격·협회 기반이 없습니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">GAP 04</span> 매출 구조의 단순성</div>
+      <p>오프라인 수강료 단일 매출 구조. 업계 표준 구조가 갖춘 반복 매출 축(연수료·자격비·연회비)이 누락되어 있습니다.</p>
+    </div>
+
+    <p style="margin-top: 32px;">
+      이 네 개의 공백을 동시에 메우는 방법은, 업계가 이미 검증한 두 개의 축을 책나무 버전으로 설치하는 것입니다.
+    </p>
+  </div>
+</section>
+
+<!-- 03 해법 ① 원격연수원 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">03 · Solution One</p>
+    <h2>책나무 원격연수원</h2>
+    <p class="lead">
+      600개 가맹 교사 전체를 본사가 동일한 기준으로 교육·평가·인증하는 온라인 허브.
+    </p>
+
+    <h3>과정 구성</h3>
+    <ul class="clean">
+      <li>책나무 독서코칭 <strong>기본과정</strong> — 신규 교사 입문</li>
+      <li>책나무 독서코칭 <strong>심화과정</strong> — 경력 교사 역량 강화</li>
+      <li>책나무 <strong>인증 강사 과정</strong> — 본사 공식 강사 자격</li>
+      <li>책나무 <strong>독서·글쓰기 통합코칭 과정</strong> — 상위 과정</li>
+      <li>책나무 <strong>독서토론코칭 과정</strong> — 토론 특화 전문가</li>
+    </ul>
+
+    <h3>운영 방식</h3>
+    <ul class="clean">
+      <li>기수제 운영 — 연 3기 기준 설계 (연 상시 운영 확장 가능)</li>
+      <li>온라인 강의 + 과제 + 평가 + 수료증/자격증 발급 전 과정 자동화</li>
+      <li>본사 관리자가 전체 수강 현황·진도·이수율을 실시간으로 파악</li>
+      <li>교사별 이수 이력이 본사 DB에 누적되어 가맹점 인사 관리로 연결</li>
+    </ul>
+
+    <h3>이 구조가 만드는 것</h3>
+    <ul class="clean">
+      <li>교사 품질 편차 축소 — 같은 커리큘럼·같은 평가 기준</li>
+      <li>본사의 가맹점 통제력 회복 — "본사 인증 교사"가 브랜드의 최소 단위</li>
+      <li>신규 교사 수급 경로 확보 — 외부 유입자도 동일 경로로 진입</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 04 해법 ② 협회 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">04 · Solution Two</p>
+    <h2>(가칭) 책나무교육전문가협회</h2>
+    <p class="lead">
+      자격 발급의 공신력을 법인 구조로 확보하고, 교사들의 소속감을 본사 바깥이 아닌 본사 산하에 묶는 장치.
+    </p>
+
+    <h3>자격 등급 체계 (안)</h3>
+    <ul class="clean">
+      <li>책나무 독서지도사 <strong>2급</strong> — 기본과정 수료</li>
+      <li>책나무 독서지도사 <strong>1급</strong> — 심화과정 수료</li>
+      <li>책나무 <strong>인증 강사</strong> — 인증 강사 과정 수료 + 실무 요건</li>
+      <li>책나무 <strong>독서·글쓰기 통합코칭 전문가</strong></li>
+      <li>책나무 <strong>독서토론코칭 전문가</strong></li>
+    </ul>
+
+    <h3>협회 운영 방식</h3>
+    <p>두 가지 방향 중 책나무 대표 판단으로 확정 가능합니다.</p>
+    <ul class="clean">
+      <li><strong>A안 — 활동형 협회</strong>: 연회비 수납 + 교사 활동 유지 조건으로 자격 갱신. 반복 매출과 이탈 방지를 동시에 확보.</li>
+      <li><strong>B안 — 발급형 협회</strong>: 연회비 없이 자격증 발급 목적만 담당. 단순하나 반복 매출 축은 약해짐.</li>
+    </ul>
+
+    <h3>구조적 효과</h3>
+    <ul class="clean">
+      <li>자격 발급 주체가 ㈜ 법인이 아닌 협회가 되어 공신력 상승</li>
+      <li>지사장·지점장·강사가 협회를 중심으로 자연스럽게 결집</li>
+      <li>자격 유지 조건이 본사 활동과 연동되어 이탈 비용 상승</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 05 일정 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">05 · Timeline</p>
+    <h2>수행 일정 — 6개월 턴키</h2>
+    <p class="lead">
+      설계·제작·구축·검수·실무적용까지 단계별로 진행합니다. 총 6개월 이후 초기 운영 코칭 1~2개월 포함.
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <p class="phase">Month 01 · 설계</p>
+        <h4>커리큘럼 · 자격 체계 · 협회 구조 확정</h4>
+        <p>책나무 현황 디스커버리 → 5개 과정 차시 설계 → 자격 등급 확정 → 협회 정관 초안 → 민간자격 등록 준비 착수</p>
+      </div>
+      <div class="timeline-item">
+        <p class="phase">Month 02~04 · 제작</p>
+        <h4>콘텐츠 제작 · 시스템 구축 병행</h4>
+        <p>강의 영상 기획·촬영·편집 (5개 과정 순차) / 교재 개발 / 평가 문항 설계 / 원격연수원 LMS 구축 / 자격증 발급 자동화 / 결제 시스템 연동</p>
+      </div>
+      <div class="timeline-item">
+        <p class="phase">Month 05 · 중간 검토</p>
+        <h4>책나무 브랜드 적용 · 본사 검수</h4>
+        <p>책나무 전용 도메인·로고·컬러 적용 / 수료증·자격증 템플릿 완성 / 본사 관리자 시연 및 검수 / 협회 설립 절차 마무리</p>
+      </div>
+      <div class="timeline-item">
+        <p class="phase">Month 06 · 구축 완료</p>
+        <h4>실가동 + 첫 기수 모집</h4>
+        <p>전 시스템 실가동 / 본사 관리자 계정 세팅 / 교사 대상 공지·첫 기수 모집 개시</p>
+      </div>
+      <div class="timeline-item">
+        <p class="phase">+1~2 Months · 실무 적용</p>
+        <h4>첫 기수 운영 · 본사 인수인계</h4>
+        <p>첫 기수 수강 운영 / 이슈 대응 / 본사 담당자가 자체 운영 가능한 수준까지 코칭</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 방법론 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">06 · How</p>
+    <h2>왜 6개월이 필요한가</h2>
+    <p class="lead">
+      원격연수원은 영상 몇 개 올리는 작업이 아닙니다.
+      커리큘럼 설계, 콘텐츠 제작, 평가 체계, 자격증 발급, 협회 구조, 본사 관리 시스템 —
+      이 전체가 한 몸으로 움직여야 합니다.
+    </p>
+
+    <p>
+      저희는 독서·교육 콘텐츠와 교육 기관 시스템을 오래 다뤄온 팀입니다.
+      유사한 구조를 다뤄본 경험이 있기에 시행착오를 건너뛸 수 있지만,
+      <em>책나무 브랜드에 맞는 원격연수원은 처음부터 책나무 전용으로 설계·제작해야 한다</em>는 것이 저희의 입장입니다.
+    </p>
+
+    <p>
+      외주사들이 흔히 제안하는 "양산형 연수원 템플릿 이식"은 책나무 규모에 맞지 않습니다.
+      600개 가맹, 지사 34개, 특허 보유 브랜드가 획일화된 껍데기 위에 올라탈 수는 없습니다.
+      저희가 요청드리는 6개월은, 책나무가 앞으로 35년을 갈 인프라를 짓는 데 드는 최소 시간입니다.
+    </p>
+
+    <h3>디스커버리 중심 접근</h3>
+    <p>
+      가장 먼저 하는 일은 만드는 것이 아니라 <strong>듣는 것</strong>입니다.
+      책나무 대표·본사 담당자·지사장·현장 교사의 실제 운영 방식을 먼저 이해하고,
+      커리큘럼과 시스템 구조에 그대로 반영합니다.
+    </p>
+
+    <blockquote>
+      저희가 실제로 쓰고 있는 디스커버리 프로세스와 질문지 구조를 본 미팅 자리에서 직접 보여드립니다.
+      이것이 책나무 건이 "양산형 연수원"이 아니라 "책나무 전용 연수원"이 되는 이유입니다.
+    </blockquote>
+  </div>
+</section>
+
+<!-- 07 팀 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">07 · Team</p>
+    <h2>누가 수행하는가</h2>
+
+    <h3>콘텐츠 · 커리큘럼 · 운영</h3>
+    <p>
+      <strong>이은경</strong> — "슬기로운 초등생활" 운영자. 초등교사 15년, 교육 저서 60여 권, 유튜브 구독자 15만.
+      원격연수원 커리큘럼 기획, 강의, 교재 제작, 홍보 전반을 담당합니다.
+    </p>
+
+    <h3>LMS · 결제 · 자격증 · 협회 DB</h3>
+    <p>
+      <strong>이동길</strong> — 학원 운영·교육 콘텐츠 자동화 분야 경력.
+      LMS·결제·자격증 발급·관리자 대시보드를 책나무 전용으로 설계하고 구축합니다.
+    </p>
+
+    <h3>본사 담당 영역</h3>
+    <p style="color: var(--mute);">
+      책나무 브랜드 가이드, 가맹점 네트워크, 자격증 발급 주체 결정, 협회 설립 관련 최종 승인.
+    </p>
+  </div>
+</section>
+
+<!-- 08 다음 단계 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">08 · Next</p>
+    <h2>다음 단계</h2>
+    <p class="lead">
+      본 문서로 드릴 수 있는 설명은 여기까지입니다.
+      다음 미팅에서 저희가 운영 중인 실제 시스템을 직접 보여드립니다.
+    </p>
+
+    <div class="next-step">
+      <h3>Meeting Agenda</h3>
+      <p>
+        ✺  저희가 운영 중인 원격 교육 시스템 실가동 시연<br>
+        ✺  책나무 전용으로 설계될 때의 방향성 프리뷰<br>
+        ✺  수행 조건·규모·일정 구체화<br>
+        ✺  책나무 대표께서 궁금하신 부분 Q&amp;A
+      </p>
+      <p style="margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.14); color: rgba(255,255,255,0.65); font-size: 15px;">
+        <strong>본 제안의 수치·세부 커리큘럼·계약 조건</strong>은
+        본 미팅 자리에서 직접 공유드리는 것이 더 적절하다고 판단했습니다.
+        사전 문서로 오가기보다, 대표님과 얼굴 맞대고 협의하는 것이 서로 시간을 아끼는 길입니다.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="brand">PENTA</p>
+    <p style="margin-top: 4px;">책나무 대표 전용 사전 공유본 · 외부 유출 삼가 · 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
