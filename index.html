@@ -192,6 +192,27 @@
   .todo-summary strong { color: #1f2328; }
   .todo-summary .cnt-overdue { color: #cf222e; font-weight: 600; }
   .tab-divider { color: #d1d9e0; font-size: 16px; display: flex; align-items: center; padding: 0 8px; }
+  .subtabs {
+    display: flex; gap: 0; align-items: center;
+    padding: 8px 40px 10px; background: #fafbfc;
+    border-bottom: 1px solid #e8e8e8; flex-wrap: wrap;
+    width: 100%; flex-basis: 100%;
+  }
+  .subtab {
+    padding: 6px 12px; font-size: 13px; color: #656d76; cursor: pointer;
+    border-radius: 6px; display: flex; align-items: center; gap: 4px;
+    transition: all 0.15s;
+  }
+  .subtab:hover { background: #f1f3f5; color: #1f2328; }
+  .subtab.active { background: #F5EFD9; color: #0a0a0a; font-weight: 600; }
+  .subtab .count {
+    background: #e8e8e8; color: #656d76; padding: 1px 7px;
+    border-radius: 10px; font-size: 11px; font-weight: 600;
+  }
+  .subtab.active .count { background: #C9A84C; color: #fff; }
+  .subtab-sub { font-size: 11px; color: #999; margin-left: 4px; }
+  .sub-arrow { color: #bbb; font-size: 14px; padding: 0 6px; }
+  .tabs { flex-wrap: wrap; }
 
   /* Feedback button */
   .feedback-btn {
@@ -534,6 +555,17 @@
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbxN3NaaZpCPPZfH7gEJVOGnyzJp9kvH5KtTXBMh86gnp6OCxcFPN8dGaK7THmVQb9vJoQ/exec';
 const SHEET_ORDER = ['공지사항', '로드맵', '할일', '회의록', '아이디어', '조사', '의사결정', '합의사항', '리포트', '마케팅'];
+const TAB_GROUPS = [
+  { name: '공지사항', children: ['공지사항'] },
+  { name: '실행', children: ['로드맵', '할일'] },
+  { name: '회의록', children: ['회의록'] },
+  { name: '브레인스토밍', children: ['아이디어', '조사', '의사결정', '합의사항'] },
+  { name: '리포트', children: ['리포트', '마케팅'] }
+];
+function findPrimary(leaf) {
+  const g = TAB_GROUPS.find(g => g.children.includes(leaf));
+  return g ? g.name : leaf;
+}
 
 const REPORTS = [
   { title: '전략 보고서 — 프리미엄 교육 시장 함의', desc: '4대 브랜드 분석 기반 입지·타깃·브랜드·경쟁 전략 종합 제언', file: 'strategy-report.html', date: '2026-03-31', category: '시장/경쟁' },
@@ -842,54 +874,67 @@ function personBadgeHtml(name) {
   return `<div class="person-badge"><span class="dot ${p.dot}">${p.label}</span> ${name}</div>`;
 }
 
+function tabCount(name) {
+  if (name === '마케팅') return CONTENT_COUNT;
+  if (name === '리포트') return REPORTS.length;
+  if (name === '공지사항') return NOTICES.length;
+  const rows = allData[name] || [];
+  const dataRows = rows.filter((r, idx) => idx >= 2 && r.some(c => c));
+  if (name === '할일') return dataRows.filter(r => (r[1]||'').trim() && (r[4]||'') !== '완료').length;
+  if (name === '회의록') return dataRows.filter(r => (r[0]||'').trim()).length;
+  if (name === '로드맵') return dataRows.filter(r => (r[1]||'').trim()).length;
+  return dataRows.filter(r => {
+    const title = (r[1]||'').trim();
+    if (!title) return false;
+    if (title.startsWith('[아카이브') || title.startsWith('역할:') || title.startsWith('역할 :')) return false;
+    const lastCol = r[r.length - 1] || '';
+    if (lastCol.startsWith('[→')) return false;
+    return true;
+  }).length;
+}
+
 function renderTabs() {
   const bar = document.getElementById('tabBar');
-  const arrow = '<span style="color:#bbb;font-size:16px;display:flex;align-items:center;padding:0 4px">&rarr;</span>';
-  const divider = '<span class="tab-divider">|</span>';
-  bar.innerHTML = SHEET_ORDER.map((name, i) => {
-    const config = SHEET_CONFIG[name];
+  const currentPrimary = findPrimary(currentTab);
 
-    // 마케팅 탭: 외부 링크로 처리
-    if (name === '마케팅') {
-      return `<span class="tab-divider">|</span><div class="tab" onclick="window.location.href='marketing.html'" style="cursor:pointer;">
-        📸 마케팅<span class="count">${CONTENT_COUNT}</span>
-        <span class="tab-sub">${config.sub}</span>
-      </div>`;
-    }
-
-    const rows = allData[name] || [];
-    const dataRows = rows.filter((r, idx) => idx >= 2 && r.some(c => c));
-    const active = name === currentTab ? 'active' : '';
-    let cnt;
-    if (name === '리포트') {
-      cnt = REPORTS.length;
-    } else if (name === '공지사항') {
-      cnt = NOTICES.length;
-    } else if (name === '할일') {
-      cnt = dataRows.filter(r => (r[1]||'').trim() && (r[4]||'') !== '완료').length;
-    } else if (name === '회의록') {
-      cnt = dataRows.filter(r => (r[0]||'').trim()).length;
-    } else if (name === '로드맵') {
-      cnt = dataRows.filter(r => (r[1]||'').trim()).length;
-    } else {
-      cnt = dataRows.filter(r => {
-        const title = (r[1]||'').trim();
-        if (!title) return false;
-        if (title.startsWith('[아카이브]') || title.startsWith('역할:') || title.startsWith('역할 :')) return false;
-        const lastCol = r[r.length - 1] || '';
-        if (lastCol.startsWith('[→')) return false;
-        return true;
-      }).length;
-    }
-    const tab = `<div class="tab ${active}" onclick="switchTab('${name}')">
-      ${name}<span class="count">${cnt}</span>
-      <span class="tab-sub">${config.sub}</span>
+  // 1차 탭
+  const primaryHtml = TAB_GROUPS.map(g => {
+    const active = g.name === currentPrimary ? 'active' : '';
+    const cnt = g.children.reduce((sum, c) => sum + tabCount(c), 0);
+    return `<div class="tab ${active}" onclick="switchPrimary('${g.name}')">
+      ${g.name}<span class="count">${cnt}</span>
     </div>`;
-    if (name === '공지사항') return tab + divider; // 공지사항 뒤에 구분선
-    if (i === 3) return tab + divider; // 회의록 뒤에 구분선
-    if (i < SHEET_ORDER.length - 1 && i > 3 && name !== '리포트') return tab + arrow; // 브레인스토밍 탭 사이 화살표
-    return tab;
   }).join('');
+
+  // 2차 탭 (그룹이 2개 이상 children을 가질 때만)
+  const currentGroup = TAB_GROUPS.find(g => g.name === currentPrimary);
+  let secondaryHtml = '';
+  if (currentGroup && currentGroup.children.length > 1) {
+    const arrow = '<span class="sub-arrow">&rarr;</span>';
+    secondaryHtml = `<div class="subtabs">` + currentGroup.children.map((name, i) => {
+      if (name === '마케팅') {
+        return `${i > 0 ? arrow : ''}<div class="subtab" onclick="window.location.href='marketing.html'">📸 마케팅<span class="count">${CONTENT_COUNT}</span></div>`;
+      }
+      const config = SHEET_CONFIG[name];
+      const active = name === currentTab ? 'active' : '';
+      const cnt = tabCount(name);
+      const sub = config && config.sub ? `<span class="subtab-sub">${config.sub}</span>` : '';
+      const isFlow = currentPrimary === '브레인스토밍' && i > 0;
+      return `${isFlow ? arrow : ''}<div class="subtab ${active}" onclick="switchTab('${name}')">
+        ${name}<span class="count">${cnt}</span>${sub}
+      </div>`;
+    }).join('') + `</div>`;
+  }
+
+  bar.innerHTML = primaryHtml + secondaryHtml;
+}
+
+function switchPrimary(groupName) {
+  const g = TAB_GROUPS.find(g => g.name === groupName);
+  if (!g) return;
+  // 이미 현재 그룹이면 무시, 아니면 첫 children으로 전환
+  if (findPrimary(currentTab) === groupName) return;
+  switchTab(g.children[0]);
 }
 
 function switchTab(name) {
