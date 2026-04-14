@@ -192,6 +192,22 @@
   .todo-summary strong { color: #1f2328; }
   .todo-summary .cnt-overdue { color: #cf222e; font-weight: 600; }
   .tab-divider { color: #d1d9e0; font-size: 16px; display: flex; align-items: center; padding: 0 8px; }
+  .project-badge {
+    display: inline-block; padding: 2px 10px; border-radius: 10px;
+    font-size: 11px; font-weight: 600; color: #333;
+  }
+  .pfilter-bar {
+    display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+    padding: 10px 0 14px; border-bottom: 1px solid #f0f0f0; margin-bottom: 14px;
+  }
+  .pfilter-label { font-size: 11px; color: #656d76; font-weight: 600; margin-right: 4px; }
+  .pfilter-chip {
+    padding: 4px 10px; border-radius: 12px; font-size: 12px;
+    cursor: pointer; transition: all 0.15s; user-select: none;
+  }
+  .pfilter-chip:hover { transform: translateY(-1px); }
+  .pfilter-chip b { font-weight: 700; margin-left: 3px; opacity: 0.7; }
+  .pfilter-chip.clear { background: #fee; color: #c00; }
   .subtabs {
     display: flex; gap: 0; align-items: center;
     padding: 8px 40px 10px; background: #fafbfc;
@@ -934,6 +950,30 @@ function renderTabs() {
   bar.innerHTML = primaryHtml + secondaryHtml;
 }
 
+function renderProjectFilterBar(rows, colIdx) {
+  const counts = {};
+  rows.forEach(r => {
+    const title = (r[1]||'').trim();
+    if (!title || title.startsWith('[아카이브')) return;
+    const p = (r[colIdx]||'').trim();
+    if (!p) return;
+    counts[p] = (counts[p]||0) + 1;
+  });
+  const chips = PROJECTS.filter(p => counts[p]).map(p => {
+    const active = projectFilter === p ? 'active' : '';
+    const bg = PROJECT_COLORS[p] || '#f0f0f0';
+    return `<span class="pfilter-chip ${active}" style="background:${active?'#0a0a0a':bg};color:${active?'#fff':'#333'}" onclick="setProjectFilter('${p}')">${p} <b>${counts[p]}</b></span>`;
+  }).join('');
+  const clearBtn = projectFilter ? `<span class="pfilter-chip clear" onclick="setProjectFilter('')">✕ 해제</span>` : '';
+  if (!chips) return '';
+  return `<div class="pfilter-bar"><span class="pfilter-label">프로젝트:</span>${chips}${clearBtn}</div>`;
+}
+
+function setProjectFilter(p) {
+  projectFilter = projectFilter === p ? '' : p;
+  renderPanel();
+}
+
 function switchPrimary(groupName) {
   const g = TAB_GROUPS.find(g => g.name === groupName);
   if (!g) return;
@@ -974,16 +1014,23 @@ function renderPanel() {
     return renderReportPanel();
   }
 
+  const projectColIdx = config.columns ? config.columns.indexOf('프로젝트') : -1;
   const dataRows = allDataRows.filter(r => {
     const title = (r[1]||'').trim();
     if (!title || title.startsWith('[아카이브')) return false;
     const lastCol = r[r.length - 1] || '';
     if (lastCol.startsWith('[→')) return false;
+    if (projectFilter && projectColIdx >= 0) {
+      const p = (r[projectColIdx]||'').trim();
+      if (p !== projectFilter) return false;
+    }
     return true;
   });
   const archivedRows = allDataRows.filter(r => (r[1]||'').startsWith('[아카이브'));
 
-  let html = `
+  const projectBar = projectColIdx >= 0 ? renderProjectFilterBar(allDataRows, projectColIdx) : '';
+
+  let html = projectBar + `
     <div class="panel-header">
       <div class="panel-desc">${config.desc}</div>
       <button class="btn btn-primary" style="white-space:nowrap" onclick="openAddModal()">+ 추가</button>
