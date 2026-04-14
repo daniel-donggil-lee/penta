@@ -926,12 +926,12 @@ function renderPanel() {
 
   const dataRows = allDataRows.filter(r => {
     const title = (r[1]||'').trim();
-    if (!title || title.startsWith('[아카이브]')) return false;
+    if (!title || title.startsWith('[아카이브')) return false;
     const lastCol = r[r.length - 1] || '';
     if (lastCol.startsWith('[→')) return false;
     return true;
   });
-  const archivedRows = allDataRows.filter(r => (r[1]||'').startsWith('[아카이브]'));
+  const archivedRows = allDataRows.filter(r => (r[1]||'').startsWith('[아카이브'));
 
   let html = `
     <div class="panel-header">
@@ -971,7 +971,8 @@ function renderPanel() {
 
     const fromResearch = archivedRows.filter(r => (r[1]||'').includes('[아카이브:조사]'));
     const fromAgreed = archivedRows.filter(r => (r[1]||'').includes('[아카이브:합의]'));
-    const fromOther = archivedRows.filter(r => !(r[1]||'').includes('[아카이브:조사]') && !(r[1]||'').includes('[아카이브:합의]'));
+    const fromDecided = archivedRows.filter(r => (r[1]||'').includes('[아카이브:결정확정]'));
+    const fromOther = archivedRows.filter(r => !(r[1]||'').includes('[아카이브:조사]') && !(r[1]||'').includes('[아카이브:합의]') && !(r[1]||'').includes('[아카이브:결정확정]'));
 
     if (fromResearch.length > 0) {
       html += `<div class="archive-label">조사에서 옮김 (${fromResearch.length})</div><div class="card-grid">`;
@@ -989,6 +990,16 @@ function renderPanel() {
         const ri = rows.indexOf(row);
         const cleanRow = [...row];
         cleanRow[1] = (cleanRow[1]||'').replace('[아카이브:합의] ', '').replace('[아카이브] ', '');
+        renderCard(cleanRow, ri >= 0 ? ri : -1);
+      });
+      html += `</div>`;
+    }
+    if (fromDecided.length > 0) {
+      html += `<div class="archive-label">결정 확정 (${fromDecided.length})</div><div class="card-grid">`;
+      fromDecided.forEach(row => {
+        const ri = rows.indexOf(row);
+        const cleanRow = [...row];
+        cleanRow[1] = (cleanRow[1]||'').replace('[아카이브:결정확정] ', '').replace('[아카이브] ', '');
         renderCard(cleanRow, ri >= 0 ? ri : -1);
       });
       html += `</div>`;
@@ -1057,9 +1068,14 @@ function renderPanel() {
     const priHtml = pri
       ? `<span class="priority-tag priority-${pri==='긴급'?'urgent':pri==='중요'?'important':'hold'}">${pri}</span>` : '';
 
+    const archiveTitle = currentTab === '아이디어' ? '폐기 → 아카이브'
+      : currentTab === '조사' ? '완료 → 아카이브'
+      : currentTab === '의사결정' ? '보류/기각 → 아카이브'
+      : currentTab === '합의사항' ? '종결 → 아카이브'
+      : '아카이브';
     const actionsHtml = realIdx >= 0 ? `
       <div class="card-actions">
-        <button onclick="event.stopPropagation(); archiveCard(${realIdx})" title="아카이브">&#128230;</button>
+        <button onclick="event.stopPropagation(); archiveCard(${realIdx})" title="${archiveTitle}">&#128230;</button>
         <button onclick="event.stopPropagation(); toggleMoveMenu(event, ${realIdx})" title="이동">&#8644;</button>
         <button onclick="event.stopPropagation(); deleteRow(${realIdx})" title="삭제">&#10005;</button>
       </div>
@@ -1203,7 +1219,7 @@ async function archiveCard(rowIdx) {
   const config = SHEET_CONFIG[currentTab];
   const prefix = currentTab === '조사' ? '[아카이브:조사] ' : currentTab === '합의사항' ? '[아카이브:합의] ' : '[아카이브] ';
   const values = [...row];
-  if (!(values[1]||'').startsWith('[아카이브]')) values[1] = prefix + values[1];
+  if (!(values[1]||'').startsWith('[아카이브')) values[1] = prefix + values[1];
   const endCol = String.fromCharCode(64 + config.columns.length);
   try {
     await gasPost({ action: 'update', sheet: currentTab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}`, values });
@@ -1225,10 +1241,20 @@ async function moveCard(rowIdx, targetSheet) {
   const targetConfig = SHEET_CONFIG[targetSheet];
   const values = [];
   for (let i = 0; i < targetConfig.columns.length; i++) values.push(i < row.length ? row[i] : '');
+  // 결정 이력 보존: 의사결정→합의사항 이동 시 원본은 아카이브로 남김
+  const preserveAsArchive = (currentTab === '의사결정' && targetSheet === '합의사항');
   try {
     await gasPost({ action: 'append', sheet: targetSheet, values });
     const endCol = String.fromCharCode(64 + sourceConfig.columns.length);
-    await gasPost({ action: 'clear', sheet: currentTab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}` });
+    if (preserveAsArchive) {
+      const archivedRow = [...row];
+      if (!(archivedRow[1]||'').startsWith('[아카이브]')) {
+        archivedRow[1] = '[아카이브:결정확정] ' + (archivedRow[1]||'');
+      }
+      await gasPost({ action: 'update', sheet: currentTab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}`, values: archivedRow });
+    } else {
+      await gasPost({ action: 'clear', sheet: currentTab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}` });
+    }
     showToast(`${targetSheet}(으)로 이동 완료`);
     setTimeout(() => loadData(), 1500);
   } catch (e) { showToast('이동 실패'); }
