@@ -2180,12 +2180,13 @@ function renderTodoPanel(config, rows, allDataRows) {
     </div>
   `;
 
-  // 마일스톤별 그룹핑 (미완료)
-  const milestones = [...new Set(active.map(r => (r[0]||'').trim()).filter(Boolean))];
+  // 마일스톤별 그룹핑 (미완료) — 빈 마일스톤도 "(마일스톤 미지정)"로 묶어 표시
+  const milestones = [...new Set(active.map(r => (r[0]||'').trim()))];
   milestones.forEach(ms => {
     const msRows = active.filter(r => (r[0]||'').trim() === ms);
+    const label = ms || '(마일스톤 미지정)';
     html += `<div class="todo-group">
-      <div class="todo-group-header">${ms}</div>`;
+      <div class="todo-group-header">${label}</div>`;
 
     msRows.forEach(row => {
       const realIdx = rows.indexOf(row);
