@@ -781,8 +781,8 @@ function normalizeDept(v) {
   const t = (v||'').trim();
   return DEPT_ALIAS[t] || t;
 }
-const FUNCTIONAL_TABS = ['할일', '로드맵', '기록'];
-const GLOBAL_TABS = ['공지사항', '리포트'];
+const FUNCTIONAL_TABS = ['할일', '로드맵', '기록', '리포트'];
+const GLOBAL_TABS = ['공지사항'];
 // 논의 시트 = 아이디어→조사→결정→합의 생애주기 통합 (2026-04-15)
 // 회의록은 별도 소스로 유지 (생애주기 아님, 이벤트 기록)
 const DISCUSSION_STATUSES = ['아이디어', '조사중', '결정대기', '합의', '보류', '폐기'];
@@ -793,21 +793,21 @@ function sheetHasProjectCol(sheet) {
 }
 
 const REPORTS = [
-  { title: '전략 보고서 — 프리미엄 교육 시장 함의', desc: '4대 브랜드 분석 기반 입지·타깃·브랜드·경쟁 전략 종합 제언', file: 'strategy-report.html', date: '2026-03-31', category: '시장/경쟁', dept: '펜타스쿨' },
-  { title: '창업 우선순위 지역 분석', desc: '4대 브랜드 288개 가맹점 전국 분포 — 동(洞) 단위 교육투자지수 분석', file: 'region-analysis.html', date: '2026-03-31', category: '시장/경쟁', dept: '펜타스쿨' },
-  { title: '펜타 지수 진단 결과 샘플', desc: '초4 이서진 샘플 — 오각형 레이더 차트·5영역 T점수·도서 추천·프리미엄 클래스 연결', file: 'https://daniel-donggil-lee.github.io/remark-report-engine/demo/penta-sample.html', date: '2026-04-02', category: 'PENTA', dept: '펜타스쿨' },
-  { title: '책나무 학부모 리포트 샘플', desc: '책나무 가맹점 학부모에게 발송되는 HTML 리포트 데모 — 4영역 게이지·추이그래프·AI 코멘트', file: 'https://daniel-donggil-lee.github.io/remark-report-engine/demo/chaknamu-sample.html', date: '2026-04-02', category: 'B2B 사업', dept: '펜타랩' },
-  { title: '책나무 B2B 제안서', desc: '8섹션 풀스크린 제안서 — 5월 초 미팅용. Before/After·데모 QR·파일럿 조건 포함', file: 'https://daniel-donggil-lee.github.io/remark-report-engine/demo/chaknamu-proposal.html', date: '2026-04-02', category: 'B2B 사업', dept: '펜타랩' },
-  { title: '구독 BM 검토', desc: '이은경 구독 BM 구조 정리 + 이동길 항목별 의견 (2회차 회의 준비자료)', file: 'bm_subscription_counterarguments.html', date: '2026-03-31', category: '사업 모델', dept: '본부' },
-  { title: 'BM 분석 리포트', desc: '5개 프랜차이즈 정보공개서 기반 사업모델 비교 분석', file: 'bm-analysis.html', date: '2026-03-22', category: '사업 모델', dept: '본부' },
-  { title: '카페 분석 리포트', desc: '슬기로운 초등생활 네이버 카페 통계·진단·자동화 방안', file: 'cafe-analysis-report.html', date: '2026-03-27', category: '마케팅', dept: '본부' },
-  { title: '네이버 API 가이드', desc: '네이버 카페 API 연동 설정 가이드', file: 'naver-api-guide.html', date: '2026-03-27', category: '마케팅', dept: '본부' },
-  { title: '기업가치 시나리오 리포트', desc: '매출 100억 기준, 비즈니스 모델별 기업가치 50억~1,000억 시나리오 분석', file: 'valuation-report.html', date: '2026-03-27', category: '재무', dept: '본부' },
-  { title: '공동창업 계약서 초안', desc: '지분 60:40, 엑싯 시 50:50 정산 구조 계약서', file: 'contract-draft.html', date: '2026-03-27', category: '법인/거버넌스', dept: '본부' },
-  { title: '주주간계약서 v2 (공동대표·50:50 배당 반영)', desc: '공동대표이사, 배당 50:50(차등배당), 제17조 Series A 재협상 조항, Put Option 경제권 50% 기준 반영', file: '../research/10_공동창업_계약서_초안.html', date: '2026-04-13', category: '법인/거버넌스', dept: '본부' },
-  { title: '주식회사 펜타 정관 초안', desc: '7장 40조 + 부칙. 특별조항 5개: 이사 해임 3/4, 임기 5년, 공동대표이사, 자기주식 취득, 차등배당 50:50', file: 'articles-of-incorporation.html', date: '2026-04-13', category: '법인/거버넌스', dept: '본부' },
-  { title: '마스터 강사 제안서 — 이은경', desc: '루트 과정(초등 종합문해력 전문가) 대표 강사 섭외 · 심화 12과정 라인업 + PENTA 5영역 + 3트랙 정산(타 강사 적용)', file: 'proposals/master-instructor-eunkyung.html', date: '2026-04-15', category: '인력', dept: '펜타캠퍼스' },
-  { title: '마스터 강사 자격증 과정 설계서 (Masterbook)', desc: '13과정 3-tier 구조 — 루트 1(이은경) + 핵심 5(풀뎁스) + 후보 7(카드). 해외 앵커·10차시·12/24주 학생반·커리어 경로 전부 포함', file: 'masterbook/curriculum-masterbook.html', date: '2026-04-15', category: '콘텐츠', dept: '펜타캠퍼스' },
+  { title: '전략 보고서 — 프리미엄 교육 시장 함의', desc: '4대 브랜드 분석 기반 입지·타깃·브랜드·경쟁 전략 종합 제언', file: 'strategy-report.html', date: '2026-03-31', category: '시장/경쟁', dept: '펜타스쿨', sp: '본점 오픈' },
+  { title: '창업 우선순위 지역 분석', desc: '4대 브랜드 288개 가맹점 전국 분포 — 동(洞) 단위 교육투자지수 분석', file: 'region-analysis.html', date: '2026-03-31', category: '시장/경쟁', dept: '펜타스쿨', sp: '본점 오픈' },
+  { title: '펜타 지수 진단 결과 샘플', desc: '초4 이서진 샘플 — 오각형 레이더 차트·5영역 T점수·도서 추천·프리미엄 클래스 연결', file: 'https://daniel-donggil-lee.github.io/remark-report-engine/demo/penta-sample.html', date: '2026-04-02', category: 'PENTA', dept: '펜타스쿨', sp: '커리큘럼 개발' },
+  { title: '책나무 학부모 리포트 샘플', desc: '책나무 가맹점 학부모에게 발송되는 HTML 리포트 데모 — 4영역 게이지·추이그래프·AI 코멘트', file: 'https://daniel-donggil-lee.github.io/remark-report-engine/demo/chaknamu-sample.html', date: '2026-04-02', category: 'B2B 사업', dept: '펜타랩', sp: '' },
+  { title: '책나무 B2B 제안서', desc: '8섹션 풀스크린 제안서 — 5월 초 미팅용. Before/After·데모 QR·파일럿 조건 포함', file: 'https://daniel-donggil-lee.github.io/remark-report-engine/demo/chaknamu-proposal.html', date: '2026-04-02', category: 'B2B 사업', dept: '펜타랩', sp: '' },
+  { title: '구독 BM 검토', desc: '이은경 구독 BM 구조 정리 + 이동길 항목별 의견 (2회차 회의 준비자료)', file: 'bm_subscription_counterarguments.html', date: '2026-03-31', category: '사업 모델', dept: '본부', sp: '' },
+  { title: 'BM 분석 리포트', desc: '5개 프랜차이즈 정보공개서 기반 사업모델 비교 분석', file: 'bm-analysis.html', date: '2026-03-22', category: '사업 모델', dept: '본부', sp: '' },
+  { title: '카페 분석 리포트', desc: '슬기로운 초등생활 네이버 카페 통계·진단·자동화 방안', file: 'cafe-analysis-report.html', date: '2026-03-27', category: '마케팅', dept: '본부', sp: '브랜드' },
+  { title: '네이버 API 가이드', desc: '네이버 카페 API 연동 설정 가이드', file: 'naver-api-guide.html', date: '2026-03-27', category: '마케팅', dept: '본부', sp: '브랜드' },
+  { title: '기업가치 시나리오 리포트', desc: '매출 100억 기준, 비즈니스 모델별 기업가치 50억~1,000억 시나리오 분석', file: 'valuation-report.html', date: '2026-03-27', category: '재무', dept: '본부', sp: '법인 설립' },
+  { title: '공동창업 계약서 초안', desc: '지분 60:40, 엑싯 시 50:50 정산 구조 계약서', file: 'contract-draft.html', date: '2026-03-27', category: '법인/거버넌스', dept: '본부', sp: '법인 설립' },
+  { title: '주주간계약서 v2 (공동대표·50:50 배당 반영)', desc: '공동대표이사, 배당 50:50(차등배당), 제17조 Series A 재협상 조항, Put Option 경제권 50% 기준 반영', file: '../research/10_공동창업_계약서_초안.html', date: '2026-04-13', category: '법인/거버넌스', dept: '본부', sp: '법인 설립' },
+  { title: '주식회사 펜타 정관 초안', desc: '7장 40조 + 부칙. 특별조항 5개: 이사 해임 3/4, 임기 5년, 공동대표이사, 자기주식 취득, 차등배당 50:50', file: 'articles-of-incorporation.html', date: '2026-04-13', category: '법인/거버넌스', dept: '본부', sp: '법인 설립' },
+  { title: '마스터 강사 제안서 — 이은경', desc: '루트 과정(초등 종합문해력 전문가) 대표 강사 섭외 · 심화 12과정 라인업 + PENTA 5영역 + 3트랙 정산(타 강사 적용)', file: 'proposals/master-instructor-eunkyung.html', date: '2026-04-15', category: '인력', dept: '펜타캠퍼스', sp: '연수원 구축' },
+  { title: '마스터 강사 자격증 과정 설계서 (Masterbook)', desc: '13과정 3-tier 구조 — 루트 1(이은경) + 핵심 5(풀뎁스) + 후보 7(카드). 해외 앵커·10차시·12/24주 학생반·커리어 경로 전부 포함', file: 'masterbook/curriculum-masterbook.html', date: '2026-04-15', category: '콘텐츠', dept: '펜타캠퍼스', sp: '연수원 구축' },
 ];
 const CONTENT_COUNT = 2; // marketing.html 카드뉴스 시리즈 수 (추가 시 업데이트)
 
@@ -1364,6 +1364,13 @@ function tabCount(name) {
 function deptRowCount(dept, sheet) {
   if (sheet === '기록') {
     return ARCHIVE_SOURCES.reduce((sum, s) => sum + deptRowCount(dept, s), 0);
+  }
+  if (sheet === '리포트') {
+    return REPORTS.filter(r => {
+      if (dept && r.dept !== dept) return false;
+      if (subprojectFilter && (r.sp||'') !== subprojectFilter) return false;
+      return true;
+    }).length;
   }
   const rows = (allData[sheet] || []).slice(2);
   const cfg = SHEET_CONFIG[sheet];
@@ -2535,16 +2542,18 @@ function closeNotice() {
 }
 
 function renderReportPanel() {
-  const main = document.querySelector('main');
-  const filtered = currentDept ? REPORTS.filter(r => r.dept === currentDept) : REPORTS;
+  const main = document.getElementById('mainContent') || document.querySelector('main');
+  let filtered = currentDept ? REPORTS.filter(r => r.dept === currentDept) : REPORTS;
+  if (subprojectFilter) filtered = filtered.filter(r => (r.sp||'') === subprojectFilter);
   const cats = [...new Set(filtered.map(r => r.category))];
+  const scope = subprojectFilter ? `「${subprojectFilter}」` : (currentDept || '전체');
   let html = `
     <div class="panel-header">
-      <div class="panel-desc"><strong>분석 리포트 아카이브.</strong> ${currentDept ? currentDept + ' 관련 리포트.' : '조사·분석 결과물을 모아 볼 수 있습니다.'} 카드를 클릭하면 바로 열립니다.</div>
+      <div class="panel-desc"><strong>산출물 · 리포트.</strong> ${scope} 관련 리포트. 카드를 클릭하면 바로 열립니다.</div>
     </div>
   `;
   if (filtered.length === 0) {
-    html += `<div style="padding:40px;text-align:center;color:#656d76">${currentDept}에 배정된 리포트가 없습니다.</div>`;
+    html += `<div style="padding:40px;text-align:center;color:#656d76">${scope}에 배정된 리포트가 없습니다.</div>`;
     main.innerHTML = html;
     return;
   }
