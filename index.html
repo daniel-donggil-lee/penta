@@ -1598,42 +1598,63 @@ async function gasPost(payload) {
 async function saveItem() {
   const config = SHEET_CONFIG[currentTab];
   const values = config.columns.map((_, i) => document.getElementById(`field_${i}`).value);
+  const tab = currentTab;
+  const rowIdx = editingRow;
+  // 낙관적 업데이트: 로컬 먼저 반영
+  if (!allData[tab]) allData[tab] = [];
+  if (rowIdx !== null) {
+    const existing = allData[tab][rowIdx] || [];
+    const merged = [...existing];
+    for (let i = 0; i < values.length; i++) merged[i] = values[i];
+    allData[tab][rowIdx] = merged;
+  } else {
+    allData[tab].push([...values]);
+  }
+  closeModal();
+  showToast(rowIdx !== null ? '수정 완료' : '추가 완료');
+  renderPanel();
+  // API는 백그라운드
   try {
-    if (editingRow !== null) {
+    if (rowIdx !== null) {
       const endCol = String.fromCharCode(64 + config.columns.length);
-      await gasPost({ action: 'update', sheet: currentTab, range: `A${editingRow + 1}:${endCol}${editingRow + 1}`, values });
+      gasPost({ action: 'update', sheet: tab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}`, values });
     } else {
-      await gasPost({ action: 'append', sheet: currentTab, values });
+      gasPost({ action: 'append', sheet: tab, values });
+      setTimeout(() => loadData(), 1500); // append 후 실제 row index 필요
     }
-    closeModal();
-    showToast(editingRow !== null ? '수정 완료' : '추가 완료');
-    setTimeout(() => loadData(), 1500);
   } catch (e) { showToast('저장 실패'); }
 }
 
 async function deleteRow(rowIdx) {
   if (!confirm('완전히 삭제합니다. 계속할까요?')) return;
   const config = SHEET_CONFIG[currentTab];
+  const tab = currentTab;
   const endCol = String.fromCharCode(64 + config.columns.length);
+  // 낙관적: 로컬 row를 빈 배열로
+  if (allData[tab] && allData[tab][rowIdx]) {
+    allData[tab][rowIdx] = new Array(config.columns.length).fill('');
+  }
+  showToast('삭제 완료');
+  renderPanel();
   try {
-    await gasPost({ action: 'clear', sheet: currentTab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}` });
-    showToast('삭제 완료');
-    setTimeout(() => loadData(), 1500);
+    gasPost({ action: 'clear', sheet: tab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}` });
   } catch (e) { showToast('삭제 실패'); }
 }
 
 async function archiveCard(rowIdx) {
-  const rows = allData[currentTab] || [];
+  const tab = currentTab;
+  const rows = allData[tab] || [];
   const row = rows[rowIdx] || [];
-  const config = SHEET_CONFIG[currentTab];
-  const prefix = currentTab === '조사' ? '[아카이브:조사] ' : currentTab === '합의사항' ? '[아카이브:합의] ' : '[아카이브] ';
+  const config = SHEET_CONFIG[tab];
+  const prefix = tab === '조사' ? '[아카이브:조사] ' : tab === '합의사항' ? '[아카이브:합의] ' : '[아카이브] ';
   const values = [...row];
   if (!(values[1]||'').startsWith('[아카이브')) values[1] = prefix + values[1];
   const endCol = String.fromCharCode(64 + config.columns.length);
+  allData[tab][rowIdx] = values;
+  showToast('아카이브로 이동');
+  renderPanel();
   try {
-    await gasPost({ action: 'update', sheet: currentTab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}`, values });
-    showToast('아카이브로 이동');
-    setTimeout(() => loadData(), 1500);
+    gasPost({ action: 'update', sheet: tab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}`, values });
   } catch (e) { showToast('아카이브 실패'); }
 }
 
@@ -1665,7 +1686,7 @@ async function moveCard(rowIdx, targetSheet) {
       await gasPost({ action: 'clear', sheet: currentTab, range: `A${rowIdx + 1}:${endCol}${rowIdx + 1}` });
     }
     showToast(`${targetSheet}(으)로 이동 완료`);
-    setTimeout(() => loadData(), 1500);
+    setTimeout(() => loadData(), 1500); // append 후 실제 row 위치 동기화
   } catch (e) { showToast('이동 실패'); }
 }
 
