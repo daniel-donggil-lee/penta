@@ -590,9 +590,21 @@
   .lc-sp-badge b { font-size: 13px; margin-left: 2px; }
   .lc-sp-preview { color: #656d76; }
   .lc-sp-empty { color: #9ca3af; font-style: italic; }
+  .lc-sp-chip { background: #fff; border: 1px solid #e5e1d8; color: #4b5563; padding: 3px 10px; border-radius: 12px; font-size: 11px; cursor: pointer; transition: all .15s; }
+  .lc-sp-chip:hover { background: #0a0a0a; color: #C9A84C; border-color: #0a0a0a; }
   .landing-card.hq .lc-sp-badge { background: rgba(201,168,76,0.2); color: #C9A84C; }
   .landing-card.hq .lc-sp-preview { color: rgba(255,255,255,0.7); }
   .landing-card.hq .lc-sp-empty { color: rgba(255,255,255,0.4); }
+  .landing-card.hq .lc-sp-chip { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.85); }
+  .landing-card.hq .lc-sp-chip:hover { background: #C9A84C; color: #0a0a0a; border-color: #C9A84C; }
+  /* 서브프로젝트 필터 바 (부서 진입 후) */
+  .sp-bar { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: #fffdf7; border-bottom: 1px solid #e8e4d8; flex-wrap: wrap; }
+  .sp-bar-label { font-size: 11px; color: #656d76; font-weight: 600; letter-spacing: .5px; }
+  .sp-chip { background: #fff; border: 1px solid #e5e1d8; color: #4b5563; padding: 4px 12px; border-radius: 14px; font-size: 12px; cursor: pointer; transition: all .15s; }
+  .sp-chip:hover { border-color: #C9A84C; }
+  .sp-chip.active { background: #0a0a0a; color: #C9A84C; border-color: #0a0a0a; font-weight: 600; }
+  .sp-chip b { margin-left: 4px; opacity: .7; font-size: 11px; }
+  .sp-chip.clear { color: #dc2626; border-color: #fca5a5; }
   .landing-header {
     display: flex; justify-content: space-between; align-items: baseline;
     margin-bottom: 20px;
@@ -888,6 +900,7 @@ let viewMode = 'landing';  // 'landing' | 'dept'
 let currentTab = '할일';
 let currentDept = null;
 let projectFilter = '';
+let subprojectFilter = '';
 let editingRow = null;
 let changeMap = {}; // { 'sheetName-rowIdx': 'new' | 'edited' }
 let currentProjectFilter = null; // 로드맵 프로젝트 드릴다운 필터
@@ -953,7 +966,7 @@ function routeView() {
 
 function subProjectsOfDept(dept) {
   const names = new Set();
-  for (const sheet of FUNCTIONAL_TABS) {
+  for (const sheet of ['로드맵', '논의']) {
     const cfg = SHEET_CONFIG[sheet];
     if (!cfg || !cfg.columns) continue;
     const pIdx = cfg.columns.indexOf('프로젝트');
@@ -969,6 +982,37 @@ function subProjectsOfDept(dept) {
     });
   }
   return names;
+}
+
+// 로드맵 마일스톤 → 서브프로젝트 lookup (할일은 서브프로젝트 컬럼 없음)
+function milestonesOfSubproject(dept, sp) {
+  const cfg = SHEET_CONFIG['로드맵'];
+  const pIdx = cfg.columns.indexOf('프로젝트');
+  const spIdx = cfg.columns.indexOf('서브프로젝트');
+  const rows = (allData['로드맵'] || []).slice(2);
+  const set = new Set();
+  rows.forEach(r => {
+    if (normalizeDept(r[pIdx]) !== dept) return;
+    if ((r[spIdx]||'').trim() !== sp) return;
+    const ms = (r[1]||'').trim();
+    if (ms) set.add(ms);
+  });
+  return set;
+}
+
+function setSubprojectFilter(sp) {
+  subprojectFilter = subprojectFilter === sp ? '' : sp;
+  renderTabs();
+  renderPanel();
+}
+
+function enterDeptSubproject(dept, sp) {
+  viewMode = 'dept';
+  currentDept = dept;
+  projectFilter = '';
+  subprojectFilter = sp;
+  if (GLOBAL_TABS.includes(currentTab)) currentTab = '할일';
+  routeView();
 }
 
 function nextMilestone(dept) {
@@ -997,7 +1041,9 @@ function renderLanding() {
     const ideaCnt = deptRowCount(d, '아이디어');
     const spSet = subProjectsOfDept(d);
     const spCount = spSet.size;
-    const spPreview = Array.from(spSet).slice(0, 3).join(' · ');
+    const spChips = Array.from(spSet).map(sp =>
+      `<span class="lc-sp-chip" onclick="event.stopPropagation(); enterDeptSubproject('${d}','${escapeHtml(sp)}')">${escapeHtml(sp)}</span>`
+    ).join('');
     const next = nextMilestone(d);
     const nextHtml = next
       ? `<div class="lc-next">다음: <b>${escapeHtml(next.title)}</b>${next.due?` · ${escapeHtml(next.due)}`:''}</div>`
@@ -1011,7 +1057,7 @@ function renderLanding() {
       <div class="lc-desc">${meta.desc}</div>
       <div class="lc-sp">
         <span class="lc-sp-badge">서브프로젝트 <b>${spCount}</b></span>
-        ${spPreview ? `<span class="lc-sp-preview">${escapeHtml(spPreview)}${spCount>3?` 외 ${spCount-3}`:''}</span>` : `<span class="lc-sp-empty">미등록</span>`}
+        ${spCount ? spChips : `<span class="lc-sp-empty">미등록</span>`}
       </div>
       ${nextHtml}
       <div class="lc-stats">
@@ -1037,6 +1083,7 @@ function enterDept(dept) {
   viewMode = 'dept';
   currentDept = dept;
   projectFilter = '';
+  subprojectFilter = '';
   if (GLOBAL_TABS.includes(currentTab)) currentTab = '할일';
   routeView();
 }
@@ -1086,7 +1133,46 @@ function renderDeptBanner() {
     <span class="projects-banner-label" id="deptBannerLabel">${label.innerHTML}</span>
     <div class="dept-stats">${stats}</div>
     ${siteLinks ? `<div class="dept-sites">${siteLinks}</div>` : ''}
+    ${renderSubprojectBar()}
   `;
+}
+
+function renderSubprojectBar() {
+  if (!currentDept) return '';
+  const spSet = subProjectsOfDept(currentDept);
+  if (!spSet.size) return '';
+  const chips = Array.from(spSet).map(sp => {
+    const active = subprojectFilter === sp ? 'active' : '';
+    const cnt = countSubprojectItems(currentDept, sp);
+    return `<span class="sp-chip ${active}" onclick="setSubprojectFilter('${escapeHtml(sp)}')">${escapeHtml(sp)}<b>${cnt}</b></span>`;
+  }).join('');
+  const clear = subprojectFilter ? `<span class="sp-chip clear" onclick="setSubprojectFilter('')">✕ 전체</span>` : '';
+  return `<div class="sp-bar"><span class="sp-bar-label">서브프로젝트</span>${chips}${clear}</div>`;
+}
+
+function countSubprojectItems(dept, sp) {
+  let n = 0;
+  for (const sheet of ['로드맵', '논의']) {
+    const cfg = SHEET_CONFIG[sheet];
+    const pIdx = cfg.columns.indexOf('프로젝트');
+    const spIdx = cfg.columns.indexOf('서브프로젝트');
+    if (pIdx < 0 || spIdx < 0) continue;
+    (allData[sheet] || []).slice(2).forEach(r => {
+      const title = (r[1]||'').trim();
+      if (!title || title.startsWith('[아카이브')) return;
+      if (normalizeDept(r[pIdx]) !== dept) return;
+      if ((r[spIdx]||'').trim() !== sp) return;
+      n++;
+    });
+  }
+  // 할일: 마일스톤 매칭
+  const msSet = milestonesOfSubproject(dept, sp);
+  (allData['할일'] || []).slice(2).forEach(r => {
+    if (!(r[1]||'').trim()) return;
+    if ((r[4]||'') === '완료') return;
+    if (msSet.has((r[0]||'').trim())) n++;
+  });
+  return n;
 }
 
 // ─── 이번 주 반드시 ───
@@ -1343,6 +1429,7 @@ function switchDept(dept) {
   viewMode = 'dept';
   currentDept = dept;
   projectFilter = '';
+  subprojectFilter = '';
   if (GLOBAL_TABS.includes(currentTab)) currentTab = '할일';
   routeView();
 }
@@ -1387,6 +1474,20 @@ function renderPanel() {
   if (currentDept && sheetHasProjectCol(currentTab)) {
     const pIdx = config.columns.indexOf('프로젝트');
     allDataRows = allDataRows.filter(r => normalizeDept(r[pIdx]) === currentDept);
+  }
+
+  // 서브프로젝트 필터 적용
+  if (currentDept && subprojectFilter) {
+    const spIdx = config.columns ? config.columns.indexOf('서브프로젝트') : -1;
+    if (spIdx >= 0) {
+      allDataRows = allDataRows.filter(r => (r[spIdx]||'').trim() === subprojectFilter);
+    } else if (currentTab === '할일') {
+      const msSet = milestonesOfSubproject(currentDept, subprojectFilter);
+      allDataRows = allDataRows.filter(r => msSet.has((r[0]||'').trim()));
+    } else if (currentTab !== '기록') {
+      // 서브프로젝트 컬럼 없는 시트 (회의록 등) → 필터 시 비움
+      allDataRows = [];
+    }
   }
 
   // 로드맵 전용 렌더링
@@ -1921,6 +2022,7 @@ function renderArchivePanel() {
     const status = (r[3] || '').trim() || '아이디어';
     const proj = normalizeDept(r[5]);
     if (currentDept && proj !== currentDept) return;
+    if (subprojectFilter && (r[6]||'').trim() !== subprojectFilter) return;
     const meta = STATUS_META[status] || STATUS_META['아이디어'];
     const bodyParts = [r[2], r[8], r[9]].filter(x => x && x.trim());
     items.push({
@@ -1934,7 +2036,7 @@ function renderArchivePanel() {
   });
 
   // 2. 회의록 시트 — 별도 소스 (생애주기 아님)
-  const mtgRows = (allData['회의록'] || []).slice(2);
+  const mtgRows = subprojectFilter ? [] : (allData['회의록'] || []).slice(2);
   mtgRows.forEach((r, idx) => {
     const title = (r[1] || '').trim();
     if (!title || title.startsWith('[아카이브')) return;
