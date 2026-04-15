@@ -1427,12 +1427,11 @@ function renderTabs() {
     </div>`;
   }).join('') + `<div class="subtab global" onclick="window.location.href='marketing.html'">📸 마케팅<span class="count">${CONTENT_COUNT}</span></div>`;
 
+  // 부서 진입 시에는 공지사항/리포트/마케팅 전역 탭 숨김 (랜딩에서만 노출)
   bar.innerHTML = `
     <div class="depts">${deptHtml}</div>
     <div class="subtabs">
       <div class="subtabs-group">${funcHtml}</div>
-      <div class="subtabs-divider"></div>
-      <div class="subtabs-group global-group">${globalHtml}</div>
     </div>
   `;
 }
