@@ -1835,12 +1835,15 @@ function renderRoadmapPanel(config, rows, allDataRows) {
     </div>
   `;
 
-  // Phase별 그룹핑
-  const phases = [...new Set(filteredRows.map(r => (r[0]||'').trim()).filter(Boolean))];
+  // Phase별 그룹핑 (완료 제외)
+  const activeRows = filteredRows.filter(r => (r[3]||'') !== '완료');
+  const completedRows = filteredRows.filter(r => (r[3]||'') === '완료');
+  const phases = [...new Set(activeRows.map(r => (r[0]||'').trim()).filter(Boolean))];
   phases.forEach(phase => {
-    const phaseRows = filteredRows.filter(r => (r[0]||'').trim() === phase);
-    const phaseDone = phaseRows.filter(r => (r[3]||'') === '완료').length;
-    const phasePct = phaseRows.length > 0 ? Math.round((phaseDone / phaseRows.length) * 100) : 0;
+    const phaseRowsAll = filteredRows.filter(r => (r[0]||'').trim() === phase);
+    const phaseRows = activeRows.filter(r => (r[0]||'').trim() === phase);
+    const phaseDone = phaseRowsAll.filter(r => (r[3]||'') === '완료').length;
+    const phasePct = phaseRowsAll.length > 0 ? Math.round((phaseDone / phaseRowsAll.length) * 100) : 0;
     const phaseLabel = PHASE_NAMES[phase] || phase;
 
     html += `<div class="roadmap-group">
@@ -1848,7 +1851,7 @@ function renderRoadmapPanel(config, rows, allDataRows) {
         <span class="roadmap-group-title">${phase}: ${phaseLabel}</span>
         <div style="display:flex;align-items:center;gap:8px">
           <div class="progress-bar"><div class="progress-fill progress-fill-blue" style="width:${phasePct}%"></div></div>
-          <span class="progress-text">${phaseDone}/${phaseRows.length}</span>
+          <span class="progress-text">${phaseDone}/${phaseRowsAll.length}</span>
         </div>
       </div>`;
 
@@ -1872,6 +1875,28 @@ function renderRoadmapPanel(config, rows, allDataRows) {
 
     html += `</div>`;
   });
+
+  // 완료 마일스톤 접기 섹션
+  if (completedRows.length > 0) {
+    html += `<div class="archive-toggle" onclick="document.getElementById('roadmap-done-section').classList.toggle('show'); this.querySelector('span').textContent = document.getElementById('roadmap-done-section').classList.contains('show') ? '▼' : '▶'">
+      <span>▶</span> 완료 마일스톤 (${completedRows.length})
+    </div>`;
+    html += `<div class="archive-section" id="roadmap-done-section">`;
+    completedRows.forEach(row => {
+      const realIdx = rows.indexOf(row);
+      const milestone = row[1] || '';
+      const date = row[5] || row[2] || '';
+      const person = row[4] || '';
+      const pi = getPersonInfo(person);
+      html += `<div class="roadmap-row" style="opacity:0.55" onclick="openEditModal(${realIdx})">
+        <span class="roadmap-milestone">${milestone}</span>
+        <span class="roadmap-date">${formatDateWithDay(date)}</span>
+        <span class="dot ${pi.dot}" style="width:20px;height:20px;font-size:9px">${pi.label}</span>
+        <span class="status-badge status-done">완료</span>
+      </div>`;
+    });
+    html += `</div>`;
+  }
 
   document.getElementById('mainContent').innerHTML = html;
 }
