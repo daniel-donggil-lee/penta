@@ -828,6 +828,7 @@ function sheetHasProjectCol(sheet) {
 }
 
 const REPORTS = [
+  { title: '펜타 로고 워크숍 — 54개 시안 판정', desc: '워드마크 10 + 심볼 36 + 결합 8. 라이트·다크 동시 프리뷰, 이은경·이동길 2인 O/△/X 판정 + 숏리스트 자동 집계', file: 'brand/logo/00_워크숍.html', date: '2026-04-16', category: '브랜드', dept: '본부', sp: '브랜드' },
   { title: '전략 보고서 — 프리미엄 교육 시장 함의', desc: '4대 브랜드 분석 기반 입지·타깃·브랜드·경쟁 전략 종합 제언', file: 'strategy-report.html', date: '2026-03-31', category: '시장/경쟁', dept: '펜타스쿨', sp: '본점 오픈' },
   { title: '창업 우선순위 지역 분석', desc: '4대 브랜드 288개 가맹점 전국 분포 — 동(洞) 단위 교육투자지수 분석', file: 'region-analysis.html', date: '2026-03-31', category: '시장/경쟁', dept: '펜타스쿨', sp: '본점 오픈' },
   { title: '펜타 지수 진단 결과 샘플', desc: '초4 이서진 샘플 — 오각형 레이더 차트·5영역 T점수·도서 추천·프리미엄 클래스 연결', file: 'https://daniel-donggil-lee.github.io/remark-report-engine/demo/penta-sample.html', date: '2026-04-02', category: 'PENTA', dept: '펜타스쿨', sp: '커리큘럼 개발' },
@@ -852,16 +853,10 @@ const NOTICES = [
 ];
 
 const CATEGORIES = ['법인/거버넌스', '브랜드', '콘텐츠', '인력', '시장/경쟁', '사업 모델', '마케팅', '재무'];
-const PHASE_NAMES = {
-  'P0': '사업 설계', 'P1': '콘텐츠 개발', 'P2': '본점 준비',
-  'P3': '본점 운영', 'P4': '직영 확장', 'P5': '가맹 시작',
-  'Site-00': 'Discovery', 'Site-01': 'PRD', 'Site-02': 'IA', 'Site-03': 'User Flow',
-  'Site-04': 'Wireframe', 'Site-05': 'Mockup', 'Site-06': 'Prototype', 'Site-07': 'Launch',
-};
 const SHEET_CONFIG = {
   '로드맵': {
     sub: '마일스톤',
-    desc: '<strong>Phase별 마일스톤과 목표일.</strong> 전체 사업 진행 상황을 한눈에.',
+    desc: '<strong>서브프로젝트별 마일스톤과 목표일.</strong> 전체 사업 진행 상황을 한눈에.',
     columns: ['Phase', '마일스톤', '목표일', '상태', '담당', '완료일', '비고', '서브프로젝트', '프로젝트'],
   },
   '할일': {
@@ -2296,36 +2291,8 @@ function buildFieldHtml(col, i, val) {
       ${PROJECTS.map(p => `<option value="${p}" ${val===p?'selected':''}>${p}</option>`).join('')}</select></div>`;
   }
   if (col === 'Phase') {
-    const rmCfg = SHEET_CONFIG['로드맵'];
-    const rmPIdx = rmCfg.columns.indexOf('프로젝트');
-    const rmSpIdx = rmCfg.columns.indexOf('서브프로젝트');
-    const rmRows = (allData['로드맵'] || []).slice(2);
-    const ctxSp = currentContext.sp || '';
-    const ctxDept = currentContext.dept || '';
-    const hasCtx = !!(ctxSp && ctxDept);
-    let allowedKeys = Object.keys(PHASE_NAMES);
-    let labelExtra = '';
-    if (hasCtx) {
-      const set = new Set();
-      rmRows.forEach(r => {
-        if ((r[3]||'').trim() === '삭제') return;
-        if (normalizeDept(r[rmPIdx]||'') !== ctxDept) return;
-        if ((r[rmSpIdx]||'').trim() !== ctxSp) return;
-        const p = (r[0]||'').trim();
-        if (p) set.add(p);
-      });
-      if (set.size > 0) {
-        allowedKeys = Object.keys(PHASE_NAMES).filter(k => set.has(k));
-        labelExtra = ` <span style="font-size:11px;color:#8a8a8e;font-weight:400">— ${escapeHtml(ctxDept)} / ${escapeHtml(ctxSp)}</span>`;
-      }
-    }
-    let opts = allowedKeys.map(k => `<option value="${k}" ${val===k?'selected':''}>${k}: ${PHASE_NAMES[k]}</option>`).join('');
-    if (val && !allowedKeys.includes(val)) {
-      const label = PHASE_NAMES[val] ? `${val}: ${PHASE_NAMES[val]}` : val;
-      opts = `<option value="${escapeHtml(val)}" selected>${escapeHtml(label)} (외부)</option>` + opts;
-    }
-    return `<div class="form-group"><label>${col}${labelExtra}</label>
-      <select id="field_${i}"><option value="">선택</option>${opts}</select></div>`;
+    // Phase는 UI에서 완전 숨김 — 기존 값은 hidden input으로 보존 (saveItem 호환)
+    return `<input type="hidden" id="field_${i}" value="${escapeHtml(val||'')}">`;
   }
   if (col === '마일스톤' && currentTab === '할일') {
     const rmCfg = SHEET_CONFIG['로드맵'];
@@ -2908,31 +2875,23 @@ function renderRoadmapPanel(config, rows, allDataRows) {
     </div>
   `;
 
-  // 부서 안에서는 서브프로젝트별 그룹, 랜딩/전체에서는 Phase별 그룹
-  const groupBySp = !!currentDept;
+  // 항상 서브프로젝트 기준 그룹
   const activeRows = filteredRows.filter(r => (r[3]||'') !== '완료');
   const completedRows = filteredRows.filter(r => (r[3]||'') === '완료');
-  const keyOf = r => groupBySp ? ((r[7]||'').trim() || '(미분류)') : ((r[0]||'').trim() || '(단계 미지정)');
+  const keyOf = r => (r[7]||'').trim() || '(미분류)';
   const groupKeys = [...new Set(activeRows.map(keyOf))];
   groupKeys.forEach(gk => {
     const groupAll = filteredRows.filter(r => keyOf(r) === gk);
     const groupActive = activeRows.filter(r => keyOf(r) === gk);
     const groupDone = groupAll.filter(r => (r[3]||'') === '완료').length;
     const groupPct = groupAll.length > 0 ? Math.round((groupDone / groupAll.length) * 100) : 0;
-    let groupTitle;
-    if (groupBySp) {
-      groupTitle = gk;
-    } else {
-      const showPhaseLabel = !currentDept || currentDept === '펜타스쿨' || currentDept === '본부';
-      const phaseLabel = showPhaseLabel ? (PHASE_NAMES[gk] || '') : '';
-      groupTitle = phaseLabel ? `${gk}: ${phaseLabel}` : gk;
-    }
+    const groupTitle = gk;
 
-    // 부서 뷰에서 그룹 헤더 = 서브프로젝트 → 클릭 시 포커스 뷰로
-    const headerClick = groupBySp && gk !== '(미분류)'
+    // 그룹 헤더 클릭 시 서브프로젝트 포커스 뷰로
+    const headerClick = currentDept && gk !== '(미분류)'
       ? `style="cursor:pointer" onclick="enterDeptSubproject('${currentDept}','${gk.replace(/'/g,"\\'")}')" title="${gk} 포커스 뷰 열기"`
       : '';
-    const titleSuffix = groupBySp && gk !== '(미분류)' ? ' <span style="color:#C9A84C;font-size:12px">→</span>' : '';
+    const titleSuffix = currentDept && gk !== '(미분류)' ? ' <span style="color:#C9A84C;font-size:12px">→</span>' : '';
     html += `<div class="roadmap-group">
       <div class="roadmap-group-header" ${headerClick}>
         <span class="roadmap-group-title">${groupTitle}${titleSuffix}</span>
