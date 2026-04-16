@@ -1601,18 +1601,19 @@ function renderSubprojectFocus() {
       const note = escapeHtml(row[6]||'');
       const date = row[2]||'';
       // 연결 산출물: 같은 서브프로젝트 리포트 중 마일스톤 키워드 매칭
-      const linkedReport = reps.find(r => r.milestoneKeyword && msTitle.includes(r.milestoneKeyword));
-      const linkedIdx = linkedReport ? REPORTS.indexOf(linkedReport) : -1;
-      const linkIcon = linkedReport
-        ? `<span class="sp-mile-link" title="${escapeHtml(linkedReport.title)}" onclick="event.stopPropagation(); openReport(${linkedIdx})">🔗</span>`
-        : '';
+      const linkedReports = reps.filter(r => r.milestoneKeyword && msTitle.includes(r.milestoneKeyword));
+      const linkedHtml = linkedReports.map(r => {
+        const idx = REPORTS.indexOf(r);
+        return `<a class="sp-mile-asset" onclick="event.stopPropagation(); openReport(${idx})">🔗 ${escapeHtml(r.title)}</a>`;
+      }).join('');
       html += `
         <div class="sp-mile ${stepCls}" onclick="openEditModal(${realIdx},'로드맵')">
           <div class="sp-mile-dot">${done ? '✓' : (i+1)}</div>
           <div class="sp-mile-body">
             <div class="sp-mile-label">M${i+1}</div>
-            <div class="sp-mile-title">${title}${linkIcon}</div>
+            <div class="sp-mile-title">${title}</div>
             ${note ? `<div class="sp-mile-note">${note}</div>` : ''}
+            ${linkedHtml ? `<div class="sp-mile-assets">${linkedHtml}</div>` : ''}
           </div>
           <div class="sp-mile-date">${date ? formatDateWithDay(date) : ''}</div>
         </div>
@@ -1774,8 +1775,9 @@ function injectSpFocusStyles() {
     .sp-mile.pending .sp-mile-dot { background: #fff; border: 1.5px solid #d9d9d9; color: #8a8a8e; }
     .sp-mile-label { font-size: 11px; color: #C9A84C; font-weight: 600; letter-spacing: 0.08em; }
     .sp-mile-title { font-size: 15px; font-weight: 500; color: #1d1d1f; margin-top: 2px; }
-    .sp-mile-link { margin-left: 8px; cursor: pointer; font-size: 14px; opacity: 0.7; }
-    .sp-mile-link:hover { opacity: 1; }
+    .sp-mile-assets { margin-top: 6px; display: flex; flex-direction: column; gap: 3px; }
+    .sp-mile-asset { display: inline-block; font-size: 12px; color: #0969da; cursor: pointer; text-decoration: none; padding: 3px 0; }
+    .sp-mile-asset:hover { color: #C9A84C; text-decoration: underline; }
     .sp-mile-note { font-size: 12px; color: #8a8a8e; margin-top: 3px; }
     .sp-mile-date { font-size: 12px; color: #8a8a8e; white-space: nowrap; }
 
