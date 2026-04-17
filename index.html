@@ -802,13 +802,13 @@ const API = 'https://script.google.com/macros/s/AKfycbxN3NaaZpCPPZfH7gEJVOGnyzJp
 const SHEET_ORDER = ['공지사항', '로드맵', '할일', '회의록', '논의', '아이디어', '조사', '의사결정', '합의사항', '리포트', '마케팅'];
 const DEPTS = ['펜타스쿨', '펜타캠퍼스', '펜타웍스', '펜타몰', '펜타북스', '펜타랩', '본부'];
 const DEPT_META = {
-  '펜타스쿨': { icon: '🏫', sites: [], desc: '초등 문해력 본점·가맹' },
-  '펜타캠퍼스': { icon: '🎓', sites: [{ label: '사이트', href: 'pentacampus/' }], desc: '연수원 + 강사 양성' },
-  '펜타웍스': { icon: '💼', sites: [], desc: '인재·강사 에이전시' },
-  '펜타몰':   { icon: '🛍️', sites: [{ label: '공구 리서치', href: 'pentamall/gongu-research.html' }], desc: '큐레이션 쇼핑' },
-  '펜타북스': { icon: '📚', sites: [], desc: '자체 출판' },
-  '펜타랩':   { icon: '🔬', sites: [{ label: '책나무 연수원', href: 'booktree/' }], desc: '솔루션·B2B 납품' },
-  '본부':     { icon: '🏛️', sites: [], desc: '법인·계약·절차·시스템' }
+  '펜타스쿨': { icon: '🏫', sites: [{ label: '기획서', href: 'pentaschool-brand-proposal.html' }], desc: '초등 문해력 본점·가맹' },
+  '펜타캠퍼스': { icon: '🎓', sites: [{ label: '사이트', href: 'pentacampus/' }, { label: '기획서', href: 'pentacampus-brand-proposal.html' }], desc: '연수원 + 강사 양성' },
+  '펜타웍스': { icon: '💼', sites: [{ label: '기획서', href: 'pentaworks-brand-proposal.html' }], desc: '인재·강사 에이전시' },
+  '펜타몰':   { icon: '🛍️', sites: [{ label: '공구 리서치', href: 'pentamall/gongu-research.html' }, { label: '기획서', href: 'pentamall-brand-proposal.html' }], desc: '큐레이션 쇼핑' },
+  '펜타북스': { icon: '📚', sites: [{ label: '기획서', href: 'penta-group-brand.html' }], desc: '자체 출판' },
+  '펜타랩':   { icon: '🔬', sites: [{ label: '책나무 연수원', href: 'booktree/' }, { label: '기획서', href: 'pentalab-landing.html' }], desc: '솔루션·B2B 납품' },
+  '본부':     { icon: '🏛️', sites: [{ label: '기획서', href: 'penta-brand-proposal.html' }], desc: '법인·계약·절차·시스템' }
 };
 // 레거시 시트값 매핑: 공통→본부, 책나무→펜타랩
 const DEPT_ALIAS = { '공통': '본부', '책나무': '펜타랩' };
