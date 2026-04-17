@@ -862,7 +862,7 @@ const SHEET_CONFIG = {
   '로드맵': {
     sub: '마일스톤',
     desc: '<strong>프로젝트별 마일스톤과 목표일.</strong> 전체 사업 진행 상황을 한눈에.',
-    columns: ['Phase', '마일스톤', '목표일', '상태', '담당', '완료일', '비고', '프로젝트', '프로젝트'],
+    columns: ['Phase', '마일스톤', '목표일', '상태', '담당', '완료일', '비고', '서브프로젝트', '프로젝트'],
   },
   '할일': {
     sub: '태스크',
@@ -897,7 +897,7 @@ const SHEET_CONFIG = {
   '논의': {
     sub: '생애주기',
     desc: '<strong>아이디어→조사→결정→합의</strong>를 한 카드의 상태 전환으로 관리.',
-    columns: ['카테고리', '제목', '내용', '상태', '담당', '프로젝트', '프로젝트', '우선순위', '선택지', '근거/메모', '리포트링크', '생성일', '최종수정일', '이력'],
+    columns: ['카테고리', '제목', '내용', '상태', '담당', '프로젝트', '서브프로젝트', '우선순위', '선택지', '근거/메모', '리포트링크', '생성일', '최종수정일', '이력'],
   },
   '기록': {
     sub: '통합',
@@ -1076,7 +1076,7 @@ function subProjectsOfDept(dept) {
     const cfg = SHEET_CONFIG[sheet];
     if (!cfg || !cfg.columns) continue;
     const pIdx = cfg.columns.indexOf('프로젝트');
-    const spIdx = cfg.columns.indexOf('프로젝트');
+    const spIdx = cfg.columns.indexOf('서브프로젝트');
     if (pIdx < 0 || spIdx < 0) continue;
     const stIdx = cfg.columns.indexOf('상태');
     const rows = (allData[sheet] || []).slice(2);
@@ -1096,7 +1096,7 @@ function subProjectsOfDept(dept) {
 function milestonesOfSubproject(dept, sp) {
   const cfg = SHEET_CONFIG['로드맵'];
   const pIdx = cfg.columns.indexOf('프로젝트');
-  const spIdx = cfg.columns.indexOf('프로젝트');
+  const spIdx = cfg.columns.indexOf('서브프로젝트');
   const rows = (allData['로드맵'] || []).slice(2);
   const set = new Set();
   rows.forEach(r => {
@@ -1248,7 +1248,7 @@ function countSubprojectItems(dept, sp) {
   for (const sheet of ['로드맵', '논의']) {
     const cfg = SHEET_CONFIG[sheet];
     const pIdx = cfg.columns.indexOf('프로젝트');
-    const spIdx = cfg.columns.indexOf('프로젝트');
+    const spIdx = cfg.columns.indexOf('서브프로젝트');
     if (pIdx < 0 || spIdx < 0) continue;
     (allData[sheet] || []).slice(2).forEach(r => {
       const title = (r[1]||'').trim();
@@ -1506,7 +1506,7 @@ function deptRowCount(dept, sheet) {
   const cfg = SHEET_CONFIG[sheet];
   const hasProj = sheetHasProjectCol(sheet);
   const pIdx = hasProj ? cfg.columns.indexOf('프로젝트') : -1;
-  const spIdx = cfg && cfg.columns ? cfg.columns.indexOf('프로젝트') : -1;
+  const spIdx = cfg && cfg.columns ? cfg.columns.indexOf('서브프로젝트') : -1;
   // 프로젝트 필터 활성 시: 할일은 마일스톤 매칭으로 lookup
   const msSet = (subprojectFilter && sheet === '할일' && dept)
     ? milestonesOfSubproject(dept, subprojectFilter) : null;
@@ -1693,9 +1693,9 @@ function renderSubprojectFocus() {
   // todoRows는 칸반보드에서 상태별 분류됨 (아래 할일 섹션 참조)
 
   // 논의 수집
-  const disCfg = SHEET_CONFIG['논의'] || {columns:['카테고리','제목','내용','상태','담당','프로젝트','프로젝트']};
+  const disCfg = SHEET_CONFIG['논의'] || {columns:['카테고리','제목','내용','상태','담당','프로젝트','서브프로젝트']};
   const disPIdx = disCfg.columns.indexOf('프로젝트');
-  const disSpIdx = disCfg.columns.indexOf('프로젝트');
+  const disSpIdx = disCfg.columns.indexOf('서브프로젝트');
   const disStIdx = disCfg.columns.indexOf('상태');
   const disRows = (allData['논의']||[]).slice(2).filter(r => {
     const title = (r[1]||'').trim();
@@ -1926,7 +1926,7 @@ function openAddForSheet(sheet, sp, dept) {
   setTimeout(() => {
     const cfg = SHEET_CONFIG[sheet];
     if (!cfg) return;
-    const spIdx = cfg.columns.indexOf('프로젝트');
+    const spIdx = cfg.columns.indexOf('서브프로젝트');
     const pIdx = cfg.columns.indexOf('프로젝트');
     if (spIdx >= 0 && sp) {
       const el = document.getElementById(`field_${spIdx}`);
@@ -2062,7 +2062,7 @@ function renderPanel() {
 
   // 프로젝트 필터 적용
   if (currentDept && subprojectFilter) {
-    const spIdx = config.columns ? config.columns.indexOf('프로젝트') : -1;
+    const spIdx = config.columns ? config.columns.indexOf('서브프로젝트') : -1;
     if (spIdx >= 0) {
       allDataRows = allDataRows.filter(r => (r[spIdx]||'').trim() === subprojectFilter);
     } else if (currentTab === '할일') {
