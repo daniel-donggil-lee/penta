@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PENTA CAMPUS — 마스터 강사 참여 제안</title>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+:root {
+  --black:  #0a0a0a;
+  --g900:   #111111;
+  --g800:   #1a1a1a;
+  --g700:   #2a2a2a;
+  --g500:   #666666;
+  --g400:   #888888;
+  --g200:   #d4d4d4;
+  --g100:   #f0f0f0;
+  --g50:    #f8f8f8;
+  --white:  #ffffff;
+  --gold:   #C9A84C;
+  --gold-l: #F0D080;
+  --gold-d: #9A7A2E;
+  --gold-dim:    rgba(201,168,76,0.10);
+  --gold-border: rgba(201,168,76,0.30);
+  --bdark:  rgba(255,255,255,0.08);
+  --blight: #e8e8e8;
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Pretendard',-apple-system,sans-serif;
+  background:var(--white);
+  color:var(--black);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── TOP BAR ── */
+.top-bar {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  height:60px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 6%;
+  background:rgba(10,10,10,0.94);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bdark);
+}
+.top-bar::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-l),var(--gold));
+}
+.tb-logo { font-size:14px; font-weight:800; letter-spacing:.06em; color:var(--white); text-decoration:none; }
+.tb-logo span { color:var(--gold); }
+.tb-badge {
+  font-size:11px; font-weight:700; letter-spacing:.1em;
+  color:var(--black); background:var(--gold);
+  padding:6px 16px; border-radius:100px;
+}
+
+/* ── HERO ── */
+.hero {
+  background:var(--black);
+  min-height:100vh;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:140px 6% 90px;
+  position:relative; overflow:hidden;
+}
+.hero-glow {
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  background:radial-gradient(ellipse 60% 50% at 70% 40%, rgba(201,168,76,.08) 0%, transparent 65%);
+  pointer-events:none;
+}
+.hero::after {
+  content:'CAMPUS';
+  position:absolute; right:-2%; bottom:-10%;
+  font-size:clamp(80px,18vw,260px); font-weight:900;
+  color:rgba(201,168,76,0.04); letter-spacing:-.05em;
+  pointer-events:none; white-space:nowrap; line-height:1;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:12px; font-weight:700; letter-spacing:.2em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:28px;
+}
+.hero-eyebrow::before { content:''; display:block; width:28px; height:2px; background:var(--gold); }
+.hero h1 {
+  font-size:clamp(42px,7vw,96px); font-weight:900;
+  letter-spacing:-.04em; line-height:.95; color:var(--white);
+  margin-bottom:30px;
+}
+.hero h1 em { font-style:normal; color:var(--gold); }
+.hero-desc {
+  font-size:clamp(15px,1.3vw,18px); color:rgba(255,255,255,.5);
+  max-width:560px; line-height:1.8; margin-bottom:56px;
+}
+.hero-stats {
+  display:flex; gap:48px; flex-wrap:wrap;
+  padding-top:36px; border-top:1px solid rgba(255,255,255,.1);
+}
+.stat-num {
+  font-size:clamp(26px,3vw,44px); font-weight:900;
+  letter-spacing:-.04em; color:var(--white);
+}
+.stat-num em { font-style:normal; color:var(--gold); font-size:.6em; margin-left:1px; }
+.stat-lbl { font-size:11px; color:rgba(255,255,255,.35); letter-spacing:.08em; text-transform:uppercase; margin-top:4px; }
+
+/* ── ABOUT ── */
+.about {
+  background:var(--g50);
+  padding:96px 6%;
+}
+.about-inner { max-width:960px; margin:0 auto; }
+.section-eyebrow {
+  font-size:11px; font-weight:800; letter-spacing:.2em;
+  color:var(--gold-d); text-transform:uppercase; margin-bottom:16px;
+}
+.section-title {
+  font-size:clamp(26px,3.5vw,40px); font-weight:900;
+  letter-spacing:-.04em; color:var(--black); margin-bottom:14px;
+}
+.section-desc { font-size:16px; color:var(--g500); line-height:1.8; max-width:620px; margin-bottom:56px; }
+
+.about-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+@media(max-width:720px){ .about-grid{ grid-template-columns:1fr; } }
+
+.about-card {
+  background:var(--white);
+  border:1px solid var(--blight);
+  border-radius:12px; padding:28px;
+}
+.about-card-icon {
+  width:44px; height:44px;
+  background:var(--gold-dim); border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; margin-bottom:16px;
+}
+.about-card-title { font-size:16px; font-weight:800; color:var(--black); margin-bottom:8px; }
+.about-card-desc { font-size:13px; color:var(--g500); line-height:1.7; }
+
+/* ── ROSTER ── */
+.roster {
+  background:var(--white);
+  padding:96px 6%;
+  border-top:1px solid var(--blight);
+}
+.roster-inner { max-width:1080px; margin:0 auto; }
+
+/* Director */
+.director-card {
+  display:grid; grid-template-columns:300px 1fr; gap:0;
+  background:var(--black);
+  border-radius:16px; overflow:hidden;
+  margin-bottom:40px;
+}
+@media(max-width:700px){ .director-card{ grid-template-columns:1fr; } }
+.director-photo { position:relative; aspect-ratio:1/1; overflow:hidden; }
+.director-photo img { width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+.director-body { padding:44px 44px 44px 44px; display:flex; flex-direction:column; justify-content:center; }
+.dir-label {
+  font-size:11px; font-weight:800; letter-spacing:.18em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:12px;
+}
+.dir-name { font-size:32px; font-weight:900; color:var(--white); letter-spacing:-.03em; margin-bottom:6px; }
+.dir-affil { font-size:13px; color:rgba(255,255,255,.45); margin-bottom:20px; }
+.dir-career { font-size:13px; color:rgba(255,255,255,.6); line-height:1.75; margin-bottom:24px; }
+.dir-tags { display:flex; flex-wrap:wrap; gap:6px; }
+.dir-tag {
+  font-size:11px; font-weight:600; color:var(--gold);
+  background:rgba(201,168,76,.12); border:1px solid rgba(201,168,76,.3);
+  padding:4px 12px; border-radius:4px;
+}
+.dir-badge {
+  position:absolute; top:16px; left:16px;
+  font-size:10px; font-weight:800; letter-spacing:.14em;
+  color:var(--gold); background:rgba(10,10,10,.85);
+  padding:5px 12px; border-radius:100px;
+  border:1px solid rgba(201,168,76,.4);
+}
+
+/* Grid */
+.grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+}
+@media(max-width:960px){ .grid{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:560px){ .grid{ grid-template-columns:1fr; } }
+
+/* Card */
+.card {
+  background:var(--white);
+  border:1px solid var(--blight);
+  border-radius:12px; overflow:hidden;
+  display:flex; flex-direction:column;
+  transition:transform .25s, box-shadow .25s, border-color .25s;
+}
+.card:hover {
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px -12px rgba(10,10,10,.12);
+  border-color:var(--gold);
+}
+.card-photo { position:relative; aspect-ratio:1/1; background:var(--g100); overflow:hidden; }
+.card-photo img { width:100%; height:100%; object-fit:cover; object-position:center top; display:block; filter:grayscale(10%); transition:filter .3s; }
+.card:hover .card-photo img { filter:grayscale(0%); }
+.card-placeholder {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:60px; font-weight:900; color:var(--gold);
+  background:linear-gradient(135deg,var(--g100) 0%,var(--g50) 100%);
+}
+.cat-pill {
+  position:absolute; top:14px; left:14px;
+  font-size:10px; font-weight:800; letter-spacing:.1em;
+  color:var(--gold); background:rgba(10,10,10,.82);
+  padding:5px 11px; border-radius:100px;
+  border:1px solid rgba(201,168,76,.3);
+}
+.card-body { padding:22px 22px 26px; flex:1; display:flex; flex-direction:column; border-top:2px solid transparent; transition:border-color .25s; }
+.card:hover .card-body { border-top-color:var(--gold); }
+.card-name { font-size:20px; font-weight:900; color:var(--black); letter-spacing:-.02em; margin-bottom:3px; }
+.card-nick { font-size:13px; font-weight:500; color:var(--g400); margin-left:5px; }
+.card-affil { font-size:12px; color:var(--g500); margin-bottom:12px; }
+.card-career { font-size:12.5px; color:var(--g500); line-height:1.65; padding-bottom:14px; margin-bottom:14px; border-bottom:1px solid var(--blight); }
+.card-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:auto; }
+.card-tag { font-size:11px; font-weight:600; color:var(--g500); background:var(--g50); border:1px solid var(--blight); padding:3px 10px; border-radius:4px; }
+
+/* ── BENEFITS ── */
+.benefits {
+  background:var(--black);
+  padding:96px 6%;
+}
+.benefits-inner { max-width:960px; margin:0 auto; }
+.benefits-inner .section-title { color:var(--white); }
+.benefits-inner .section-desc { color:rgba(255,255,255,.45); }
+
+.benefits-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:3px; }
+@media(max-width:640px){ .benefits-grid{ grid-template-columns:1fr; } }
+
+.benefit-item {
+  background:var(--g800);
+  padding:32px 36px;
+  border-left:3px solid var(--gold);
+}
+.benefit-no { font-size:11px; font-weight:800; letter-spacing:.14em; color:var(--gold); margin-bottom:10px; }
+.benefit-title { font-size:18px; font-weight:800; color:var(--white); margin-bottom:8px; }
+.benefit-desc { font-size:13px; color:rgba(255,255,255,.45); line-height:1.7; }
+
+/* ── PROCESS ── */
+.process {
+  background:var(--g50);
+  padding:96px 6%;
+  border-top:1px solid var(--blight);
+}
+.process-inner { max-width:960px; margin:0 auto; }
+.steps { display:flex; flex-direction:column; gap:0; margin-top:48px; }
+.step {
+  display:flex; gap:32px; align-items:flex-start;
+  padding:28px 0; border-bottom:1px solid var(--blight);
+}
+.step:last-child { border-bottom:none; }
+.step-num {
+  width:44px; height:44px; flex-shrink:0;
+  background:var(--black); color:var(--gold);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:900; letter-spacing:.04em;
+}
+.step-title { font-size:16px; font-weight:800; color:var(--black); margin-bottom:6px; }
+.step-desc { font-size:13px; color:var(--g500); line-height:1.7; }
+
+/* ── CTA ── */
+.cta {
+  background:var(--black);
+  padding:120px 6%;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.cta::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; bottom:0;
+  background:radial-gradient(ellipse 50% 60% at 50% 50%, rgba(201,168,76,.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+.cta-eyebrow { font-size:11px; font-weight:800; letter-spacing:.2em; color:var(--gold); text-transform:uppercase; margin-bottom:20px; }
+.cta-title { font-size:clamp(30px,5vw,60px); font-weight:900; color:var(--white); letter-spacing:-.04em; line-height:1.1; margin-bottom:18px; }
+.cta-title em { font-style:normal; color:var(--gold); }
+.cta-desc { font-size:16px; color:rgba(255,255,255,.4); max-width:480px; margin:0 auto 48px; line-height:1.75; }
+.cta-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:18px 44px;
+  background:var(--gold); color:var(--black);
+  font-size:14px; font-weight:800; letter-spacing:.05em;
+  text-transform:uppercase; border-radius:100px;
+  text-decoration:none; transition:background .2s, transform .2s;
+}
+.cta-btn:hover { background:var(--gold-l); transform:translateY(-2px); }
+.cta-contact {
+  margin-top:40px;
+  font-size:13px; color:rgba(255,255,255,.3);
+}
+.cta-contact strong { color:rgba(255,255,255,.6); }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--g900);
+  border-top:1px solid var(--bdark);
+  padding:28px 6%;
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;
+}
+.foot-logo { font-size:12px; font-weight:800; letter-spacing:.16em; color:var(--white); }
+.foot-logo span { color:var(--gold); }
+.foot-note { font-size:12px; color:rgba(255,255,255,.25); }
+
+@media(max-width:640px){
+  .hero { padding:120px 5% 72px; }
+  .about, .roster, .benefits, .process { padding:72px 5%; }
+  .director-body { padding:28px; }
+  .cta { padding:88px 5%; }
+  footer { padding:24px 5%; }
+  .top-bar { padding:0 5%; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <a class="tb-logo" href="../">PENTA <span>CAMPUS</span></a>
+  <div class="tb-badge">강사 참여 제안 · 2026</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-eyebrow">Master Faculty Proposal</div>
+  <h1>함께<br>만들어갈 <em>기준</em></h1>
+  <p class="hero-desc">
+    펜타캠퍼스는 대한민국 초등 문해력의 새로운 기준을 세울 마스터 강사를 찾습니다.
+    검증된 전문성과 콘텐츠 파워를 가진 분과 함께, 교사 양성의 새 판을 열겠습니다.
+  </p>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">5<em>개</em></div>
+      <div class="stat-lbl">전문 과정</div>
+    </div>
+    <div>
+      <div class="stat-num">2026<em>.10</em></div>
+      <div class="stat-lbl">오픈 목표</div>
+    </div>
+    <div>
+      <div class="stat-num">3<em>개</em></div>
+      <div class="stat-lbl">수료 후 취업 경로</div>
+    </div>
+    <div>
+      <div class="stat-num">10<em>차시</em></div>
+      <div class="stat-lbl">과정 구성</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-inner">
+    <div class="section-eyebrow">About PENTA CAMPUS</div>
+    <h2 class="section-title">펜타캠퍼스란</h2>
+    <p class="section-desc">펜타캠퍼스는 펜타 그룹 산하 평생교육원입니다. 전문가 과정 수료자가 현장에서 바로 수업을 열 수 있도록, 교수법 중심의 Train-the-Trainer 과정을 운영합니다.</p>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-card-icon">🎓</div>
+        <div class="about-card-title">전문가 자격증 과정</div>
+        <div class="about-card-desc">5개 영역 각 10차시. 수강 후 자격증 취득 → 펜타스쿨·가맹·방과후 취업 연결.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📡</div>
+        <div class="about-card-title">온라인 운영</div>
+        <div class="about-card-desc">전국 어디서나 수강 가능. 라이브 + 녹화 병행. 강사는 본인 시간과 공간에서 진행.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🔗</div>
+        <div class="about-card-title">수료 후 3경로 취업</div>
+        <div class="about-card-desc">펜타스쿨 직영 / 가맹원 / 학교 방과후 강사로 연결. 강사가 직접 키운 제자가 강사의 확장.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROSTER -->
+<section class="roster">
+  <div class="roster-inner">
+    <div class="section-eyebrow">Faculty Lineup</div>
+    <h2 class="section-title">함께할 강사진</h2>
+    <p class="section-desc" style="margin-bottom:48px;">이미 확정된 강사진입니다. 귀하가 합류하면 이 라인업과 함께하게 됩니다.</p>
+
+    <!-- 디렉터 -->
+    <div class="director-card">
+      <div class="director-photo">
+        <img src="../photos/master/01-lee-eunkyung.jpg" alt="이은경">
+        <div class="dir-badge">DIRECTOR</div>
+      </div>
+      <div class="director-body">
+        <div class="dir-label">교육 총괄 디렉터</div>
+        <div class="dir-name">이은경</div>
+        <div class="dir-affil">슬기로운 초등생활 대표</div>
+        <div class="dir-career">前 초등교사 15년 · 저서 60여 권 · 유튜브 구독자 15만+<br>
+        『초등 자기주도 공부법』 『초등 매일 공부의 힘』 외 베스트셀러 다수</div>
+        <div class="dir-tags">
+          <span class="dir-tag">커리큘럼 총괄</span>
+          <span class="dir-tag">초등 교육 전문</span>
+          <span class="dir-tag">강사 양성</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5강사 -->
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-photo">
+          <img src="../photos/master/02-kim-munyoung.png" alt="김문영" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="card-placeholder" style="display:none">김</div>
+          <div class="cat-pill">인문독서</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">김문영 <span class="card-nick">달콤쌤</span></div>
+          <div class="card-affil">더채움 교육연구소 대표</div>
+          <div class="card-career">前 초등교사 15년차 · 저서 2권<br>인문독서 · 고전 · 융합독서 전문</div>
+          <div class="card-tags"><span class="card-tag">인문독서</span><span class="card-tag">고전</span><span class="card-tag">융합독서</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-photo">
+          <div class="card-placeholder">법</div>
+          <div class="cat-pill">논증과추론</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">섭외 진행 중</div>
+          <div class="card-affil">현직 변호사</div>
+          <div class="card-career">서울시 교육청 소속 10년<br>고대 로스쿨 졸업 · 현직 변호사</div>
+          <div class="card-tags"><span class="card-tag">논증</span><span class="card-tag">추론</span><span class="card-tag">법적사고</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-photo">
+          <img src="../photos/master/04-lee-dahee.png" alt="이다희" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="card-placeholder" style="display:none">이</div>
+          <div class="cat-pill">시사분석</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">이다희</div>
+          <div class="card-affil">(주)리딩타임즈 대표</div>
+          <div class="card-career">前 초등정교사 · 저서 4권<br>하루 한 장 키즈신문 발행인 · 인스타 5.8만</div>
+          <div class="card-tags"><span class="card-tag">시사분석</span><span class="card-tag">독서교육</span><span class="card-tag">콘텐츠</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-photo">
+          <img src="../photos/master/05-kwon-bokyung.jpg" alt="권보경" style="transform:scale(1.5) translateY(15%);transform-origin:center top;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="card-placeholder" style="display:none">권</div>
+          <div class="cat-pill">보고서작성</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">권보경</div>
+          <div class="card-affil">서울대학교 행정학 박사</div>
+          <div class="card-career">저서 『공공기관 조직 분석』<br>구조적 글쓰기 · 보고서 논리 전문</div>
+          <div class="card-tags"><span class="card-tag">보고서작성</span><span class="card-tag">논리구조</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-photo">
+          <img src="../photos/master/06-cho-seungwoo.png" alt="조승우" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="card-placeholder" style="display:none">조</div>
+          <div class="cat-pill">요약훈련</div>
+        </div>
+        <div class="card-body">
+          <div class="card-name">조승우</div>
+          <div class="card-affil">스몰빅클래스 대표</div>
+          <div class="card-career">서울대 최우등 졸업 · 청소년 베스트셀러 1위<br>유튜브 24만 · 『공부가 설렘이 되는 순간』</div>
+          <div class="card-tags"><span class="card-tag">요약훈련</span><span class="card-tag">자기주도</span><span class="card-tag">공부법</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="benefits-inner">
+    <div class="section-eyebrow" style="color:var(--gold)">Why Join</div>
+    <h2 class="section-title">참여하면 얻는 것</h2>
+    <p class="section-desc">강사로서의 브랜드 파워와 안정적인 수익 구조를 동시에.</p>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-no">01</div>
+        <div class="benefit-title">검증된 브랜드와의 연대</div>
+        <div class="benefit-desc">이은경 대표(유튜브 15만, 저서 60여 권)와 함께하는 라인업. 강사 소개 시 펜타캠퍼스 마스터 강사 타이틀 활용 가능.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-no">02</div>
+        <div class="benefit-title">수강생 유입 채널 제공</div>
+        <div class="benefit-desc">펜타 그룹의 마케팅 채널을 통해 수강생을 모집합니다. 강사가 직접 홍보하지 않아도 됩니다.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-no">03</div>
+        <div class="benefit-title">나의 콘텐츠로 수강료 수익</div>
+        <div class="benefit-desc">기존에 보유한 커리큘럼을 10차시 연수 과정으로 재설계. 본인의 전문성이 곧 수익 자산이 됩니다.</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-no">04</div>
+        <div class="benefit-title">수료생이 나의 강사가 된다</div>
+        <div class="benefit-desc">과정 수료생이 펜타스쿨·가맹 강사로 취업. 내가 키운 제자들이 내 커리큘럼을 전국에서 가르칩니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="process-inner">
+    <div class="section-eyebrow">How It Works</div>
+    <h2 class="section-title">참여 절차</h2>
+    <p class="section-desc">복잡한 절차 없이, 대화에서 시작합니다.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-title">의향 확인 미팅</div>
+          <div class="step-desc">30분 온라인 미팅으로 과정 방향, 강사 역할, 수익 구조를 함께 검토합니다.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-title">커리큘럼 초안 협의</div>
+          <div class="step-desc">기존 보유 콘텐츠를 10차시 구조로 함께 설계합니다. 처음부터 새로 만들 필요 없습니다.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-title">계약 및 일정 확정</div>
+          <div class="step-desc">수강료 배분, 운영 방식, 일정을 확정하고 계약을 진행합니다.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <div class="step-title">2026년 10월 1기 오픈</div>
+          <div class="step-desc">펜타캠퍼스 공식 오픈과 함께 마스터 강사로 소개됩니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-eyebrow">Let's Talk</div>
+  <h2 class="cta-title">함께<br><em>시작합시다</em></h2>
+  <p class="cta-desc">먼저 편하게 이야기 나눠보세요. 부담 없는 30분 대화에서 시작합니다.</p>
+  <a class="cta-btn" href="mailto:39gambler@gmail.com">
+    참여 의향 전달하기
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+  <div class="cta-contact">
+    문의: <strong>이은경</strong> · 39gambler@gmail.com · @lee.eun.kyung.1221
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">PENTA <span>CAMPUS</span></div>
+  <div class="foot-note">Master Faculty Proposal 2026 · CONFIDENTIAL</div>
+</footer>
+
+</body>
+</html>
