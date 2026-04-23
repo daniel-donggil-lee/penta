@@ -1324,21 +1324,36 @@ function escapeHtml(s) {
 // URL을 클릭 가능한 링크로 변환 (iframe 뷰어로 열림)
 function linkifyText(s) {
   const text = String(s||'');
-  const urlRe = /(https?:\/\/[^\s()<>"]+)/g;
+  // 마크다운 [텍스트](url) 형식 우선 처리 → pill 버튼
+  const mdRe = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
   let out = '';
   let last = 0;
   let m;
-  while ((m = urlRe.exec(text)) !== null) {
+  while ((m = mdRe.exec(text)) !== null) {
     out += escapeHtml(text.slice(last, m.index));
-    const url = m[1].replace(/[.,;:)]+$/, '');
-    const trailing = m[1].slice(url.length);
+    const label = m[1];
+    const url = m[2];
     const safe = url.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-    out += `<a class="sp-inline-link" onclick="event.stopPropagation(); openExternalLink('${safe}')">${escapeHtml(url)}</a>`;
-    out += escapeHtml(trailing);
-    last = m.index + m[1].length;
+    out += `<a class="sp-link-pill" onclick="event.stopPropagation(); openExternalLink('${safe}')">${escapeHtml(label)}</a>`;
+    last = m.index + m[0].length;
   }
-  out += escapeHtml(text.slice(last));
-  return out;
+  // 남은 텍스트에서 raw URL 처리
+  const remaining = text.slice(last);
+  const urlRe = /(https?:\/\/[^\s()<>"]+)/g;
+  let rOut = '';
+  let rLast = 0;
+  let r;
+  while ((r = urlRe.exec(remaining)) !== null) {
+    rOut += escapeHtml(remaining.slice(rLast, r.index));
+    const url = r[1].replace(/[.,;:)]+$/, '');
+    const trailing = r[1].slice(url.length);
+    const safe = url.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    rOut += `<a class="sp-inline-link" onclick="event.stopPropagation(); openExternalLink('${safe}')">${escapeHtml(url)}</a>`;
+    rOut += escapeHtml(trailing);
+    rLast = r.index + r[1].length;
+  }
+  rOut += escapeHtml(remaining.slice(rLast));
+  return out + rOut;
 }
 function openExternalLink(url) {
   const title = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
@@ -1988,6 +2003,8 @@ function injectSpFocusStyles() {
     .sp-mile-asset:hover { color: #C9A84C; text-decoration: underline; }
     .sp-inline-link { color: #0969da; cursor: pointer; text-decoration: underline; word-break: break-all; }
     .sp-inline-link:hover { color: #C9A84C; }
+    .sp-link-pill { display: inline-flex; align-items: center; cursor: pointer; text-decoration: none; background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.4); color: #C9A84C; border-radius: 100px; padding: 5px 14px; font-size: 12px; font-weight: 700; margin: 2px 4px 2px 0; transition: all .15s; white-space: nowrap; }
+    .sp-link-pill:hover { background: #C9A84C; color: #0a0a0a; border-color: #C9A84C; }
     .sp-mile-note { font-size: 12px; color: #8a8a8e; margin-top: 3px; }
     .sp-mile-date { font-size: 12px; color: #8a8a8e; white-space: nowrap; }
 
