@@ -1364,7 +1364,6 @@ function openExternalLink(url) {
     <div class="report-viewer-bar">
       <span class="rv-title">${escapeHtml(title)}</span>
       <div class="rv-actions">
-        <button class="btn-rv" style="background:#C9A84C;color:#1d1d1f;font-weight:600" onclick="openFeedbackModal(${JSON.stringify(title).replace(/"/g,'&quot;')})">✏️ 수정 요청</button>
         <button class="btn-rv" onclick="window.open('${url}', '_blank')">새 탭에서 열기</button>
         <button class="btn-rv" onclick="closeReport()">닫기</button>
       </div>
@@ -3282,7 +3281,6 @@ function openNotice(idx) {
     <div class="report-viewer-bar">
       <span class="rv-title">${n.title}</span>
       <div class="rv-actions">
-        <button class="btn-rv" style="background:#C9A84C;color:#1d1d1f;font-weight:600" onclick="openFeedbackModal(${JSON.stringify(n.title).replace(/"/g, '&quot;')})">✏️ 수정 요청</button>
         <button class="btn-rv" onclick="window.open('${n.file}', '_blank')">새 탭에서 열기</button>
         <button class="btn-rv" onclick="closeNotice()">닫기</button>
       </div>
@@ -3342,7 +3340,6 @@ function openReport(idx) {
     <div class="report-viewer-bar">
       <span class="rv-title">${r.title}</span>
       <div class="rv-actions">
-        <button class="btn-rv" style="background:#C9A84C;color:#1d1d1f;font-weight:600" onclick="openFeedbackModal(${JSON.stringify(r.title).replace(/"/g, '&quot;')})">✏️ 수정 요청</button>
         <button class="btn-rv" onclick="window.open('${r.file}', '_blank')">새 탭에서 열기</button>
         <button class="btn-rv" onclick="closeReport()">닫기</button>
       </div>
