@@ -295,19 +295,6 @@
   .sub-arrow { color: #bbb; font-size: 14px; padding: 0 6px; }
   .tabs { flex-wrap: wrap; }
 
-  /* Feedback button */
-  .feedback-btn {
-    position: fixed; bottom: 24px; left: 24px; width: 48px; height: 48px;
-    border-radius: 50%; border: none; background: #C9A84C; color: #fff;
-    font-size: 22px; cursor: pointer; box-shadow: 0 2px 12px rgba(201,168,76,0.4);
-    display: flex; align-items: center; justify-content: center; z-index: 90;
-    transition: transform 0.15s;
-  }
-  .feedback-btn:hover { transform: scale(1.1); }
-  @media (max-width: 768px) {
-    .feedback-btn { width: 40px; height: 40px; font-size: 18px; bottom: 16px; left: 16px; }
-  }
-
   /* Card actions */
   .card-actions {
     position: absolute; top: 10px; right: 10px; display: flex; gap: 4px;
@@ -777,30 +764,6 @@
 
 <div class="toast" id="toast"></div>
 
-<button class="feedback-btn" onclick="openFeedbackModal()" title="개선 요청">💬</button>
-<div class="modal-overlay" id="feedbackModal">
-  <div class="modal" style="width:460px">
-    <h2 id="fb_heading">개선 요청</h2>
-    <div id="fb_target_box" style="display:none;padding:10px 12px;background:#fafaf5;border:1px solid #e8e2c4;border-radius:8px;margin-bottom:12px;font-size:13px;color:#5c4a1a">
-      <span style="font-size:11px;color:#8a8a8e;display:block;margin-bottom:2px">대상 페이지</span>
-      <span id="fb_target_label" style="font-weight:600"></span>
-    </div>
-    <div id="fb_existing" style="display:none;margin-bottom:12px;max-height:180px;overflow-y:auto;border:1px solid #eee;border-radius:8px;padding:8px 10px;font-size:12px;background:#fff"></div>
-    <div class="form-group"><label>작성자</label>
-      <select id="fb_author">
-        <option value="이동길">이동길</option>
-        <option value="이은경">이은경</option>
-      </select>
-    </div>
-    <div class="form-group"><label>내용</label>
-      <textarea id="fb_content" placeholder="수정했으면 하는 부분, 추가했으면 하는 내용 등" style="min-height:120px"></textarea>
-    </div>
-    <div class="modal-actions">
-      <button class="btn" onclick="closeFeedbackModal()">취소</button>
-      <button class="btn btn-primary" onclick="submitFeedback()">보내기</button>
-    </div>
-  </div>
-</div>
 
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbxN3NaaZpCPPZfH7gEJVOGnyzJp9kvH5KtTXBMh86gnp6OCxcFPN8dGaK7THmVQb9vJoQ/exec';
@@ -3174,75 +3137,6 @@ async function toggleTodoStatus(rowIdx) {
   gasPost({ action: 'update', sheet: '할일', range: `E${rowIdx + 1}:F${rowIdx + 1}`, values: [values[4], values[5]] });
 }
 
-let fbCurrentTarget = '';
-function openFeedbackModal(target) {
-  fbCurrentTarget = target || '';
-  document.getElementById('fb_content').value = '';
-  const heading = document.getElementById('fb_heading');
-  const box = document.getElementById('fb_target_box');
-  const lbl = document.getElementById('fb_target_label');
-  if (fbCurrentTarget) {
-    heading.textContent = '수정 요청';
-    lbl.textContent = fbCurrentTarget;
-    box.style.display = 'block';
-    // 이은경이 주로 쓰는 흐름 — 기본 작성자 이은경
-    document.getElementById('fb_author').value = '이은경';
-    renderExistingFeedback(fbCurrentTarget);
-  } else {
-    heading.textContent = '개선 요청';
-    box.style.display = 'none';
-    document.getElementById('fb_existing').style.display = 'none';
-  }
-  document.getElementById('feedbackModal').classList.add('show');
-}
-function closeFeedbackModal() {
-  document.getElementById('feedbackModal').classList.remove('show');
-  fbCurrentTarget = '';
-}
-async function renderExistingFeedback(target) {
-  const container = document.getElementById('fb_existing');
-  container.style.display = 'block';
-  container.innerHTML = '<div style="color:#8a8a8e">이전 요청 불러오는 중…</div>';
-  try {
-    const res = await fetch(FEEDBACK_ENDPOINT);
-    const data = await res.json();
-    const rows = (data['개선요청'] || []).slice(1);
-    const matches = rows.filter(r => (r[4]||'').trim() === target);
-    if (!matches.length) {
-      container.innerHTML = '<div style="color:#8a8a8e">이 페이지에 대한 이전 요청이 없습니다.</div>';
-      return;
-    }
-    container.innerHTML = matches.map(r => {
-      const [author, date, content, status] = r;
-      const stBadge = status === '반영완료' ? '#16a34a' : (status === '진행중' ? '#C9A84C' : '#8a8a8e');
-      return `<div style="padding:6px 0;border-bottom:1px solid #f0f0f0">
-        <div style="display:flex;justify-content:space-between;font-size:11px;color:#8a8a8e;margin-bottom:3px">
-          <span><b style="color:#1d1d1f">${escapeHtml(author||'')}</b> · ${date||''}</span>
-          <span style="color:${stBadge};font-weight:600">${status||'접수'}</span>
-        </div>
-        <div style="color:#1d1d1f;white-space:pre-wrap">${escapeHtml(content||'')}</div>
-      </div>`;
-    }).join('');
-  } catch (e) {
-    container.innerHTML = '<div style="color:#dc2626">이전 요청을 불러오지 못했습니다.</div>';
-  }
-}
-function submitFeedback() {
-  const author = document.getElementById('fb_author').value;
-  const content = document.getElementById('fb_content').value.trim();
-  if (!content) { showToast('내용을 입력해주세요'); return; }
-  const today = new Date().toISOString().slice(0, 10);
-  const target = fbCurrentTarget;
-  const msg = target ? '수정 요청 접수 완료' : '개선 요청 접수 완료';
-  closeFeedbackModal();
-  showToast(msg);
-  gasPost({ action: 'append', sheet: '개선요청', values: [author, today, content, '접수', target] }).catch(() => {
-    showToast('전송 실패 — 다시 시도해주세요');
-  });
-}
-document.getElementById('feedbackModal').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('feedbackModal')) closeFeedbackModal();
-});
 
 function renderNoticePanel() {
   const main = document.querySelector('main');
