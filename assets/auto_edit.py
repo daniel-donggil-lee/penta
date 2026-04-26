@@ -67,7 +67,7 @@ def url_to_path(url):
     m = re.search(r'/penta/(.+)$', url)
     if not m:
         return None
-    return os.path.join(BOARD_DIR, m.group(1))
+    return os.path.join(BOARD_DIR, urllib.parse.unquote(m.group(1)))
 
 def simple_replace(html, instruction):
     """A → B 패턴 단순 치환"""
