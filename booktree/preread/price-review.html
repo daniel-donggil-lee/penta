@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>책나무 견적 · 시세 검토</title>
+<style>
+  :root {
+    --navy: #0a0a0a;
+    --gold: #C9A84C;
+    --gold-soft: #F5EFD9;
+    --ink: #1a1a1a;
+    --mute: #6b6b6b;
+    --line: #e8e8e8;
+    --bg: #ffffff;
+    --red: #D94545;
+    --green: #2D8B4E;
+    --orange: #D4872B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .eyebrow {
+    font-size: 12px; letter-spacing: 0.22em; color: var(--gold);
+    font-weight: 700; text-transform: uppercase; margin-bottom: 14px;
+  }
+  h1 { font-size: 36px; font-weight: 800; line-height: 1.25; color: var(--navy); margin-bottom: 20px; }
+  h2 { font-size: 26px; font-weight: 800; line-height: 1.3; color: var(--navy); margin-bottom: 16px; }
+  h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px; margin-top: 32px; }
+  p { color: var(--ink); margin-bottom: 14px; }
+  p.lead { font-size: 17px; color: var(--mute); }
+
+  /* INTERNAL WATERMARK */
+  body::before {
+    content: "내부 검토용 · CONFIDENTIAL";
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 72px; font-weight: 900; color: rgba(201,168,76,0.06);
+    pointer-events: none; z-index: 0; white-space: nowrap;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 100px 0 80px;
+    background: var(--navy);
+    color: #fff;
+    border-bottom: none;
+  }
+  .hero h1 { color: #fff; }
+  .hero .lead { color: rgba(255,255,255,0.7); }
+  .hero .meta {
+    margin-top: 40px; padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.5); font-size: 13px;
+  }
+  .hero .meta strong { color: var(--gold); }
+
+  /* SUMMARY CARDS */
+  .summary-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; margin-top: 32px;
+  }
+  .summary-card {
+    background: #fafafa; border: 1px solid var(--line);
+    border-radius: 6px; padding: 28px 24px; text-align: center;
+  }
+  .summary-card.current { border: 2px solid var(--gold); background: var(--gold-soft); }
+  .summary-label { font-size: 12px; font-weight: 700; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; }
+  .summary-value { font-size: 32px; font-weight: 800; color: var(--navy); margin-top: 8px; }
+  .summary-card.current .summary-value { color: var(--gold); }
+  .summary-sub { font-size: 13px; color: var(--mute); margin-top: 4px; }
+
+  /* TABLE */
+  .review-table {
+    width: 100%; border-collapse: collapse; margin-top: 24px;
+  }
+  .review-table th {
+    text-align: left; font-size: 11px; font-weight: 700; color: var(--mute);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 10px 12px; border-bottom: 2px solid var(--navy);
+  }
+  .review-table th.num { text-align: right; }
+  .review-table td {
+    padding: 14px 12px; font-size: 14px; border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .review-table .amount { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+  .review-table .cat td {
+    font-weight: 700; color: var(--navy); background: #fafafa; font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .review-table tr:last-child td { border-bottom: none; }
+
+  /* STATUS BADGES */
+  .badge {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 4px; white-space: nowrap;
+  }
+  .badge-ok { background: #E8F5ED; color: var(--green); }
+  .badge-warn { background: #FFF3E0; color: var(--orange); }
+  .badge-danger { background: #FDEAEA; color: var(--red); }
+
+  /* COMMENT */
+  .comment {
+    font-size: 13px; color: var(--mute); line-height: 1.5;
+    margin-top: 2px;
+  }
+
+  /* TOTAL ROW */
+  .review-table .total-row td {
+    border-top: 2px solid var(--navy); border-bottom: 2px solid var(--navy);
+    font-weight: 800; font-size: 15px; padding: 14px 12px;
+  }
+
+  /* DECISION BOX */
+  .decision-box {
+    background: #fafafa; border: 1px solid var(--line);
+    border-radius: 6px; padding: 28px 28px; margin-top: 24px;
+  }
+  .decision-box h4 {
+    font-size: 15px; font-weight: 800; color: var(--navy);
+    margin-bottom: 12px;
+  }
+  .decision-option {
+    padding: 16px 20px; border: 1px solid var(--line);
+    border-radius: 6px; margin-bottom: 12px; background: #fff;
+  }
+  .decision-option:last-child { margin-bottom: 0; }
+  .decision-option strong {
+    font-size: 14px; color: var(--navy); display: block; margin-bottom: 4px;
+  }
+  .decision-option p {
+    font-size: 13px; color: var(--mute); margin: 0;
+  }
+  .decision-option.recommended {
+    border: 2px solid var(--gold);
+  }
+  .decision-option .rec-tag {
+    font-size: 10px; font-weight: 700; color: var(--gold);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* INSIGHT BOX */
+  .insight {
+    background: var(--navy); color: #fff;
+    padding: 32px 28px; border-radius: 6px; margin-top: 32px;
+  }
+  .insight h3 { color: var(--gold); margin-top: 0; font-size: 14px; letter-spacing: 0.15em; }
+  .insight p { color: rgba(255,255,255,0.8); margin-bottom: 10px; }
+  .insight ul { list-style: none; }
+  .insight li {
+    padding: 6px 0; font-size: 14px; color: rgba(255,255,255,0.75);
+  }
+  .insight li::before { content: "→ "; color: var(--gold); font-weight: 700; }
+
+  footer {
+    padding: 40px 0; text-align: center; color: var(--mute); font-size: 12px;
+  }
+  footer .brand { color: var(--navy); font-weight: 700; letter-spacing: 0.1em; }
+
+  @media (max-width: 800px) {
+    .summary-grid { grid-template-columns: 1fr; max-width: 300px; margin-left: auto; margin-right: auto; }
+    body { font-size: 15px; }
+    section { padding: 56px 0; }
+    .hero { padding: 80px 0 64px; }
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    .review-table { font-size: 12px; }
+    .review-table td, .review-table th { padding: 10px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Internal Review · 내부 검토용</p>
+    <h1>책나무 견적서<br>시세 비교 분석</h1>
+    <p class="lead">
+      현재 견적서(Standard 9,500만원)의 항목별 가격을<br>
+      2026년 국내 시장 시세와 비교한 내부 검토 자료입니다.
+    </p>
+    <div class="meta">
+      <strong>PENTA LAB</strong> · 내부 검토용 · 외부 유출 금지 · 2026-05-07 기준
+    </div>
+  </div>
+</section>
+
+<!-- 총액 비교 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Overview</p>
+    <h2>총액 비교</h2>
+    <p class="lead">동일 범위를 외주사에 맡겼을 때의 시세와 비교합니다.</p>
+
+    <div class="summary-grid">
+      <div class="summary-card current">
+        <div class="summary-label">현재 견적</div>
+        <div class="summary-value">9,500만</div>
+        <div class="summary-sub">시세 Low의 59%</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">시세 Low</div>
+        <div class="summary-value">1.6억</div>
+        <div class="summary-sub">최저가 외주사 기준</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">시세 Mid</div>
+        <div class="summary-value">4.3억</div>
+        <div class="summary-sub">일반 에듀테크 외주사 기준</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <h3>WHAT THIS MEANS</h3>
+      <p>현재 9,500만원은 시장 최저가의 59% 수준입니다. 펜타랩이 직접 구축하기 때문에 가능한 가격이지만, 개별 항목이 너무 낮으면 상대방이 "이 가격에 진짜 되나?" 의심할 수 있습니다.</p>
+      <ul>
+        <li>콘텐츠 50차시 제작이 3,000만 → 차시당 60만원 (시세: 150~500만/차시)</li>
+        <li>PM 6개월이 400만 → 월 67만원 (시세: PM 월 500~1,200만)</li>
+        <li>이 두 항목이 눈에 띄게 비현실적</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 항목별 비교 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Item-by-Item Analysis</p>
+    <h2>항목별 시세 비교</h2>
+    <p class="lead">9개 항목의 현재 가격, 시세 범위, 판정입니다.</p>
+
+    <table class="review-table">
+      <thead>
+        <tr>
+          <th style="width:28%">항목</th>
+          <th class="num" style="width:12%">현재</th>
+          <th class="num" style="width:12%">시세 Low</th>
+          <th class="num" style="width:12%">시세 Mid</th>
+          <th style="width:10%; text-align:center">판정</th>
+          <th style="width:26%">시세 근거</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="cat"><td colspan="6">원격연수원 구축 — 소계 6,500만</td></tr>
+
+        <tr>
+          <td>
+            <strong>LMS 플랫폼 구축</strong>
+            <div class="comment">700+ 지사 계정, 브랜드 맞춤, 관리자 대시보드</div>
+          </td>
+          <td class="amount">2,800만</td>
+          <td class="amount">3,000만</td>
+          <td class="amount">9,500만</td>
+          <td style="text-align:center"><span class="badge badge-warn">Low 미만</span></td>
+          <td><div class="comment">맑은소프트 구축형 "억대 이상", 크몽 MVP 250만~. 오픈소스 기반이라 가능하지만, 상대방이 검색하면 낮아 보일 수 있음</div></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>5개 과정 콘텐츠 제작</strong>
+            <div class="comment">50차시 영상 + 교재 PDF 50종 + 평가 300문항+</div>
+          </td>
+          <td class="amount">3,000만</td>
+          <td class="amount">7,500만</td>
+          <td class="amount">2.0억</td>
+          <td style="text-align:center"><span class="badge badge-danger">심각하게 낮음</span></td>
+          <td><div class="comment">차시당 60만원. 시세: 기본 촬영+편집만 150만/차시, 교수설계+교재+평가 포함 시 300~500만/차시. 콘텐츠랩코리아, 콘팝 등 참고</div></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>결제·수료 자동화</strong>
+            <div class="comment">PG 연동, 수료증/자격증 자동발급</div>
+          </td>
+          <td class="amount">700만</td>
+          <td class="amount">500만</td>
+          <td class="amount">2,000만</td>
+          <td style="text-align:center"><span class="badge badge-ok">적절</span></td>
+          <td><div class="comment">포트원/토스페이먼츠 API 연동 + 템플릿 기반 발급. Low~Mid 사이 적정 수준</div></td>
+        </tr>
+
+        <tr class="cat"><td colspan="6">협회 · 자격 체계 — 소계 1,300만</td></tr>
+
+        <tr>
+          <td>
+            <strong>교육전문가협회 설립</strong>
+            <div class="comment">정관, 법인등기, 주무관청 인가 대행</div>
+          </td>
+          <td class="amount">400만</td>
+          <td class="amount">150만</td>
+          <td class="amount">400만</td>
+          <td style="text-align:center"><span class="badge badge-ok">Mid 수준</span></td>
+          <td><div class="comment">법무사 등기 150~300만 + 주무관청 인가 컨설팅 포함 시 300~500만. 적정</div></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>자격 등급 5단계 체계</strong>
+            <div class="comment">등급 설계, 발급/갱신 시스템, 교사 DB 연동</div>
+          </td>
+          <td class="amount">700만</td>
+          <td class="amount">1,000만</td>
+          <td class="amount">3,000만</td>
+          <td style="text-align:center"><span class="badge badge-warn">Low 미만</span></td>
+          <td><div class="comment">백엔드+프론트 2~4개월 개발. SW기술자 월 730~758만 기준. 시스템 개발비로는 낮은 편</div></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>민간자격 등록 대행</strong>
+            <div class="comment">한국직업능력연구원 등록 절차</div>
+          </td>
+          <td class="amount">200만</td>
+          <td class="amount">50만</td>
+          <td class="amount">150만</td>
+          <td style="text-align:center"><span class="badge badge-ok">적절</span></td>
+          <td><div class="comment">등록 자체 무료(정부24). 서류 작성 + 컨설팅 대행비. Mid~High 사이</div></td>
+        </tr>
+
+        <tr class="cat"><td colspan="6">프로젝트 관리 · 운영 — 소계 1,700만</td></tr>
+
+        <tr>
+          <td>
+            <strong>디스커버리 프로세스</strong>
+            <div class="comment">본사·지사·교사 인터뷰, 요구사항 정의서</div>
+          </td>
+          <td class="amount">500만</td>
+          <td class="amount">500만</td>
+          <td class="amount">1,500만</td>
+          <td style="text-align:center"><span class="badge badge-ok">Low 수준</span></td>
+          <td><div class="comment">UX 기획 컨설팅 500~1,500만(크몽). 인터뷰 10~15건 + 요구사항 정의서. Low에 해당</div></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>초기 운영 코칭 2개월</strong>
+            <div class="comment">첫 기수 운영 지원 + 인수인계</div>
+          </td>
+          <td class="amount">800만</td>
+          <td class="amount">400만</td>
+          <td class="amount">1,000만</td>
+          <td style="text-align:center"><span class="badge badge-ok">적절</span></td>
+          <td><div class="comment">PM/컨설턴트 월 900~1,200만 기준 파트타임 2개월. Low~Mid 사이</div></td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>PM · 프로젝트 관리 6개월</strong>
+            <div class="comment">일정 관리, 주간/월간 보고, 품질 검수</div>
+          </td>
+          <td class="amount">400만</td>
+          <td class="amount">3,000만</td>
+          <td class="amount">5,500만</td>
+          <td style="text-align:center"><span class="badge badge-danger">심각하게 낮음</span></td>
+          <td><div class="comment">월 67만원 = 파트타임 알바 수준. 2026 SW노임단가 IT PM 월 914만원. 6개월이면 최소 3,000만~</div></td>
+        </tr>
+
+        <tr class="total-row">
+          <td>합계</td>
+          <td class="amount">9,500만</td>
+          <td class="amount">~1.6억</td>
+          <td class="amount">~4.3억</td>
+          <td colspan="2"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 의사결정 옵션 -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Decision Points</p>
+    <h2>의사결정 옵션</h2>
+    <p class="lead">시세 검토 결과를 바탕으로 3가지 방향을 제시합니다.</p>
+
+    <div class="decision-box">
+      <h4>옵션 A — 총액 유지, 항목 재배분</h4>
+      <div class="decision-option">
+        <strong>9,500만 유지 + 항목 간 금액 이동</strong>
+        <p>콘텐츠(3,000→3,500), PM(400→500) 등을 올리고 다른 항목을 내려서 균형 맞추기. 총액은 그대로. 단, 콘텐츠 차시당 70만/PM 월 83만으로 여전히 시세 대비 낮음. 상대방이 개별 항목을 세밀하게 따지지 않는다면 무난.</p>
+      </div>
+    </div>
+
+    <div class="decision-box">
+      <h4>옵션 B — 총액 상향 (1.2~1.5억)</h4>
+      <div class="decision-option recommended">
+        <div class="rec-tag">검토 권장</div>
+        <strong>총액을 시세 Low 근처(1.2~1.5억)로 올리기</strong>
+        <p>개별 항목이 시세 대비 합리적으로 보이려면 총액 자체를 올려야 함. 특히 콘텐츠 50차시(최소 5,000~7,500만)와 PM 6개월(최소 3,000만)이 현실적인 수준이 됨. Essential 8,500만 / Standard 1.3억 / Premium 1.8~2억 수준.</p>
+        <p style="margin-top: 8px; color: var(--gold); font-weight: 700;">→ 책나무 700개 가맹 규모 대비 1.3억도 가맹점당 19만원 수준</p>
+      </div>
+    </div>
+
+    <div class="decision-box">
+      <h4>옵션 C — PM 항목 제거 + 콘텐츠 분리</h4>
+      <div class="decision-option">
+        <strong>PM 라인 삭제 + 콘텐츠 제작을 별도 견적으로</strong>
+        <p>PM(월 67만)은 없는 게 나음 — 오히려 전문성 의심. PM 비용은 다른 항목에 흡수. 콘텐츠 50차시는 차시당 단가가 너무 벌어지므로 "촬영·편집은 책나무 본사 부담" 조건으로 분리하면 견적서 가격의 비현실성 해소.</p>
+      </div>
+    </div>
+
+    <h3>핵심 질문</h3>
+    <div class="decision-box">
+      <div class="decision-option">
+        <strong>콘텐츠 영상 촬영·편집의 주체는 누구?</strong>
+        <p>현재 견적은 "기획+촬영+편집+교재+평가" 전부 포함이라 50차시에 3,000만이 성립 안 됨. 만약 촬영·편집을 이은경 대표 or 책나무 본사가 자체 진행하고, 펜타랩은 "기획+교수설계+교재+평가+LMS 탑재"만 담당하면 가격 정당화 가능. 이 범위를 어디까지 잡을지가 가격의 핵심 변수.</p>
+      </div>
+      <div class="decision-option">
+        <strong>책나무가 항목별 단가를 세밀하게 볼 가능성은?</strong>
+        <p>총액만 보고 판단하는 대표라면 9,500만 유지해도 무방. 하지만 실무진이 항목별로 시세를 검색하면 "콘텐츠 차시당 60만?" "PM 월 67만?" 이 두 개가 걸림. 700개 가맹 본사급이면 실무진 검증 가능성 있음.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="brand">PENTA LAB</p>
+    <p style="margin-top: 4px;">내부 검토용 · 외부 유출 금지 · 2026-05-07</p>
+  </div>
+</footer>
+
+<script src="../../assets/memo.js"></script>
+</body>
+</html>
