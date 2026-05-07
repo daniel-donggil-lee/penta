@@ -252,6 +252,69 @@
   }
   footer .brand { color: var(--navy); font-weight: 700; letter-spacing: 0.1em; }
 
+  /* SOW BLOCKS */
+  .sow-block {
+    margin-bottom: 40px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .sow-block:last-child { margin-bottom: 0; }
+  .sow-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: #fafafa;
+    border-bottom: 1px solid var(--line);
+  }
+  .sow-num {
+    background: var(--navy);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .sow-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  .sow-amount {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-top: 2px;
+  }
+  .sow-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .sow-table tr { border-bottom: 1px solid var(--line); }
+  .sow-table tr:last-child { border-bottom: none; }
+  .sow-table td {
+    padding: 12px 24px;
+    font-size: 14px;
+    color: var(--ink);
+    vertical-align: top;
+    line-height: 1.65;
+  }
+  .sow-label {
+    width: 110px;
+    font-weight: 700;
+    color: var(--navy);
+    white-space: nowrap;
+    font-size: 13px;
+    letter-spacing: -0.01em;
+  }
+
   /* mobile */
   @media (max-width: 800px) {
     .tier-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
@@ -263,6 +326,9 @@
     .wrap { padding: 0 20px; }
     .detail-table { font-size: 13px; }
     .detail-table td, .detail-table th { padding: 10px 8px; }
+    .sow-head { padding: 16px 18px; }
+    .sow-table td { padding: 10px 18px; font-size: 13px; }
+    .sow-label { width: 80px; font-size: 12px; }
   }
 </style>
 </head>
@@ -454,6 +520,185 @@
         <li>본 견적은 제안일 기준 30일간 유효합니다</li>
       </ul>
     </div>
+  </div>
+</section>
+
+<!-- SCOPE OF WORK -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Scope of Work</p>
+    <h2>Standard 상세 산출물</h2>
+    <p class="lead">
+      9,500만원에 포함되는 구체적 작업 범위와 산출물입니다.
+    </p>
+
+    <!-- 1. LMS -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">01</span>
+        <div>
+          <div class="sow-title">책나무 전용 원격연수 플랫폼</div>
+          <div class="sow-amount">2,000만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">플랫폼</td><td>책나무 전용 도메인 · 브랜드 컬러 · 로고 적용, 모바일 반응형 대응</td></tr>
+        <tr><td class="sow-label">수강 관리</td><td>700개+ 지사 교사 개별 계정 발급 · 지사별 그룹 관리 · 수강 현황 실시간 확인</td></tr>
+        <tr><td class="sow-label">학습 기능</td><td>강의 영상 스트리밍 · 진도율 자동 추적 · 차시별 퀴즈/과제 제출 · 수료 조건 자동 판정</td></tr>
+        <tr><td class="sow-label">관리자 대시보드</td><td>본사용 통합 대시보드 — 전체 수강 현황, 지사별 이수율, 교사별 이력 조회, 수료 통계 리포트</td></tr>
+        <tr><td class="sow-label">산출물</td><td>운영 중인 플랫폼 1식 · 본사 관리자 매뉴얼 · 교사용 이용 가이드</td></tr>
+      </table>
+    </div>
+
+    <!-- 2. 콘텐츠 -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">02</span>
+        <div>
+          <div class="sow-title">5개 과정 콘텐츠 제작</div>
+          <div class="sow-amount">2,500만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">과정 구성</td><td>
+          ① 독서코칭 기본과정 (신규 교사 입문)<br>
+          ② 독서코칭 심화과정 (경력 교사 역량 강화)<br>
+          ③ 인증 강사 과정 (본사 공식 강사 자격)<br>
+          ④ 독서·글쓰기 통합코칭 과정<br>
+          ⑤ 독서토론코칭 과정
+        </td></tr>
+        <tr><td class="sow-label">분량</td><td>과정당 10차시 × 30분 내외 — 총 50차시, 약 25시간 분량</td></tr>
+        <tr><td class="sow-label">영상 제작</td><td>강의 기획안 작성 · 촬영 (스튜디오/현장) · 편집 · 자막 · 인트로/아웃트로</td></tr>
+        <tr><td class="sow-label">교재</td><td>차시별 학습 교재 PDF 50종 (인쇄용 레이아웃 포함)</td></tr>
+        <tr><td class="sow-label">평가</td><td>차시별 퀴즈 문항 + 과정별 종합 평가 문항 — 총 300문항 이상</td></tr>
+        <tr><td class="sow-label">산출물</td><td>영상 50편 · 교재 PDF 50종 · 평가 문항 세트 5식 · 과정별 커리큘럼 문서</td></tr>
+      </table>
+    </div>
+
+    <!-- 3. 결제·수료 -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">03</span>
+        <div>
+          <div class="sow-title">결제 · 수료 자동화 시스템</div>
+          <div class="sow-amount">500만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">결제</td><td>수강료 온라인 결제 연동 (카드·계좌이체·간편결제) · 결제 내역 자동 기록</td></tr>
+        <tr><td class="sow-label">수료증</td><td>수료 조건 충족 시 자동 발급 · 책나무 브랜드 디자인 적용 · PDF 다운로드 + 고유번호 발급</td></tr>
+        <tr><td class="sow-label">자격증</td><td>협회 명의 자격증 자동 발급 · 유효기간 관리 · 갱신 알림 · 자격 조회 페이지</td></tr>
+        <tr><td class="sow-label">산출물</td><td>결제 시스템 1식 · 수료증/자격증 템플릿 · 자격 조회 페이지</td></tr>
+      </table>
+    </div>
+
+    <!-- 4. 협회 설립 -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">04</span>
+        <div>
+          <div class="sow-title">교육전문가협회 설립</div>
+          <div class="sow-amount">800만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">정관</td><td>협회 정관 작성 · 회칙 · 윤리강령 · 운영 규정 일체</td></tr>
+        <tr><td class="sow-label">법인 설립</td><td>주무관청 인가 절차 · 법인등기 대행 (법무사 실비 별도)</td></tr>
+        <tr><td class="sow-label">조직 설계</td><td>초대 임원진 구성 컨설팅 · 이사회/총회 운영 구조 설계</td></tr>
+        <tr><td class="sow-label">운영 방식</td><td>활동형(연회비+자격갱신) vs 발급형(자격발급 전용) — 책나무 맞춤 선택</td></tr>
+        <tr><td class="sow-label">산출물</td><td>설립 완료된 협회 법인 1식 · 정관/회칙/규정 문서 일체 · 운영 매뉴얼</td></tr>
+      </table>
+    </div>
+
+    <!-- 5. 자격 체계 -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">05</span>
+        <div>
+          <div class="sow-title">자격 등급 5단계 체계 구현</div>
+          <div class="sow-amount">1,200만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">등급 설계</td><td>
+          Lv.1 독서지도사 2급 → Lv.2 독서지도사 1급 → Lv.3 인증 강사 → Lv.4 통합코칭 전문가 → Lv.5 독서토론 전문가<br>
+          등급별 취득 요건 · 유지 조건 · 갱신 주기 정의
+        </td></tr>
+        <tr><td class="sow-label">교사 DB</td><td>전체 교사 자격 이력 통합 관리 — 취득일, 유효기간, 갱신 이력, 활동 내역 연동</td></tr>
+        <tr><td class="sow-label">발급 시스템</td><td>자격증 자동 발급 · 갱신 알림 · 교사별 자격 현황 조회 (본사+교사 양측)</td></tr>
+        <tr><td class="sow-label">이탈 방지</td><td>자격 유지 조건에 본사 활동 실적 연동 — 구조적 이탈 비용 설계</td></tr>
+        <tr><td class="sow-label">산출물</td><td>자격 체계 설계서 · 발급/갱신 시스템 · 교사 DB · 자격 조건 운영 규정</td></tr>
+      </table>
+    </div>
+
+    <!-- 6. 민간자격 등록 -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">06</span>
+        <div>
+          <div class="sow-title">민간자격 한국직업능력연구원 등록</div>
+          <div class="sow-amount">300만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">등록 대행</td><td>한국직업능력연구원 민간자격 등록 절차 전체 대행 (서류 작성 · 제출 · 보완 대응)</td></tr>
+        <tr><td class="sow-label">등록 범위</td><td>주요 자격 2종 이상 (독서지도사 2급/1급 우선, 추가 자격은 협의)</td></tr>
+        <tr><td class="sow-label">산출물</td><td>등록 완료된 민간자격 · 등록번호 발급 · 자격 정보 공개 페이지 연동</td></tr>
+      </table>
+    </div>
+
+    <!-- 7. 디스커버리 -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">07</span>
+        <div>
+          <div class="sow-title">디스커버리 프로세스</div>
+          <div class="sow-amount">700만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">본사 인터뷰</td><td>대표 · 본사 담당자 심층 인터뷰 — 교육 철학, 브랜드 방향, 운영 목표 청취</td></tr>
+        <tr><td class="sow-label">지사 인터뷰</td><td>주요 지사장 3~5인 인터뷰 — 현장 운영 실태, 교사 관리 pain point, 지사별 차이</td></tr>
+        <tr><td class="sow-label">교사 인터뷰</td><td>현장 교사 5~10인 인터뷰 — 실제 수업 프로세스, 교육 니즈, 자격에 대한 기대</td></tr>
+        <tr><td class="sow-label">분석</td><td>인터뷰 종합 분석 → 요구사항 정의서(RFP) → 커리큘럼·시스템 설계에 직접 반영</td></tr>
+        <tr><td class="sow-label">산출물</td><td>디스커버리 리포트 · 요구사항 정의서 · 이해관계자 맵</td></tr>
+      </table>
+    </div>
+
+    <!-- 8. 운영 코칭 -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">08</span>
+        <div>
+          <div class="sow-title">초기 운영 코칭 (2개월)</div>
+          <div class="sow-amount">1,000만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">첫 기수 운영</td><td>첫 기수 모집 지원 · 수강 운영 · 이슈 대응 · 수료 절차까지 전 과정 동행</td></tr>
+        <tr><td class="sow-label">인수인계</td><td>본사 담당자 대상 운영 교육 — 플랫폼 관리, 수강생 관리, 자격 발급, 통계 활용법</td></tr>
+        <tr><td class="sow-label">안정화</td><td>2개월간 주 1회 정기 미팅 · 운영 이슈 실시간 대응 · 프로세스 개선 제안</td></tr>
+        <tr><td class="sow-label">산출물</td><td>운영 매뉴얼 최종본 · 인수인계 완료 보고서 · 개선 제안 리포트</td></tr>
+      </table>
+    </div>
+
+    <!-- 9. PM -->
+    <div class="sow-block">
+      <div class="sow-head">
+        <span class="sow-num">09</span>
+        <div>
+          <div class="sow-title">프로젝트 관리 (PM)</div>
+          <div class="sow-amount">500만원</div>
+        </div>
+      </div>
+      <table class="sow-table">
+        <tr><td class="sow-label">관리</td><td>6개월 프로젝트 총괄 — 일정 관리, 이해관계자 커뮤니케이션, 리스크 관리</td></tr>
+        <tr><td class="sow-label">보고</td><td>주간 진행 보고서 · 월간 마일스톤 리뷰 · 주요 의사결정 사항 문서화</td></tr>
+        <tr><td class="sow-label">검수</td><td>단계별 품질 검수 · 책나무 본사 피드백 반영 · 최종 인수 테스트</td></tr>
+        <tr><td class="sow-label">산출물</td><td>프로젝트 계획서 · 주간/월간 보고서 · 최종 완료 보고서</td></tr>
+      </table>
+    </div>
+
   </div>
 </section>
 
