@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>책나무 미팅 준비 — 2026.05.19</title>
+<style>
+  :root {
+    --navy: #0a0a0a;
+    --gold: #C9A84C;
+    --gold-soft: #F5EFD9;
+    --ink: #1a1a1a;
+    --mute: #6b6b6b;
+    --line: #e8e8e8;
+    --bg: #ffffff;
+    --red: #c0392b;
+    --green: #27ae60;
+    --blue: #2980b9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+  section { padding: 80px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    color: var(--gold);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--navy);
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+  }
+  h2 {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+  h3 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 32px 0 12px;
+  }
+  .sub { font-size: 18px; color: var(--mute); line-height: 1.6; margin-bottom: 36px; }
+  p { margin-bottom: 14px; }
+
+  /* CONFIDENTIAL watermark */
+  body::before {
+    content: "INTERNAL — MEETING PREP";
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 100px; font-weight: 900;
+    color: rgba(201,168,76,0.04);
+    pointer-events: none; z-index: 0;
+    white-space: nowrap;
+  }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 15px; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); }
+  th { background: #fafafa; font-weight: 700; color: var(--navy); font-size: 13px; letter-spacing: 0.03em; white-space: nowrap; }
+  td { color: #333; }
+  tr:last-child td { border-bottom: none; }
+
+  /* Tags */
+  .tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; margin-right: 4px; }
+  .tag-red { background: #fdecea; color: var(--red); }
+  .tag-green { background: #e8f8f0; color: var(--green); }
+  .tag-blue { background: #ebf5fb; color: var(--blue); }
+  .tag-gold { background: var(--gold-soft); color: #8a7230; }
+  .tag-gray { background: #f0f0f0; color: #666; }
+
+  /* Card grid */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
+  .card {
+    background: #fafafa; border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; transition: box-shadow .15s;
+  }
+  .card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 8px; text-transform: uppercase; }
+  .card-value { font-size: 28px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .card-desc { font-size: 13px; color: var(--mute); }
+
+  /* QA section */
+  .qa { background: #fafafa; border-radius: 14px; padding: 24px; margin: 16px 0; border-left: 4px solid var(--gold); }
+  .qa-q { font-weight: 800; color: var(--navy); margin-bottom: 8px; font-size: 16px; }
+  .qa-bad { color: var(--red); font-size: 14px; margin-bottom: 6px; }
+  .qa-good { color: var(--green); font-size: 15px; font-weight: 600; }
+
+  /* Demo list */
+  .demo-item {
+    display: flex; align-items: center; gap: 16px;
+    background: #fafafa; border-radius: 12px; padding: 18px 20px;
+    margin: 10px 0; border: 1px solid var(--line);
+  }
+  .demo-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--navy); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; flex-shrink: 0;
+  }
+  .demo-text { flex: 1; }
+  .demo-title { font-weight: 700; color: var(--navy); font-size: 15px; }
+  .demo-desc { font-size: 13px; color: var(--mute); margin-top: 2px; }
+  .demo-impact { font-size: 12px; font-weight: 700; color: var(--gold); margin-top: 4px; }
+
+  /* Timeline */
+  .tl { position: relative; padding-left: 28px; margin: 20px 0; }
+  .tl::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--line); }
+  .tl-item { position: relative; margin-bottom: 20px; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -24px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--gold); border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .tl-time { font-size: 12px; font-weight: 700; color: var(--gold); }
+  .tl-title { font-weight: 700; color: var(--navy); }
+  .tl-desc { font-size: 14px; color: var(--mute); }
+
+  /* Comparison bar */
+  .comp-bar { margin: 8px 0 16px; }
+  .comp-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+  .comp-track { height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; }
+  .comp-fill { height: 100%; border-radius: 4px; transition: width .3s; }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: 0; background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+    z-index: 100; padding: 12px 0;
+  }
+  .nav-inner {
+    max-width: 900px; margin: 0 auto; padding: 0 28px;
+    display: flex; gap: 20px; overflow-x: auto; font-size: 13px; font-weight: 600;
+  }
+  .nav a { color: var(--mute); text-decoration: none; white-space: nowrap; }
+  .nav a:hover { color: var(--navy); }
+
+  /* Alert box */
+  .alert {
+    background: linear-gradient(135deg, var(--navy), #1a1a2e);
+    color: #fff; border-radius: 14px; padding: 28px;
+    margin: 24px 0;
+  }
+  .alert h3 { color: var(--gold); margin-top: 0; }
+  .alert p { color: rgba(255,255,255,0.85); }
+  .alert strong { color: #fff; }
+
+  .highlight { background: var(--gold-soft); padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; }
+    h2 { font-size: 22px; }
+    section { padding: 56px 0; }
+    .card-grid { grid-template-columns: 1fr; }
+    body::before { font-size: 50px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#overview">기업 현황</a>
+    <a href="#tech">기술 분석</a>
+    <a href="#cto">CTO/인력</a>
+    <a href="#finance">재무</a>
+    <a href="#patent">특허</a>
+    <a href="#competition">리드인 비교</a>
+    <a href="#weapons">우리 무기</a>
+    <a href="#demo">시연 시나리오</a>
+    <a href="#qa">예상 Q&A</a>
+    <a href="#strategy">미팅 전략</a>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────── -->
+<section style="padding-top: 100px;">
+  <div class="wrap">
+    <div class="eyebrow">CONFIDENTIAL &mdash; INTERNAL USE ONLY</div>
+    <h1>책나무 미팅 준비 자료</h1>
+    <p class="sub">
+      2026년 5월 19일(화) 오후 2시 &middot; 책나무 본사<br>
+      참석: 이은경 대표(CEO) + 이동길(CTO) &middot; 상대: 책나무 대표 2인 + CTO(?)
+    </p>
+
+    <div class="alert">
+      <h3>미팅 목표</h3>
+      <p>"이 팀에게 맡기면 되겠다"는 확신을 심는 것.<br>
+      기술 깊이가 아니라 <strong>실행 속도 + 교육 도메인 이해 + 이미 만들어온 결과물</strong>로 증명.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 1. 기업 현황 ──────────────────────────────── -->
+<section id="overview">
+  <div class="wrap">
+    <div class="eyebrow">01 &mdash; COMPANY OVERVIEW</div>
+    <h2>책나무 기업 현황</h2>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">설립</div>
+        <div class="card-value">2009년</div>
+        <div class="card-desc">대구 작은 도서관에서 시작. 법인 전환 2021.09</div>
+      </div>
+      <div class="card">
+        <div class="card-label">가맹점</div>
+        <div class="card-value">500호점+</div>
+        <div class="card-desc">2025.08 기준. 현재 700개 주장. 지사 34개</div>
+      </div>
+      <div class="card">
+        <div class="card-label">매출</div>
+        <div class="card-value">42.7억</div>
+        <div class="card-desc">전년 대비 95% 성장. 영업이익 12.3억</div>
+      </div>
+      <div class="card">
+        <div class="card-label">직원수</div>
+        <div class="card-value">10~20명</div>
+        <div class="card-desc">국민연금 10명 / 잡코리아 20명</div>
+      </div>
+    </div>
+
+    <h3>공동대표</h3>
+    <table>
+      <tr><th>이름</th><th>출생</th><th>역할</th><th>특이사항</th></tr>
+      <tr><td><strong>박경담</strong></td><td>1968년생</td><td>공동대표</td><td>특허 출원인, 아날로그 성향</td></tr>
+      <tr><td><strong>이명주</strong></td><td>1973년생</td><td>공동대표</td><td>특허 출원인, 가맹·소송 대응</td></tr>
+    </table>
+
+    <h3>본사 정보</h3>
+    <table>
+      <tr><th>항목</th><th>내용</th></tr>
+      <tr><td>법인 주소</td><td>대구 달서구 조암로 33, 601호 (월성동)</td></tr>
+      <tr><td>서울 사무소</td><td>서울시 송파구 백제고분로 365, 4층</td></tr>
+      <tr><td>대표번호</td><td>1522-9320</td></tr>
+      <tr><td>가맹 사이트</td><td>booktreebiz.co.kr (imweb 노코드 빌더)</td></tr>
+      <tr><td>메인 사이트</td><td>booktreei.com (JSP/Java + jQuery)</td></tr>
+    </table>
+
+    <h3>성장 타임라인</h3>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-time">2009</div>
+        <div class="tl-title">대구 작은 도서관으로 시작</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2021.09</div>
+        <div class="tl-title">법인 전환 (주)책나무</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2022.04</div>
+        <div class="tl-title">AI 독서코칭 특허 등록 (10-2386688)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2022</div>
+        <div class="tl-title">베트남 호찌민 해외 1호점 (BIS HCMC 국제학교)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2023</div>
+        <div class="tl-title">200호점 돌파</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2024</div>
+        <div class="tl-title">400호점 돌파 &middot; 한국프랜차이즈 대상 수상</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2025.08</div>
+        <div class="tl-title">500호점 돌파</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">2026.03</div>
+        <div class="tl-title">포브스 최고의 브랜드 대상 2년 연속</div>
+      </div>
+    </div>
+
+    <h3>수상 이력</h3>
+    <table>
+      <tr><th>시점</th><th>내용</th></tr>
+      <tr><td>2024</td><td>한국프랜차이즈 대상 (산업통상자원부)</td></tr>
+      <tr><td>2025</td><td>가맹하고 싶은 프랜차이즈 상위 3%</td></tr>
+      <tr><td>2025.09</td><td>제12회 대한민국 독서교육 대상 (명지대, 국민독서문화진흥회)</td></tr>
+      <tr><td>2025~2026</td><td>포브스 소비자선정 최고의 브랜드 대상 (독서교육 부문, 2년 연속)</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ── 2. 기술 분석 ──────────────────────────────── -->
+<section id="tech">
+  <div class="wrap">
+    <div class="eyebrow">02 &mdash; TECH ANALYSIS</div>
+    <h2>기술 인프라 분석</h2>
+    <p class="sub">책나무의 현재 디지털 시스템 수준을 파악한 결과입니다.</p>
+
+    <h3>웹 기술 스택</h3>
+    <table>
+      <tr><th>항목</th><th>기술</th><th>판정</th></tr>
+      <tr>
+        <td>메인 사이트</td>
+        <td>JSP/Java + jQuery</td>
+        <td><span class="tag tag-red">2010년대 레거시</span></td>
+      </tr>
+      <tr>
+        <td>가맹 사이트</td>
+        <td>imweb (노코드 웹빌더)</td>
+        <td><span class="tag tag-red">개발자 없이 제작</span></td>
+      </tr>
+      <tr>
+        <td>BToS 시스템</td>
+        <td>웹 기반 독서 퀴즈 (로그인 벽)</td>
+        <td><span class="tag tag-gray">내용 확인 불가</span></td>
+      </tr>
+      <tr>
+        <td>지점SW</td>
+        <td>가맹점 관리 소프트웨어 (상세 미공개)</td>
+        <td><span class="tag tag-gray">외주 추정</span></td>
+      </tr>
+      <tr>
+        <td>분석 도구</td>
+        <td>GTM + Facebook Pixel + Naver Analytics</td>
+        <td><span class="tag tag-green">마케팅은 신경 씀</span></td>
+      </tr>
+      <tr>
+        <td>모바일 앱</td>
+        <td>없음</td>
+        <td><span class="tag tag-red">부재</span></td>
+      </tr>
+      <tr>
+        <td>GitHub / 기술 블로그</td>
+        <td>없음</td>
+        <td><span class="tag tag-red">부재</span></td>
+      </tr>
+    </table>
+
+    <h3>JSP + jQuery란?</h3>
+    <p>서버에서 HTML 페이지를 통째로 만들어 보내는 2008~2015년 방식. 페이지 이동마다 전체 새로고침. 차트·대시보드·실시간 업데이트 구현이 극도로 비효율적. 현재 은행/관공서 레거시에서 주로 사용.</p>
+
+    <table>
+      <tr><th>세대</th><th>기술</th><th>시기</th><th>해당</th></tr>
+      <tr><td>1세대</td><td>HTML + PHP/ASP</td><td>2000년대 초</td><td></td></tr>
+      <tr><td style="background: #fdecea;"><strong>2세대</strong></td><td style="background: #fdecea;"><strong>JSP/Java + jQuery</strong></td><td style="background: #fdecea;"><strong>2008~2015</strong></td><td style="background: #fdecea;"><span class="tag tag-red">책나무</span></td></tr>
+      <tr><td style="background: #e8f8f0;"><strong>3세대</strong></td><td style="background: #e8f8f0;"><strong>React / Next.js</strong></td><td style="background: #e8f8f0;"><strong>2016~ 현재</strong></td><td style="background: #e8f8f0;"><span class="tag tag-green">펜타</span></td></tr>
+    </table>
+
+    <div class="alert">
+      <h3>기술 분석 핵심</h3>
+      <p>책나무는 <strong>B2B(가맹점 관리)</strong>는 어느 정도 돌리고 있지만,<br>
+      <strong>B2C(학부모 대면 디지털 경험)</strong>가 완전히 비어 있습니다.<br><br>
+      홈페이지 meta description 없음, 구글 리뷰 1.0점/1개, 모바일 앱 없음.<br>
+      <strong>이게 바로 우리가 채울 자리입니다.</strong></p>
+    </div>
+
+    <h3>학부모 리포트 현황 (추정)</h3>
+    <p>지점SW 내부에 독서이력관리 기능이 있고, 학부모 계정으로 로그인해서 볼 수 있는 구조로 추정됩니다. 하지만:</p>
+    <table>
+      <tr><th>항목</th><th>책나무 (추정)</th><th>리드인</th><th>펜타 제안</th></tr>
+      <tr>
+        <td>전달 방식</td>
+        <td><span class="tag tag-red">학부모가 직접 로그인</span></td>
+        <td><span class="tag tag-green">수업 당일 카톡 푸시</span></td>
+        <td><span class="tag tag-green">카톡 자동 발송 + 웹 리포트</span></td>
+      </tr>
+      <tr>
+        <td>시각화</td>
+        <td><span class="tag tag-red">JSP 기반, 차트 미약</span></td>
+        <td><span class="tag tag-gray">텍스트 숫자 나열</span></td>
+        <td><span class="tag tag-green">SVG 차트 + 게이지 + 성장 그래프</span></td>
+      </tr>
+      <tr>
+        <td>AI 코멘트</td>
+        <td><span class="tag tag-red">없음</span></td>
+        <td><span class="tag tag-red">없음</span></td>
+        <td><span class="tag tag-green">AI + 강사 이중 코멘트</span></td>
+      </tr>
+      <tr>
+        <td>성장 추이</td>
+        <td><span class="tag tag-gray">누적 독서량만</span></td>
+        <td><span class="tag tag-red">없음</span></td>
+        <td><span class="tag tag-green">3개월 SVG 그래프</span></td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ── 3. CTO / 인력 ─────────────────────────────── -->
+<section id="cto">
+  <div class="wrap">
+    <div class="eyebrow">03 &mdash; CTO &amp; TEAM</div>
+    <h2>CTO / 기술 인력 현황</h2>
+
+    <div class="alert">
+      <h3>핵심 발견</h3>
+      <p>공개 정보상 CTO는 <strong>존재하지 않습니다.</strong><br>
+      LinkedIn, 잡코리아, 사람인, 원티드, 뉴스 어디에도 이름 없음.<br>
+      <strong>개발자 채용 공고 이력 0건.</strong></p>
+    </div>
+
+    <h3>조사 경로별 결과</h3>
+    <table>
+      <tr><th>조사 경로</th><th>결과</th></tr>
+      <tr><td>LinkedIn "booktree" Korea</td><td>관련 프로필 없음 (해외 동명 업체만)</td></tr>
+      <tr><td>잡코리아 채용 이력</td><td>독서논술 선생님 채용만 있음. IT/개발직 0건</td></tr>
+      <tr><td>사람인 채용 이력</td><td>IT/개발직 0건</td></tr>
+      <tr><td>원티드</td><td>검색 결과 없음</td></tr>
+      <tr><td>GitHub</td><td>관련 리포 없음</td></tr>
+      <tr><td>기술 블로그</td><td>없음</td></tr>
+      <tr><td>뉴스/기사</td><td>CTO 언급 0건</td></tr>
+    </table>
+
+    <h3>가능성 추정</h3>
+    <table>
+      <tr><th>시나리오</th><th>가능성</th><th>대응</th></tr>
+      <tr>
+        <td>최근 CTO 채용 (비공개)</td>
+        <td><span class="tag tag-gold">중간</span></td>
+        <td>기술 대화 준비 필요. 하지만 합류 초기라 실적 없음</td>
+      </tr>
+      <tr>
+        <td>외부 개발 파트너를 CTO로 호칭</td>
+        <td><span class="tag tag-gold">높음</span></td>
+        <td>외주 업체와 협업 경험 있을 수 있음. 턴키 장점 어필</td>
+      </tr>
+      <tr>
+        <td>특허 발명자 이서영/한혜경 중 1인</td>
+        <td><span class="tag tag-gray">낮음</span></td>
+        <td>특허만 참여한 외부 인력일 가능성</td>
+      </tr>
+    </table>
+
+    <h3>인력 규모</h3>
+    <p>전체 직원 10~20명. 이 중 교육 콘텐츠, 가맹 관리, 마케팅, 경영지원이 대부분.<br>
+    <strong>별도 개발팀이 존재할 여력이 없는 규모</strong>입니다.<br><br>
+    가맹 사이트를 imweb(노코드)으로 만든 것이 자체 개발 역량 부재의 직접적 증거.</p>
+  </div>
+</section>
+
+<!-- ── 4. 재무 ────────────────────────────────────── -->
+<section id="finance">
+  <div class="wrap">
+    <div class="eyebrow">04 &mdash; FINANCIALS</div>
+    <h2>재무 현황</h2>
+    <p class="sub">매출 42억, 영업이익 12억 — 투자 여력이 있는 회사입니다.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">매출액</div>
+        <div class="card-value">42.7억</div>
+        <div class="card-desc">전년 대비 95% 성장</div>
+      </div>
+      <div class="card">
+        <div class="card-label">영업이익</div>
+        <div class="card-value">12.3억</div>
+        <div class="card-desc">전년 대비 108% 성장. 이익률 ~29%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">당기순이익</div>
+        <div class="card-value">11.1억</div>
+        <div class="card-desc">건전한 수익 구조</div>
+      </div>
+      <div class="card">
+        <div class="card-label">가맹점 월매출</div>
+        <div class="card-value">573만</div>
+        <div class="card-desc">35평 기준, 정보공개서 데이터</div>
+      </div>
+    </div>
+
+    <h3>정보공개서 데이터 (공정위)</h3>
+    <table>
+      <tr><th>항목</th><th>수치</th></tr>
+      <tr><td>등록번호</td><td>20150881</td></tr>
+      <tr><td>총 창업비용 (35평)</td><td>약 1억 31만원</td></tr>
+      <tr><td>가맹비</td><td>396만원</td></tr>
+      <tr><td>인테리어</td><td>3,850만원 (110만/평 x 35평)</td></tr>
+      <tr><td>폐업률</td><td>16년간 1%대</td></tr>
+      <tr><td>기타교육 업종 순위</td><td>48위</td></tr>
+    </table>
+
+    <div class="alert">
+      <h3>미팅 시사점</h3>
+      <p>영업이익 12.3억 회사에게 <strong>9,500만원 견적은 영업이익의 7.7%</strong>.<br>
+      부담스러운 금액이 아닙니다. "비싸서 못 한다"가 아니라 <strong>"이 돈을 쓸 가치가 있는가"</strong>를 판단하는 미팅.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 5. 특허 ────────────────────────────────────── -->
+<section id="patent">
+  <div class="wrap">
+    <div class="eyebrow">05 &mdash; PATENT</div>
+    <h2>특허 분석</h2>
+
+    <h3>등록 특허 (1건)</h3>
+    <table>
+      <tr><th>항목</th><th>내용</th></tr>
+      <tr><td>등록번호</td><td>제 10-2386688호</td></tr>
+      <tr><td>명칭</td><td>인공지능 기반 빅데이터 분석을 활용한 독서 코칭 시스템</td></tr>
+      <tr><td>출원일</td><td>2019-01-21</td></tr>
+      <tr><td>등록일</td><td>2022-04-15</td></tr>
+      <tr><td>만료</td><td>2039-01-21</td></tr>
+      <tr><td>출원인</td><td>박경담, 이명주 (개인 명의, 법인 아님)</td></tr>
+      <tr><td>발명자</td><td>박경담, 이명주, <strong>이서영, 한혜경</strong></td></tr>
+      <tr><td>분류</td><td>G06Q50/205 (교육행정), G06N3/02 (신경망)</td></tr>
+    </table>
+
+    <h3>특허 핵심 청구항</h3>
+    <ul style="margin: 14px 0 14px 20px; line-height: 2;">
+      <li>학부모 단말기가 <strong>"독서 스케줄링 정보, 독후 활동지 및 독서 코치 의견을 리포트 형태로 수신"</strong></li>
+      <li>도서 선호도를 <strong>"수치 및 그래프로"</strong> 가맹점·코치·학부모에 전송</li>
+      <li>머신러닝 기반 독서 스케줄 최적화</li>
+      <li>자동 코치 매칭, 개인별 도서 포트폴리오 생성</li>
+    </ul>
+
+    <div class="alert">
+      <h3>킬러 포인트</h3>
+      <p><strong>특허에 명시된 기능을 아직 구현하지 못하고 있습니다.</strong><br><br>
+      학부모에게 "수치 및 그래프로" 리포트를 보내는 것 — 이게 특허 청구항인데,<br>
+      우리는 이미 <span style="color: var(--gold);">chaknamu-sample.html</span>로 만들어왔습니다.<br><br>
+      피칭 각도: <strong>"대표님 특허에 이미 있는 기능입니다. 저희가 바로 구현해드리겠습니다."</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── 6. 리드인 비교 ────────────────────────────── -->
+<section id="competition">
+  <div class="wrap">
+    <div class="eyebrow">06 &mdash; VS READIN</div>
+    <h2>리드인 vs 책나무 vs 펜타</h2>
+    <p class="sub">책나무 대표가 가장 의식하는 경쟁사 리드인과의 비교.</p>
+
+    <table>
+      <tr><th>항목</th><th>리드인</th><th>책나무 (현재)</th><th>펜타 납품 후</th></tr>
+      <tr>
+        <td>학부모 리포트</td>
+        <td>수업 당일 카톡 점수표</td>
+        <td><span class="tag tag-red">없음 (또는 로그인 방식)</span></td>
+        <td><span class="tag tag-green">시각화 HTML + 카톡 자동 발송</span></td>
+      </tr>
+      <tr>
+        <td>시각화 수준</td>
+        <td>텍스트 숫자 나열</td>
+        <td>미확인</td>
+        <td><span class="tag tag-green">SVG 차트 + 게이지 + 성장 그래프</span></td>
+      </tr>
+      <tr>
+        <td>AI 활용</td>
+        <td>"AI 리드인" 브랜드 마케팅</td>
+        <td>특허만 있고 미구현</td>
+        <td><span class="tag tag-green">AI 코멘트 + 맞춤 추천</span></td>
+      </tr>
+      <tr>
+        <td>원격연수원</td>
+        <td>없음</td>
+        <td>없음</td>
+        <td><span class="tag tag-green">5과정 LMS + 자격체계</span></td>
+      </tr>
+      <tr>
+        <td>웹 기술</td>
+        <td>Tailwind CSS (상대적 현대적)</td>
+        <td>JSP + jQuery (레거시)</td>
+        <td>Next.js / React</td>
+      </tr>
+      <tr>
+        <td>모바일 앱</td>
+        <td>미확인</td>
+        <td><span class="tag tag-red">없음</span></td>
+        <td>PWA 대응 가능</td>
+      </tr>
+      <tr>
+        <td>가맹점 수</td>
+        <td>550개 (2017 기준)</td>
+        <td><strong>500호점+</strong></td>
+        <td>-</td>
+      </tr>
+      <tr>
+        <td>특허</td>
+        <td>있음 (2013, 2017)</td>
+        <td>있음 (2022, 1건)</td>
+        <td>-</td>
+      </tr>
+    </table>
+
+    <h3>한우리 벤치마크</h3>
+    <table>
+      <tr><th>항목</th><th>한우리 (35년차)</th><th>책나무 (현재)</th><th>펜타 납품 후</th></tr>
+      <tr><td>원격연수원</td><td><span class="tag tag-green">있음 (42만/과정)</span></td><td><span class="tag tag-red">없음</span></td><td><span class="tag tag-green">구축 완료 (20만/과정)</span></td></tr>
+      <tr><td>발급 주체</td><td>(사)한우리독서문화운동본부</td><td>㈜책나무 자체</td><td>(사)책나무교육전문가협회 신설</td></tr>
+      <tr><td>누적 양성</td><td>6만 5천</td><td>미공개</td><td>반복매출 기반 확장</td></tr>
+    </table>
+    <p style="margin-top: 12px; font-weight: 700; color: var(--gold);">"한우리가 35년간 해온 걸 책나무는 3개월 만에 갖출 수 있습니다. 게다가 한우리 절반 가격으로."</p>
+  </div>
+</section>
+
+<!-- ── 7. 우리 무기 ──────────────────────────────── -->
+<section id="weapons">
+  <div class="wrap">
+    <div class="eyebrow">07 &mdash; OUR WEAPONS</div>
+    <h2>미팅에서 보여줄 수 있는 것</h2>
+
+    <h3>라인 1: 원격연수원 + 협회</h3>
+    <table>
+      <tr><th>자산</th><th>URL</th><th>상태</th></tr>
+      <tr>
+        <td>사전 제안서 (8섹션)</td>
+        <td>penta/booktree/preread/index.html</td>
+        <td><span class="tag tag-green">배포 완료</span></td>
+      </tr>
+      <tr>
+        <td>3티어 견적서</td>
+        <td>penta/booktree/preread/quote.html</td>
+        <td><span class="tag tag-green">배포 완료</span></td>
+      </tr>
+      <tr>
+        <td>시세 분석 (내부용)</td>
+        <td>penta/booktree/preread/price-review.html</td>
+        <td><span class="tag tag-green">배포 완료</span></td>
+      </tr>
+      <tr>
+        <td>Moodle LMS 프로토타입</td>
+        <td>EC2 (13.124.27.141)</td>
+        <td><span class="tag tag-gold">책나무 브랜딩 필요</span></td>
+      </tr>
+    </table>
+
+    <h3>라인 2: 학부모 리포트 SaaS</h3>
+    <table>
+      <tr><th>자산</th><th>URL</th><th>상태</th></tr>
+      <tr>
+        <td>책나무 브랜드 리포트 데모</td>
+        <td>remark-report-engine/demo/chaknamu-sample.html</td>
+        <td><span class="tag tag-green">배포 완료</span></td>
+      </tr>
+      <tr>
+        <td>리포트 SaaS 제안서</td>
+        <td>remark-report-engine/demo/chaknamu-proposal.html</td>
+        <td><span class="tag tag-green">배포 완료</span></td>
+      </tr>
+      <tr>
+        <td>리마크 실가동 엔진</td>
+        <td>remark-report-engine (GitHub)</td>
+        <td><span class="tag tag-green">실사용 중</span></td>
+      </tr>
+    </table>
+
+    <h3>경쟁 우위 5가지</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">01</div>
+        <div class="card-value" style="font-size: 18px;">직접 운영 중인 학원</div>
+        <div class="card-desc">리마크 학원 3년차. 모든 시스템을 실전 검증. 데모가 곧 레퍼런스.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">02</div>
+        <div class="card-value" style="font-size: 18px;">교육 + 기술 동시 보유</div>
+        <div class="card-desc">교대 출신 + AI 시스템. "교육을 아는 기술자"는 희소하다.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">03</div>
+        <div class="card-value" style="font-size: 18px;">이은경 대표 브랜드</div>
+        <div class="card-desc">저서 60권, 유튜브 15만. 초등 교육 분야 1티어 신뢰도.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">04</div>
+        <div class="card-value" style="font-size: 18px;">실행 속도</div>
+        <div class="card-desc">미팅 전에 프로토타입을 만들어 오는 팀. 5~10명 개발사 3개월 = 우리 4주.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">05</div>
+        <div class="card-value" style="font-size: 18px;">특허 구현 파트너</div>
+        <div class="card-desc">책나무 특허(10-2386688)가 약속한 기능을 실제로 구현해주는 유일한 팀.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 8. 시연 시나리오 ──────────────────────────── -->
+<section id="demo">
+  <div class="wrap">
+    <div class="eyebrow">08 &mdash; DEMO SCENARIO</div>
+    <h2>시연 시나리오 (권장 순서)</h2>
+
+    <div class="demo-item">
+      <div class="demo-num">1</div>
+      <div class="demo-text">
+        <div class="demo-title">학부모 리포트 데모 (폰으로 시연)</div>
+        <div class="demo-desc">chaknamu-sample.html을 폰으로 열어 보여주기. "대표님 특허에 있는 학부모 리포트, 저희가 책나무 브랜드로 미리 만들어봤습니다."</div>
+        <div class="demo-impact">임팩트: 특허 구현 + 리드인 압살 + "이미 만들어왔다"의 실행력</div>
+      </div>
+    </div>
+
+    <div class="demo-item">
+      <div class="demo-num">2</div>
+      <div class="demo-text">
+        <div class="demo-title">리마크 실가동 리포트 (신뢰도 보강)</div>
+        <div class="demo-desc">"이건 저희 학원에서 지금 실제로 학부모에게 보내는 리포트입니다." 실사용 데이터 기반 리포트 시연.</div>
+        <div class="demo-impact">임팩트: 데모가 아닌 실제 서비스라는 증명</div>
+      </div>
+    </div>
+
+    <div class="demo-item">
+      <div class="demo-num">3</div>
+      <div class="demo-text">
+        <div class="demo-title">원격연수원 제안서 (노트북)</div>
+        <div class="demo-desc">preread/index.html 시연. 8섹션 제안서로 원격연수원 비전 설명. 이은경 대표가 커리큘럼 측면 보충.</div>
+        <div class="demo-impact">임팩트: 체계적인 제안 구조 + 교육 전문성</div>
+      </div>
+    </div>
+
+    <div class="demo-item">
+      <div class="demo-num">4</div>
+      <div class="demo-text">
+        <div class="demo-title">LMS 프로토타입 (노트북)</div>
+        <div class="demo-desc">Moodle 인스턴스 시연. 가능하면 책나무 브랜딩 적용 버전. "프로토타입을 미팅 전에 만들어왔습니다."</div>
+        <div class="demo-impact">임팩트: 말이 아닌 실체. CTO가 있어도 이 속도를 못 따라옴</div>
+      </div>
+    </div>
+
+    <div class="demo-item">
+      <div class="demo-num">5</div>
+      <div class="demo-text">
+        <div class="demo-title">한우리 벤치마크 비교 (클로징)</div>
+        <div class="demo-desc">"한우리가 35년간 해온 걸 책나무는 3개월 만에 갖출 수 있습니다." 견적서(quote.html)로 자연스럽게 연결.</div>
+        <div class="demo-impact">임팩트: 긴급성 + 경쟁 프레임 + 가격 제시</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 9. 예상 Q&A ───────────────────────────────── -->
+<section id="qa">
+  <div class="wrap">
+    <div class="eyebrow">09 &mdash; Q&amp;A CHEAT SHEET</div>
+    <h2>예상 질문 &amp; 답변</h2>
+
+    <h3>기술 질문 (CTO 대응)</h3>
+
+    <div class="qa">
+      <div class="qa-q">Q. 기술 스택이 뭔가요?</div>
+      <div class="qa-bad">X "Moodle 오픈소스 기반입니다" (공짜라고 생각함)</div>
+      <div class="qa-good">O "자체 개발 LMS 엔진에 멀티테넌트 아키텍처를 적용했습니다. 콘텐츠 관리, 수료 인증, 결제 모듈이 분리된 마이크로서비스 구조입니다. 500개 이상 지사가 동시 접속해도 문제없는 설계입니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 개발 인력이 몇 명이에요?</div>
+      <div class="qa-bad">X "저 혼자..."</div>
+      <div class="qa-good">O "CTO인 저와 AI 엔지니어링 파이프라인으로 운영합니다. 기존 5~10명 팀이 3개월 걸릴 작업을 4~6주에 끝냅니다. 프로토타입은 이미 만들어왔습니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 우리가 사람 구해서 직접 하면 안 되나요?</div>
+      <div class="qa-good">O "가능합니다. 다만 LMS + 결제 + 자격관리 + 리포트 시스템을 처음부터 만들면 개발자 3~5명, 6개월 이상, 인건비만 1.5~2억입니다. 저희는 이미 돌아가는 시스템을 이식하는 거라 기간과 비용이 1/3입니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 기존 BToS / 지점SW와 연동 가능한가요?</div>
+      <div class="qa-good">O "현재 시스템 API 스펙을 공유해주시면 데이터 연동 가능합니다. 기존 독서이력 데이터를 새 시스템으로 마이그레이션하는 것도 범위에 포함되어 있습니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 현재 시스템이 JSP인데, 새 시스템도 Java 기반인가요?</div>
+      <div class="qa-good">O "새 시스템은 현대적인 아키텍처(React/Next.js)로 구축합니다. 기존 JSP 시스템 위에 올리는 게 아니라 독립 플랫폼으로 제공하므로, 기존 시스템 운영에 영향 없이 병행 가능합니다."</div>
+    </div>
+
+    <h3>비즈니스 질문 (대표 대응)</h3>
+
+    <div class="qa">
+      <div class="qa-q">Q. 다른 곳에 구축 경험이 있나요?</div>
+      <div class="qa-good">O "현재 펜타캠퍼스 자체 원격연수원을 구축 중이고, 교원 직무연수 인가 절차를 진행하고 있습니다. 동일 아키텍처를 책나무에 맞게 커스터마이징하는 구조입니다. 그리고 학부모 리포트 시스템은 저희 학원에서 지금 실제로 사용하고 있습니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 이은경 대표가 연수 과정을 직접 강의하나요?</div>
+      <div class="qa-good">O "이은경 대표가 핵심 과정을 직접 설계하고, 일부 과정은 직접 강의합니다. 추가로 분야별 전문 강사를 섭외해서 5개 과정을 구성합니다. 이은경 대표의 SNS(유튜브 15만, 저서 60권)를 통한 수강생 유입도 기대할 수 있습니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 유지보수는 어떻게 되나요?</div>
+      <div class="qa-good">O "구축 완료 후 2개월간 운영 코칭이 포함되어 있고, 이후에는 월정액 유지보수 계약으로 전환합니다. 장애 대응, 콘텐츠 업데이트, 시스템 개선이 포함됩니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 학부모 리포트도 같이 해줄 수 있나요?</div>
+      <div class="qa-good">O (폰 꺼내며) "네, 이미 책나무 브랜드로 만들어봤습니다. 이것은 대표님 특허에 명시된 기능이기도 합니다. 원격연수원과 별개로 제안 가능합니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 비용이 좀 있는데, 분할 납부 가능한가요?</div>
+      <div class="qa-good">O "마일스톤 기반 분할 납부가 가능합니다. 착수 시 30%, 중간 검수 시 40%, 납품 완료 후 30% 구조로 진행합니다."</div>
+    </div>
+
+    <h3>위험 질문 (방어)</h3>
+
+    <div class="qa">
+      <div class="qa-q">Q. 오픈소스(Moodle) 기반 아닌가요?</div>
+      <div class="qa-good">O "핵심 LMS 엔진은 검증된 오픈소스 프레임워크를 기반으로 하되, 책나무 전용 기능(자격 체계, 지사별 관리, 수료 인증)은 100% 커스텀 개발입니다. 인프라 안정성은 오픈소스의 장점을 활용하고, 차별화 기능은 자체 개발로 가는 하이브리드 전략입니다."</div>
+    </div>
+
+    <div class="qa">
+      <div class="qa-q">Q. 펜타라는 회사가 처음 들어보는데, 신뢰할 수 있나요?</div>
+      <div class="qa-good">O "이은경 대표는 초등 교육 분야에서 60권의 저서와 15만 유튜브 구독자를 가진 검증된 전문가입니다. 기술 파트는 리마크 학원에서 3년간 실전 검증된 시스템을 납품하는 것이고, 펜타캠퍼스 자체 연수원도 동시에 구축 중입니다. 저희가 만든 시스템을 저희가 먼저 쓰고 있다는 게 가장 강한 보증입니다."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 10. 미팅 전략 ─────────────────────────────── -->
+<section id="strategy">
+  <div class="wrap">
+    <div class="eyebrow">10 &mdash; MEETING STRATEGY</div>
+    <h2>미팅 전략</h2>
+
+    <h3>포지셔닝</h3>
+    <div class="alert">
+      <h3>"우리는 교육을 아는 기술 파트너"</h3>
+      <p>순수 개발사는 교육을 모르고, 교육업체는 시스템을 모른다.<br>
+      펜타는 <strong>둘 다 있는 유일한 팀</strong>.<br><br>
+      이은경 = 초등교육 15년 + 저서 60권 + 유튜브 15만<br>
+      이동길 = 학원 운영 3년 + AI 시스템 구축 + CTO</p>
+    </div>
+
+    <h3>미팅 플로우 (권장)</h3>
+    <div class="tl">
+      <div class="tl-item">
+        <div class="tl-time">0~5분</div>
+        <div class="tl-title">인사 + 아이스브레이킹</div>
+        <div class="tl-desc">이은경 대표 주도. 기존 관계 활용.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">5~15분</div>
+        <div class="tl-title">책나무 현황 청취</div>
+        <div class="tl-desc">"지금 가장 고민되시는 부분이 뭔가요?" — 듣기 모드. 페인 확인.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">15~25분</div>
+        <div class="tl-title">학부모 리포트 데모 (짜잔 #1)</div>
+        <div class="tl-desc">폰으로 chaknamu-sample.html. "대표님 특허 기능, 미리 만들어봤습니다."</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">25~40분</div>
+        <div class="tl-title">원격연수원 비전 + LMS 시연 (짜잔 #2)</div>
+        <div class="tl-desc">이은경 대표가 교육 비전, Daniel이 시스템 시연. 한우리 벤치마크 언급.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">40~50분</div>
+        <div class="tl-title">Q&A</div>
+        <div class="tl-desc">기술 질문은 Daniel, 비즈니스 질문은 이은경 대표가 대응.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">50~60분</div>
+        <div class="tl-title">클로징</div>
+        <div class="tl-desc">"견적서는 미팅 후 정리해서 보내드리겠습니다." 바로 가격 제시하지 않음. 후속 미팅 일정 잡기.</div>
+      </div>
+    </div>
+
+    <h3>절대 하지 말 것</h3>
+    <table>
+      <tr><th>금지</th><th>이유</th></tr>
+      <tr><td>Moodle 이름 언급</td><td>검색하면 무료 오픈소스임을 알게 됨</td></tr>
+      <tr><td>AI 모델명 언급 (Claude, GPT 등)</td><td>누구나 쓸 수 있다고 생각함</td></tr>
+      <tr><td>가격을 먼저 꺼내기</td><td>가치 인식 전에 가격은 비싸게만 느껴짐</td></tr>
+      <tr><td>"혼자 합니다"</td><td>"팀 + AI 파이프라인"으로 표현</td></tr>
+      <tr><td>기존 시스템 비하</td><td>"BToS가 구리다"가 아니라 "여기에 더할 수 있다"</td></tr>
+    </table>
+
+    <h3>반드시 할 것</h3>
+    <table>
+      <tr><th>필수</th><th>이유</th></tr>
+      <tr><td>폰으로 리포트 데모 먼저 보여주기</td><td>특허 구현 + 리드인 압살 = 기선제압</td></tr>
+      <tr><td>"대표님 특허에 있는 기능" 멘트</td><td>우리가 숙제를 해왔다는 인상</td></tr>
+      <tr><td>리마크 실사용 언급</td><td>"우리도 학원을 운영합니다"의 신뢰</td></tr>
+      <tr><td>한우리 비교</td><td>경쟁 프레임 + 긴급성 부여</td></tr>
+      <tr><td>후속 미팅 일정 확보</td><td>미팅 1회로 끝내지 않기</td></tr>
+    </table>
+
+    <h3>5/19까지 준비 체크리스트</h3>
+    <table>
+      <tr><th>항목</th><th>담당</th><th>상태</th></tr>
+      <tr>
+        <td>Moodle에 책나무 브랜딩 (로고/컬러/샘플 강좌 1개)</td>
+        <td>이동길</td>
+        <td><span class="tag tag-gold">미완</span></td>
+      </tr>
+      <tr>
+        <td>chaknamu-sample.html 최종 점검</td>
+        <td>이동길</td>
+        <td><span class="tag tag-green">배포 완료, 점검 필요</span></td>
+      </tr>
+      <tr>
+        <td>견적서 방향 확정 (이은경 대표 피드백)</td>
+        <td>이은경</td>
+        <td><span class="tag tag-gold">대기</span></td>
+      </tr>
+      <tr>
+        <td>이은경 대표와 전략 회의</td>
+        <td>공동</td>
+        <td><span class="tag tag-gold">오늘</span></td>
+      </tr>
+      <tr>
+        <td>"지금 학부모한테 리포트 어떻게 보내세요?" 사전 질문</td>
+        <td>이은경</td>
+        <td><span class="tag tag-gold">미팅 전 확인</span></td>
+      </tr>
+      <tr>
+        <td>명함 또는 디지털 명함 준비</td>
+        <td>이동길</td>
+        <td><span class="tag tag-gold">미완</span></td>
+      </tr>
+      <tr>
+        <td>노트북 충전 + 핫스팟 준비 (LMS 시연용)</td>
+        <td>이동길</td>
+        <td><span class="tag tag-gray">당일</span></td>
+      </tr>
+    </table>
+
+  </div>
+</section>
+
+<section style="padding: 48px 0;">
+  <div class="wrap" style="text-align: center;">
+    <p style="font-size: 13px; color: var(--mute);">
+      PENTA LAB &middot; CONFIDENTIAL &middot; 2026.05.08 작성<br>
+      이 문서는 내부 미팅 준비용입니다. 외부 공유 금지.
+    </p>
+  </div>
+</section>
+
+</body>
+</html>
