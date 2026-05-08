@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>책나무 원격연수원 구축 제안 — PENTA LAB</title>
+<style>
+  :root {
+    --bg: #000;
+    --gold: #C9A84C;
+    --gold-dim: rgba(201,168,76,0.15);
+    --gold-glow: rgba(201,168,76,0.35);
+    --white: #fff;
+    --sub: rgba(255,255,255,0.45);
+    --faint: rgba(255,255,255,0.12);
+    --red: #FF453A;
+    --green: #30D158;
+    --blue: #0A84FF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", "Pretendard", sans-serif;
+    background: var(--bg);
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SLIDE ── */
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 80px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.6s ease;
+    background: var(--bg);
+    overflow: hidden;
+  }
+  .slide.active { opacity: 1; pointer-events: auto; }
+
+  /* ── LIGHT SLIDE ── */
+  .slide.light { background: #fff; color: #1d1d1f; }
+  .slide.light .sub { color: rgba(0,0,0,0.45); }
+  .slide.light .hero { color: #1d1d1f; }
+  .slide.light .label { color: var(--gold); }
+
+  /* ── TYPOGRAPHY ── */
+  .hero {
+    font-size: 64px; font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.04em; color: var(--white);
+    max-width: 1000px;
+  }
+  .hero .gold { color: var(--gold); }
+  .hero .num {
+    font-size: 120px; font-weight: 800;
+    background: linear-gradient(135deg, var(--gold) 0%, #E8D5A0 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    display: block; line-height: 1;
+  }
+  .hero .big-num {
+    font-size: 180px; font-weight: 800;
+    background: linear-gradient(135deg, var(--gold) 0%, #E8D5A0 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    display: block; line-height: 0.9; margin-bottom: 12px;
+  }
+  .sub {
+    font-size: 22px; font-weight: 400; color: var(--sub);
+    line-height: 1.6; max-width: 700px; margin-top: 20px;
+  }
+  .label {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .spk-tag {
+    position: absolute; top: 28px; right: 40px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 5px 16px; border-radius: 20px;
+  }
+  .spk-tag.ek { background: var(--gold); color: #000; }
+  .spk-tag.dk { background: rgba(255,255,255,0.12); color: var(--white); border: 1px solid rgba(255,255,255,0.2); }
+  .spk-tag.both { background: rgba(255,255,255,0.08); color: var(--sub); border: 1px solid rgba(255,255,255,0.1); }
+
+  /* ── GRID CARDS ── */
+  .grid-3 {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 20px; width: 100%; max-width: 1000px; margin-top: 48px; text-align: left;
+  }
+  .grid-2 {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 20px; width: 100%; max-width: 900px; margin-top: 48px; text-align: left;
+  }
+  .g-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--faint);
+    border-radius: 16px; padding: 32px 28px;
+    transition: border-color 0.3s;
+  }
+  .g-card:hover { border-color: var(--gold-glow); }
+  .g-card.accent { border-color: var(--gold); background: var(--gold-dim); }
+  .g-card .gc-n {
+    font-size: 42px; font-weight: 800;
+    background: linear-gradient(135deg, var(--gold) 0%, #E8D5A0 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    line-height: 1; margin-bottom: 10px;
+  }
+  .g-card .gc-t { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+  .g-card .gc-d { font-size: 14px; color: var(--sub); line-height: 1.55; }
+  .g-card.red { border-color: var(--red); }
+  .g-card.red .gc-n { background: var(--red); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .light .g-card { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.08); }
+  .light .g-card .gc-t { color: #1d1d1f; }
+  .light .g-card .gc-d { color: rgba(0,0,0,0.45); }
+  .light .g-card.accent { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+
+  /* ── TABLE (minimal) ── */
+  .a-table {
+    width: 100%; max-width: 900px; border-collapse: collapse;
+    margin-top: 40px; text-align: left;
+  }
+  .a-table th {
+    font-size: 11px; font-weight: 700; color: var(--sub);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 12px 16px; border-bottom: 1px solid var(--faint);
+  }
+  .a-table td {
+    padding: 14px 16px; border-bottom: 1px solid var(--faint);
+    font-size: 15px; color: rgba(255,255,255,0.8); vertical-align: top; line-height: 1.5;
+  }
+  .a-table .row-label { font-weight: 700; color: var(--white); }
+  .a-table .gold { color: var(--gold); font-weight: 700; }
+  .a-table .red { color: var(--red); }
+  .a-table .green { color: var(--green); }
+  .a-table .dim { color: var(--sub); }
+  .a-table .amt { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .a-table .total td { border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); font-weight: 800; font-size: 17px; }
+  .a-table .cat td { font-weight: 700; font-size: 12px; letter-spacing: 0.06em; color: var(--gold); background: rgba(201,168,76,0.05); }
+  .light .a-table th { color: rgba(0,0,0,0.4); border-bottom-color: rgba(0,0,0,0.08); }
+  .light .a-table td { color: rgba(0,0,0,0.7); border-bottom-color: rgba(0,0,0,0.06); }
+  .light .a-table .row-label { color: #1d1d1f; }
+  .light .a-table .total td { border-color: var(--gold); }
+  .light .a-table .cat td { background: rgba(201,168,76,0.04); }
+
+  /* ── PILL ── */
+  .pill {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px; margin-right: 6px; letter-spacing: 0.04em;
+  }
+  .pill.red { background: rgba(255,69,58,0.15); color: var(--red); }
+  .pill.green { background: rgba(48,209,88,0.15); color: var(--green); }
+  .pill.gold { background: var(--gold-dim); color: var(--gold); }
+
+  /* ── VERSUS ── */
+  .vs-row {
+    display: flex; gap: 0; width: 100%; max-width: 900px; margin-top: 48px;
+    border-radius: 16px; overflow: hidden;
+  }
+  .vs-box { flex: 1; padding: 40px 36px; text-align: left; }
+  .vs-box.now { background: rgba(255,69,58,0.08); border: 1px solid rgba(255,69,58,0.2); border-radius: 16px 0 0 16px; }
+  .vs-box.after { background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.3); border-radius: 0 16px 16px 0; }
+  .vs-box .vs-label { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 12px; }
+  .vs-box.now .vs-label { color: var(--red); }
+  .vs-box.after .vs-label { color: var(--gold); }
+  .vs-box .vs-val { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
+  .vs-box.now .vs-val { color: var(--red); }
+  .vs-box.after .vs-val { color: var(--gold); }
+  .vs-box .vs-desc { font-size: 14px; color: var(--sub); line-height: 1.6; }
+
+  /* ── 3-TIER ── */
+  .tiers { display: flex; gap: 16px; width: 100%; max-width: 960px; margin-top: 44px; }
+  .tier {
+    flex: 1; border: 1px solid var(--faint); border-radius: 16px;
+    padding: 36px 24px; text-align: center; position: relative;
+    background: rgba(255,255,255,0.02);
+  }
+  .tier.pick { border: 2px solid var(--gold); background: var(--gold-dim); box-shadow: 0 0 40px rgba(201,168,76,0.08); }
+  .tier-badge {
+    position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #000; font-size: 10px; font-weight: 800;
+    padding: 4px 14px; border-radius: 20px; letter-spacing: 0.08em;
+  }
+  .tier .t-label { font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 12px; }
+  .tier .t-price { font-size: 40px; font-weight: 800; }
+  .tier .t-price span { font-size: 16px; font-weight: 500; color: var(--sub); }
+  .tier .t-sub { font-size: 13px; color: var(--sub); margin-top: 6px; line-height: 1.5; }
+  .tier ul { list-style: none; text-align: left; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--faint); }
+  .tier li { font-size: 13px; padding: 5px 0; display: flex; gap: 8px; color: rgba(255,255,255,0.7); }
+  .tier li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 7px; }
+  .tier li.off { color: rgba(255,255,255,0.2); }
+  .tier li.off::before { background: rgba(255,255,255,0.1); }
+
+  /* ── ROLE GRID ── */
+  .role-grid { display: flex; gap: 20px; width: 100%; max-width: 960px; margin-top: 44px; text-align: left; }
+  .role-box { flex: 1; border-radius: 16px; overflow: hidden; border: 1px solid var(--faint); }
+  .role-hdr { padding: 18px 24px; font-size: 15px; font-weight: 700; }
+  .role-hdr.penta { background: rgba(255,255,255,0.06); color: var(--white); }
+  .role-hdr.client { background: var(--gold-dim); color: var(--gold); }
+  .role-body { padding: 20px 24px; }
+  .r-item { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--faint); font-size: 14px; }
+  .r-item:last-child { border-bottom: none; }
+  .r-name { font-weight: 700; color: var(--white); min-width: 100px; white-space: nowrap; }
+  .r-desc { color: var(--sub); line-height: 1.5; }
+
+  /* ── GANTT ── */
+  .gantt-wrap { width: 100%; max-width: 900px; margin-top: 40px; text-align: left; }
+  .gantt-row { display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--faint); }
+  .gantt-label { width: 180px; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .gantt-track { flex: 1; height: 24px; position: relative; }
+  .gantt-bar {
+    position: absolute; top: 2px; height: 20px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+  }
+  .gantt-bar.gold { background: var(--gold); color: #000; }
+  .gantt-bar.white { background: rgba(255,255,255,0.12); color: var(--sub); }
+  .gantt-bar.blue { background: rgba(10,132,255,0.25); color: var(--blue); }
+
+  /* ── BOTTOM NOTE ── */
+  .bottom-note {
+    position: absolute; bottom: 36px; left: 80px; right: 80px;
+    font-size: 15px; color: var(--sub); line-height: 1.6;
+    border-top: 1px solid var(--faint); padding-top: 20px;
+    text-align: left;
+  }
+  .bottom-note .gold { color: var(--gold); font-weight: 700; }
+  .light .bottom-note { color: rgba(0,0,0,0.4); border-top-color: rgba(0,0,0,0.06); }
+  .light .bottom-note .gold { color: var(--gold); }
+
+  /* ── MATRIX ── */
+  .matrix-4 {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    width: 100%; max-width: 900px; margin-top: 44px;
+    background: var(--faint); border-radius: 16px; overflow: hidden;
+  }
+  .m-cell { background: var(--bg); padding: 32px 28px; text-align: left; }
+  .m-cell .m-label { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.12em; margin-bottom: 8px; }
+  .m-cell .m-val { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .m-cell .m-desc { font-size: 13px; color: var(--sub); line-height: 1.55; }
+
+  /* ── PROGRESS ── */
+  #progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--gold); transition: width 0.5s; z-index: 100; }
+
+  /* ── PAGE NUM ── */
+  .pg-num { position: absolute; bottom: 20px; right: 40px; font-size: 12px; color: rgba(255,255,255,0.15); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .light .pg-num { color: rgba(0,0,0,0.15); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .slide { padding: 48px 28px; }
+    .hero { font-size: 36px; }
+    .hero .num { font-size: 72px; }
+    .hero .big-num { font-size: 100px; }
+    .sub { font-size: 17px; }
+    .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    .tiers, .role-grid { flex-direction: column; }
+    .vs-row { flex-direction: column; }
+    .vs-box.now { border-radius: 16px 16px 0 0; }
+    .vs-box.after { border-radius: 0 0 16px 16px; }
+    .matrix-4 { grid-template-columns: 1fr; }
+    .a-table { font-size: 13px; }
+    .bottom-note { left: 28px; right: 28px; font-size: 13px; }
+    .gantt-label { width: 120px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ============================================================ -->
+<!-- S1: COVER -->
+<!-- ============================================================ -->
+<div class="slide active">
+  <div class="label">PENTA LAB</div>
+  <div class="hero">
+    책나무<br><span class="gold">원격연수원</span>
+  </div>
+  <div class="sub">원격연수원 &middot; 교육전문가협회 &middot; 자격 체계</div>
+  <div class="bottom-note" style="text-align:center; border-top:none">
+    2026. 05. 19 &nbsp;&middot;&nbsp; CONFIDENTIAL
+  </div>
+  <div class="pg-num">1 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S2: AGENDA -->
+<!-- ============================================================ -->
+<div class="slide light">
+  <div class="label">AGENDA</div>
+  <div class="hero" style="font-size:44px">오늘 논의할 내용</div>
+  <div class="grid-2" style="margin-top:52px">
+    <div class="g-card">
+      <div class="gc-n">I</div>
+      <div class="gc-t">현황 진단</div>
+      <div class="gc-d">왜 지금 원격연수원인가 &middot; 이은경 대표 &middot; 15분</div>
+    </div>
+    <div class="g-card">
+      <div class="gc-n">II</div>
+      <div class="gc-t">솔루션</div>
+      <div class="gc-d">연수원 + 협회 + 자격 체계 &middot; 이은경 대표 &middot; 20분</div>
+    </div>
+    <div class="g-card">
+      <div class="gc-n">III</div>
+      <div class="gc-t">기술 구현</div>
+      <div class="gc-d">시스템 아키텍처 &middot; 이동길 CTO &middot; 10분</div>
+    </div>
+    <div class="g-card">
+      <div class="gc-n">IV</div>
+      <div class="gc-t">실행 계획</div>
+      <div class="gc-d">TF팀 &middot; 마일스톤 &middot; 견적 &middot; 공동 &middot; 15분</div>
+    </div>
+  </div>
+  <div class="pg-num">2 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S3: PART 1 TITLE -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">PART I</div>
+  <div class="hero" style="font-size:52px">
+    왜 지금<br><span class="gold">원격연수원</span>인가
+  </div>
+  <div class="pg-num">3 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S4: 500+ 가맹 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">현황 진단</div>
+  <div class="hero">
+    <span class="num">500+</span>
+    가맹점, <span class="gold">700명</span>의 교사
+  </div>
+  <div class="sub">연매출 42.7억 &middot; 영업이익 12.3억<br>그러나 교사 역량을 관리할 시스템이 없습니다.</div>
+  <div class="pg-num">4 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S5: 이탈 비용 0 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">현황 진단</div>
+  <div class="hero">
+    교사 이탈 비용<br><span class="big-num" style="color:var(--red); background:none; -webkit-text-fill-color:var(--red)">0원</span>
+  </div>
+  <div class="sub">자격 체계 없음 &middot; 협회 없음 &middot; 갱신 구조 없음<br>떠나도 잃을 것이 없는 구조입니다.</div>
+  <div class="pg-num">5 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S6: 한우리 비교 -->
+<!-- ============================================================ -->
+<div class="slide light">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">벤치마크</div>
+  <div class="hero" style="font-size:44px">한우리는 이 문제를<br>이미 풀었습니다</div>
+  <table class="a-table">
+    <thead><tr><th style="width:30%">항목</th><th style="width:35%">한우리</th><th style="width:35%">책나무</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">원격연수원</td><td class="green">운영 중 (42만/과정)</td><td class="red">없음</td></tr>
+      <tr><td class="row-label">자격 체계</td><td class="green">독서지도사 1/2/3급</td><td class="red">없음</td></tr>
+      <tr><td class="row-label">발급 주체</td><td class="green">(사)한우리독서문화운동본부</td><td class="red">없음</td></tr>
+      <tr><td class="row-label">누적 양성</td><td class="green">6만 5천명</td><td class="dim">미공개</td></tr>
+      <tr><td class="row-label">교사 Lock-in</td><td class="green">자격 갱신 + 협회 소속</td><td class="red">구조적 장치 없음</td></tr>
+    </tbody>
+  </table>
+  <div class="pg-num">6 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S7: 리드인 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">경쟁 위협</div>
+  <div class="hero" style="font-size:48px">리드인이 기술로<br><span class="gold">치고 올라오고 있다</span></div>
+  <div class="grid-2" style="margin-top:44px">
+    <div class="g-card">
+      <div class="gc-t">리드인</div>
+      <div class="gc-d">카톡 점수표 자동 전송<br>독서량/이해도 그래프 시각화<br>"뭘 배우는지 눈에 보인다"</div>
+    </div>
+    <div class="g-card red">
+      <div class="gc-t">책나무</div>
+      <div class="gc-d">BToS 웹 기반 독서퀴즈 (제한적)<br>학부모 리포트 시스템 없음<br>전용 앱 없음</div>
+    </div>
+  </div>
+  <div class="pg-num">7 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S8: 시간이 없다 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">COMPLICATION</div>
+  <div class="hero" style="font-size:52px">
+    시간이 없다
+  </div>
+  <div class="vs-row">
+    <div class="vs-box now">
+      <div class="vs-label">지금</div>
+      <div class="vs-val">이탈 비용 0</div>
+      <div class="vs-desc">자격 없음 &middot; 협회 없음<br>떠나도 잃을 것이 없음</div>
+    </div>
+    <div class="vs-box after">
+      <div class="vs-label">자격 체계 도입 후</div>
+      <div class="vs-val">Lock-in</div>
+      <div class="vs-desc">자격 유지 = 책나무 활동 실적<br>떠나면 자격을 잃는 구조</div>
+    </div>
+  </div>
+  <div class="pg-num">8 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S9: PART 2 TITLE -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">PART II</div>
+  <div class="hero" style="font-size:52px">
+    하나의 프로젝트,<br><span class="gold">세 가지 성과</span>
+  </div>
+  <div class="pg-num">9 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S10: 3가지 성과 카드 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="grid-3" style="margin-top:0">
+    <div class="g-card accent">
+      <div class="gc-n">01</div>
+      <div class="gc-t">원격연수원</div>
+      <div class="gc-d">5개 과정 &middot; 50차시<br>교사 역량 표준화<br>온라인 수강 &rarr; 수료증 자동 발급</div>
+    </div>
+    <div class="g-card accent">
+      <div class="gc-n">02</div>
+      <div class="gc-t">교육전문가협회</div>
+      <div class="gc-d">사단법인 신설<br>자격증 발급 주체<br>교사 소속감 &middot; 네트워크</div>
+    </div>
+    <div class="g-card accent">
+      <div class="gc-n">03</div>
+      <div class="gc-t">자격 등급 체계</div>
+      <div class="gc-d">5단계 등급 설계<br>민간자격 정식 등록<br>갱신 구조 = 이탈 방지</div>
+    </div>
+  </div>
+  <div class="bottom-note">
+    세 가지가 연결될 때 효과가 극대화됩니다: <span class="gold">연수원(교육)</span> &rarr; <span class="gold">자격(인증)</span> &rarr; <span class="gold">협회(소속)</span> = 교사가 떠날 수 없는 생태계
+  </div>
+  <div class="pg-num">10 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S11: 5개 과정 -->
+<!-- ============================================================ -->
+<div class="slide light">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">커리큘럼</div>
+  <div class="hero" style="font-size:40px">5개 과정이 교사의<br>성장 경로를 설계합니다</div>
+  <table class="a-table">
+    <thead><tr><th>#</th><th>과정명</th><th>대상</th><th>연결 자격</th><th>분량</th></tr></thead>
+    <tbody>
+      <tr><td class="gold">1</td><td class="row-label">독서코칭 기본과정</td><td>신규 교사</td><td>독서지도사 2급</td><td>10차시</td></tr>
+      <tr><td class="gold">2</td><td class="row-label">독서코칭 심화과정</td><td>경력 교사</td><td>독서지도사 1급</td><td>10차시</td></tr>
+      <tr><td class="gold">3</td><td class="row-label">인증 강사 과정</td><td>지사 운영 교사</td><td>인증 강사</td><td>10차시</td></tr>
+      <tr><td class="gold">4</td><td class="row-label">독서·글쓰기 통합코칭</td><td>심화 역량 확장</td><td>통합코칭 전문가</td><td>10차시</td></tr>
+      <tr><td class="gold">5</td><td class="row-label">독서토론코칭</td><td>토론 수업 전문가</td><td>독서토론 전문가</td><td>10차시</td></tr>
+    </tbody>
+  </table>
+  <div class="pg-num">11 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S12: 자격 5단계 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">자격 체계</div>
+  <div class="hero" style="font-size:44px">
+    5단계 등급이<br><span class="gold">교사를 잡는다</span>
+  </div>
+  <table class="a-table">
+    <thead><tr><th>등급</th><th>명칭</th><th>취득 요건</th><th>갱신</th></tr></thead>
+    <tbody>
+      <tr><td class="gold">Lv.1</td><td class="row-label">독서지도사 2급</td><td>기본과정 이수</td><td>2년</td></tr>
+      <tr><td class="gold">Lv.2</td><td class="row-label">독서지도사 1급</td><td>심화과정 이수 + 실습</td><td>2년</td></tr>
+      <tr><td class="gold">Lv.3</td><td class="row-label">인증 강사</td><td>인증과정 이수 + 평가</td><td>1년</td></tr>
+      <tr><td class="gold">Lv.4</td><td class="row-label">통합코칭 전문가</td><td>통합과정 + Lv.3 유지</td><td>1년</td></tr>
+      <tr><td class="gold">Lv.5</td><td class="row-label">독서토론 전문가</td><td>토론과정 + Lv.3 유지</td><td>1년</td></tr>
+    </tbody>
+  </table>
+  <div class="bottom-note">
+    갱신 조건에 <span class="gold">책나무 활동 실적</span>을 연동합니다. 다른 브랜드로 이직하면 자격이 자동 만료됩니다.
+  </div>
+  <div class="pg-num">12 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S13: 협회 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">협회</div>
+  <div class="hero" style="font-size:48px">협회가<br><span class="gold">자격의 권위</span>를 만든다</div>
+  <div class="grid-2">
+    <div class="g-card">
+      <div class="gc-t">(사)책나무교육전문가협회</div>
+      <div class="gc-d">사단법인 신설<br>자격증 발급 &middot; 교사 네트워크<br>민간자격 정식 등록<br>소요: 2~3개월</div>
+    </div>
+    <div class="g-card" style="border-color: rgba(255,255,255,0.2);">
+      <div class="gc-t" style="color:var(--sub)">벤치마크: 한우리</div>
+      <div class="gc-d">(사)한우리독서문화운동본부<br>설립 1991년 (35년차)<br>누적 양성 6만 5천명<br>원격 42만 / 출석 54만</div>
+    </div>
+  </div>
+  <div class="pg-num">13 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S14: 수익 BIG NUMBER -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">수익 시뮬레이션</div>
+  <div class="hero">
+    연 반복매출<br><span class="big-num">3억</span>
+  </div>
+  <div class="sub">5개 과정 &times; 100명 &times; 20만원 &times; 연 3기</div>
+  <div class="pg-num">14 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S15: 수익 상세 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="grid-3" style="margin-top:0">
+    <div class="g-card">
+      <div class="gc-n">20만</div>
+      <div class="gc-t">수강료</div>
+      <div class="gc-d">한우리 42만 대비 절반<br>가격 경쟁력 확보</div>
+    </div>
+    <div class="g-card">
+      <div class="gc-n">3축</div>
+      <div class="gc-t">반복매출 구조</div>
+      <div class="gc-d">수강료 + 자격증 발급비<br>+ 협회 연회비</div>
+    </div>
+    <div class="g-card">
+      <div class="gc-n">700</div>
+      <div class="gc-t">내부 수요</div>
+      <div class="gc-d">기존 교사만으로 초기 확보<br>외부 모집 없이 운영 가능</div>
+    </div>
+  </div>
+  <div class="pg-num">15 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S16: 한우리 35년 = 책나무 6개월 -->
+<!-- ============================================================ -->
+<div class="slide light">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">벤치마크</div>
+  <div class="hero" style="font-size:40px">한우리 35년을<br>책나무는 <span class="gold">6개월</span> 안에</div>
+  <table class="a-table">
+    <thead><tr><th style="width:25%">항목</th><th style="width:25%">한우리</th><th style="width:25%">책나무 현재</th><th style="width:25%">구축 후</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">원격연수원</td><td><span class="pill green">운영</span> 42만</td><td><span class="pill red">없음</span></td><td><span class="pill green">구축</span> 20만</td></tr>
+      <tr><td class="row-label">협회</td><td><span class="pill green">35년</span></td><td><span class="pill red">없음</span></td><td><span class="pill green">신설</span></td></tr>
+      <tr><td class="row-label">자격 체계</td><td><span class="pill green">3단계</span></td><td><span class="pill red">없음</span></td><td><span class="pill green">5단계</span></td></tr>
+      <tr><td class="row-label">민간자격</td><td><span class="pill green">등록</span></td><td><span class="pill red">없음</span></td><td><span class="pill green">등록</span></td></tr>
+      <tr><td class="row-label">소요 기간</td><td>35년</td><td>&mdash;</td><td class="gold" style="font-size:18px; font-weight:800">6개월</td></tr>
+    </tbody>
+  </table>
+  <div class="pg-num">16 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S17: 특허 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag ek">이은경 대표</div>
+  <div class="label">부가 가치</div>
+  <div class="hero" style="font-size:48px">
+    대표님의 <span class="gold">특허</span>를<br>구현합니다
+  </div>
+  <div class="grid-2">
+    <div class="g-card">
+      <div class="gc-t">특허 10-2386688</div>
+      <div class="gc-d">AI 기반 독서코칭 시스템<br>학습 결과 분석 &rarr; 학부모 리포트 전송<br><br><span style="color:var(--red)">현재: 등록만 완료, 미구현</span></div>
+    </div>
+    <div class="g-card accent">
+      <div class="gc-t">저희가 이미 구현했습니다</div>
+      <div class="gc-d">학부모 리포트 기능을<br>프로토타입으로 구현해왔습니다.<br><br>연수원 구축과 별도로, 추가 제안 가능합니다.</div>
+    </div>
+  </div>
+  <div class="pg-num">17 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S18: PART 3 TRANSITION -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="label">PART III</div>
+  <div class="hero" style="font-size:52px">
+    기술적으로<br><span class="gold">어떻게 구현하는가</span>
+  </div>
+  <div class="sub">이동길 &middot; Co-founder & CTO</div>
+  <div class="pg-num">18 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S19: CTO -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag dk">이동길 CTO</div>
+  <div class="label">기술 역량</div>
+  <div class="hero" style="font-size:48px">
+    교육을 아는<br><span class="gold">기술자</span>가 만듭니다
+  </div>
+  <div class="grid-3">
+    <div class="g-card">
+      <div class="gc-n">15년</div>
+      <div class="gc-t">교육 현장 경력</div>
+      <div class="gc-d">경인교대 졸업<br>교육 시스템 설계 전문</div>
+    </div>
+    <div class="g-card">
+      <div class="gc-n">실전</div>
+      <div class="gc-t">자체 연수원 운영</div>
+      <div class="gc-d">직접 구축하고 운영 중인<br>원격연수원 실무 경험 보유</div>
+    </div>
+    <div class="g-card">
+      <div class="gc-n">전용</div>
+      <div class="gc-t">책나무 맞춤 설계</div>
+      <div class="gc-d">책나무 교육 철학과<br>운영 구조에 맞는 전용 시스템</div>
+    </div>
+  </div>
+  <div class="pg-num">19 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S20: 시스템 구조 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag dk">이동길 CTO</div>
+  <div class="label">시스템 아키텍처</div>
+  <div class="hero" style="font-size:40px; margin-bottom:0">4개 블록, 하나의 시스템</div>
+  <div class="matrix-4">
+    <div class="m-cell">
+      <div class="m-label">LMS 플랫폼</div>
+      <div class="m-val">원격연수원</div>
+      <div class="m-desc">책나무 전용 도메인 &middot; 브랜드<br>700명+ 교사 개별 계정<br>영상 스트리밍 &middot; 진도 추적</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-label">결제 &middot; 수료</div>
+      <div class="m-val">자동화</div>
+      <div class="m-desc">온라인 결제 (카드/간편결제)<br>수료증 &middot; 자격증 자동 발급<br>고유번호 &middot; 조회 페이지</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-label">자격 시스템</div>
+      <div class="m-val">교사 DB</div>
+      <div class="m-desc">5단계 자격 이력 통합 관리<br>취득 &middot; 유효기간 &middot; 갱신 이력<br>본사 + 교사 양측 조회</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-label">관리자</div>
+      <div class="m-val">본사 대시보드</div>
+      <div class="m-desc">전체 수강 현황 실시간<br>지사별 이수율 비교<br>수료 통계 리포트</div>
+    </div>
+  </div>
+  <div class="pg-num">20 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S21: 디스커버리 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag dk">이동길 CTO</div>
+  <div class="label">디스커버리</div>
+  <div class="hero" style="font-size:44px">
+    현장의 목소리부터<br><span class="gold">듣겠습니다</span>
+  </div>
+  <table class="a-table">
+    <thead><tr><th>대상</th><th>인원</th><th>확인 사항</th></tr></thead>
+    <tbody>
+      <tr><td class="row-label">본사 경영진</td><td>대표 + 담당자</td><td>교육 철학 &middot; 브랜드 방향 &middot; 운영 목표</td></tr>
+      <tr><td class="row-label">지사장</td><td>3~5인</td><td>현장 운영 실태 &middot; 교사 관리 pain point</td></tr>
+      <tr><td class="row-label">현장 교사</td><td>5~10인</td><td>수업 프로세스 &middot; 교육 니즈 &middot; 자격 기대</td></tr>
+    </tbody>
+  </table>
+  <div class="bottom-note">
+    인터뷰 결과가 커리큘럼 설계와 시스템 설계에 <span class="gold">직접 반영</span>됩니다.
+  </div>
+  <div class="pg-num">21 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S22: PART 4 TITLE -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="label">PART IV</div>
+  <div class="hero" style="font-size:52px">
+    실행 계획
+  </div>
+  <div class="sub">TF팀 &middot; 마일스톤 &middot; 견적</div>
+  <div class="pg-num">22 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S23: TF팀 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag both">공동</div>
+  <div class="label">TF팀 구성</div>
+  <div class="hero" style="font-size:44px; margin-bottom:0">
+    <span class="gold">3:3</span> 공동 TF
+  </div>
+  <div class="role-grid">
+    <div class="role-box">
+      <div class="role-hdr penta">PENTA (3인)</div>
+      <div class="role-body">
+        <div class="r-item"><div class="r-name">이은경 대표</div><div class="r-desc">커리큘럼 설계 &middot; 강의 기획 &middot; 강사 섭외</div></div>
+        <div class="r-item"><div class="r-name">이동길 CTO</div><div class="r-desc">LMS 구축 &middot; 결제/자격 시스템 &middot; 인프라</div></div>
+        <div class="r-item"><div class="r-name">전문가 A</div><div class="r-desc">영상 촬영/편집 &middot; 교재 디자인</div></div>
+      </div>
+    </div>
+    <div class="role-box">
+      <div class="role-hdr client">책나무 (3인)</div>
+      <div class="role-body">
+        <div class="r-item"><div class="r-name">콘텐츠연구팀</div><div class="r-desc">교사 인터뷰 코디 &middot; 촬영 장소 &middot; 교재 검수</div></div>
+        <div class="r-item"><div class="r-name">CTO</div><div class="r-desc">기존 시스템 연동 &middot; 인프라 &middot; 데이터 마이그레이션</div></div>
+        <div class="r-item"><div class="r-name">운영 담당</div><div class="r-desc">첫 기수 모집 &middot; 교사 커뮤니케이션</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-num">23 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S24: 책나무 역할 -->
+<!-- ============================================================ -->
+<div class="slide light">
+  <div class="spk-tag both">공동</div>
+  <div class="label">책나무에서 해주실 일</div>
+  <div class="hero" style="font-size:40px; margin-bottom:8px">역할 분담</div>
+  <div class="grid-2" style="margin-top:32px">
+    <div class="g-card">
+      <div class="gc-t"><span class="pill gold">콘텐츠연구팀</span></div>
+      <div class="gc-d" style="margin-top:12px">
+        <strong>디스커버리 코디</strong> &mdash; 인터뷰 대상자 선정, 일정 조율<br>
+        <strong>촬영 지원</strong> &mdash; 장소 확보, 강사 스케줄<br>
+        <strong>교재 검수</strong> &mdash; 현장 관점 피드백<br>
+        <strong>현장 테스트</strong> &mdash; 파일럿 지사 선정, 베타 수강 코디
+      </div>
+    </div>
+    <div class="g-card">
+      <div class="gc-t"><span class="pill" style="background:rgba(10,132,255,0.08); color:#0A84FF">CTO</span></div>
+      <div class="gc-d" style="margin-top:12px">
+        <strong>시스템 연동</strong> &mdash; BToS &middot; 교사 DB 연동 포인트 협의<br>
+        <strong>인프라 협의</strong> &mdash; 도메인 &middot; 서버 &middot; 보안 정책<br>
+        <strong>데이터</strong> &mdash; 교사 데이터 마이그레이션 범위<br>
+        <strong>기술 검수</strong> &mdash; 중간 검수 &middot; 최종 인수 시 기술 검토
+      </div>
+    </div>
+  </div>
+  <div class="pg-num">24 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S25: 마일스톤 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag both">공동</div>
+  <div class="label">마일스톤</div>
+  <div class="hero" style="font-size:40px; margin-bottom:8px">
+    5월 계약 &rarr; 6월 착수 &rarr; <span class="gold">11월 개강</span>
+  </div>
+  <div class="gantt-wrap">
+    <div style="display:flex; gap:0; font-size:11px; font-weight:700; color:var(--sub); letter-spacing:0.06em; padding-left:180px; margin-bottom:8px">
+      <div style="flex:1; text-align:center">5월</div>
+      <div style="flex:1; text-align:center">6월</div>
+      <div style="flex:1; text-align:center">7월</div>
+      <div style="flex:1; text-align:center">8월</div>
+      <div style="flex:1; text-align:center">9월</div>
+      <div style="flex:1; text-align:center">10월</div>
+      <div style="flex:1; text-align:center">11월</div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">계약 체결</div>
+      <div class="gantt-track"><div class="gantt-bar gold" style="left:0%; width:14%">계약</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">디스커버리</div>
+      <div class="gantt-track"><div class="gantt-bar white" style="left:14%; width:14%">1개월</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">LMS &middot; 시스템</div>
+      <div class="gantt-track"><div class="gantt-bar white" style="left:14%; width:43%">3개월</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">콘텐츠 제작</div>
+      <div class="gantt-track"><div class="gantt-bar blue" style="left:28%; width:43%">3개월</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">협회 &middot; 자격</div>
+      <div class="gantt-track"><div class="gantt-bar blue" style="left:28%; width:28%">2개월</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">테스트</div>
+      <div class="gantt-track"><div class="gantt-bar white" style="left:71%; width:14%">1개월</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label" style="color:var(--gold)">첫 기수 개강</div>
+      <div class="gantt-track"><div class="gantt-bar gold" style="left:85%; width:14%">OPEN</div></div>
+    </div>
+  </div>
+  <div class="pg-num">25 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S26: 3 TIER -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag both">공동</div>
+  <div class="label">PRICING</div>
+  <div class="hero" style="font-size:40px; margin-bottom:0">3가지 구성안</div>
+  <div class="tiers">
+    <div class="tier">
+      <div class="t-label">ESSENTIAL</div>
+      <div class="t-price">6,500<span>만</span></div>
+      <div class="t-sub">원격연수원 단독 &middot; 4개월</div>
+      <ul>
+        <li>LMS 플랫폼 구축</li>
+        <li>5개 과정 콘텐츠 제작</li>
+        <li>결제 &middot; 수료 자동화</li>
+        <li class="off">협회 설립</li>
+        <li class="off">자격 체계</li>
+        <li class="off">운영 코칭</li>
+      </ul>
+    </div>
+    <div class="tier pick">
+      <div class="tier-badge">추천</div>
+      <div class="t-label">STANDARD</div>
+      <div class="t-price">9,500<span>만</span></div>
+      <div class="t-sub">연수원 + 협회 + 자격 &middot; 6개월</div>
+      <ul>
+        <li>LMS 플랫폼 구축</li>
+        <li>5개 과정 콘텐츠 제작</li>
+        <li>결제 &middot; 수료 자동화</li>
+        <li>교육전문가협회 설립</li>
+        <li>자격 5단계 + 민간자격 등록</li>
+        <li>디스커버리 프로세스</li>
+        <li>초기 운영 코칭 2개월</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <div class="t-label">PREMIUM</div>
+      <div class="t-price">14,500<span>만</span></div>
+      <div class="t-sub">통합 + 12개월 운영</div>
+      <ul>
+        <li>Standard 전체 포함</li>
+        <li>12개월 시스템 운영대행</li>
+        <li>신규 과정 2개 추가</li>
+        <li>마케팅 캠페인 연 2회</li>
+        <li>시스템 유지보수</li>
+        <li>월간 운영 리포트</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg-num">26 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S27: Standard 상세 -->
+<!-- ============================================================ -->
+<div class="slide light">
+  <div class="spk-tag both">공동</div>
+  <div class="label">STANDARD 상세</div>
+  <div class="hero" style="font-size:40px">
+    <span class="gold">9,500</span>만원에<br>포함되는 것
+  </div>
+  <table class="a-table">
+    <thead><tr><th>#</th><th>항목</th><th>세부</th><th class="amt">금액</th></tr></thead>
+    <tbody>
+      <tr class="cat"><td colspan="4">원격연수원 구축</td></tr>
+      <tr><td class="gold">01</td><td class="row-label">LMS 플랫폼</td><td>전용 도메인 &middot; 수강관리 &middot; 대시보드</td><td class="amt">2,800만</td></tr>
+      <tr><td class="gold">02</td><td class="row-label">콘텐츠 제작 (50차시)</td><td>영상 촬영/편집 &middot; 교재 &middot; 평가 문항</td><td class="amt">3,000만</td></tr>
+      <tr><td class="gold">03</td><td class="row-label">결제 &middot; 수료 자동화</td><td>PG 연동 &middot; 수료증/자격증 발급</td><td class="amt">700만</td></tr>
+      <tr class="cat"><td colspan="4">협회 &middot; 자격</td></tr>
+      <tr><td class="gold">04</td><td class="row-label">협회 설립</td><td>정관 &middot; 법인 설립 &middot; 조직 설계</td><td class="amt">400만</td></tr>
+      <tr><td class="gold">05</td><td class="row-label">자격 등급 체계</td><td>5단계 설계 &middot; 발급/갱신 시스템</td><td class="amt">700만</td></tr>
+      <tr><td class="gold">06</td><td class="row-label">민간자격 등록</td><td>한국직업능력연구원 등록 대행</td><td class="amt">200만</td></tr>
+      <tr class="cat"><td colspan="4">컨설팅 &middot; 운영</td></tr>
+      <tr><td class="gold">07</td><td class="row-label">디스커버리</td><td>본사/지사/교사 인터뷰 &middot; 요구사항</td><td class="amt">700만</td></tr>
+      <tr><td class="gold">08</td><td class="row-label">초기 운영 코칭</td><td>첫 기수 운영 지원 &middot; 인수인계 (2개월)</td><td class="amt">1,000만</td></tr>
+      <tr class="total"><td></td><td colspan="2" style="text-align:right">합계</td><td class="amt gold">9,500만</td></tr>
+    </tbody>
+  </table>
+  <div class="pg-num">27 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S28: 결제 조건 -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="spk-tag both">공동</div>
+  <div class="label">결제 조건</div>
+  <div class="hero" style="font-size:44px; margin-bottom:0">마일스톤 기반 분할 납부</div>
+  <div class="grid-3">
+    <div class="g-card">
+      <div class="gc-n">30%</div>
+      <div class="gc-t">착수금 &middot; 5월</div>
+      <div class="gc-d">계약 체결 시<br><strong style="color:var(--white)">2,850만원</strong></div>
+    </div>
+    <div class="g-card accent">
+      <div class="gc-n">40%</div>
+      <div class="gc-t">중도금 &middot; 8월</div>
+      <div class="gc-d">중간 검수 완료 후<br><strong style="color:var(--white)">3,800만원</strong></div>
+    </div>
+    <div class="g-card">
+      <div class="gc-n">30%</div>
+      <div class="gc-t">잔금 &middot; 10월</div>
+      <div class="gc-d">구축 완료 &middot; 인수인계 후<br><strong style="color:var(--white)">2,850만원</strong></div>
+    </div>
+  </div>
+  <div class="bottom-note">
+    검수 기반 결제 &mdash; 각 마일스톤 합동 검수 후 승인, 미달 시 보완 후 재검수 &nbsp;&middot;&nbsp; 부가세 별도 &nbsp;&middot;&nbsp; 견적 유효기간 30일
+  </div>
+  <div class="pg-num">28 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S29: Next Steps -->
+<!-- ============================================================ -->
+<div class="slide light">
+  <div class="spk-tag both">공동</div>
+  <div class="label">NEXT STEPS</div>
+  <div class="hero" style="font-size:40px">후속 일정</div>
+  <table class="a-table">
+    <thead><tr><th>#</th><th>Action Item</th><th>담당</th><th>일정</th></tr></thead>
+    <tbody>
+      <tr><td class="gold">1</td><td class="row-label">구성안 선택</td><td>책나무 대표</td><td>5월 넷째 주</td></tr>
+      <tr><td class="gold">2</td><td class="row-label">계약 조건 협의 &middot; 체결</td><td>양측 공동</td><td>5월 말</td></tr>
+      <tr><td class="gold">3</td><td class="row-label">TF팀 킥오프 &middot; 디스커버리 일정 확정</td><td>양측 TF</td><td>6월 첫째 주</td></tr>
+      <tr><td class="gold">4</td><td class="row-label">콘텐츠 촬영 장소 &middot; 강사 스케줄 확정</td><td>콘텐츠연구팀</td><td>6월 둘째 주</td></tr>
+      <tr><td class="gold">5</td><td class="row-label">첫 기수 개강</td><td>양측 공동</td><td>11월</td></tr>
+    </tbody>
+  </table>
+  <div class="pg-num">29 / 30</div>
+</div>
+
+<!-- ============================================================ -->
+<!-- S30: CLOSING -->
+<!-- ============================================================ -->
+<div class="slide">
+  <div class="hero" style="font-size:56px">감사합니다</div>
+  <div class="sub" style="margin-top:32px; font-size:18px; letter-spacing:0.1em">
+    PENTA LAB &times; 책나무
+  </div>
+  <div style="margin-top:48px; padding-top:24px; border-top:1px solid var(--faint); font-size:14px; color:rgba(255,255,255,0.2)">
+    CONFIDENTIAL &nbsp;&middot;&nbsp; 2026
+  </div>
+  <div class="pg-num">30 / 30</div>
+</div>
+
+<!-- ── NAVIGATION ── -->
+<script>
+const slides = document.querySelectorAll('.slide');
+let cur = 0;
+
+function go(n) {
+  if (n < 0 || n >= slides.length) return;
+  slides[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  document.getElementById('progress').style.width = ((cur + 1) / slides.length * 100) + '%';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); go(cur + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(cur - 1); }
+  if (e.key === 'Home') go(0);
+  if (e.key === 'End') go(slides.length - 1);
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const d = tx - e.changedTouches[0].clientX;
+  if (Math.abs(d) > 50) d > 0 ? go(cur + 1) : go(cur - 1);
+});
+
+document.addEventListener('click', e => {
+  if (e.target.closest('a, button, input')) return;
+  e.clientX < window.innerWidth * 0.3 ? go(cur - 1) : go(cur + 1);
+});
+
+go(0);
+</script>
+
+</body>
+</html>
