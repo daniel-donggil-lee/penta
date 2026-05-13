@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>첫 책 출간 계약 실전 클래스 — 펜타캠퍼스</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black:#0a0a0a; --gold:#C9A84C; --white:#fff; --off:#f5f4f0; --gray:#888; --light:#e2e2e2; --r:10px; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; height:60px; padding:0 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,10,10,0.96); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.05); }
+    .nav-logo { font-size:13px; font-weight:700; letter-spacing:3px; color:var(--white); text-transform:uppercase; text-decoration:none; }
+    .nav-logo em { color:var(--gold); font-style:normal; }
+    .nav-back { font-size:11px; font-weight:600; color:rgba(255,255,255,0.4); text-decoration:none; letter-spacing:0.5px; display:flex; align-items:center; gap:7px; transition:color 0.2s; }
+    .nav-back:hover { color:rgba(255,255,255,0.75); }
+    .nav-back svg { width:13px; height:13px; stroke:currentColor; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    .nav-cta { font-size:12px; font-weight:700; letter-spacing:0.8px; color:var(--gold); text-decoration:none; border:1px solid rgba(201,168,76,0.45); padding:8px 22px; border-radius:4px; transition:all 0.2s; }
+    .nav-cta:hover { background:var(--gold); color:var(--black); }
+    .chero { background:var(--black); padding:140px 48px 80px; position:relative; overflow:hidden; }
+    .chero-glow { position:absolute; top:-200px; right:-100px; width:700px; height:700px; background:radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 65%); pointer-events:none; }
+    .chero-in { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 380px; gap:80px; align-items:end; }
+    .chero-cat { font-size:9px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; display:flex; align-items:center; gap:12px; }
+    .chero-cat::before { content:''; width:20px; height:1px; background:var(--gold); }
+    .chero-title { font-size:clamp(30px,4.5vw,52px); font-weight:900; color:var(--white); letter-spacing:-2px; line-height:1.1; margin-bottom:24px; }
+    .chero-sub { font-size:14px; color:rgba(255,255,255,0.35); line-height:1.9; max-width:500px; }
+    .chero-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:28px; }
+    .ctag { font-size:10px; font-weight:600; letter-spacing:1px; color:rgba(255,255,255,0.4); border:1px solid rgba(255,255,255,0.1); padding:5px 12px; border-radius:3px; }
+    .enroll-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:var(--r); padding:32px 28px; display:flex; flex-direction:column; gap:18px; }
+    .ec-label { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(201,168,76,0.6); }
+    .ec-name { font-size:16px; font-weight:800; color:var(--white); letter-spacing:-0.3px; line-height:1.4; }
+    .ec-div { height:1px; background:rgba(255,255,255,0.07); }
+    .ec-row { display:flex; justify-content:space-between; align-items:center; }
+    .ec-k { font-size:11px; color:rgba(255,255,255,0.35); }
+    .ec-v { font-size:12px; font-weight:700; color:rgba(255,255,255,0.75); }
+    .ec-v-g { color:var(--gold); }
+    .ec-btn { background:var(--gold); color:var(--black); font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:14px; border-radius:4px; text-decoration:none; text-align:center; display:block; transition:opacity 0.2s; }
+    .ec-btn:hover { opacity:0.85; }
+    .ec-note { font-size:10px; color:rgba(255,255,255,0.2); text-align:center; line-height:1.6; }
+    .cbody { max-width:1100px; margin:0 auto; padding:80px 48px; display:grid; grid-template-columns:1fr 380px; gap:80px; }
+    .cleft { display:flex; flex-direction:column; gap:64px; }
+    .csec-lbl { font-size:9px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
+    .csec-lbl::before { content:''; width:16px; height:1px; background:var(--gold); }
+    .csec-h { font-size:24px; font-weight:900; letter-spacing:-0.8px; margin-bottom:16px; }
+    .csec-p { font-size:14px; color:var(--gray); line-height:1.9; }
+    .syllabus { display:flex; flex-direction:column; border:1px solid var(--light); border-radius:var(--r); overflow:hidden; margin-top:24px; }
+    .si { display:grid; grid-template-columns:56px 1fr; border-bottom:1px solid var(--light); transition:background 0.15s; }
+    .si:last-child { border-bottom:none; }
+    .si:hover { background:var(--off); }
+    .sin { padding:20px 0; text-align:center; font-size:10px; font-weight:700; letter-spacing:1.5px; color:#ccc; border-right:1px solid var(--light); }
+    .sic { padding:20px 24px; }
+    .sit { font-size:14px; font-weight:700; letter-spacing:-0.2px; }
+    .sid { font-size:12px; color:var(--gray); margin-top:4px; line-height:1.6; }
+    .sb { display:inline-block; font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:3px 8px; border-radius:2px; margin-top:6px; }
+    .badge-final { background:#faf0e0; color:#b8860b; }
+    .badge-live { background:#e8f5e9; color:#2e7d32; }
+    .badge-cert { background:#e8eaf6; color:#3949ab; }
+    .inst-mini { display:flex; gap:20px; align-items:center; padding:28px; background:var(--off); border-radius:var(--r); }
+    .im-photo { width:72px; height:72px; border-radius:50%; overflow:hidden; flex-shrink:0; background:#eee; display:flex; align-items:center; justify-content:center; }
+    .im-photo img { width:100%; height:100%; object-fit:cover; }
+    .im-name { font-size:16px; font-weight:800; letter-spacing:-0.3px; }
+    .im-role { font-size:11px; color:var(--gray); margin-top:3px; }
+    .im-bio { font-size:13px; color:var(--gray); line-height:1.75; margin-top:10px; }
+    .cright { position:sticky; top:80px; display:flex; flex-direction:column; gap:20px; }
+    .info-card { border:1px solid var(--light); border-radius:var(--r); overflow:hidden; }
+    .ic-h { background:var(--black); padding:20px 24px; }
+    .ic-hl { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(201,168,76,0.6); margin-bottom:8px; }
+    .ic-hv { font-size:20px; font-weight:900; color:var(--white); letter-spacing:-0.5px; }
+    .ic-rows { padding:16px 24px; display:flex; flex-direction:column; gap:12px; }
+    .ic-row { display:flex; justify-content:space-between; align-items:center; }
+    .ic-k { font-size:11px; color:var(--gray); }
+    .ic-v { font-size:12px; font-weight:700; }
+    .ic-btn { display:block; background:var(--gold); color:var(--black); font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:16px 24px; text-align:center; text-decoration:none; transition:opacity 0.2s; }
+    .ic-btn:hover { opacity:0.85; }
+    footer { background:var(--black); border-top:1px solid rgba(255,255,255,0.05); padding:36px 48px; display:flex; align-items:center; justify-content:space-between; }
+    .flogo { font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.35); }
+    .flogo em { color:var(--gold); font-style:normal; }
+    .fcopy { font-size:11px; color:rgba(255,255,255,0.18); }
+    .rv { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .rv.on { opacity:1; transform:none; }
+    .d1{transition-delay:.1s} .d2{transition-delay:.2s}
+    @media(max-width:900px){
+      nav{padding:0 20px;}
+      .chero{padding:100px 24px 60px;}
+      .chero-in{grid-template-columns:1fr;gap:32px;}
+      .cbody{grid-template-columns:1fr;padding:48px 24px;gap:48px;}
+      .cright{position:static;}
+      footer{flex-direction:column;gap:10px;text-align:center;padding:28px 24px;}
+    }
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">PENTA<em>CAMPUS</em></a>
+  <a href="index.html" class="nav-back"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>과정 목록으로</a>
+  <a href="http://13.124.27.141" target="_blank" class="nav-cta">수강 신청</a>
+</nav>
+
+<section class="chero">
+  <div class="chero-glow"></div>
+  <div class="chero-in">
+    <div class="rv">
+      <div class="chero-cat">자기계발 원데이클래스</div>
+      <h1 class="chero-title">첫 책 출간 계약 실전 클래스</h1>
+      <p class="chero-sub">책을 쓰고 싶지만 어디서 시작해야 할지 모르는 분을 위한 실전 클래스입니다. 이은경 대표가 직접 출판사 제안서 작성법과 계약 협상 노하우를 전수합니다.</p>
+      <div class="chero-tags"><span class="ctag">단 1회 수업</span><span class="ctag">1:1 코칭 포함</span><span class="ctag">출판 제안서 템플릿</span><span class="ctag">실전 노하우</span></div>
+    </div>
+    <div class="enroll-card rv d1">
+      <div class="ec-label">자기계발 원데이클래스</div>
+      <div class="ec-name">첫 책 출간 계약 실전 클래스</div>
+      <div class="ec-div"></div>
+      <div class="ec-row"><span class="ec-k">강사</span><span class="ec-v">이은경 대표</span></div>
+      <div class="ec-row"><span class="ec-k">개강일</span><span class="ec-v">2026. 06. 30 (화)</span></div>
+      <div class="ec-row"><span class="ec-k">시간</span><span class="ec-v">밤 8시 · 1:1 코칭 포함</span></div>
+      <div class="ec-row"><span class="ec-k">총 차시</span><span class="ec-v">1회 (원데이)</span></div>
+      <div class="ec-row"><span class="ec-k">형식</span><span class="ec-v">Zoom + 녹화본</span></div>
+      <div class="ic-row"><span class="ic-k">자격증</span><span class="ic-v" style="color:var(--gold)">수료 후 발급</span></div>
+      <div class="ec-div"></div>
+      <a href="http://13.124.27.141" target="_blank" class="ec-btn">수강 신청하기</a>
+      <div class="ec-note">무료 기본과정 먼저 체험 후<br>전문가과정 등록을 권장합니다.</div>
+    </div>
+  </div>
+</section>
+
+<div class="cbody">
+  <div class="cleft">
+    <div class="rv">
+      <div class="csec-lbl">About</div>
+      <h2 class="csec-h">이 과정에서 배우는 것</h2>
+      <p class="csec-p">책을 쓰고 싶지만 어디서 시작해야 할지 모르는 분을 위한 실전 클래스입니다. 이은경 대표가 직접 출판사 제안서 작성법과 계약 협상 노하우를 전수합니다.</p>
+    </div>
+    <div class="rv">
+      <div class="csec-lbl">Syllabus</div>
+      <h2 class="csec-h">수업 구성</h2>
+      <div class="syllabus">
+        <div class="si">
+          <div class="sin">01</div>
+          <div class="sic">
+            <div class="sit">[원데이 + 1:1코칭]</div>
+            <div class="sid">출판 제안서 작성 실습 + 개인 1:1 피드백 (3시간)</div>
+          </div>
+        </div></div>
+    </div>
+    <div class="rv">
+      <div class="csec-lbl">Instructor</div>
+      <h2 class="csec-h">담당 강사</h2>
+      
+      <div class="inst-mini">
+        <div class="im-photo"><img src="http://13.124.27.141/pix/penta/lee-eunkyung.jpg" alt="이은경 대표"></div>
+        <div>
+          <div class="im-name">이은경 대표</div>
+          <div class="im-role">초등교사 15년 · 저서 60권+ · 유튜브 15만+</div>
+          <p class="im-bio">슬기로운 초등생활 채널 운영자. 15년 현장 경험을 바탕으로 60권 이상 집필한 초등 교육 전문가입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cright rv d1">
+    <div class="info-card">
+      <div class="ic-h">
+        <div class="ic-hl">개강 일정</div>
+        <div class="ic-hv">2026. 06. 30 (화)</div>
+      </div>
+      <div class="ic-rows">
+        <div class="ic-row"><span class="ic-k">강사</span><span class="ic-v">이은경 대표</span></div>
+        <div class="ic-row"><span class="ic-k">요일·시간</span><span class="ic-v">밤 8시 · 1:1 코칭 포함</span></div>
+        <div class="ic-row"><span class="ic-k">총 차시</span><span class="ic-v">1회 (원데이)</span></div>
+        <div class="ic-row"><span class="ic-k">수강 방식</span><span class="ic-v">Zoom + 녹화</span></div>
+        <div class="ic-row"><span class="ic-k">자격증</span><span class="ic-v" style="color:var(--gold)">수료 후 발급</span></div>
+      </div>
+      <a href="http://13.124.27.141" target="_blank" class="ic-btn">수강 신청하기</a>
+    </div>
+    <a href="index.html" style="font-size:12px;color:var(--gray);text-align:center;display:block;text-decoration:none;letter-spacing:0.3px;">← 전체 과정 목록 보기</a>
+  </div>
+</div>
+
+<footer>
+  <div class="flogo">PENTA<em>CAMPUS</em></div>
+  <div class="fcopy">© 2026 펜타캠퍼스. All rights reserved.</div>
+</footer>
+<script>
+  const ro = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target);}})  ,{threshold:0.06});
+  document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+</script>
+</body>
+</html>
