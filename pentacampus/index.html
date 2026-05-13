@@ -160,6 +160,10 @@
     .rv.on { opacity: 1; transform: none; }
     .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
 
+    /* HERO CANVAS */
+    #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.7; }
+    .hero-glow, .hero-left, .hero-right { position: relative; z-index: 1; }
+
     /* RESPONSIVE */
     @media (max-width: 960px) {
       nav { padding: 0 20px; } .nav-links { display: none; }
@@ -198,6 +202,7 @@
 
 <!-- HERO -->
 <section class="hero" id="top">
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-left">
     <div class="hero-eyebrow">Penta Campus · 2026 Open</div>
@@ -425,6 +430,134 @@
 </footer>
 
 <script>
+/* ─── 3D Hero Canvas ─── */
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, cx, cy;
+  let rotY = 0, rotX = 0;
+  let targetRY = 0, targetRX = 0;
+  let mx = 0, my = 0;
+
+  function resize(){
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    cx = W / 2; cy = H / 2;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  /* Mouse parallax */
+  document.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth  - 0.5) * 2;
+    my = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  /* 3-D helpers */
+  function pentagonRing(r, z, n=5) {
+    const pts = [];
+    for(let i=0;i<n;i++){
+      const a = (i*2*Math.PI/n) - Math.PI/2;
+      pts.push([r*Math.cos(a), r*Math.sin(a), z]);
+    }
+    return pts;
+  }
+
+  function ry(p, a){ return [p[0]*Math.cos(a)+p[2]*Math.sin(a), p[1], -p[0]*Math.sin(a)+p[2]*Math.cos(a)]; }
+  function rx(p, a){ return [p[0], p[1]*Math.cos(a)-p[2]*Math.sin(a), p[1]*Math.sin(a)+p[2]*Math.cos(a)]; }
+  function proj(p, fov=900){ const s=fov/(fov+p[2]); return [cx+p[0]*s, cy+p[1]*s, s]; }
+
+  function drawRing(pts, alpha, lw){
+    ctx.beginPath();
+    const pp = pts.map(p=>proj(p));
+    ctx.moveTo(pp[0][0],pp[0][1]);
+    for(let i=1;i<pp.length;i++) ctx.lineTo(pp[i][0],pp[i][1]);
+    ctx.closePath();
+    ctx.strokeStyle = `rgba(201,168,76,${alpha})`;
+    ctx.lineWidth = lw;
+    ctx.stroke();
+  }
+
+  function drawEdges(a, b, alpha, lw){
+    ctx.strokeStyle = `rgba(201,168,76,${alpha})`;
+    ctx.lineWidth = lw;
+    for(let i=0;i<a.length;i++){
+      const pa=proj(a[i]), pb=proj(b[i]);
+      ctx.beginPath(); ctx.moveTo(pa[0],pa[1]); ctx.lineTo(pb[0],pb[1]); ctx.stroke();
+    }
+  }
+
+  /* Floating particles */
+  const PARTICLES = Array.from({length:28}, ()=>({
+    x:(Math.random()-0.5)*700,
+    y:(Math.random()-0.5)*700,
+    z:(Math.random()-0.5)*300,
+    r: Math.random()*1.4+0.4,
+    sp: (Math.random()-0.5)*0.3
+  }));
+
+  function drawParticles(ryA, rxA){
+    PARTICLES.forEach(p=>{
+      p.x += p.sp * 0.4;
+      if(p.x > 400) p.x = -400;
+      let pt = ry([p.x,p.y,p.z], ryA);
+      pt = rx(pt, rxA);
+      const pp = proj(pt);
+      const alpha = Math.min(0.55, 0.15 + (pp[2]-0.3));
+      ctx.beginPath();
+      ctx.arc(pp[0], pp[1], p.r*pp[2], 0, Math.PI*2);
+      ctx.fillStyle = `rgba(201,168,76,${alpha.toFixed(2)})`;
+      ctx.fill();
+    });
+  }
+
+  /* Main loop */
+  function tick(){
+    requestAnimationFrame(tick);
+    ctx.clearRect(0,0,W,H);
+
+    rotY += 0.004;
+    targetRY = mx * 0.15;
+    targetRX = my * 0.08;
+
+    const eyA = rotY + targetRY;
+    const exA = targetRX;
+
+    /* Prism — 3 rings at different sizes/depths */
+    const configs = [
+      {r:180, z1:-110, z2:110, a:0.18, lw:0.8},
+      {r:280, z1:-170, z2:170, a:0.09, lw:0.6},
+      {r:100, z1: -60, z2: 60, a:0.28, lw:1.0},
+    ];
+
+    configs.forEach(({r,z1,z2,a,lw})=>{
+      let top = pentagonRing(r,z1).map(p=>{ let q=ry(p,eyA); return rx(q,exA); });
+      let bot = pentagonRing(r,z2).map(p=>{ let q=ry(p,eyA); return rx(q,exA); });
+      drawRing(top, a, lw);
+      drawRing(bot, a, lw);
+      drawEdges(top, bot, a*0.6, lw*0.7);
+    });
+
+    drawParticles(eyA, exA);
+  }
+  tick();
+
+  /* Photo parallax */
+  const photo = document.querySelector('.hero-photo-wrap');
+  if(photo){
+    document.addEventListener('mousemove', e=>{
+      const px = (e.clientX/window.innerWidth -0.5)*18;
+      const py = (e.clientY/window.innerHeight-0.5)*10;
+      photo.style.transform = `rotateY(${-px}deg) rotateX(${py}deg)`;
+      photo.style.transition = 'transform 0.12s ease-out';
+    });
+    document.addEventListener('mouseleave', ()=>{
+      photo.style.transform = '';
+    });
+  }
+})();
+
+/* ─── Scroll reveal / Filter ─── */
   const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){e.target.classList.add('on'); ro.unobserve(e.target);} }), {threshold:0.08});
   document.querySelectorAll('.rv').forEach(el => ro.observe(el));
   document.querySelectorAll('.cf').forEach(btn => {
