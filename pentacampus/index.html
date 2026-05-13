@@ -3,347 +3,531 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>펜타캠퍼스 — 초등 문해력 강사 양성 플랫폼</title>
+  <title>펜타캠퍼스 — 초등 문해력 전문가 양성</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --black: #0a0a0a;
       --gold: #C9A84C;
-      --gold-light: #e8c96a;
       --white: #ffffff;
-      --gray-100: #f7f7f5;
-      --gray-200: #ebebeb;
-      --gray-400: #999;
-      --gray-600: #555;
-      --radius: 14px;
+      --off: #f5f4f1;
+      --gray: #888;
+      --light: #ddd;
+      --radius: 12px;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.15); }
-    .nav-logo { font-size: 16px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
-    .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 60px; padding: 0 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,10,10,0.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { font-size: 13px; font-weight: 700; letter-spacing: 3px; color: var(--white); text-transform: uppercase; }
+    .nav-logo em { color: var(--gold); font-style: normal; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.5); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
     .nav-links a:hover { color: var(--white); }
-    .nav-cta { background: var(--gold) !important; color: var(--black) !important; font-weight: 700 !important; padding: 8px 20px !important; border-radius: 8px; }
+    .nav-enroll { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.5); padding: 8px 20px; border-radius: 4px; transition: all 0.2s; }
+    .nav-enroll:hover { background: var(--gold); color: var(--black); }
 
-    /* HERO */
-    .hero { min-height: 100vh; background: var(--black); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 80px; position: relative; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 65%); pointer-events: none; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border: 1px solid rgba(201,168,76,0.4); border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--gold); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 28px; }
-    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
-    .hero-title { font-size: clamp(38px, 6vw, 72px); font-weight: 900; color: var(--white); letter-spacing: -2.5px; line-height: 1.1; max-width: 840px; margin-bottom: 24px; }
-    .hero-title .accent { color: var(--gold); }
-    .hero-sub { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 520px; margin-bottom: 48px; font-weight: 400; }
-    .hero-cta-group { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-    .btn-primary { background: var(--gold); color: var(--black); font-size: 15px; font-weight: 700; padding: 15px 32px; border-radius: 10px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-    .btn-outline { background: transparent; color: rgba(255,255,255,0.75); font-size: 15px; font-weight: 600; padding: 15px 32px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
-    .hero-stats { display: flex; gap: 0; margin-top: 72px; border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; overflow: hidden; }
-    .hero-stat { padding: 24px 48px; text-align: center; border-right: 1px solid rgba(201,168,76,0.2); }
-    .hero-stat:last-child { border-right: none; }
-    .hero-stat-num { font-size: 36px; font-weight: 900; color: var(--gold); letter-spacing: -1.5px; line-height: 1; }
-    .hero-stat-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 48px 100px;
+      position: relative; overflow: hidden;
+    }
+    .hero-noise {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.4;
+    }
+    .hero-glow {
+      position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 900px;
+      background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 4px;
+      color: var(--gold); text-transform: uppercase;
+      margin-bottom: 32px; opacity: 0.85;
+    }
+    .hero-title {
+      font-size: clamp(44px, 7vw, 88px);
+      font-weight: 900; color: var(--white);
+      letter-spacing: -3px; line-height: 1.0;
+      max-width: 900px; margin-bottom: 32px;
+    }
+    .hero-title .line2 { color: var(--gold); display: block; }
+    .hero-divider {
+      width: 40px; height: 1px; background: rgba(201,168,76,0.4);
+      margin: 0 auto 32px;
+    }
+    .hero-sub {
+      font-size: 15px; font-weight: 400;
+      color: rgba(255,255,255,0.38);
+      line-height: 2; max-width: 480px; margin-bottom: 56px;
+      letter-spacing: 0.2px;
+    }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; align-items: center; }
+    .btn-gold {
+      font-size: 13px; font-weight: 700; letter-spacing: 1px;
+      background: var(--gold); color: var(--black);
+      padding: 14px 36px; border-radius: 4px; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-gold:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-ghost {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.45); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: rgba(255,255,255,0.8); }
+    .btn-ghost svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.5; fill: none; }
 
-    /* SECTION */
-    section { padding: 100px 40px; }
-    .section-inner { max-width: 1080px; margin: 0 auto; }
-    .section-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
-    .section-tag::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
-    .section-title { font-size: clamp(28px, 4vw, 48px); font-weight: 900; color: var(--black); letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 16px; }
-    .section-sub { font-size: 16px; color: var(--gray-600); line-height: 1.8; max-width: 560px; }
+    /* Hero bottom metrics */
+    .hero-metrics {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .hero-metric {
+      flex: 1; padding: 28px 0; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .hero-metric:last-child { border-right: none; }
+    .metric-val {
+      font-size: 28px; font-weight: 900; color: var(--white);
+      letter-spacing: -1px; line-height: 1;
+    }
+    .metric-val em { color: var(--gold); font-style: normal; }
+    .metric-key {
+      font-size: 10px; font-weight: 600; letter-spacing: 2px;
+      color: rgba(255,255,255,0.28); text-transform: uppercase;
+      margin-top: 6px;
+    }
 
-    /* FEATURES */
-    .features { background: var(--gray-100); }
-    .features-header { margin-bottom: 56px; }
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .feature-card { background: var(--white); border-radius: var(--radius); padding: 32px 28px; border: 1px solid var(--gray-200); transition: transform 0.25s ease, box-shadow 0.25s ease; }
-    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
-    .feature-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--black); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-    .feature-icon svg { width: 22px; height: 22px; stroke: var(--gold); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .feature-title { font-size: 17px; font-weight: 800; color: var(--black); margin-bottom: 10px; letter-spacing: -0.3px; }
-    .feature-desc { font-size: 14px; color: var(--gray-600); line-height: 1.75; }
+    /* ── SECTION UTILS ── */
+    .sec { padding: 120px 48px; }
+    .sec-inner { max-width: 1100px; margin: 0 auto; }
+    .sec-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 4px;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .sec-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+    .sec-title {
+      font-size: clamp(30px, 4vw, 52px); font-weight: 900;
+      color: var(--black); letter-spacing: -2px; line-height: 1.1;
+    }
+    .sec-title-white { color: var(--white); }
+    .sec-body {
+      font-size: 15px; color: var(--gray);
+      line-height: 1.85; max-width: 520px; margin-top: 16px;
+    }
 
-    /* COURSES */
+    /* ── THREE PATHS ── */
+    .paths { background: var(--off); }
+    .paths-header { margin-bottom: 72px; }
+    .paths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--radius); overflow: hidden; }
+    .path-item {
+      background: var(--white); padding: 48px 36px;
+      display: flex; flex-direction: column; gap: 20px;
+      transition: background 0.2s;
+    }
+    .path-item:hover { background: #fdfcf8; }
+    .path-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      color: var(--gold); text-transform: uppercase;
+    }
+    .path-icon { width: 40px; height: 40px; }
+    .path-icon svg { width: 40px; height: 40px; stroke: var(--black); stroke-width: 1.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .path-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.3; }
+    .path-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
+    .path-tag {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 12px; border: 1px solid var(--light);
+      border-radius: 2px; color: var(--gray); width: fit-content;
+    }
+
+    /* ── COURSES ── */
     .courses { background: var(--white); }
-    .courses-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
-    .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
-    .tab-btn { padding: 8px 18px; border-radius: 100px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--gray-200); color: var(--gray-600); background: transparent; cursor: pointer; transition: all 0.2s; }
-    .tab-btn.active, .tab-btn:hover { border-color: var(--black); background: var(--black); color: var(--white); }
-    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .course-card { border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 24px; transition: border-color 0.2s, transform 0.2s; cursor: pointer; }
-    .course-card:hover { border-color: var(--gold); transform: translateY(-3px); }
-    .course-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
-    .tag-free { background: #e8f5e9; color: #2e7d32; }
-    .tag-pro { background: #faf0e0; color: #b8860b; }
-    .tag-oneday { background: #e8eaf6; color: #3949ab; }
-    .tag-self { background: #fce4ec; color: #c62828; }
-    .course-name { font-size: 15px; font-weight: 800; color: var(--black); letter-spacing: -0.3px; margin-bottom: 8px; line-height: 1.4; }
-    .course-instructor { font-size: 12px; color: var(--gray-400); font-weight: 500; }
-    .course-date { font-size: 12px; color: var(--gray-600); font-weight: 600; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--gray-200); }
+    .courses-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 56px; gap: 24px; flex-wrap: wrap; }
+    .course-filters { display: flex; gap: 4px; }
+    .cf { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--light); background: transparent; color: var(--gray); cursor: pointer; border-radius: 3px; transition: all 0.15s; }
+    .cf.on, .cf:hover { border-color: var(--black); background: var(--black); color: var(--white); }
+    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--radius); overflow: hidden; }
+    .course-card {
+      background: var(--white); padding: 32px 28px;
+      display: flex; flex-direction: column; gap: 12px;
+      transition: background 0.15s; cursor: default;
+    }
+    .course-card:hover { background: #fafaf8; }
+    .course-cat {
+      font-size: 9px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gray);
+    }
+    .course-name { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; }
+    .course-meta { display: flex; flex-direction: column; gap: 4px; margin-top: auto; padding-top: 16px; border-top: 1px solid #f0f0f0; }
+    .course-instructor { font-size: 12px; color: var(--gray); font-weight: 500; }
+    .course-date { font-size: 11px; font-weight: 600; color: #bbb; letter-spacing: 0.3px; }
 
-    /* FLOW */
-    .flow { background: var(--black); padding: 100px 40px; }
-    .flow .section-title { color: var(--white); }
-    .flow .section-sub { color: rgba(255,255,255,0.45); }
-    .flow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 64px; position: relative; }
-    .flow-steps::before { content: ''; position: absolute; top: 40px; left: 0; right: 0; height: 1px; background: rgba(201,168,76,0.3); }
-    .flow-step { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; padding: 0 20px; position: relative; }
-    .step-num { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); background: var(--black); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: var(--gold); position: relative; z-index: 1; }
-    .step-title { font-size: 16px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
-    .step-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+    /* ── PROCESS ── */
+    .process { background: var(--black); }
+    .process-header { margin-bottom: 80px; }
+    .process-list { display: flex; flex-direction: column; gap: 0; border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); overflow: hidden; }
+    .process-item {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      align-items: center; gap: 40px;
+      padding: 36px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: background 0.2s;
+    }
+    .process-item:last-child { border-bottom: none; }
+    .process-item:hover { background: rgba(255,255,255,0.03); }
+    .process-n {
+      font-size: 11px; font-weight: 700; letter-spacing: 3px;
+      color: rgba(201,168,76,0.6); text-transform: uppercase;
+    }
+    .process-info { display: flex; flex-direction: column; gap: 8px; }
+    .process-title { font-size: 18px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
+    .process-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.7; }
+    .process-arrow { width: 20px; height: 20px; opacity: 0.2; }
+    .process-arrow svg { width: 20px; height: 20px; stroke: var(--white); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* PROOF */
-    .proof { background: var(--gray-100); }
-    .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; }
-    .proof-card { background: var(--white); border-radius: var(--radius); padding: 32px 24px; border: 1px solid var(--gray-200); text-align: center; }
-    .proof-num { font-size: 44px; font-weight: 900; color: var(--black); letter-spacing: -2px; line-height: 1; }
-    .proof-unit { font-size: 20px; font-weight: 700; color: var(--gold); }
-    .proof-label { font-size: 12px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px; }
+    /* ── PROOF ── */
+    .proof { background: var(--off); }
+    .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--radius); overflow: hidden; margin-top: 64px; }
+    .proof-cell { background: var(--white); padding: 48px 36px; }
+    .proof-val { font-size: 52px; font-weight: 900; letter-spacing: -3px; line-height: 1; color: var(--black); }
+    .proof-val em { font-style: normal; color: var(--gold); font-size: 28px; vertical-align: super; }
+    .proof-key { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gray); margin-top: 14px; }
 
-    /* INSTRUCTOR */
-    .instructor { background: var(--white); }
-    .instructor-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .instructor-image { border-radius: 20px; overflow: hidden; background: linear-gradient(160deg, #141414 0%, #1e1e1e 100%); aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(201,168,76,0.15); }
-    .instructor-image svg { width: 120px; height: 120px; stroke: rgba(201,168,76,0.35); stroke-width: 1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .instructor-meta { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); border-radius: 100px; padding: 8px 16px; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 20px; }
-    .instructor-name { font-size: 40px; font-weight: 900; color: var(--black); letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 20px; }
-    .instructor-tagline { font-size: 16px; color: var(--gray-600); line-height: 1.8; margin-bottom: 32px; }
-    .instructor-badges { display: flex; flex-wrap: wrap; gap: 8px; }
-    .badge { padding: 8px 16px; border-radius: 100px; background: var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-600); }
+    /* ── INSTRUCTOR STRIP ── */
+    .instructor-strip { background: var(--white); border-top: 1px solid var(--light); border-bottom: 1px solid var(--light); }
+    .instructor-inner { max-width: 1100px; margin: 0 auto; padding: 80px 48px; display: grid; grid-template-columns: 200px 1fr; gap: 80px; align-items: center; }
+    .inst-photo { width: 200px; height: 200px; border-radius: 50%; background: #eee; border: 1px solid var(--light); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .inst-photo svg { width: 80px; height: 80px; stroke: #ccc; stroke-width: 1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .inst-right { display: flex; flex-direction: column; gap: 16px; }
+    .inst-role { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+    .inst-name { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+    .inst-bio { font-size: 14px; color: var(--gray); line-height: 1.9; max-width: 540px; }
+    .inst-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .inst-tag { font-size: 11px; font-weight: 600; color: var(--gray); padding: 6px 14px; border: 1px solid var(--light); border-radius: 2px; letter-spacing: 0.3px; }
 
-    /* CTA */
-    .cta-section { background: var(--gold); padding: 100px 40px; text-align: center; }
-    .cta-section .section-title { color: var(--black); margin-bottom: 20px; }
-    .cta-section .section-sub { color: rgba(10,10,10,0.6); margin: 0 auto 40px; text-align: center; }
-    .btn-dark { background: var(--black); color: var(--white); font-size: 16px; font-weight: 700; padding: 17px 40px; border-radius: 12px; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.2s; }
-    .btn-dark:hover { background: #222; transform: translateY(-2px); }
+    /* ── CTA ── */
+    .cta { background: var(--black); text-align: center; padding: 140px 48px; }
+    .cta-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(201,168,76,0.7); margin-bottom: 28px; }
+    .cta-title { font-size: clamp(36px, 5vw, 64px); font-weight: 900; color: var(--white); letter-spacing: -2.5px; line-height: 1.1; margin-bottom: 40px; }
+    .cta-title em { color: var(--gold); font-style: normal; }
 
-    /* FOOTER */
-    footer { background: var(--black); padding: 48px 40px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); }
-    .footer-logo { font-size: 20px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
-    .footer-logo span { color: var(--gold); }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+    /* ── FOOTER ── */
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); padding: 40px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .footer-logo em { color: var(--gold); font-style: normal; }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.3px; }
 
-    /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.on { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.16s; }
+    .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      nav { padding: 0 20px; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
       .nav-links { display: none; }
-      section { padding: 72px 24px; }
-      .hero { padding: 100px 24px 64px; }
-      .hero-stats { flex-direction: column; }
-      .hero-stat { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.2); }
-      .hero-stat:last-child { border-bottom: none; }
-      .features-grid, .courses-grid { grid-template-columns: 1fr 1fr; }
-      .flow-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .flow-steps::before { display: none; }
-      .proof-grid { grid-template-columns: 1fr 1fr; }
-      .instructor-wrap { grid-template-columns: 1fr; gap: 40px; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
+      .sec { padding: 80px 24px; }
+      .hero { padding: 100px 24px 120px; }
+      .paths-grid, .courses-grid, .proof-grid { grid-template-columns: 1fr 1fr; }
+      .process-item { grid-template-columns: 60px 1fr; padding: 28px 24px; gap: 20px; }
+      .process-arrow { display: none; }
+      .instructor-inner { grid-template-columns: 1fr; gap: 32px; padding: 60px 24px; }
+      .inst-photo { width: 120px; height: 120px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
     }
     @media (max-width: 600px) {
-      .features-grid, .courses-grid, .flow-steps { grid-template-columns: 1fr; }
-      .hero-title { letter-spacing: -1.5px; }
+      .paths-grid, .courses-grid, .proof-grid { grid-template-columns: 1fr; }
+      .hero-title { letter-spacing: -2px; }
+      .hero-metrics { flex-direction: column; }
+      .hero-metric { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">PENTA<span>CAMPUS</span></div>
+  <div class="nav-logo">PENTA<em>CAMPUS</em></div>
   <ul class="nav-links">
-    <li><a href="#features">플랫폼</a></li>
-    <li><a href="#courses">과정</a></li>
-    <li><a href="#flow">수강 안내</a></li>
-    <li><a href="#instructor">대표 강사</a></li>
-    <li><a href="#cta" class="nav-cta">수강 신청</a></li>
+    <li><a href="#paths">과정 안내</a></li>
+    <li><a href="#courses">커리큘럼</a></li>
+    <li><a href="#process">수강 과정</a></li>
   </ul>
+  <a href="#cta" class="nav-enroll">수강 신청</a>
 </nav>
 
+<!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-badge">2026 · 개강 예정</div>
-  <h1 class="hero-title">초등 문해력<br><span class="accent">강사 양성</span>의<br>새로운 기준</h1>
-  <p class="hero-sub">이은경 대표의 커리큘럼으로 자격증을 취득하고<br>펜타스쿨 · 학교 방과후 · 독립 개원까지<br>3가지 취업 경로를 열어드립니다.</p>
-  <div class="hero-cta-group">
-    <a href="#courses" class="btn-primary">과정 살펴보기</a>
-    <a href="#flow" class="btn-outline">수강 안내 보기</a>
+  <div class="hero-noise"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-label">Penta Campus · 2026</div>
+  <h1 class="hero-title">
+    초등 문해력 전문가<br>
+    <span class="line2">양성의 기준</span>
+  </h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">
+    검증된 커리큘럼, 공인 자격증, 취업 연계까지.<br>
+    자격을 갖춘 강사를 만드는 구조적 시스템.
+  </p>
+  <div class="hero-actions">
+    <a href="#courses" class="btn-gold">커리큘럼 보기</a>
+    <a href="#process" class="btn-ghost">
+      수강 과정 알아보기
+      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
   </div>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-num" data-target="60" data-suffix="+">0+</div>
-      <div class="hero-stat-label">출간 저서</div>
+  <div class="hero-metrics">
+    <div class="hero-metric">
+      <div class="metric-val" data-target="17" data-suffix="">0<em>+</em></div>
+      <div class="metric-key">전문 과정</div>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" data-target="15" data-suffix="만+">0만+</div>
-      <div class="hero-stat-label">유튜브 구독자</div>
+    <div class="hero-metric">
+      <div class="metric-val" data-target="3" data-suffix="">0</div>
+      <div class="metric-key">취업 경로</div>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" data-target="17" data-suffix="+">0+</div>
-      <div class="hero-stat-label">전문 과정</div>
+    <div class="hero-metric">
+      <div class="metric-val" data-target="60" data-suffix="">0<em>+</em></div>
+      <div class="metric-key">대표 강사 저서</div>
     </div>
-  </div>
-</section>
-
-<section class="features" id="features">
-  <div class="section-inner">
-    <div class="features-header">
-      <div class="section-tag">Platform</div>
-      <h2 class="section-title reveal">펜타캠퍼스가<br>다른 이유</h2>
-      <p class="section-sub reveal reveal-delay-1">단순 강의 플랫폼이 아닙니다. 수강 후 즉시 활동할 수 있는 구조를 갖춥니다.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feature-card reveal"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="feature-title">공인 자격증 발급</div><div class="feature-desc">평생교육원 정식 인가 과정. 수료 시 공인 자격증이 발급됩니다.</div></div>
-      <div class="feature-card reveal reveal-delay-1"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><div class="feature-title">3경로 취업 연결</div><div class="feature-desc">펜타스쿨 직영 · 가맹점 · 학교 방과후 수업으로 자격증 취득 직후 활동이 가능합니다.</div></div>
-      <div class="feature-card reveal reveal-delay-2"><div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div><div class="feature-title">100% 온라인 수강</div><div class="feature-desc">Zoom 실시간 강의 + 녹화본 제공. 육아 중이거나 직장을 다니면서도 수강할 수 있습니다.</div></div>
-      <div class="feature-card reveal reveal-delay-1"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="feature-title">현직 전문가 강사진</div><div class="feature-desc">이은경 대표를 포함한 초등 교육 현장 전문가들이 직접 강의합니다.</div></div>
-      <div class="feature-card reveal reveal-delay-2"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></div><div class="feature-title">완성형 교안 제공</div><div class="feature-desc">수업에 바로 쓸 수 있는 교안과 학생 활동지를 자격증 취득 후 제공합니다.</div></div>
-      <div class="feature-card reveal reveal-delay-3"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="feature-title">강사 커뮤니티</div><div class="feature-desc">수료생 전용 커뮤니티에서 정보를 교환하고 강사 네트워크를 이어나갑니다.</div></div>
+    <div class="hero-metric">
+      <div class="metric-val" data-target="15" data-suffix="">0<em>만+</em></div>
+      <div class="metric-key">커뮤니티 규모</div>
     </div>
   </div>
 </section>
 
-<section class="courses" id="courses">
-  <div class="section-inner">
-    <div class="courses-header">
-      <div>
-        <div class="section-tag">Courses</div>
-        <h2 class="section-title reveal">17개 전문 과정</h2>
-        <p class="section-sub reveal reveal-delay-1">기초부터 전문가 과정까지 단계별로 구성되어 있습니다.</p>
+<!-- THREE PATHS -->
+<section class="sec paths" id="paths">
+  <div class="sec-inner">
+    <div class="paths-header reveal">
+      <div class="sec-label">Why Penta Campus</div>
+      <h2 class="sec-title">자격증 이후까지<br>설계된 시스템</h2>
+      <p class="sec-body">수강으로 끝나지 않습니다. 펜타캠퍼스는 자격 취득 이후 실제 활동으로 연결되는 3가지 경로를 구조화합니다.</p>
+    </div>
+    <div class="paths-grid">
+      <div class="path-item reveal">
+        <div class="path-num">Path 01</div>
+        <div class="path-icon"><svg viewBox="0 0 40 40"><path d="M20 4L4 12v16l16 8 16-8V12L20 4z"/><path d="M4 12l16 8m0 0l16-8m-16 8v16"/></svg></div>
+        <div class="path-title">펜타스쿨<br>직영·가맹점</div>
+        <div class="path-desc">자격증 취득 후 펜타스쿨 직영원 및 전국 가맹점에서 즉시 강사로 활동할 수 있습니다.</div>
+        <div class="path-tag">Franchise Network</div>
       </div>
-      <div class="course-tabs">
-        <button class="tab-btn active" data-filter="all">전체</button>
-        <button class="tab-btn" data-filter="free">무료 기본</button>
-        <button class="tab-btn" data-filter="pro">전문가</button>
-        <button class="tab-btn" data-filter="oneday">원데이</button>
-        <button class="tab-btn" data-filter="self">자기계발</button>
+      <div class="path-item reveal d1">
+        <div class="path-num">Path 02</div>
+        <div class="path-icon"><svg viewBox="0 0 40 40"><rect x="4" y="8" width="32" height="24" rx="3"/><path d="M14 36h12M20 32v4"/></svg></div>
+        <div class="path-title">학교<br>방과후 수업</div>
+        <div class="path-desc">초등학교 방과후 강사 채용 시 펜타캠퍼스 자격증이 공식 요건으로 연계됩니다.</div>
+        <div class="path-tag">School Partnership</div>
+      </div>
+      <div class="path-item reveal d2">
+        <div class="path-num">Path 03</div>
+        <div class="path-icon"><svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="8"/><path d="M6 36c0-7.732 6.268-14 14-14s14 6.268 14 14"/></svg></div>
+        <div class="path-title">독립 클래스<br>개설</div>
+        <div class="path-desc">완성형 교안과 커리큘럼을 제공받아 개인 스튜디오 또는 온라인 클래스를 직접 운영합니다.</div>
+        <div class="path-tag">Independent</div>
       </div>
     </div>
-    <div class="courses-grid" id="coursesGrid">
-      <div class="course-card reveal" data-cat="free"><span class="course-tag tag-free">무료 기본</span><div class="course-name">초등독서습관지도사</div><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 동시 개강</div></div>
-      <div class="course-card reveal reveal-delay-1" data-cat="free"><span class="course-tag tag-free">무료 기본</span><div class="course-name">초등글쓰기습관지도사</div><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 동시 개강</div></div>
-      <div class="course-card reveal reveal-delay-2" data-cat="free"><span class="course-tag tag-free">무료 기본</span><div class="course-name">중등문해력대비지도사</div><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 동시 개강</div></div>
-      <div class="course-card reveal" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등종합문해력코칭전문가</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-1" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등인문독서코칭전문가</div><div class="course-instructor">김문영 강사</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-2" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등소논문코칭전문가</div><div class="course-instructor">권보경 강사</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
-      <div class="course-card reveal" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등주제요약코칭전문가</div><div class="course-instructor">조승우 강사</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-1" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등논증추론코칭전문가</div><div class="course-instructor">변호사 강사 (확정 예정)</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-2" data-cat="oneday"><span class="course-tag tag-oneday">원데이클래스</span><div class="course-name">초등글쓰기 5단계 첨삭법</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 11. 01 (일) 밤 8시</div></div>
-      <div class="course-card reveal" data-cat="oneday"><span class="course-tag tag-oneday">원데이클래스</span><div class="course-name">초등을 위한 단계별 인문독서</div><div class="course-instructor">김문영 강사</div><div class="course-date">2026. 11. 02 (월) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-1" data-cat="oneday"><span class="course-tag tag-oneday">원데이클래스</span><div class="course-name">예비중등을 위한 주제요약법</div><div class="course-instructor">조승우 강사</div><div class="course-date">2026. 11. 03 (화) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-2" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">브런치작가코칭전문가</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 07. 10 (금) 밤 8시</div></div>
-      <div class="course-card reveal" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">북클럽운영전문가</div><div class="course-instructor">정미진 강사</div><div class="course-date">2026. 08. 07 (금) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-1" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">1인미디어운영전문가</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 09. 11 (금) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-2" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">첫 책 출간 계약 실전 클래스</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 06. 30 (화) 밤 8시</div></div>
-      <div class="course-card reveal" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">생각정리 스피치클래스</div><div class="course-instructor">이민하 강사</div><div class="course-date">2026. 07. 31 (금) 밤 8시</div></div>
-      <div class="course-card reveal reveal-delay-1" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">AI로 나만의 여행에세이 쓰기</div><div class="course-instructor">조미연 강사</div><div class="course-date">2026. 08. 31 (일) 밤 8시</div></div>
-    </div>
   </div>
 </section>
 
-<section class="flow" id="flow">
-  <div class="section-inner">
-    <div class="section-tag">How it works</div>
-    <h2 class="section-title reveal">수강부터 취업까지<br>4단계</h2>
-    <p class="section-sub reveal reveal-delay-1">처음 접속하는 날부터 현장에서 활동하는 날까지 안내드립니다.</p>
-    <div class="flow-steps">
-      <div class="flow-step reveal"><div class="step-num">1</div><div class="step-title">무료 기본과정 수강</div><div class="step-desc">이은경 대표의 핵심 방법론을 무료로 체험하세요.</div></div>
-      <div class="flow-step reveal reveal-delay-1"><div class="step-num">2</div><div class="step-title">전문가과정 등록</div><div class="step-desc">관심 분야 전문가 과정을 선택해 자격증 과정을 이수합니다.</div></div>
-      <div class="flow-step reveal reveal-delay-2"><div class="step-num">3</div><div class="step-title">자격증 취득</div><div class="step-desc">전 과정 수료 후 펜타캠퍼스 공인 자격증을 발급받습니다.</div></div>
-      <div class="flow-step reveal reveal-delay-3"><div class="step-num">4</div><div class="step-title">취업·창업 연결</div><div class="step-desc">펜타스쿨 가맹점, 학교 방과후, 독립 클래스 운영까지 연결됩니다.</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="proof">
-  <div class="section-inner">
-    <div class="section-tag">Numbers</div>
-    <h2 class="section-title reveal">숫자로 증명합니다</h2>
-    <div class="proof-grid">
-      <div class="proof-card reveal"><div class="proof-num">60<span class="proof-unit">+</span></div><div class="proof-label">출간 저서</div></div>
-      <div class="proof-card reveal reveal-delay-1"><div class="proof-num">15<span class="proof-unit">만+</span></div><div class="proof-label">유튜브 구독자</div></div>
-      <div class="proof-card reveal reveal-delay-2"><div class="proof-num">17<span class="proof-unit">+</span></div><div class="proof-label">전문 과정</div></div>
-      <div class="proof-card reveal reveal-delay-3"><div class="proof-num">15<span class="proof-unit">년</span></div><div class="proof-label">현장 교육 경력</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="instructor" id="instructor">
-  <div class="section-inner">
-    <div class="instructor-wrap">
-      <div class="instructor-image reveal">
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="60" cy="42" r="22"/>
-          <path d="M18 102c0-23.2 18.8-42 42-42s42 18.8 42 42"/>
-        </svg>
+<!-- COURSES -->
+<section class="sec courses" id="courses">
+  <div class="sec-inner">
+    <div class="courses-top">
+      <div class="reveal">
+        <div class="sec-label">Curriculum</div>
+        <h2 class="sec-title">17개 전문 과정</h2>
       </div>
-      <div class="reveal reveal-delay-1">
-        <div class="instructor-meta">대표 강사</div>
-        <h3 class="instructor-name">이은경 대표<br>슬기로운 초등생활</h3>
-        <p class="instructor-tagline">초등교사 15년 경력으로 현장을 알고,<br>60권의 저서로 이론을 정립했습니다.<br>유튜브 15만 구독자가 신뢰하는 커리큘럼을<br>직접 가르칩니다.</p>
-        <div class="instructor-badges">
-          <span class="badge">저서 60권+</span>
-          <span class="badge">초등교사 15년</span>
-          <span class="badge">유튜브 15만+</span>
-          <span class="badge">베스트셀러 작가</span>
+      <div class="course-filters reveal">
+        <button class="cf on" data-f="all">전체</button>
+        <button class="cf" data-f="free">기본</button>
+        <button class="cf" data-f="pro">전문가</button>
+        <button class="cf" data-f="oneday">원데이</button>
+        <button class="cf" data-f="self">자기계발</button>
+      </div>
+    </div>
+    <div class="courses-grid" id="cgrid">
+      <div class="course-card" data-c="free"><div class="course-cat">기본과정 · 무료</div><div class="course-name">초등독서습관지도사</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 개강</div></div></div>
+      <div class="course-card" data-c="free"><div class="course-cat">기본과정 · 무료</div><div class="course-name">초등글쓰기습관지도사</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 개강</div></div></div>
+      <div class="course-card" data-c="free"><div class="course-cat">기본과정 · 무료</div><div class="course-name">중등문해력대비지도사</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 개강</div></div></div>
+      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등종합문해력코칭전문가</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 10. 01</div></div></div>
+      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등인문독서코칭전문가</div><div class="course-meta"><div class="course-instructor">김문영 강사</div><div class="course-date">2026. 10. 01</div></div></div>
+      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등소논문코칭전문가</div><div class="course-meta"><div class="course-instructor">권보경 강사</div><div class="course-date">2026. 10. 01</div></div></div>
+      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등주제요약코칭전문가</div><div class="course-meta"><div class="course-instructor">조승우 강사</div><div class="course-date">2026. 10. 01</div></div></div>
+      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등논증추론코칭전문가</div><div class="course-meta"><div class="course-instructor">강사 확정 예정</div><div class="course-date">2026. 10. 01</div></div></div>
+      <div class="course-card" data-c="oneday"><div class="course-cat">원데이클래스</div><div class="course-name">초등글쓰기 5단계 첨삭법</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 11. 01</div></div></div>
+      <div class="course-card" data-c="oneday"><div class="course-cat">원데이클래스</div><div class="course-name">초등을 위한 단계별 인문독서</div><div class="course-meta"><div class="course-instructor">김문영 강사</div><div class="course-date">2026. 11. 02</div></div></div>
+      <div class="course-card" data-c="oneday"><div class="course-cat">원데이클래스</div><div class="course-name">예비중등을 위한 주제요약법</div><div class="course-meta"><div class="course-instructor">조승우 강사</div><div class="course-date">2026. 11. 03</div></div></div>
+      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">브런치작가코칭전문가</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 07. 10</div></div></div>
+      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">북클럽운영전문가</div><div class="course-meta"><div class="course-instructor">정미진 강사</div><div class="course-date">2026. 08. 07</div></div></div>
+      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">1인미디어운영전문가</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 09. 11</div></div></div>
+      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">첫 책 출간 계약 실전 클래스</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 06. 30</div></div></div>
+      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">생각정리 스피치클래스</div><div class="course-meta"><div class="course-instructor">이민하 강사</div><div class="course-date">2026. 07. 31</div></div></div>
+      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">AI로 나만의 여행에세이 쓰기</div><div class="course-meta"><div class="course-instructor">조미연 강사</div><div class="course-date">2026. 08. 31</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec process" id="process">
+  <div class="sec-inner">
+    <div class="process-header reveal">
+      <div class="sec-label" style="color:rgba(201,168,76,0.7)">How It Works</div>
+      <h2 class="sec-title sec-title-white">수강부터 활동까지</h2>
+    </div>
+    <div class="process-list">
+      <div class="process-item reveal">
+        <div class="process-n">Step 01</div>
+        <div class="process-info">
+          <div class="process-title">무료 기본과정 체험</div>
+          <div class="process-desc">3개 기본과정을 무료로 수강하며 펜타캠퍼스의 커리큘럼 방식을 직접 경험합니다.</div>
         </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="process-item reveal d1">
+        <div class="process-n">Step 02</div>
+        <div class="process-info">
+          <div class="process-title">전문가과정 등록 및 이수</div>
+          <div class="process-desc">관심 분야의 전문가과정에 등록합니다. Zoom 실시간 강의와 녹화본으로 수강합니다.</div>
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="process-item reveal d2">
+        <div class="process-n">Step 03</div>
+        <div class="process-info">
+          <div class="process-title">공인 자격증 취득</div>
+          <div class="process-desc">전 과정 수료 시 펜타캠퍼스 평생교육원 공인 자격증이 발급됩니다.</div>
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      </div>
+      <div class="process-item reveal d3">
+        <div class="process-n">Step 04</div>
+        <div class="process-info">
+          <div class="process-title">3경로 취업·창업 연결</div>
+          <div class="process-desc">펜타스쿨 가맹점, 학교 방과후, 독립 클래스 중 원하는 경로로 즉시 활동을 시작합니다.</div>
+        </div>
+        <div class="process-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta-section" id="cta">
-  <div class="section-inner">
-    <h2 class="section-title">지금 시작하세요</h2>
-    <p class="section-sub">무료 기본과정으로 부담 없이 시작하고<br>초등 문해력 강사의 길을 열어보세요.</p>
-    <a href="http://13.124.27.141" target="_blank" class="btn-dark">무료로 시작하기 →</a>
+<!-- PROOF -->
+<section class="sec proof">
+  <div class="sec-inner">
+    <div class="reveal">
+      <div class="sec-label">By the Numbers</div>
+      <h2 class="sec-title">펜타가 쌓아온 것들</h2>
+    </div>
+    <div class="proof-grid">
+      <div class="proof-cell reveal">
+        <div class="proof-val">60<em>+</em></div>
+        <div class="proof-key">출간 저서</div>
+      </div>
+      <div class="proof-cell reveal d1">
+        <div class="proof-val">15<em>만+</em></div>
+        <div class="proof-key">유튜브 구독자</div>
+      </div>
+      <div class="proof-cell reveal d2">
+        <div class="proof-val">17<em>+</em></div>
+        <div class="proof-key">전문 과정</div>
+      </div>
+      <div class="proof-cell reveal d3">
+        <div class="proof-val">15<em>년</em></div>
+        <div class="proof-key">현장 교육 경력</div>
+      </div>
+    </div>
   </div>
 </section>
 
+<!-- INSTRUCTOR STRIP -->
+<section class="instructor-strip">
+  <div class="instructor-inner">
+    <div class="inst-photo reveal">
+      <svg viewBox="0 0 80 80"><circle cx="40" cy="28" r="18"/><path d="M8 76c0-17.673 14.327-32 32-32s32 14.327 32 32"/></svg>
+    </div>
+    <div class="inst-right reveal d1">
+      <div class="inst-role">Founding Instructor</div>
+      <div class="inst-name">이은경</div>
+      <p class="inst-bio">초등교사 15년 경력. 60권 이상의 저서를 출간한 초등 교육 작가이자 '슬기로운 초등생활' 유튜브 채널 운영자. 펜타캠퍼스 커리큘럼의 핵심을 설계했습니다.</p>
+      <div class="inst-tags">
+        <span class="inst-tag">초등교사 15년</span>
+        <span class="inst-tag">저서 60권+</span>
+        <span class="inst-tag">유튜브 15만+</span>
+        <span class="inst-tag">베스트셀러 작가</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <div class="cta-eyebrow">Ready to Start</div>
+  <h2 class="cta-title reveal">지금, 전문가의<br><em>첫 걸음</em>을 시작하세요</h2>
+  <a href="http://13.124.27.141" target="_blank" class="btn-gold" style="margin-top:8px">무료 과정으로 시작하기</a>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">PENTA<span>CAMPUS</span></div>
+  <div class="footer-logo">PENTA<em>CAMPUS</em></div>
   <div class="footer-copy">© 2026 펜타캠퍼스. All rights reserved.</div>
 </footer>
 
 <script>
-  const easeOut = t => 1 - Math.pow(1 - t, 3);
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.target);
-    if (!target) return;
+  /* reveal */
+  const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){e.target.classList.add('on'); ro.unobserve(e.target);} }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  /* counter */
+  const easeOut = t => 1 - Math.pow(1-t, 3);
+  function runCounter(el) {
+    const target = +el.dataset.target;
     const suffix = el.dataset.suffix || '';
-    const duration = 1400;
-    const start = performance.now();
-    (function tick(now) {
-      const p = Math.min((now - start) / duration, 1);
-      el.textContent = Math.round(easeOut(p) * target) + suffix;
-      if (p < 1) requestAnimationFrame(tick);
-    })(start);
+    const em = el.querySelector('em');
+    const emText = em ? em.outerHTML : '';
+    const dur = 1200, s = performance.now();
+    (function tick(now){
+      const p = Math.min((now-s)/dur, 1);
+      const v = Math.round(easeOut(p) * target);
+      el.innerHTML = v + suffix + emText;
+      if(p<1) requestAnimationFrame(tick);
+    })(s);
   }
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-  const counterObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); } });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
-  document.querySelectorAll('.tab-btn').forEach(btn => {
+  const co = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){runCounter(e.target); co.unobserve(e.target);} }), {threshold:0.5});
+  document.querySelectorAll('[data-target]').forEach(el => co.observe(el));
+
+  /* filter */
+  document.querySelectorAll('.cf').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      document.querySelectorAll('#coursesGrid .course-card').forEach(card => {
-        card.style.display = (filter === 'all' || card.dataset.cat === filter) ? '' : 'none';
+      document.querySelectorAll('.cf').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      const f = btn.dataset.f;
+      document.querySelectorAll('#cgrid .course-card').forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.c === f) ? '' : 'none';
       });
     });
   });
