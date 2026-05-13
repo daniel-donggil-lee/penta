@@ -176,7 +176,95 @@
   footer { padding: 36px 0 48px; border-top: 2px solid var(--black); font-size: 12px; color: var(--mute); }
   footer .brand { font-weight: 800; color: var(--black); letter-spacing: 0.1em; margin-bottom: 2px; }
 
-  @media print { .section { page-break-inside: avoid; } }
+  /* ── COMMENT SYSTEM ── */
+  .comment-toggle {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 24px; padding: 7px 14px;
+    border: 1.5px solid var(--line); border-radius: 20px;
+    background: #fff; cursor: pointer;
+    font-size: 12px; font-weight: 600; color: var(--mute);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .comment-toggle:hover { border-color: var(--gold); color: var(--black); }
+  .comment-toggle.has-comments { border-color: var(--gold); color: var(--black); }
+  .comment-toggle .ct-icon { font-size: 13px; }
+  .comment-toggle .ct-count {
+    background: var(--gold); color: #000;
+    font-size: 10px; font-weight: 800;
+    padding: 1px 6px; border-radius: 10px;
+    display: none;
+  }
+  .comment-toggle.has-comments .ct-count { display: inline; }
+
+  .comment-panel {
+    display: none; margin-top: 12px;
+    border: 1.5px solid var(--line); border-radius: 10px;
+    overflow: hidden;
+  }
+  .comment-panel.open { display: block; }
+
+  .comment-list { padding: 0; }
+  .comment-item {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .comment-item:last-child { border-bottom: none; }
+  .comment-item-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .comment-author { font-size: 12px; font-weight: 700; color: var(--black); }
+  .comment-time { font-size: 11px; color: var(--mute); }
+  .comment-text { font-size: 13px; color: var(--ink); line-height: 1.6; white-space: pre-wrap; }
+  .comment-del {
+    background: none; border: none; cursor: pointer;
+    font-size: 11px; color: #ccc; padding: 2px 6px;
+    border-radius: 4px; transition: color 0.15s, background 0.15s;
+  }
+  .comment-del:hover { color: var(--exclude); background: var(--exclude-bg); }
+  .comment-empty { padding: 20px 18px; font-size: 13px; color: var(--mute); text-align: center; }
+
+  .comment-input-area {
+    padding: 14px 18px; background: #fafafa;
+    border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .comment-input-row { display: flex; gap: 8px; }
+  .comment-name-input {
+    width: 120px; padding: 7px 10px;
+    border: 1.5px solid var(--line); border-radius: 6px;
+    font-size: 12px; font-family: inherit; color: var(--ink);
+    outline: none; transition: border-color 0.15s;
+    flex-shrink: 0;
+  }
+  .comment-name-input:focus { border-color: var(--gold); }
+  .comment-text-input {
+    flex: 1; padding: 7px 10px;
+    border: 1.5px solid var(--line); border-radius: 6px;
+    font-size: 13px; font-family: inherit; color: var(--ink);
+    resize: none; outline: none; transition: border-color 0.15s;
+    min-height: 60px;
+  }
+  .comment-text-input:focus { border-color: var(--gold); }
+  .comment-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .comment-submit {
+    padding: 7px 18px; background: var(--black); color: #fff;
+    border: none; border-radius: 6px; font-size: 12px; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: background 0.15s;
+  }
+  .comment-submit:hover { background: #333; }
+  .comment-copy {
+    padding: 6px 14px; background: none; color: var(--mute);
+    border: 1.5px solid var(--line); border-radius: 6px;
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: border-color 0.15s, color 0.15s;
+  }
+  .comment-copy:hover { border-color: var(--gold); color: var(--black); }
+
+  @media print {
+    .comment-toggle, .comment-panel { display: none !important; }
+    .section { page-break-inside: avoid; }
+  }
   @media (max-width: 700px) {
     .option-grid, .inout-cols, .ext-grid, .terms-grid { grid-template-columns: 1fr; }
     .ext-grid { grid-template-columns: 1fr; }
@@ -206,7 +294,7 @@
 
 
   <!-- OPTION SUMMARY -->
-  <div class="section">
+  <div class="section" id="sec-pricing" data-sec-name="견적 구성">
     <div class="section-label">Pricing Summary</div>
     <h2>견적 구성</h2>
     <p class="desc">구축 기본과 과정 확장 두 가지로 구성됩니다. 모든 금액은 VAT 별도입니다.</p>
@@ -244,7 +332,7 @@
 
 
   <!-- 시장가 비교 -->
-  <div class="section">
+  <div class="section" id="sec-market" data-sec-name="시장가 비교">
     <div class="section-label">Market Benchmark</div>
     <h2>시장가 대비 견적 비교</h2>
     <p class="desc">동일 규모·범위 기준 외부 에이전시 시장 최저가와 비교한 수치입니다.</p>
@@ -337,7 +425,7 @@
 
 
   <!-- 과정 제작 세목 -->
-  <div class="section">
+  <div class="section" id="sec-course" data-sec-name="과정 제작 세목">
     <div class="section-label">Scope · 과정 제작</div>
     <h2>과정 1개 = 2,000만원 세부 내역</h2>
     <p class="desc">10~15차시, 차시당 25분 내외 기준입니다. 강사 출연료·스튜디오 전부 포함, 교재 인쇄는 실비 별도입니다.</p>
@@ -555,7 +643,7 @@
 
 
   <!-- LMS 세목 -->
-  <div class="section">
+  <div class="section" id="sec-platform" data-sec-name="LMS 플랫폼 구축">
     <div class="section-label">Scope · 플랫폼 구축</div>
     <h2>LMS 플랫폼 + 결제·수료 자동화 = 2,500만원</h2>
     <p class="desc">책나무 전용 플랫폼 구축 세부 내역입니다. 서버·도메인 1년치 포함입니다.</p>
@@ -674,7 +762,7 @@
 
 
   <!-- 자격 체계 세목 -->
-  <div class="section">
+  <div class="section" id="sec-qual" data-sec-name="자격 체계">
     <div class="section-label">Scope · 자격 체계</div>
     <h2>자격 체계 설계·시스템 + 민간자격 등록 = 1,200만원</h2>
 
@@ -750,7 +838,7 @@
 
 
   <!-- OPTION 2 -->
-  <div class="section">
+  <div class="section" id="sec-option2" data-sec-name="과정 확장">
     <div class="section-label">Option 2 · 과정 확장</div>
     <h2>Option 1 이후 과정 추가 단가</h2>
     <p class="desc">구축 완료 후 과정을 추가할 경우의 단가입니다. LMS 플랫폼·서버비는 포함되지 않습니다.</p>
@@ -794,7 +882,7 @@
 
 
   <!-- TERMS -->
-  <div class="section">
+  <div class="section" id="sec-terms" data-sec-name="계약 조건">
     <div class="section-label">Terms</div>
     <h2>계약 조건</h2>
     <div class="terms-grid">
@@ -835,5 +923,177 @@
   </div>
 </footer>
 
+<script>
+(function() {
+  const STORAGE_PREFIX = 'penta_quote_';
+
+  function loadComments(secId) {
+    try { return JSON.parse(localStorage.getItem(STORAGE_PREFIX + secId) || '[]'); }
+    catch(e) { return []; }
+  }
+  function saveComments(secId, list) {
+    localStorage.setItem(STORAGE_PREFIX + secId, JSON.stringify(list));
+  }
+
+  function fmt(ts) {
+    const d = new Date(ts);
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mi = String(d.getMinutes()).padStart(2,'0');
+    return `${mm}/${dd} ${hh}:${mi}`;
+  }
+
+  function renderList(listEl, emptyEl, secId, toggleBtn) {
+    const comments = loadComments(secId);
+    listEl.innerHTML = '';
+    if (comments.length === 0) {
+      emptyEl.style.display = 'block';
+    } else {
+      emptyEl.style.display = 'none';
+      comments.forEach((c, i) => {
+        const item = document.createElement('div');
+        item.className = 'comment-item';
+        item.innerHTML =
+          `<div class="comment-item-header">
+            <span class="comment-author">${escHtml(c.name)}</span>
+            <span style="display:flex;align-items:center;gap:6px;">
+              <span class="comment-time">${fmt(c.ts)}</span>
+              <button class="comment-del" data-idx="${i}" title="삭제">✕</button>
+            </span>
+          </div>
+          <div class="comment-text">${escHtml(c.text)}</div>`;
+        listEl.appendChild(item);
+      });
+    }
+    // update toggle badge
+    toggleBtn.classList.toggle('has-comments', comments.length > 0);
+    const countEl = toggleBtn.querySelector('.ct-count');
+    if (countEl) countEl.textContent = comments.length;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function buildCommentUI(section) {
+    const secId   = section.id;
+    const secName = section.dataset.secName || secId;
+
+    // Toggle button
+    const toggle = document.createElement('button');
+    toggle.className = 'comment-toggle';
+    toggle.innerHTML = `<span class="ct-icon">💬</span><span class="ct-label">댓글</span><span class="ct-count">0</span>`;
+
+    // Panel
+    const panel = document.createElement('div');
+    panel.className = 'comment-panel';
+
+    const listEl  = document.createElement('div');
+    listEl.className = 'comment-list';
+    const emptyEl = document.createElement('div');
+    emptyEl.className = 'comment-empty';
+    emptyEl.textContent = '아직 댓글이 없습니다.';
+
+    const inputArea = document.createElement('div');
+    inputArea.className = 'comment-input-area';
+
+    const nameInput = document.createElement('input');
+    nameInput.className = 'comment-name-input';
+    nameInput.placeholder = '이름';
+    nameInput.maxLength = 20;
+    // persist name across sections
+    nameInput.value = localStorage.getItem('penta_quote_author') || '';
+
+    const textInput = document.createElement('textarea');
+    textInput.className = 'comment-text-input';
+    textInput.placeholder = '의견을 입력하세요…';
+    textInput.rows = 2;
+
+    const actionsRow = document.createElement('div');
+    actionsRow.className = 'comment-actions';
+
+    const submitBtn = document.createElement('button');
+    submitBtn.className = 'comment-submit';
+    submitBtn.textContent = '등록';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'comment-copy';
+    copyBtn.textContent = '전체 복사';
+
+    actionsRow.appendChild(copyBtn);
+    actionsRow.appendChild(submitBtn);
+
+    const inputRow = document.createElement('div');
+    inputRow.className = 'comment-input-row';
+    inputRow.appendChild(nameInput);
+    inputRow.appendChild(textInput);
+
+    inputArea.appendChild(inputRow);
+    inputArea.appendChild(actionsRow);
+
+    panel.appendChild(listEl);
+    panel.appendChild(emptyEl);
+    panel.appendChild(inputArea);
+
+    section.appendChild(toggle);
+    section.appendChild(panel);
+
+    // Initial render
+    renderList(listEl, emptyEl, secId, toggle);
+
+    // Toggle panel
+    toggle.addEventListener('click', () => {
+      panel.classList.toggle('open');
+    });
+
+    // Delete
+    listEl.addEventListener('click', e => {
+      const btn = e.target.closest('.comment-del');
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.idx);
+      const list = loadComments(secId);
+      list.splice(idx, 1);
+      saveComments(secId, list);
+      renderList(listEl, emptyEl, secId, toggle);
+    });
+
+    // Submit
+    submitBtn.addEventListener('click', () => {
+      const name = nameInput.value.trim() || '익명';
+      const text = textInput.value.trim();
+      if (!text) { textInput.focus(); return; }
+      localStorage.setItem('penta_quote_author', nameInput.value.trim());
+      const list = loadComments(secId);
+      list.push({ name, text, ts: Date.now() });
+      saveComments(secId, list);
+      textInput.value = '';
+      renderList(listEl, emptyEl, secId, toggle);
+      panel.classList.add('open');
+    });
+
+    // Enter to submit (Shift+Enter = newline)
+    textInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        submitBtn.click();
+      }
+    });
+
+    // Copy all
+    copyBtn.addEventListener('click', () => {
+      const list = loadComments(secId);
+      if (list.length === 0) { copyBtn.textContent = '댓글 없음'; setTimeout(() => copyBtn.textContent = '전체 복사', 1500); return; }
+      const text = `[${secName}] 섹션 댓글\n` + list.map(c => `${c.name} (${fmt(c.ts)})\n${c.text}`).join('\n\n');
+      navigator.clipboard.writeText(text).then(() => {
+        copyBtn.textContent = '복사됨 ✓';
+        setTimeout(() => copyBtn.textContent = '전체 복사', 1800);
+      });
+    });
+  }
+
+  document.querySelectorAll('.section[id][data-sec-name]').forEach(buildCommentUI);
+})();
+</script>
 </body>
 </html>
