@@ -10,359 +10,338 @@
     :root {
       --black: #0a0a0a;
       --gold: #C9A84C;
+      --gold2: rgba(201,168,76,0.12);
       --white: #ffffff;
-      --off: #f5f4f1;
+      --off: #f5f4f0;
       --gray: #888;
-      --light: #ddd;
-      --radius: 12px;
+      --light: #e2e2e2;
+      --r: 10px;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      height: 60px; padding: 0 48px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(10,10,10,0.95); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
     .nav-logo { font-size: 13px; font-weight: 700; letter-spacing: 3px; color: var(--white); text-transform: uppercase; }
     .nav-logo em { color: var(--gold); font-style: normal; }
     .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.5); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+    .nav-links a { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.45); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
     .nav-links a:hover { color: var(--white); }
-    .nav-enroll { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.5); padding: 8px 20px; border-radius: 4px; transition: all 0.2s; }
-    .nav-enroll:hover { background: var(--gold); color: var(--black); }
+    .nav-cta { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.45); padding: 8px 22px; border-radius: 4px; transition: all 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: var(--black); }
 
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      background: var(--black);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 120px 48px 100px;
-      position: relative; overflow: hidden;
-    }
-    .hero-noise {
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none; opacity: 0.4;
-    }
-    .hero-glow {
-      position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
-      width: 900px; height: 900px;
-      background: radial-gradient(ellipse at center, rgba(201,168,76,0.08) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .hero-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 4px;
-      color: var(--gold); text-transform: uppercase;
-      margin-bottom: 32px; opacity: 0.85;
-    }
-    .hero-title {
-      font-size: clamp(44px, 7vw, 88px);
-      font-weight: 900; color: var(--white);
-      letter-spacing: -3px; line-height: 1.0;
-      max-width: 900px; margin-bottom: 32px;
-    }
-    .hero-title .line2 { color: var(--gold); display: block; }
-    .hero-divider {
-      width: 40px; height: 1px; background: rgba(201,168,76,0.4);
-      margin: 0 auto 32px;
-    }
-    .hero-sub {
-      font-size: 15px; font-weight: 400;
-      color: rgba(255,255,255,0.38);
-      line-height: 2; max-width: 480px; margin-bottom: 56px;
-      letter-spacing: 0.2px;
-    }
-    .hero-actions { display: flex; gap: 12px; justify-content: center; align-items: center; }
-    .btn-gold {
-      font-size: 13px; font-weight: 700; letter-spacing: 1px;
-      background: var(--gold); color: var(--black);
-      padding: 14px 36px; border-radius: 4px; text-decoration: none;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    .btn-gold:hover { opacity: 0.88; transform: translateY(-1px); }
-    .btn-ghost {
-      font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
-      color: rgba(255,255,255,0.45); text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
-      transition: color 0.2s;
-    }
-    .btn-ghost:hover { color: rgba(255,255,255,0.8); }
-    .btn-ghost svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.5; fill: none; }
+    /* HERO — split */
+    .hero { min-height: 100vh; background: var(--black); display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 80px 48px 0; position: relative; overflow: hidden; gap: 0; }
+    .hero-glow { position: absolute; top: -20%; left: -10%; width: 60%; height: 120%; background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 65%); pointer-events: none; }
+    .hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 0; padding-right: 60px; padding-bottom: 100px; }
+    .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 28px; }
+    .hero-title { font-size: clamp(42px, 5.5vw, 76px); font-weight: 900; color: var(--white); letter-spacing: -3px; line-height: 1.0; margin-bottom: 28px; }
+    .hero-title em { color: var(--gold); font-style: normal; display: block; }
+    .hero-line { width: 36px; height: 1px; background: rgba(201,168,76,0.4); margin-bottom: 28px; }
+    .hero-sub { font-size: 14px; color: rgba(255,255,255,0.38); line-height: 2.0; margin-bottom: 48px; letter-spacing: 0.1px; max-width: 400px; }
+    .hero-actions { display: flex; gap: 12px; align-items: center; }
+    .btn-gold { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; background: var(--gold); color: var(--black); padding: 13px 32px; border-radius: 4px; text-decoration: none; transition: opacity 0.2s, transform 0.2s; text-transform: uppercase; }
+    .btn-gold:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-ghost { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px; display: flex; align-items: center; gap: 7px; transition: color 0.2s; }
+    .btn-ghost:hover { color: rgba(255,255,255,0.75); }
+    .btn-ghost svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* Hero bottom metrics */
-    .hero-metrics {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      display: flex; border-top: 1px solid rgba(255,255,255,0.06);
-    }
-    .hero-metric {
-      flex: 1; padding: 28px 0; text-align: center;
-      border-right: 1px solid rgba(255,255,255,0.06);
-    }
-    .hero-metric:last-child { border-right: none; }
-    .metric-val {
-      font-size: 28px; font-weight: 900; color: var(--white);
-      letter-spacing: -1px; line-height: 1;
-    }
-    .metric-val em { color: var(--gold); font-style: normal; }
-    .metric-key {
-      font-size: 10px; font-weight: 600; letter-spacing: 2px;
-      color: rgba(255,255,255,0.28); text-transform: uppercase;
-      margin-top: 6px;
-    }
+    /* Hero right — photo */
+    .hero-right { position: relative; height: 100vh; display: flex; align-items: flex-end; justify-content: center; }
+    .hero-photo-wrap { position: relative; width: 100%; height: 90%; display: flex; align-items: flex-end; justify-content: center; }
+    .hero-photo-wrap::before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70%; height: 60%; background: radial-gradient(ellipse at bottom, rgba(201,168,76,0.15) 0%, transparent 70%); border-radius: 50%; }
+    .hero-photo { width: 88%; max-width: 440px; height: auto; object-fit: contain; object-position: bottom; filter: drop-shadow(0 0 60px rgba(201,168,76,0.08)); position: relative; z-index: 1; display: block; }
+    .hero-photo-ring { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); width: 56%; aspect-ratio: 1; border: 1px solid rgba(201,168,76,0.12); border-radius: 50%; }
+    .hero-photo-ring2 { position: absolute; bottom: 4%; left: 50%; transform: translateX(-50%); width: 75%; aspect-ratio: 1; border: 1px solid rgba(201,168,76,0.06); border-radius: 50%; }
 
-    /* ── SECTION UTILS ── */
-    .sec { padding: 120px 48px; }
-    .sec-inner { max-width: 1100px; margin: 0 auto; }
-    .sec-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 4px;
-      color: var(--gold); text-transform: uppercase; margin-bottom: 20px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .sec-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
-    .sec-title {
-      font-size: clamp(30px, 4vw, 52px); font-weight: 900;
-      color: var(--black); letter-spacing: -2px; line-height: 1.1;
-    }
-    .sec-title-white { color: var(--white); }
-    .sec-body {
-      font-size: 15px; color: var(--gray);
-      line-height: 1.85; max-width: 520px; margin-top: 16px;
-    }
+    /* Hero metrics bar */
+    .hero-metrics { position: absolute; bottom: 0; left: 0; right: 0; display: flex; border-top: 1px solid rgba(255,255,255,0.06); }
+    .hero-m { flex: 1; padding: 22px 0; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
+    .hero-m:last-child { border-right: none; }
+    .hm-val { font-size: 24px; font-weight: 900; color: var(--white); letter-spacing: -1px; line-height: 1; }
+    .hm-val em { color: var(--gold); font-style: normal; font-size: 14px; }
+    .hm-key { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; color: rgba(255,255,255,0.25); text-transform: uppercase; margin-top: 5px; }
 
-    /* ── THREE PATHS ── */
+    /* SECTION BASE */
+    .sec { padding: 112px 48px; }
+    .sec-in { max-width: 1100px; margin: 0 auto; }
+    .sec-lbl { font-size: 9px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+    .sec-lbl::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+    .sec-h { font-size: clamp(28px, 4vw, 48px); font-weight: 900; color: var(--black); letter-spacing: -2px; line-height: 1.1; }
+    .sec-h-w { color: var(--white); }
+    .sec-p { font-size: 14px; color: var(--gray); line-height: 1.9; margin-top: 14px; max-width: 500px; }
+
+    /* YOUTUBE SECTION */
+    .yt-sec { background: #0d0d0d; padding: 112px 48px; }
+    .yt-in { max-width: 1100px; margin: 0 auto; }
+    .yt-top { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 56px; }
+    .yt-desc { font-size: 14px; color: rgba(255,255,255,0.35); line-height: 1.9; margin-top: 14px; max-width: 420px; }
+    .yt-channel-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 100px; padding: 8px 18px 8px 8px; margin-top: 28px; }
+    .yt-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--gold2); border: 1px solid rgba(201,168,76,0.2); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .yt-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .yt-ch-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 0.3px; }
+    .yt-ch-sub { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.3px; }
+    .yt-embed-wrap { width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); position: relative; background: #111; }
+    .yt-embed-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* PATHS */
     .paths { background: var(--off); }
-    .paths-header { margin-bottom: 72px; }
-    .paths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--radius); overflow: hidden; }
-    .path-item {
-      background: var(--white); padding: 48px 36px;
-      display: flex; flex-direction: column; gap: 20px;
-      transition: background 0.2s;
-    }
-    .path-item:hover { background: #fdfcf8; }
-    .path-num {
-      font-size: 11px; font-weight: 700; letter-spacing: 3px;
-      color: var(--gold); text-transform: uppercase;
-    }
-    .path-icon { width: 40px; height: 40px; }
-    .path-icon svg { width: 40px; height: 40px; stroke: var(--black); stroke-width: 1.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .path-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.3; }
-    .path-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
-    .path-tag {
-      display: inline-block; font-size: 10px; font-weight: 700;
-      letter-spacing: 1.5px; text-transform: uppercase;
-      padding: 5px 12px; border: 1px solid var(--light);
-      border-radius: 2px; color: var(--gray); width: fit-content;
-    }
+    .paths-header { margin-bottom: 64px; }
+    .paths-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--r); overflow: hidden; }
+    .path-card { background: var(--white); padding: 44px 36px; display: flex; flex-direction: column; gap: 18px; transition: background 0.2s; }
+    .path-card:hover { background: #fdfcf8; }
+    .path-n { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+    .path-icon svg { width: 36px; height: 36px; stroke: var(--black); stroke-width: 1.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .path-ttl { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.35; }
+    .path-txt { font-size: 13px; color: var(--gray); line-height: 1.85; }
+    .path-tag { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border: 1px solid var(--light); border-radius: 2px; color: #aaa; width: fit-content; }
 
-    /* ── COURSES ── */
+    /* COURSES */
     .courses { background: var(--white); }
-    .courses-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 56px; gap: 24px; flex-wrap: wrap; }
-    .course-filters { display: flex; gap: 4px; }
-    .cf { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--light); background: transparent; color: var(--gray); cursor: pointer; border-radius: 3px; transition: all 0.15s; }
+    .courses-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 52px; gap: 20px; flex-wrap: wrap; }
+    .cfilters { display: flex; gap: 3px; }
+    .cf { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 7px 14px; border: 1px solid var(--light); background: transparent; color: #aaa; cursor: pointer; border-radius: 3px; transition: all 0.15s; font-family: 'Pretendard', sans-serif; }
     .cf.on, .cf:hover { border-color: var(--black); background: var(--black); color: var(--white); }
-    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--radius); overflow: hidden; }
-    .course-card {
-      background: var(--white); padding: 32px 28px;
-      display: flex; flex-direction: column; gap: 12px;
-      transition: background 0.15s; cursor: default;
-    }
-    .course-card:hover { background: #fafaf8; }
-    .course-cat {
-      font-size: 9px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--gray);
-    }
-    .course-name { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; }
-    .course-meta { display: flex; flex-direction: column; gap: 4px; margin-top: auto; padding-top: 16px; border-top: 1px solid #f0f0f0; }
-    .course-instructor { font-size: 12px; color: var(--gray); font-weight: 500; }
-    .course-date { font-size: 11px; font-weight: 600; color: #bbb; letter-spacing: 0.3px; }
+    .cgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--r); overflow: hidden; }
+    .ccard { background: var(--white); padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; transition: background 0.15s; }
+    .ccard:hover { background: #fafaf7; }
+    .ccat { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #bbb; }
+    .cname { font-size: 14px; font-weight: 800; letter-spacing: -0.2px; line-height: 1.5; }
+    .cmeta { margin-top: auto; padding-top: 14px; border-top: 1px solid #f2f2f2; display: flex; flex-direction: column; gap: 3px; }
+    .cinst { font-size: 11px; color: var(--gray); font-weight: 500; }
+    .cdate { font-size: 10px; color: #c0c0c0; font-weight: 600; letter-spacing: 0.3px; }
+    .courses-more { text-align: center; margin-top: 40px; }
+    .courses-more a { font-size: 12px; font-weight: 600; color: var(--gray); text-decoration: none; border-bottom: 1px solid var(--light); padding-bottom: 2px; letter-spacing: 0.3px; transition: color 0.2s, border-color 0.2s; }
+    .courses-more a:hover { color: var(--black); border-color: var(--black); }
 
-    /* ── PROCESS ── */
+    /* PROCESS */
     .process { background: var(--black); }
-    .process-header { margin-bottom: 80px; }
-    .process-list { display: flex; flex-direction: column; gap: 0; border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius); overflow: hidden; }
-    .process-item {
-      display: grid; grid-template-columns: 80px 1fr auto;
-      align-items: center; gap: 40px;
-      padding: 36px 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      transition: background 0.2s;
-    }
-    .process-item:last-child { border-bottom: none; }
-    .process-item:hover { background: rgba(255,255,255,0.03); }
-    .process-n {
-      font-size: 11px; font-weight: 700; letter-spacing: 3px;
-      color: rgba(201,168,76,0.6); text-transform: uppercase;
-    }
-    .process-info { display: flex; flex-direction: column; gap: 8px; }
-    .process-title { font-size: 18px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
-    .process-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.7; }
-    .process-arrow { width: 20px; height: 20px; opacity: 0.2; }
-    .process-arrow svg { width: 20px; height: 20px; stroke: var(--white); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .process-hdr { margin-bottom: 72px; }
+    .process-list { border: 1px solid rgba(255,255,255,0.07); border-radius: var(--r); overflow: hidden; }
+    .pitem { display: grid; grid-template-columns: 72px 1fr 24px; align-items: center; gap: 36px; padding: 32px 44px; border-bottom: 1px solid rgba(255,255,255,0.06); transition: background 0.2s; }
+    .pitem:last-child { border-bottom: none; }
+    .pitem:hover { background: rgba(255,255,255,0.025); }
+    .pn { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: rgba(201,168,76,0.55); text-transform: uppercase; }
+    .pinfo { display: flex; flex-direction: column; gap: 7px; }
+    .pttl { font-size: 16px; font-weight: 800; color: var(--white); letter-spacing: -0.2px; }
+    .ptxt { font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.75; }
+    .parr svg { width: 18px; height: 18px; stroke: rgba(255,255,255,0.2); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* ── PROOF ── */
+    /* PROOF */
     .proof { background: var(--off); }
-    .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--radius); overflow: hidden; margin-top: 64px; }
-    .proof-cell { background: var(--white); padding: 48px 36px; }
-    .proof-val { font-size: 52px; font-weight: 900; letter-spacing: -3px; line-height: 1; color: var(--black); }
-    .proof-val em { font-style: normal; color: var(--gold); font-size: 28px; vertical-align: super; }
-    .proof-key { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gray); margin-top: 14px; }
+    .pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--r); overflow: hidden; margin-top: 60px; }
+    .pcell { background: var(--white); padding: 44px 32px; }
+    .pval { font-size: 48px; font-weight: 900; letter-spacing: -3px; line-height: 1; color: var(--black); }
+    .pval em { font-style: normal; color: var(--gold); font-size: 24px; }
+    .pkey { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #bbb; margin-top: 12px; }
 
-    /* ── INSTRUCTOR STRIP ── */
-    .instructor-strip { background: var(--white); border-top: 1px solid var(--light); border-bottom: 1px solid var(--light); }
-    .instructor-inner { max-width: 1100px; margin: 0 auto; padding: 80px 48px; display: grid; grid-template-columns: 200px 1fr; gap: 80px; align-items: center; }
-    .inst-photo { width: 200px; height: 200px; border-radius: 50%; background: #eee; border: 1px solid var(--light); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-    .inst-photo svg { width: 80px; height: 80px; stroke: #ccc; stroke-width: 1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-    .inst-right { display: flex; flex-direction: column; gap: 16px; }
-    .inst-role { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
-    .inst-name { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
-    .inst-bio { font-size: 14px; color: var(--gray); line-height: 1.9; max-width: 540px; }
-    .inst-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-    .inst-tag { font-size: 11px; font-weight: 600; color: var(--gray); padding: 6px 14px; border: 1px solid var(--light); border-radius: 2px; letter-spacing: 0.3px; }
+    /* INSTRUCTOR */
+    .inst-sec { background: var(--white); border-top: 1px solid var(--light); }
+    .inst-wrap { max-width: 1100px; margin: 0 auto; padding: 100px 48px; display: grid; grid-template-columns: 340px 1fr; gap: 80px; align-items: center; }
+    .inst-img-wrap { position: relative; }
+    .inst-img { width: 100%; border-radius: 14px; overflow: hidden; background: #111; aspect-ratio: 3/4; display: flex; align-items: flex-end; justify-content: center; }
+    .inst-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .inst-img-badge { position: absolute; bottom: -1px; left: 0; right: 0; background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%); padding: 28px 24px 20px; border-radius: 0 0 14px 14px; }
+    .inst-img-name { font-size: 18px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+    .inst-img-sub { font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.5px; margin-top: 3px; }
+    .inst-right { display: flex; flex-direction: column; gap: 20px; }
+    .inst-role { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); }
+    .inst-name { font-size: 38px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; }
+    .inst-bio { font-size: 14px; color: var(--gray); line-height: 1.9; max-width: 500px; }
+    .inst-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .itag { font-size: 10px; font-weight: 600; color: var(--gray); padding: 6px 13px; border: 1px solid var(--light); border-radius: 2px; letter-spacing: 0.3px; }
 
-    /* ── CTA ── */
-    .cta { background: var(--black); text-align: center; padding: 140px 48px; }
-    .cta-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(201,168,76,0.7); margin-bottom: 28px; }
-    .cta-title { font-size: clamp(36px, 5vw, 64px); font-weight: 900; color: var(--white); letter-spacing: -2.5px; line-height: 1.1; margin-bottom: 40px; }
-    .cta-title em { color: var(--gold); font-style: normal; }
+    /* CTA */
+    .cta-sec { background: var(--black); text-align: center; padding: 140px 48px; }
+    .cta-lbl { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(201,168,76,0.6); margin-bottom: 28px; }
+    .cta-h { font-size: clamp(34px, 5vw, 60px); font-weight: 900; color: var(--white); letter-spacing: -2.5px; line-height: 1.1; margin-bottom: 44px; }
+    .cta-h em { color: var(--gold); font-style: normal; }
 
-    /* ── FOOTER ── */
-    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.06); padding: 40px 48px; display: flex; align-items: center; justify-content: space-between; }
-    .footer-logo { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-    .footer-logo em { color: var(--gold); font-style: normal; }
-    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 0.3px; }
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.05); padding: 36px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .flogo { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .flogo em { color: var(--gold); font-style: normal; }
+    .fcopy { font-size: 11px; color: rgba(255,255,255,0.18); }
 
-    /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
-    .reveal.on { opacity: 1; transform: none; }
-    .d1 { transition-delay: 0.08s; }
-    .d2 { transition-delay: 0.16s; }
-    .d3 { transition-delay: 0.24s; }
-    .d4 { transition-delay: 0.32s; }
+    /* REVEAL */
+    .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .rv.on { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 960px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
+      nav { padding: 0 20px; } .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; padding: 100px 24px 80px; }
+      .hero-right { display: none; }
+      .hero-left { padding-right: 0; padding-bottom: 0; align-items: center; text-align: center; }
+      .hero-sub { margin: 0 auto 48px; }
+      .hero-metrics { position: static; margin-top: 48px; }
       .sec { padding: 80px 24px; }
-      .hero { padding: 100px 24px 120px; }
-      .paths-grid, .courses-grid, .proof-grid { grid-template-columns: 1fr 1fr; }
-      .process-item { grid-template-columns: 60px 1fr; padding: 28px 24px; gap: 20px; }
-      .process-arrow { display: none; }
-      .instructor-inner { grid-template-columns: 1fr; gap: 32px; padding: 60px 24px; }
-      .inst-photo { width: 120px; height: 120px; }
-      footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 24px; }
+      .yt-sec { padding: 80px 24px; }
+      .yt-top { grid-template-columns: 1fr; gap: 32px; }
+      .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr 1fr; }
+      .pitem { grid-template-columns: 60px 1fr; padding: 24px 20px; gap: 20px; }
+      .parr { display: none; }
+      .inst-wrap { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
+      .inst-img-wrap { max-width: 280px; }
+      footer { flex-direction: column; gap: 10px; text-align: center; padding: 28px 24px; }
     }
     @media (max-width: 600px) {
-      .paths-grid, .courses-grid, .proof-grid { grid-template-columns: 1fr; }
+      .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr; }
       .hero-title { letter-spacing: -2px; }
-      .hero-metrics { flex-direction: column; }
-      .hero-metric { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">PENTA<em>CAMPUS</em></div>
   <ul class="nav-links">
     <li><a href="#paths">과정 안내</a></li>
     <li><a href="#courses">커리큘럼</a></li>
-    <li><a href="#process">수강 과정</a></li>
+    <li><a href="#yt">채널 소개</a></li>
+    <li><a href="#process">수강 안내</a></li>
   </ul>
-  <a href="#cta" class="nav-enroll">수강 신청</a>
+  <a href="#cta" class="nav-cta">수강 신청</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-noise"></div>
   <div class="hero-glow"></div>
-  <div class="hero-label">Penta Campus · 2026</div>
-  <h1 class="hero-title">
-    초등 문해력 전문가<br>
-    <span class="line2">양성의 기준</span>
-  </h1>
-  <div class="hero-divider"></div>
-  <p class="hero-sub">
-    검증된 커리큘럼, 공인 자격증, 취업 연계까지.<br>
-    자격을 갖춘 강사를 만드는 구조적 시스템.
-  </p>
-  <div class="hero-actions">
-    <a href="#courses" class="btn-gold">커리큘럼 보기</a>
-    <a href="#process" class="btn-ghost">
-      수강 과정 알아보기
-      <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    </a>
+  <div class="hero-left">
+    <div class="hero-eyebrow">Penta Campus · 2026 Open</div>
+    <h1 class="hero-title">
+      초등 문해력<br>전문가 양성의<br><em>새로운 기준</em>
+    </h1>
+    <div class="hero-line"></div>
+    <p class="hero-sub">검증된 커리큘럼, 공인 자격증,<br>3가지 취업 경로까지 설계된 시스템.</p>
+    <div class="hero-actions">
+      <a href="#courses" class="btn-gold">커리큘럼 보기</a>
+      <a href="#process" class="btn-ghost">
+        수강 안내
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring2"></div>
+      <div class="hero-photo-ring"></div>
+      <img class="hero-photo" src="http://13.124.27.141/pix/penta/lee-eunkyung-nobg.png" alt="이은경 대표">
+    </div>
   </div>
   <div class="hero-metrics">
-    <div class="hero-metric">
-      <div class="metric-val" data-target="17" data-suffix="">0<em>+</em></div>
-      <div class="metric-key">전문 과정</div>
-    </div>
-    <div class="hero-metric">
-      <div class="metric-val" data-target="3" data-suffix="">0</div>
-      <div class="metric-key">취업 경로</div>
-    </div>
-    <div class="hero-metric">
-      <div class="metric-val" data-target="60" data-suffix="">0<em>+</em></div>
-      <div class="metric-key">대표 강사 저서</div>
-    </div>
-    <div class="hero-metric">
-      <div class="metric-val" data-target="15" data-suffix="">0<em>만+</em></div>
-      <div class="metric-key">커뮤니티 규모</div>
-    </div>
+    <div class="hero-m"><div class="hm-val" data-target="17" data-suffix="">17<em>+</em></div><div class="hm-key">전문 과정</div></div>
+    <div class="hero-m"><div class="hm-val">3</div><div class="hm-key">취업 경로</div></div>
+    <div class="hero-m"><div class="hm-val" data-target="60" data-suffix="">60<em>+</em></div><div class="hm-key">대표 강사 저서</div></div>
+    <div class="hero-m"><div class="hm-val">15<em>만+</em></div><div class="hm-key">유튜브 커뮤니티</div></div>
   </div>
 </section>
 
-<!-- THREE PATHS -->
+<!-- PATHS -->
 <section class="sec paths" id="paths">
-  <div class="sec-inner">
-    <div class="paths-header reveal">
-      <div class="sec-label">Why Penta Campus</div>
-      <h2 class="sec-title">자격증 이후까지<br>설계된 시스템</h2>
-      <p class="sec-body">수강으로 끝나지 않습니다. 펜타캠퍼스는 자격 취득 이후 실제 활동으로 연결되는 3가지 경로를 구조화합니다.</p>
+  <div class="sec-in">
+    <div class="paths-header rv">
+      <div class="sec-lbl">Why Penta Campus</div>
+      <h2 class="sec-h">자격증 이후까지<br>설계된 시스템</h2>
+      <p class="sec-p">수강으로 끝나지 않습니다. 펜타캠퍼스는 자격 취득 이후 실제 활동으로 연결되는 3가지 경로를 구조화합니다.</p>
     </div>
     <div class="paths-grid">
-      <div class="path-item reveal">
-        <div class="path-num">Path 01</div>
-        <div class="path-icon"><svg viewBox="0 0 40 40"><path d="M20 4L4 12v16l16 8 16-8V12L20 4z"/><path d="M4 12l16 8m0 0l16-8m-16 8v16"/></svg></div>
-        <div class="path-title">펜타스쿨<br>직영·가맹점</div>
-        <div class="path-desc">자격증 취득 후 펜타스쿨 직영원 및 전국 가맹점에서 즉시 강사로 활동할 수 있습니다.</div>
+      <div class="path-card rv">
+        <div class="path-n">Path 01</div>
+        <div class="path-icon"><svg viewBox="0 0 36 36"><path d="M18 3L3 10v14l15 9 15-9V10L18 3z"/><path d="M3 10l15 9m0 0l15-9m-15 9v14"/></svg></div>
+        <div class="path-ttl">펜타스쿨<br>직영·가맹점</div>
+        <p class="path-txt">자격증 취득 후 펜타스쿨 직영원 및 전국 가맹점에서 즉시 강사로 활동할 수 있습니다.</p>
         <div class="path-tag">Franchise Network</div>
       </div>
-      <div class="path-item reveal d1">
-        <div class="path-num">Path 02</div>
-        <div class="path-icon"><svg viewBox="0 0 40 40"><rect x="4" y="8" width="32" height="24" rx="3"/><path d="M14 36h12M20 32v4"/></svg></div>
-        <div class="path-title">학교<br>방과후 수업</div>
-        <div class="path-desc">초등학교 방과후 강사 채용 시 펜타캠퍼스 자격증이 공식 요건으로 연계됩니다.</div>
+      <div class="path-card rv d1">
+        <div class="path-n">Path 02</div>
+        <div class="path-icon"><svg viewBox="0 0 36 36"><rect x="3" y="7" width="30" height="22" rx="3"/><path d="M12 33h12M18 29v4"/></svg></div>
+        <div class="path-ttl">학교<br>방과후 수업</div>
+        <p class="path-txt">초등학교 방과후 강사 채용 시 펜타캠퍼스 자격증이 공식 요건으로 연계됩니다.</p>
         <div class="path-tag">School Partnership</div>
       </div>
-      <div class="path-item reveal d2">
-        <div class="path-num">Path 03</div>
-        <div class="path-icon"><svg viewBox="0 0 40 40"><circle cx="20" cy="16" r="8"/><path d="M6 36c0-7.732 6.268-14 14-14s14 6.268 14 14"/></svg></div>
-        <div class="path-title">독립 클래스<br>개설</div>
-        <div class="path-desc">완성형 교안과 커리큘럼을 제공받아 개인 스튜디오 또는 온라인 클래스를 직접 운영합니다.</div>
+      <div class="path-card rv d2">
+        <div class="path-n">Path 03</div>
+        <div class="path-icon"><svg viewBox="0 0 36 36"><circle cx="18" cy="14" r="7"/><path d="M5 33c0-7.18 5.82-13 13-13s13 5.82 13 13"/></svg></div>
+        <div class="path-ttl">독립 클래스<br>개설</div>
+        <p class="path-txt">완성형 교안과 커리큘럼을 제공받아 개인 스튜디오 또는 온라인 클래스를 직접 운영합니다.</p>
         <div class="path-tag">Independent</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- YOUTUBE -->
+<section class="yt-sec" id="yt">
+  <div class="yt-in">
+    <div class="yt-top rv">
+      <div>
+        <div class="sec-lbl" style="color:rgba(201,168,76,0.7)">Channel</div>
+        <h2 class="sec-h sec-h-w">15만 구독자가<br>검증한 콘텐츠</h2>
+        <p class="yt-desc">슬기로운 초등생활 채널에서 이은경 대표의 교육 철학과 방법론을 직접 확인하세요. 펜타캠퍼스 커리큘럼의 뿌리입니다.</p>
+        <div class="yt-channel-badge">
+          <div class="yt-avatar">
+            <img src="http://13.124.27.141/pix/penta/lee-eunkyung.jpg" alt="이은경">
+          </div>
+          <div>
+            <div class="yt-ch-name">슬기로운 초등생활</div>
+            <div class="yt-ch-sub">구독자 15만 · 이은경 대표</div>
+          </div>
+        </div>
+      </div>
+      <!-- 우측: 미니 썸네일 스택 (장식) -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
+          <div style="width:40px;height:40px;background:rgba(201,168,76,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:-0.2px;">초등 독서 습관 만드는 법</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;">조회수 23만</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
+          <div style="width:40px;height:40px;background:rgba(201,168,76,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:-0.2px;">글쓰기 싫어하는 아이 지도법</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;">조회수 18만</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
+          <div style="width:40px;height:40px;background:rgba(201,168,76,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:-0.2px;">문해력, 초등 때 잡는 이유</div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;">조회수 31만</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- YouTube embed — 영상 ID를 아래 XXXXXXXXXXX 자리에 교체 -->
+    <div class="yt-embed-wrap rv">
+      <iframe
+        src="https://www.youtube.com/embed/XXXXXXXXXXX?rel=0&modestbranding=1&color=white"
+        title="슬기로운 초등생활 — 이은경 대표"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</section>
+
 <!-- COURSES -->
 <section class="sec courses" id="courses">
-  <div class="sec-inner">
+  <div class="sec-in">
     <div class="courses-top">
-      <div class="reveal">
-        <div class="sec-label">Curriculum</div>
-        <h2 class="sec-title">17개 전문 과정</h2>
+      <div class="rv">
+        <div class="sec-lbl">Curriculum</div>
+        <h2 class="sec-h">17개 전문 과정</h2>
       </div>
-      <div class="course-filters reveal">
+      <div class="cfilters rv">
         <button class="cf on" data-f="all">전체</button>
         <button class="cf" data-f="free">기본</button>
         <button class="cf" data-f="pro">전문가</button>
@@ -370,164 +349,106 @@
         <button class="cf" data-f="self">자기계발</button>
       </div>
     </div>
-    <div class="courses-grid" id="cgrid">
-      <div class="course-card" data-c="free"><div class="course-cat">기본과정 · 무료</div><div class="course-name">초등독서습관지도사</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 개강</div></div></div>
-      <div class="course-card" data-c="free"><div class="course-cat">기본과정 · 무료</div><div class="course-name">초등글쓰기습관지도사</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 개강</div></div></div>
-      <div class="course-card" data-c="free"><div class="course-cat">기본과정 · 무료</div><div class="course-name">중등문해력대비지도사</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 개강</div></div></div>
-      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등종합문해력코칭전문가</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 10. 01</div></div></div>
-      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등인문독서코칭전문가</div><div class="course-meta"><div class="course-instructor">김문영 강사</div><div class="course-date">2026. 10. 01</div></div></div>
-      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등소논문코칭전문가</div><div class="course-meta"><div class="course-instructor">권보경 강사</div><div class="course-date">2026. 10. 01</div></div></div>
-      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등주제요약코칭전문가</div><div class="course-meta"><div class="course-instructor">조승우 강사</div><div class="course-date">2026. 10. 01</div></div></div>
-      <div class="course-card" data-c="pro"><div class="course-cat">전문가과정</div><div class="course-name">초등논증추론코칭전문가</div><div class="course-meta"><div class="course-instructor">강사 확정 예정</div><div class="course-date">2026. 10. 01</div></div></div>
-      <div class="course-card" data-c="oneday"><div class="course-cat">원데이클래스</div><div class="course-name">초등글쓰기 5단계 첨삭법</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 11. 01</div></div></div>
-      <div class="course-card" data-c="oneday"><div class="course-cat">원데이클래스</div><div class="course-name">초등을 위한 단계별 인문독서</div><div class="course-meta"><div class="course-instructor">김문영 강사</div><div class="course-date">2026. 11. 02</div></div></div>
-      <div class="course-card" data-c="oneday"><div class="course-cat">원데이클래스</div><div class="course-name">예비중등을 위한 주제요약법</div><div class="course-meta"><div class="course-instructor">조승우 강사</div><div class="course-date">2026. 11. 03</div></div></div>
-      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">브런치작가코칭전문가</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 07. 10</div></div></div>
-      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">북클럽운영전문가</div><div class="course-meta"><div class="course-instructor">정미진 강사</div><div class="course-date">2026. 08. 07</div></div></div>
-      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">1인미디어운영전문가</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 09. 11</div></div></div>
-      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">첫 책 출간 계약 실전 클래스</div><div class="course-meta"><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 06. 30</div></div></div>
-      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">생각정리 스피치클래스</div><div class="course-meta"><div class="course-instructor">이민하 강사</div><div class="course-date">2026. 07. 31</div></div></div>
-      <div class="course-card" data-c="self"><div class="course-cat">자기계발</div><div class="course-name">AI로 나만의 여행에세이 쓰기</div><div class="course-meta"><div class="course-instructor">조미연 강사</div><div class="course-date">2026. 08. 31</div></div></div>
+    <div class="cgrid" id="cgrid">
+      <div class="ccard" data-c="free"><div class="ccat">기본과정 · 무료</div><div class="cname">초등독서습관지도사</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">연수원 오픈 후 개강</div></div></div>
+      <div class="ccard" data-c="free"><div class="ccat">기본과정 · 무료</div><div class="cname">초등글쓰기습관지도사</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">연수원 오픈 후 개강</div></div></div>
+      <div class="ccard" data-c="free"><div class="ccat">기본과정 · 무료</div><div class="cname">중등문해력대비지도사</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">연수원 오픈 후 개강</div></div></div>
+      <a class="ccard" href="course.html" data-c="pro" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">전문가과정 ↗</div><div class="cname">초등종합문해력코칭전문가</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 10. 01</div></div></a>
+      <div class="ccard" data-c="pro"><div class="ccat">전문가과정</div><div class="cname">초등인문독서코칭전문가</div><div class="cmeta"><div class="cinst">김문영 강사</div><div class="cdate">2026. 10. 01</div></div></div>
+      <div class="ccard" data-c="pro"><div class="ccat">전문가과정</div><div class="cname">초등소논문코칭전문가</div><div class="cmeta"><div class="cinst">권보경 강사</div><div class="cdate">2026. 10. 01</div></div></div>
+      <div class="ccard" data-c="pro"><div class="ccat">전문가과정</div><div class="cname">초등주제요약코칭전문가</div><div class="cmeta"><div class="cinst">조승우 강사</div><div class="cdate">2026. 10. 01</div></div></div>
+      <div class="ccard" data-c="pro"><div class="ccat">전문가과정</div><div class="cname">초등논증추론코칭전문가</div><div class="cmeta"><div class="cinst">강사 확정 예정</div><div class="cdate">2026. 10. 01</div></div></div>
+      <div class="ccard" data-c="oneday"><div class="ccat">원데이클래스</div><div class="cname">초등글쓰기 5단계 첨삭법</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 11. 01</div></div></div>
+      <div class="ccard" data-c="oneday"><div class="ccat">원데이클래스</div><div class="cname">초등을 위한 단계별 인문독서</div><div class="cmeta"><div class="cinst">김문영 강사</div><div class="cdate">2026. 11. 02</div></div></div>
+      <div class="ccard" data-c="oneday"><div class="ccat">원데이클래스</div><div class="cname">예비중등을 위한 주제요약법</div><div class="cmeta"><div class="cinst">조승우 강사</div><div class="cdate">2026. 11. 03</div></div></div>
+      <div class="ccard" data-c="self"><div class="ccat">자기계발</div><div class="cname">브런치작가코칭전문가</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 07. 10</div></div></div>
+      <div class="ccard" data-c="self"><div class="ccat">자기계발</div><div class="cname">북클럽운영전문가</div><div class="cmeta"><div class="cinst">정미진 강사</div><div class="cdate">2026. 08. 07</div></div></div>
+      <div class="ccard" data-c="self"><div class="ccat">자기계발</div><div class="cname">1인미디어운영전문가</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 09. 11</div></div></div>
+      <div class="ccard" data-c="self"><div class="ccat">자기계발</div><div class="cname">첫 책 출간 계약 실전 클래스</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 06. 30</div></div></div>
+      <div class="ccard" data-c="self"><div class="ccat">자기계발</div><div class="cname">생각정리 스피치클래스</div><div class="cmeta"><div class="cinst">이민하 강사</div><div class="cdate">2026. 07. 31</div></div></div>
+      <div class="ccard" data-c="self"><div class="ccat">자기계발</div><div class="cname">AI로 나만의 여행에세이 쓰기</div><div class="cmeta"><div class="cinst">조미연 강사</div><div class="cdate">2026. 08. 31</div></div></div>
     </div>
+    <div class="courses-more rv"><a href="course.html">대표 과정 상세 보기 →</a></div>
   </div>
 </section>
 
 <!-- PROCESS -->
 <section class="sec process" id="process">
-  <div class="sec-inner">
-    <div class="process-header reveal">
-      <div class="sec-label" style="color:rgba(201,168,76,0.7)">How It Works</div>
-      <h2 class="sec-title sec-title-white">수강부터 활동까지</h2>
+  <div class="sec-in">
+    <div class="process-hdr rv">
+      <div class="sec-lbl" style="color:rgba(201,168,76,0.7)">How It Works</div>
+      <h2 class="sec-h sec-h-w">수강부터 활동까지</h2>
     </div>
     <div class="process-list">
-      <div class="process-item reveal">
-        <div class="process-n">Step 01</div>
-        <div class="process-info">
-          <div class="process-title">무료 기본과정 체험</div>
-          <div class="process-desc">3개 기본과정을 무료로 수강하며 펜타캠퍼스의 커리큘럼 방식을 직접 경험합니다.</div>
-        </div>
-        <div class="process-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </div>
-      <div class="process-item reveal d1">
-        <div class="process-n">Step 02</div>
-        <div class="process-info">
-          <div class="process-title">전문가과정 등록 및 이수</div>
-          <div class="process-desc">관심 분야의 전문가과정에 등록합니다. Zoom 실시간 강의와 녹화본으로 수강합니다.</div>
-        </div>
-        <div class="process-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </div>
-      <div class="process-item reveal d2">
-        <div class="process-n">Step 03</div>
-        <div class="process-info">
-          <div class="process-title">공인 자격증 취득</div>
-          <div class="process-desc">전 과정 수료 시 펜타캠퍼스 평생교육원 공인 자격증이 발급됩니다.</div>
-        </div>
-        <div class="process-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </div>
-      <div class="process-item reveal d3">
-        <div class="process-n">Step 04</div>
-        <div class="process-info">
-          <div class="process-title">3경로 취업·창업 연결</div>
-          <div class="process-desc">펜타스쿨 가맹점, 학교 방과후, 독립 클래스 중 원하는 경로로 즉시 활동을 시작합니다.</div>
-        </div>
-        <div class="process-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-      </div>
+      <div class="pitem rv"><div class="pn">Step 01</div><div class="pinfo"><div class="pttl">무료 기본과정 체험</div><div class="ptxt">3개 기본과정을 무료로 수강하며 펜타캠퍼스 커리큘럼 방식을 직접 경험합니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+      <div class="pitem rv d1"><div class="pn">Step 02</div><div class="pinfo"><div class="pttl">전문가과정 등록 및 이수</div><div class="ptxt">관심 분야 전문가과정에 등록. Zoom 실시간 강의와 녹화본으로 유연하게 수강합니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+      <div class="pitem rv d2"><div class="pn">Step 03</div><div class="pinfo"><div class="pttl">공인 자격증 취득</div><div class="ptxt">전 과정 수료 시 펜타캠퍼스 평생교육원 공인 자격증이 발급됩니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+      <div class="pitem rv d3"><div class="pn">Step 04</div><div class="pinfo"><div class="pttl">3경로 취업·창업 연결</div><div class="ptxt">펜타스쿨 가맹점, 학교 방과후, 독립 클래스 중 원하는 경로로 즉시 활동을 시작합니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
     </div>
   </div>
 </section>
 
 <!-- PROOF -->
 <section class="sec proof">
-  <div class="sec-inner">
-    <div class="reveal">
-      <div class="sec-label">By the Numbers</div>
-      <h2 class="sec-title">펜타가 쌓아온 것들</h2>
-    </div>
-    <div class="proof-grid">
-      <div class="proof-cell reveal">
-        <div class="proof-val">60<em>+</em></div>
-        <div class="proof-key">출간 저서</div>
-      </div>
-      <div class="proof-cell reveal d1">
-        <div class="proof-val">15<em>만+</em></div>
-        <div class="proof-key">유튜브 구독자</div>
-      </div>
-      <div class="proof-cell reveal d2">
-        <div class="proof-val">17<em>+</em></div>
-        <div class="proof-key">전문 과정</div>
-      </div>
-      <div class="proof-cell reveal d3">
-        <div class="proof-val">15<em>년</em></div>
-        <div class="proof-key">현장 교육 경력</div>
-      </div>
+  <div class="sec-in">
+    <div class="rv"><div class="sec-lbl">By the Numbers</div><h2 class="sec-h">펜타가 쌓아온 것들</h2></div>
+    <div class="pgrid">
+      <div class="pcell rv"><div class="pval">60<em>+</em></div><div class="pkey">출간 저서</div></div>
+      <div class="pcell rv d1"><div class="pval">15<em>만+</em></div><div class="pkey">유튜브 구독자</div></div>
+      <div class="pcell rv d2"><div class="pval">17<em>+</em></div><div class="pkey">전문 과정</div></div>
+      <div class="pcell rv d3"><div class="pval">15<em>년</em></div><div class="pkey">현장 교육 경력</div></div>
     </div>
   </div>
 </section>
 
-<!-- INSTRUCTOR STRIP -->
-<section class="instructor-strip">
-  <div class="instructor-inner">
-    <div class="inst-photo reveal">
-      <svg viewBox="0 0 80 80"><circle cx="40" cy="28" r="18"/><path d="M8 76c0-17.673 14.327-32 32-32s32 14.327 32 32"/></svg>
+<!-- INSTRUCTOR -->
+<section class="inst-sec">
+  <div class="inst-wrap">
+    <div class="inst-img-wrap rv">
+      <div class="inst-img">
+        <img src="http://13.124.27.141/pix/penta/lee-eunkyung.jpg" alt="이은경 대표">
+      </div>
+      <div class="inst-img-badge">
+        <div class="inst-img-name">이은경</div>
+        <div class="inst-img-sub">슬기로운 초등생활</div>
+      </div>
     </div>
-    <div class="inst-right reveal d1">
+    <div class="inst-right rv d1">
       <div class="inst-role">Founding Instructor</div>
-      <div class="inst-name">이은경</div>
-      <p class="inst-bio">초등교사 15년 경력. 60권 이상의 저서를 출간한 초등 교육 작가이자 '슬기로운 초등생활' 유튜브 채널 운영자. 펜타캠퍼스 커리큘럼의 핵심을 설계했습니다.</p>
+      <div class="inst-name">15년 현장,<br>60권의 기록</div>
+      <p class="inst-bio">초등교사로 15년간 아이들과 함께한 경험을 바탕으로 60권 이상의 교육 도서를 집필했습니다. '슬기로운 초등생활' 유튜브 채널을 통해 15만 학부모와 소통하며 초등 문해력 교육의 기준을 만들어왔습니다. 펜타캠퍼스는 그 축적된 커리큘럼을 강사 양성 시스템으로 구조화한 결과입니다.</p>
       <div class="inst-tags">
-        <span class="inst-tag">초등교사 15년</span>
-        <span class="inst-tag">저서 60권+</span>
-        <span class="inst-tag">유튜브 15만+</span>
-        <span class="inst-tag">베스트셀러 작가</span>
+        <span class="itag">초등교사 15년</span>
+        <span class="itag">저서 60권+</span>
+        <span class="itag">유튜브 15만+</span>
+        <span class="itag">베스트셀러 작가</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="cta" id="cta">
-  <div class="cta-eyebrow">Ready to Start</div>
-  <h2 class="cta-title reveal">지금, 전문가의<br><em>첫 걸음</em>을 시작하세요</h2>
-  <a href="http://13.124.27.141" target="_blank" class="btn-gold" style="margin-top:8px">무료 과정으로 시작하기</a>
+<section class="cta-sec" id="cta">
+  <div class="cta-lbl">Ready to Start</div>
+  <h2 class="cta-h rv">지금, 전문가의<br><em>첫 걸음</em>을 시작하세요</h2>
+  <a href="http://13.124.27.141" target="_blank" class="btn-gold">무료 과정으로 시작하기</a>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">PENTA<em>CAMPUS</em></div>
-  <div class="footer-copy">© 2026 펜타캠퍼스. All rights reserved.</div>
+  <div class="flogo">PENTA<em>CAMPUS</em></div>
+  <div class="fcopy">© 2026 펜타캠퍼스. All rights reserved.</div>
 </footer>
 
 <script>
-  /* reveal */
-  const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){e.target.classList.add('on'); ro.unobserve(e.target);} }), {threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-  /* counter */
-  const easeOut = t => 1 - Math.pow(1-t, 3);
-  function runCounter(el) {
-    const target = +el.dataset.target;
-    const suffix = el.dataset.suffix || '';
-    const em = el.querySelector('em');
-    const emText = em ? em.outerHTML : '';
-    const dur = 1200, s = performance.now();
-    (function tick(now){
-      const p = Math.min((now-s)/dur, 1);
-      const v = Math.round(easeOut(p) * target);
-      el.innerHTML = v + suffix + emText;
-      if(p<1) requestAnimationFrame(tick);
-    })(s);
-  }
-  const co = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){runCounter(e.target); co.unobserve(e.target);} }), {threshold:0.5});
-  document.querySelectorAll('[data-target]').forEach(el => co.observe(el));
-
-  /* filter */
+  const ro = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){e.target.classList.add('on'); ro.unobserve(e.target);} }), {threshold:0.08});
+  document.querySelectorAll('.rv').forEach(el => ro.observe(el));
   document.querySelectorAll('.cf').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.cf').forEach(b => b.classList.remove('on'));
       btn.classList.add('on');
       const f = btn.dataset.f;
-      document.querySelectorAll('#cgrid .course-card').forEach(c => {
-        c.style.display = (f === 'all' || c.dataset.c === f) ? '' : 'none';
+      document.querySelectorAll('#cgrid .ccard, #cgrid a.ccard').forEach(c => {
+        c.style.display = (f==='all' || c.dataset.c===f) ? '' : 'none';
       });
     });
   });
