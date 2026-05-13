@@ -1,322 +1,345 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>펜타캠퍼스 사이트 · 프로젝트 허브</title>
-<style>
-  :root {
-    --navy: #0a0a0a;
-    --gold: #C9A84C;
-    --gold-soft: #F5EFD9;
-    --ink: #1a1a1a;
-    --mute: #6b6b6b;
-    --line: #e8e8e8;
-    --bg: #fafafa;
-    --done: #10b981;
-    --pending: #9ca3af;
-    --active: #C9A84C;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", sans-serif;
-    color: var(--ink);
-    background: var(--bg);
-    line-height: 1.6;
-    font-size: 15px;
-  }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 40px 28px 80px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>펜타캠퍼스 — 초등 문해력 강사 양성 플랫폼</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a;
+      --gold: #C9A84C;
+      --gold-light: #e8c96a;
+      --white: #ffffff;
+      --gray-100: #f7f7f5;
+      --gray-200: #ebebeb;
+      --gray-400: #999;
+      --gray-600: #555;
+      --radius: 14px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-  .topbar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-bottom: 20px; margin-bottom: 32px;
-    border-bottom: 1px solid var(--line);
-  }
-  .topbar a { color: var(--mute); text-decoration: none; font-size: 13px; }
-  .topbar a:hover { color: var(--navy); }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; background: rgba(10,10,10,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .nav-logo { font-size: 16px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { background: var(--gold) !important; color: var(--black) !important; font-weight: 700 !important; padding: 8px 20px !important; border-radius: 8px; }
 
-  header.hero { margin-bottom: 40px; }
-  .eyebrow {
-    font-size: 11px; letter-spacing: 0.22em; color: var(--gold);
-    font-weight: 700; text-transform: uppercase; margin-bottom: 12px;
-  }
-  h1 {
-    font-size: 32px; font-weight: 800; color: var(--navy);
-    letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 12px;
-  }
-  .subtitle { color: var(--mute); font-size: 16px; }
+    /* HERO */
+    .hero { min-height: 100vh; background: var(--black); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 40px 80px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(ellipse, rgba(201,168,76,0.12) 0%, transparent 65%); pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 16px; border: 1px solid rgba(201,168,76,0.4); border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--gold); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 28px; }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+    .hero-title { font-size: clamp(38px, 6vw, 72px); font-weight: 900; color: var(--white); letter-spacing: -2.5px; line-height: 1.1; max-width: 840px; margin-bottom: 24px; }
+    .hero-title .accent { color: var(--gold); }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.8; max-width: 520px; margin-bottom: 48px; font-weight: 400; }
+    .hero-cta-group { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary { background: var(--gold); color: var(--black); font-size: 15px; font-weight: 700; padding: 15px 32px; border-radius: 10px; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: rgba(255,255,255,0.75); font-size: 15px; font-weight: 600; padding: 15px 32px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.5); color: var(--white); }
+    .hero-stats { display: flex; gap: 0; margin-top: 72px; border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; overflow: hidden; }
+    .hero-stat { padding: 24px 48px; text-align: center; border-right: 1px solid rgba(201,168,76,0.2); }
+    .hero-stat:last-child { border-right: none; }
+    .hero-stat-num { font-size: 36px; font-weight: 900; color: var(--gold); letter-spacing: -1.5px; line-height: 1; }
+    .hero-stat-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 6px; }
 
-  .meta-row {
-    display: flex; gap: 24px; flex-wrap: wrap;
-    margin-top: 20px; padding: 16px 20px;
-    background: #fff; border: 1px solid var(--line); border-radius: 6px;
-  }
-  .meta-item { font-size: 13px; }
-  .meta-item .label { color: var(--mute); margin-right: 6px; }
-  .meta-item .value { color: var(--navy); font-weight: 600; }
-  .badge {
-    display: inline-block; padding: 2px 10px; border-radius: 10px;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.05em;
-  }
-  .badge-active { background: var(--gold-soft); color: #8b6914; }
-  .badge-live { background: #dcfce7; color: #166534; }
+    /* SECTION */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .section-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; }
+    .section-tag::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+    .section-title { font-size: clamp(28px, 4vw, 48px); font-weight: 900; color: var(--black); letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 16px; }
+    .section-sub { font-size: 16px; color: var(--gray-600); line-height: 1.8; max-width: 560px; }
 
-  section {
-    margin-top: 40px; padding: 28px;
-    background: #fff; border: 1px solid var(--line); border-radius: 8px;
-  }
-  h2 {
-    font-size: 18px; font-weight: 700; color: var(--navy);
-    margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
-  }
-  h2 .num {
-    font-size: 11px; letter-spacing: 0.18em; color: var(--gold); font-weight: 700;
-  }
+    /* FEATURES */
+    .features { background: var(--gray-100); }
+    .features-header { margin-bottom: 56px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .feature-card { background: var(--white); border-radius: var(--radius); padding: 32px 28px; border: 1px solid var(--gray-200); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
+    .feature-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--black); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
+    .feature-title { font-size: 17px; font-weight: 800; color: var(--black); margin-bottom: 10px; letter-spacing: -0.3px; }
+    .feature-desc { font-size: 14px; color: var(--gray-600); line-height: 1.75; }
 
-  .milestone {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 14px 0; border-bottom: 1px solid var(--line);
-  }
-  .milestone:last-child { border-bottom: none; }
-  .ms-status {
-    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; margin-top: 2px;
-  }
-  .ms-done { background: var(--done); color: #fff; }
-  .ms-active { background: var(--active); color: #fff; }
-  .ms-pending { background: #f3f4f6; color: var(--pending); border: 1px solid var(--line); }
-  .ms-body { flex: 1; }
-  .ms-title {
-    font-weight: 600; color: var(--navy); margin-bottom: 3px;
-    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  }
-  .ms-code { font-size: 11px; color: var(--gold); font-weight: 700; letter-spacing: 0.05em; }
-  .ms-note { font-size: 13px; color: var(--mute); }
-  .ms-date { font-size: 12px; color: var(--mute); white-space: nowrap; }
+    /* COURSES */
+    .courses { background: var(--white); }
+    .courses-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 20px; }
+    .course-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tab-btn { padding: 8px 18px; border-radius: 100px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--gray-200); color: var(--gray-600); background: transparent; cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active, .tab-btn:hover { border-color: var(--black); background: var(--black); color: var(--white); }
+    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .course-card { border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 24px; transition: border-color 0.2s, transform 0.2s; cursor: pointer; }
+    .course-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .course-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; margin-bottom: 14px; }
+    .tag-free { background: #e8f5e9; color: #2e7d32; }
+    .tag-pro { background: #faf0e0; color: #b8860b; }
+    .tag-oneday { background: #e8eaf6; color: #3949ab; }
+    .tag-self { background: #fce4ec; color: #c62828; }
+    .course-name { font-size: 15px; font-weight: 800; color: var(--black); letter-spacing: -0.3px; margin-bottom: 8px; line-height: 1.4; }
+    .course-instructor { font-size: 12px; color: var(--gray-400); font-weight: 500; }
+    .course-date { font-size: 12px; color: var(--gray-600); font-weight: 600; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--gray-200); }
 
-  .docs { list-style: none; }
-  .doc-item {
-    padding: 12px 0; border-bottom: 1px solid var(--line);
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .doc-item:last-child { border-bottom: none; }
-  .doc-link {
-    color: var(--navy); text-decoration: none; font-weight: 600;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .doc-link:hover { color: var(--gold); }
-  .doc-link::before {
-    content: "→"; color: var(--gold); font-weight: 700;
-  }
-  .doc-tag { font-size: 11px; color: var(--mute); letter-spacing: 0.05em; }
-  .doc-disabled { color: var(--pending); cursor: default; }
-  .doc-disabled:hover { color: var(--pending); }
+    /* FLOW */
+    .flow { background: var(--black); padding: 100px 40px; }
+    .flow .section-title { color: var(--white); }
+    .flow .section-sub { color: rgba(255,255,255,0.45); }
+    .flow-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 64px; position: relative; }
+    .flow-steps::before { content: ''; position: absolute; top: 40px; left: 0; right: 0; height: 1px; background: rgba(201,168,76,0.3); }
+    .flow-step { display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; padding: 0 20px; position: relative; }
+    .step-num { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--gold); background: var(--black); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 900; color: var(--gold); position: relative; z-index: 1; }
+    .step-title { font-size: 16px; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
+    .step-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.7; }
 
-  .callout {
-    padding: 18px 20px; background: var(--gold-soft);
-    border-left: 3px solid var(--gold); border-radius: 4px;
-    font-size: 14px; color: var(--ink);
-  }
-  .callout strong { color: var(--navy); }
+    /* PROOF */
+    .proof { background: var(--gray-100); }
+    .proof-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 56px; }
+    .proof-card { background: var(--white); border-radius: var(--radius); padding: 32px 24px; border: 1px solid var(--gray-200); text-align: center; }
+    .proof-num { font-size: 44px; font-weight: 900; color: var(--black); letter-spacing: -2px; line-height: 1; }
+    .proof-unit { font-size: 20px; font-weight: 700; color: var(--gold); }
+    .proof-label { font-size: 12px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 10px; }
 
-  .relation {
-    display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center;
-    margin-top: 8px;
-  }
-  .rel-box {
-    padding: 16px; border: 1px solid var(--line); border-radius: 6px;
-    background: #fafafa; text-align: center;
-  }
-  .rel-box.current { border-color: var(--gold); background: var(--gold-soft); }
-  .rel-box .rel-title { font-weight: 700; color: var(--navy); font-size: 14px; margin-bottom: 4px; }
-  .rel-box .rel-sub { font-size: 12px; color: var(--mute); }
-  .rel-arrow { color: var(--gold); font-size: 24px; font-weight: 700; }
+    /* INSTRUCTOR */
+    .instructor { background: var(--white); }
+    .instructor-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .instructor-image { border-radius: 20px; overflow: hidden; background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; font-size: 96px; }
+    .instructor-meta { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); border-radius: 100px; padding: 8px 16px; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 20px; }
+    .instructor-name { font-size: 40px; font-weight: 900; color: var(--black); letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 20px; }
+    .instructor-tagline { font-size: 16px; color: var(--gray-600); line-height: 1.8; margin-bottom: 32px; }
+    .instructor-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge { padding: 8px 16px; border-radius: 100px; background: var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-600); }
 
-  @media (max-width: 640px) {
-    .wrap { padding: 28px 18px 60px; }
-    h1 { font-size: 26px; }
-    .relation { grid-template-columns: 1fr; }
-    .rel-arrow { transform: rotate(90deg); }
-  }
-</style>
+    /* CTA */
+    .cta-section { background: var(--gold); padding: 100px 40px; text-align: center; }
+    .cta-section .section-title { color: var(--black); margin-bottom: 20px; }
+    .cta-section .section-sub { color: rgba(10,10,10,0.6); margin: 0 auto 40px; text-align: center; }
+    .btn-dark { background: var(--black); color: var(--white); font-size: 16px; font-weight: 700; padding: 17px 40px; border-radius: 12px; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.2s; }
+    .btn-dark:hover { background: #222; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--black); padding: 48px 40px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-logo { font-size: 20px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section { padding: 72px 24px; }
+      .hero { padding: 100px 24px 64px; }
+      .hero-stats { flex-direction: column; }
+      .hero-stat { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.2); }
+      .hero-stat:last-child { border-bottom: none; }
+      .features-grid, .courses-grid { grid-template-columns: 1fr 1fr; }
+      .flow-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .flow-steps::before { display: none; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .instructor-wrap { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .features-grid, .courses-grid, .flow-steps { grid-template-columns: 1fr; }
+      .hero-title { letter-spacing: -1.5px; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="wrap">
-  <div class="topbar">
-    <a href="../">← PENTA 대시보드</a>
-    <span style="font-size: 13px; color: var(--mute);">PROJECT HUB</span>
+<nav>
+  <div class="nav-logo">PENTA<span>CAMPUS</span></div>
+  <ul class="nav-links">
+    <li><a href="#features">플랫폼</a></li>
+    <li><a href="#courses">과정</a></li>
+    <li><a href="#flow">수강 안내</a></li>
+    <li><a href="#instructor">대표 강사</a></li>
+    <li><a href="#cta" class="nav-cta">수강 신청</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-badge">2026 · 개강 예정</div>
+  <h1 class="hero-title">초등 문해력<br><span class="accent">강사 양성</span>의<br>새로운 기준</h1>
+  <p class="hero-sub">이은경 대표의 커리큘럼으로 자격증을 취득하고<br>펜타스쿨 · 학교 방과후 · 독립 개원까지<br>3가지 취업 경로를 열어드립니다.</p>
+  <div class="hero-cta-group">
+    <a href="#courses" class="btn-primary">과정 살펴보기</a>
+    <a href="#flow" class="btn-outline">수강 안내 보기</a>
   </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num" data-target="60" data-suffix="+">0+</div>
+      <div class="hero-stat-label">출간 저서</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" data-target="15" data-suffix="만+">0만+</div>
+      <div class="hero-stat-label">유튜브 구독자</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" data-target="17" data-suffix="+">0+</div>
+      <div class="hero-stat-label">전문 과정</div>
+    </div>
+  </div>
+</section>
 
-  <header class="hero">
-    <p class="eyebrow">Penta · Self-launch</p>
-    <h1>펜타캠퍼스 사이트</h1>
-    <p class="subtitle">펜타 자체 원격연수원 사이트 구축 — campus.openpenta.com</p>
+<section class="features" id="features">
+  <div class="section-inner">
+    <div class="features-header">
+      <div class="section-tag">Platform</div>
+      <h2 class="section-title reveal">펜타캠퍼스가<br>다른 이유</h2>
+      <p class="section-sub reveal reveal-delay-1">단순 강의 플랫폼이 아닙니다. 수강 후 즉시 활동할 수 있는 구조를 갖춥니다.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal"><div class="feature-icon">🎓</div><div class="feature-title">공인 자격증 발급</div><div class="feature-desc">평생교육원 정식 인가 과정. 수료 시 공인 자격증이 발급됩니다.</div></div>
+      <div class="feature-card reveal reveal-delay-1"><div class="feature-icon">💼</div><div class="feature-title">3경로 취업 연결</div><div class="feature-desc">펜타스쿨 직영 · 가맹점 · 학교 방과후 수업으로 자격증 취득 직후 활동이 가능합니다.</div></div>
+      <div class="feature-card reveal reveal-delay-2"><div class="feature-icon">📱</div><div class="feature-title">100% 온라인 수강</div><div class="feature-desc">Zoom 실시간 강의 + 녹화본 제공. 육아 중이거나 직장을 다니면서도 수강할 수 있습니다.</div></div>
+      <div class="feature-card reveal reveal-delay-1"><div class="feature-icon">📚</div><div class="feature-title">현직 전문가 강사진</div><div class="feature-desc">이은경 대표를 포함한 초등 교육 현장 전문가들이 직접 강의합니다.</div></div>
+      <div class="feature-card reveal reveal-delay-2"><div class="feature-icon">🔄</div><div class="feature-title">완성형 교안 제공</div><div class="feature-desc">수업에 바로 쓸 수 있는 교안과 학생 활동지를 자격증 취득 후 제공합니다.</div></div>
+      <div class="feature-card reveal reveal-delay-3"><div class="feature-icon">🌐</div><div class="feature-title">강사 커뮤니티</div><div class="feature-desc">수료생 전용 커뮤니티에서 정보를 교환하고 강사 네트워크를 이어나갑니다.</div></div>
+    </div>
+  </div>
+</section>
 
-    <div class="meta-row">
-      <div class="meta-item">
-        <span class="label">단계</span>
-        <span class="value"><span class="badge badge-active">Phase 0 · Discovery</span></span>
+<section class="courses" id="courses">
+  <div class="section-inner">
+    <div class="courses-header">
+      <div>
+        <div class="section-tag">Courses</div>
+        <h2 class="section-title reveal">17개 전문 과정</h2>
+        <p class="section-sub reveal reveal-delay-1">기초부터 전문가 과정까지 단계별로 구성되어 있습니다.</p>
       </div>
-      <div class="meta-item">
-        <span class="label">도메인</span>
-        <span class="value">campus.openpenta.com</span>
-      </div>
-      <div class="meta-item">
-        <span class="label">와꾸 완성</span>
-        <span class="value">2026-04 말</span>
-      </div>
-      <div class="meta-item">
-        <span class="label">정식 오픈</span>
-        <span class="value">2026-10</span>
+      <div class="course-tabs">
+        <button class="tab-btn active" data-filter="all">전체</button>
+        <button class="tab-btn" data-filter="free">무료 기본</button>
+        <button class="tab-btn" data-filter="pro">전문가</button>
+        <button class="tab-btn" data-filter="oneday">원데이</button>
+        <button class="tab-btn" data-filter="self">자기계발</button>
       </div>
     </div>
-  </header>
+    <div class="courses-grid" id="coursesGrid">
+      <div class="course-card reveal" data-cat="free"><span class="course-tag tag-free">무료 기본</span><div class="course-name">초등독서습관지도사</div><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 동시 개강</div></div>
+      <div class="course-card reveal reveal-delay-1" data-cat="free"><span class="course-tag tag-free">무료 기본</span><div class="course-name">초등글쓰기습관지도사</div><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 동시 개강</div></div>
+      <div class="course-card reveal reveal-delay-2" data-cat="free"><span class="course-tag tag-free">무료 기본</span><div class="course-name">중등문해력대비지도사</div><div class="course-instructor">이은경 대표</div><div class="course-date">연수원 오픈 후 동시 개강</div></div>
+      <div class="course-card reveal" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등종합문해력코칭전문가</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-1" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등인문독서코칭전문가</div><div class="course-instructor">김문영 강사</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-2" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등소논문코칭전문가</div><div class="course-instructor">권보경 강사</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
+      <div class="course-card reveal" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등주제요약코칭전문가</div><div class="course-instructor">조승우 강사</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-1" data-cat="pro"><span class="course-tag tag-pro">전문가</span><div class="course-name">초등논증추론코칭전문가</div><div class="course-instructor">변호사 강사 (확정 예정)</div><div class="course-date">2026. 10. 01 (목) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-2" data-cat="oneday"><span class="course-tag tag-oneday">원데이클래스</span><div class="course-name">초등글쓰기 5단계 첨삭법</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 11. 01 (일) 밤 8시</div></div>
+      <div class="course-card reveal" data-cat="oneday"><span class="course-tag tag-oneday">원데이클래스</span><div class="course-name">초등을 위한 단계별 인문독서</div><div class="course-instructor">김문영 강사</div><div class="course-date">2026. 11. 02 (월) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-1" data-cat="oneday"><span class="course-tag tag-oneday">원데이클래스</span><div class="course-name">예비중등을 위한 주제요약법</div><div class="course-instructor">조승우 강사</div><div class="course-date">2026. 11. 03 (화) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-2" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">브런치작가코칭전문가</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 07. 10 (금) 밤 8시</div></div>
+      <div class="course-card reveal" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">북클럽운영전문가</div><div class="course-instructor">정미진 강사</div><div class="course-date">2026. 08. 07 (금) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-1" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">1인미디어운영전문가</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 09. 11 (금) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-2" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">첫 책 출간 계약 실전 클래스</div><div class="course-instructor">이은경 대표</div><div class="course-date">2026. 06. 30 (화) 밤 8시</div></div>
+      <div class="course-card reveal" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">생각정리 스피치클래스</div><div class="course-instructor">이민하 강사</div><div class="course-date">2026. 07. 31 (금) 밤 8시</div></div>
+      <div class="course-card reveal reveal-delay-1" data-cat="self"><span class="course-tag tag-self">자기계발</span><div class="course-name">AI로 나만의 여행에세이 쓰기</div><div class="course-instructor">조미연 강사</div><div class="course-date">2026. 08. 31 (일) 밤 8시</div></div>
+    </div>
+  </div>
+</section>
 
-  <section>
-    <h2><span class="num">RELATION</span>책나무 프로젝트와의 관계</h2>
-    <div class="relation">
-      <div class="rel-box current">
-        <div class="rel-title">펜타캠퍼스 (본 프로젝트)</div>
-        <div class="rel-sub">자체 런칭 · 10월 오픈<br>검증 자산 · 선행</div>
-      </div>
-      <div class="rel-arrow">▶</div>
-      <div class="rel-box">
-        <div class="rel-title">책나무 원격연수원</div>
-        <div class="rel-sub">B2B 수주 · 계약 시 착수<br>후속 납품 트랙</div>
+<section class="flow" id="flow">
+  <div class="section-inner">
+    <div class="section-tag">How it works</div>
+    <h2 class="section-title reveal">수강부터 취업까지<br>4단계</h2>
+    <p class="section-sub reveal reveal-delay-1">처음 접속하는 날부터 현장에서 활동하는 날까지 안내드립니다.</p>
+    <div class="flow-steps">
+      <div class="flow-step reveal"><div class="step-num">1</div><div class="step-title">무료 기본과정 수강</div><div class="step-desc">이은경 대표의 핵심 방법론을 무료로 체험하세요.</div></div>
+      <div class="flow-step reveal reveal-delay-1"><div class="step-num">2</div><div class="step-title">전문가과정 등록</div><div class="step-desc">관심 분야 전문가 과정을 선택해 자격증 과정을 이수합니다.</div></div>
+      <div class="flow-step reveal reveal-delay-2"><div class="step-num">3</div><div class="step-title">자격증 취득</div><div class="step-desc">전 과정 수료 후 펜타캠퍼스 공인 자격증을 발급받습니다.</div></div>
+      <div class="flow-step reveal reveal-delay-3"><div class="step-num">4</div><div class="step-title">취업·창업 연결</div><div class="step-desc">펜타스쿨 가맹점, 학교 방과후, 독립 클래스 운영까지 연결됩니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="section-inner">
+    <div class="section-tag">Numbers</div>
+    <h2 class="section-title reveal">숫자로 증명합니다</h2>
+    <div class="proof-grid">
+      <div class="proof-card reveal"><div class="proof-num">60<span class="proof-unit">+</span></div><div class="proof-label">출간 저서</div></div>
+      <div class="proof-card reveal reveal-delay-1"><div class="proof-num">15<span class="proof-unit">만+</span></div><div class="proof-label">유튜브 구독자</div></div>
+      <div class="proof-card reveal reveal-delay-2"><div class="proof-num">17<span class="proof-unit">+</span></div><div class="proof-label">전문 과정</div></div>
+      <div class="proof-card reveal reveal-delay-3"><div class="proof-num">15<span class="proof-unit">년</span></div><div class="proof-label">현장 교육 경력</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="instructor" id="instructor">
+  <div class="section-inner">
+    <div class="instructor-wrap">
+      <div class="instructor-image reveal">👩‍🏫</div>
+      <div class="reveal reveal-delay-1">
+        <div class="instructor-meta">대표 강사</div>
+        <h3 class="instructor-name">이은경 대표<br>슬기로운 초등생활</h3>
+        <p class="instructor-tagline">초등교사 15년 경력으로 현장을 알고,<br>60권의 저서로 이론을 정립했습니다.<br>유튜브 15만 구독자가 신뢰하는 커리큘럼을<br>직접 가르칩니다.</p>
+        <div class="instructor-badges">
+          <span class="badge">📚 저서 60권+</span>
+          <span class="badge">🎓 초등교사 15년</span>
+          <span class="badge">▶ 유튜브 15만+</span>
+          <span class="badge">✍ 베스트셀러 작가</span>
+        </div>
       </div>
     </div>
-    <div class="callout" style="margin-top: 20px;">
-      <strong>본 프로젝트가 레퍼런스</strong> — 펜타캠퍼스가 먼저 운영되어야 책나무 제안에 설득력이 생깁니다.
-      동일 팀이 직접 쓰는 시스템이라는 점이 "검증 후 납품" 프레임의 근거가 됩니다.
-    </div>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <h2><span class="num">MILESTONES</span>8단계 구축 프로세스</h2>
+<section class="cta-section" id="cta">
+  <div class="section-inner">
+    <h2 class="section-title">지금 시작하세요</h2>
+    <p class="section-sub">무료 기본과정으로 부담 없이 시작하고<br>초등 문해력 강사의 길을 열어보세요.</p>
+    <a href="http://13.124.27.141" target="_blank" class="btn-dark">무료로 시작하기 →</a>
+  </div>
+</section>
 
-    <div class="milestone">
-      <div class="ms-status ms-active">0</div>
-      <div class="ms-body">
-        <div class="ms-title"><span class="ms-code">P0</span> Discovery</div>
-        <div class="ms-note">이은경 대표 대상 questionnaire 발송 · 사업 요구 수집</div>
-      </div>
-      <div class="ms-date">진행 중</div>
-    </div>
+<footer>
+  <div class="footer-logo">PENTA<span>CAMPUS</span></div>
+  <div class="footer-copy">© 2026 펜타캠퍼스. All rights reserved.</div>
+</footer>
 
-    <div class="milestone">
-      <div class="ms-status ms-pending">1</div>
-      <div class="ms-body">
-        <div class="ms-title"><span class="ms-code">P1</span> PRD</div>
-        <div class="ms-note">제품 요구사항 문서 · 기능 범위 확정</div>
-      </div>
-      <div class="ms-date">—</div>
-    </div>
-
-    <div class="milestone">
-      <div class="ms-status ms-pending">2</div>
-      <div class="ms-body">
-        <div class="ms-title"><span class="ms-code">P2</span> IA (Information Architecture)</div>
-        <div class="ms-note">정보 구조 · 사이트맵 설계</div>
-      </div>
-      <div class="ms-date">—</div>
-    </div>
-
-    <div class="milestone">
-      <div class="ms-status ms-pending">3</div>
-      <div class="ms-body">
-        <div class="ms-title"><span class="ms-code">P3</span> User Flow</div>
-        <div class="ms-note">수강생·강사·관리자 각 동선 설계</div>
-      </div>
-      <div class="ms-date">—</div>
-    </div>
-
-    <div class="milestone">
-      <div class="ms-status ms-pending">4</div>
-      <div class="ms-body">
-        <div class="ms-title"><span class="ms-code">P4</span> Wireframe</div>
-        <div class="ms-note">저충실도 화면 뼈대</div>
-      </div>
-      <div class="ms-date">4월 말 와꾸 완성 목표</div>
-    </div>
-
-    <div class="milestone">
-      <div class="ms-status ms-pending">5</div>
-      <div class="ms-body">
-        <div class="ms-title"><span class="ms-code">P5</span> Mockup</div>
-        <div class="ms-note">브랜드 적용된 고충실도 디자인 (Black/Gold)</div>
-      </div>
-      <div class="ms-date">—</div>
-    </div>
-
-    <div class="milestone">
-      <div class="ms-status ms-pending">6</div>
-      <div class="ms-body">
-        <div class="ms-title"><span class="ms-code">P6</span> Prototype</div>
-        <div class="ms-note">인터랙션 포함 프로토타입</div>
-      </div>
-      <div class="ms-date">—</div>
-    </div>
-
-    <div class="milestone">
-      <div class="ms-status ms-pending">7</div>
-      <div class="ms-body">
-        <div class="ms-title"><span class="ms-code">P7</span> Dev & Launch</div>
-        <div class="ms-note">Moodle + Next.js 결제 연동 · 실가동</div>
-      </div>
-      <div class="ms-date">2026-10 정식 오픈</div>
-    </div>
-  </section>
-
-  <section>
-    <h2><span class="num">ASSETS</span>구축 자산 현황</h2>
-    <ul class="docs">
-      <li class="doc-item">
-        <span class="doc-link">Moodle 4.4 + Lambda 테마 (EC2)</span>
-        <span class="doc-tag">✅ 구축 완료 · 13.124.27.141</span>
-      </li>
-      <li class="doc-item">
-        <span class="doc-link">Black/Gold 브랜딩 적용</span>
-        <span class="doc-tag">✅ 완료</span>
-      </li>
-      <li class="doc-item">
-        <span class="doc-link">Next.js + 토스페이먼츠 결제 페이지</span>
-        <span class="doc-tag">✅ 기본 구축 · 통합 대기</span>
-      </li>
-      <li class="doc-item">
-        <a class="doc-link" href="../pentacampus-brand-proposal.html" target="_blank">펜타캠퍼스 브랜드 제안서</a>
-        <span class="doc-tag">✅ 문서</span>
-      </li>
-      <li class="doc-item">
-        <a class="doc-link" href="../../펜타캠퍼스/design/03_mockup/landing.html" target="_blank">캠퍼스 랜딩 목업</a>
-        <span class="doc-tag">✅ 디자인 · 6과정 구성 반영</span>
-      </li>
-      <li class="doc-item">
-        <a class="doc-link" href="../masterbook/curriculum-masterbook.html" target="_blank">커리큘럼 마스터북</a>
-        <span class="doc-tag">✅ 전 과정 통합 설계서</span>
-      </li>
-      <li class="doc-item">
-        <a class="doc-link" href="../../펜타캠퍼스/curriculum/curriculum_탐구보고서.html" target="_blank">탐구보고서 전문가과정 커리큘럼</a>
-        <span class="doc-tag">✅ 신규 · 권보경 · 2026-04-21</span>
-      </li>
-      <li class="doc-item">
-        <span class="doc-link doc-disabled">Discovery questionnaire</span>
-        <span class="doc-tag">진행 중 · 이은경 응답 대기</span>
-      </li>
-      <li class="doc-item">
-        <span class="doc-link doc-disabled">REST API 토큰 발급</span>
-        <span class="doc-tag">대기</span>
-      </li>
-      <li class="doc-item">
-        <span class="doc-link doc-disabled">Vercel 배포 + .env 연결</span>
-        <span class="doc-tag">대기</span>
-      </li>
-    </ul>
-  </section>
-
-</div>
-
-  <script src="../assets/memo.js"></script>
+<script>
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    if (!target) return;
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    (function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = Math.round(easeOut(p) * target) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    })(start);
+  }
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  const counterObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); counterObs.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-target]').forEach(el => counterObs.observe(el));
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('#coursesGrid .course-card').forEach(card => {
+        card.style.display = (filter === 'all' || card.dataset.cat === filter) ? '' : 'none';
+      });
+    });
+  });
+</script>
 </body>
 </html>
