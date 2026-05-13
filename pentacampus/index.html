@@ -63,7 +63,8 @@
     .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .feature-card { background: var(--white); border-radius: var(--radius); padding: 32px 28px; border: 1px solid var(--gray-200); transition: transform 0.25s ease, box-shadow 0.25s ease; }
     .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.08); }
-    .feature-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--black); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; }
+    .feature-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--black); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .feature-icon svg { width: 22px; height: 22px; stroke: var(--gold); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
     .feature-title { font-size: 17px; font-weight: 800; color: var(--black); margin-bottom: 10px; letter-spacing: -0.3px; }
     .feature-desc { font-size: 14px; color: var(--gray-600); line-height: 1.75; }
 
@@ -107,7 +108,8 @@
     /* INSTRUCTOR */
     .instructor { background: var(--white); }
     .instructor-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .instructor-image { border-radius: 20px; overflow: hidden; background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%); aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; font-size: 96px; }
+    .instructor-image { border-radius: 20px; overflow: hidden; background: linear-gradient(160deg, #141414 0%, #1e1e1e 100%); aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(201,168,76,0.15); }
+    .instructor-image svg { width: 120px; height: 120px; stroke: rgba(201,168,76,0.35); stroke-width: 1; fill: none; stroke-linecap: round; stroke-linejoin: round; }
     .instructor-meta { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); border-radius: 100px; padding: 8px 16px; font-size: 12px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 20px; }
     .instructor-name { font-size: 40px; font-weight: 900; color: var(--black); letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 20px; }
     .instructor-tagline { font-size: 16px; color: var(--gray-600); line-height: 1.8; margin-bottom: 32px; }
@@ -201,12 +203,12 @@
       <p class="section-sub reveal reveal-delay-1">단순 강의 플랫폼이 아닙니다. 수강 후 즉시 활동할 수 있는 구조를 갖춥니다.</p>
     </div>
     <div class="features-grid">
-      <div class="feature-card reveal"><div class="feature-icon">🎓</div><div class="feature-title">공인 자격증 발급</div><div class="feature-desc">평생교육원 정식 인가 과정. 수료 시 공인 자격증이 발급됩니다.</div></div>
-      <div class="feature-card reveal reveal-delay-1"><div class="feature-icon">💼</div><div class="feature-title">3경로 취업 연결</div><div class="feature-desc">펜타스쿨 직영 · 가맹점 · 학교 방과후 수업으로 자격증 취득 직후 활동이 가능합니다.</div></div>
-      <div class="feature-card reveal reveal-delay-2"><div class="feature-icon">📱</div><div class="feature-title">100% 온라인 수강</div><div class="feature-desc">Zoom 실시간 강의 + 녹화본 제공. 육아 중이거나 직장을 다니면서도 수강할 수 있습니다.</div></div>
-      <div class="feature-card reveal reveal-delay-1"><div class="feature-icon">📚</div><div class="feature-title">현직 전문가 강사진</div><div class="feature-desc">이은경 대표를 포함한 초등 교육 현장 전문가들이 직접 강의합니다.</div></div>
-      <div class="feature-card reveal reveal-delay-2"><div class="feature-icon">🔄</div><div class="feature-title">완성형 교안 제공</div><div class="feature-desc">수업에 바로 쓸 수 있는 교안과 학생 활동지를 자격증 취득 후 제공합니다.</div></div>
-      <div class="feature-card reveal reveal-delay-3"><div class="feature-icon">🌐</div><div class="feature-title">강사 커뮤니티</div><div class="feature-desc">수료생 전용 커뮤니티에서 정보를 교환하고 강사 네트워크를 이어나갑니다.</div></div>
+      <div class="feature-card reveal"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="feature-title">공인 자격증 발급</div><div class="feature-desc">평생교육원 정식 인가 과정. 수료 시 공인 자격증이 발급됩니다.</div></div>
+      <div class="feature-card reveal reveal-delay-1"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><div class="feature-title">3경로 취업 연결</div><div class="feature-desc">펜타스쿨 직영 · 가맹점 · 학교 방과후 수업으로 자격증 취득 직후 활동이 가능합니다.</div></div>
+      <div class="feature-card reveal reveal-delay-2"><div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg></div><div class="feature-title">100% 온라인 수강</div><div class="feature-desc">Zoom 실시간 강의 + 녹화본 제공. 육아 중이거나 직장을 다니면서도 수강할 수 있습니다.</div></div>
+      <div class="feature-card reveal reveal-delay-1"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="feature-title">현직 전문가 강사진</div><div class="feature-desc">이은경 대표를 포함한 초등 교육 현장 전문가들이 직접 강의합니다.</div></div>
+      <div class="feature-card reveal reveal-delay-2"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></div><div class="feature-title">완성형 교안 제공</div><div class="feature-desc">수업에 바로 쓸 수 있는 교안과 학생 활동지를 자격증 취득 후 제공합니다.</div></div>
+      <div class="feature-card reveal reveal-delay-3"><div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="feature-title">강사 커뮤니티</div><div class="feature-desc">수료생 전용 커뮤니티에서 정보를 교환하고 강사 네트워크를 이어나갑니다.</div></div>
     </div>
   </div>
 </section>
@@ -279,16 +281,21 @@
 <section class="instructor" id="instructor">
   <div class="section-inner">
     <div class="instructor-wrap">
-      <div class="instructor-image reveal">👩‍🏫</div>
+      <div class="instructor-image reveal">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="42" r="22"/>
+          <path d="M18 102c0-23.2 18.8-42 42-42s42 18.8 42 42"/>
+        </svg>
+      </div>
       <div class="reveal reveal-delay-1">
         <div class="instructor-meta">대표 강사</div>
         <h3 class="instructor-name">이은경 대표<br>슬기로운 초등생활</h3>
         <p class="instructor-tagline">초등교사 15년 경력으로 현장을 알고,<br>60권의 저서로 이론을 정립했습니다.<br>유튜브 15만 구독자가 신뢰하는 커리큘럼을<br>직접 가르칩니다.</p>
         <div class="instructor-badges">
-          <span class="badge">📚 저서 60권+</span>
-          <span class="badge">🎓 초등교사 15년</span>
-          <span class="badge">▶ 유튜브 15만+</span>
-          <span class="badge">✍ 베스트셀러 작가</span>
+          <span class="badge">저서 60권+</span>
+          <span class="badge">초등교사 15년</span>
+          <span class="badge">유튜브 15만+</span>
+          <span class="badge">베스트셀러 작가</span>
         </div>
       </div>
     </div>
