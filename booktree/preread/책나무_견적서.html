@@ -229,15 +229,6 @@
     border-top: 1px solid var(--line);
     display: flex; flex-direction: column; gap: 8px;
   }
-  .comment-input-row { display: flex; gap: 8px; }
-  .comment-name-input {
-    width: 120px; padding: 7px 10px;
-    border: 1.5px solid var(--line); border-radius: 6px;
-    font-size: 12px; font-family: inherit; color: var(--ink);
-    outline: none; transition: border-color 0.15s;
-    flex-shrink: 0;
-  }
-  .comment-name-input:focus { border-color: var(--gold); }
   .comment-text-input {
     flex: 1; padding: 7px 10px;
     border: 1.5px solid var(--line); border-radius: 6px;
@@ -956,11 +947,8 @@
         item.className = 'comment-item';
         item.innerHTML =
           `<div class="comment-item-header">
-            <span class="comment-author">${escHtml(c.name)}</span>
-            <span style="display:flex;align-items:center;gap:6px;">
-              <span class="comment-time">${fmt(c.ts)}</span>
-              <button class="comment-del" data-idx="${i}" title="삭제">✕</button>
-            </span>
+            <span class="comment-time">${fmt(c.ts)}</span>
+            <button class="comment-del" data-idx="${i}" title="삭제">✕</button>
           </div>
           <div class="comment-text">${escHtml(c.text)}</div>`;
         listEl.appendChild(item);
@@ -998,13 +986,6 @@
     const inputArea = document.createElement('div');
     inputArea.className = 'comment-input-area';
 
-    const nameInput = document.createElement('input');
-    nameInput.className = 'comment-name-input';
-    nameInput.placeholder = '이름';
-    nameInput.maxLength = 20;
-    // persist name across sections
-    nameInput.value = localStorage.getItem('penta_quote_author') || '';
-
     const textInput = document.createElement('textarea');
     textInput.className = 'comment-text-input';
     textInput.placeholder = '의견을 입력하세요…';
@@ -1024,12 +1005,7 @@
     actionsRow.appendChild(copyBtn);
     actionsRow.appendChild(submitBtn);
 
-    const inputRow = document.createElement('div');
-    inputRow.className = 'comment-input-row';
-    inputRow.appendChild(nameInput);
-    inputRow.appendChild(textInput);
-
-    inputArea.appendChild(inputRow);
+    inputArea.appendChild(textInput);
     inputArea.appendChild(actionsRow);
 
     panel.appendChild(listEl);
@@ -1060,12 +1036,10 @@
 
     // Submit
     submitBtn.addEventListener('click', () => {
-      const name = nameInput.value.trim() || '익명';
       const text = textInput.value.trim();
       if (!text) { textInput.focus(); return; }
-      localStorage.setItem('penta_quote_author', nameInput.value.trim());
       const list = loadComments(secId);
-      list.push({ name, text, ts: Date.now() });
+      list.push({ text, ts: Date.now() });
       saveComments(secId, list);
       textInput.value = '';
       renderList(listEl, emptyEl, secId, toggle);
@@ -1084,7 +1058,7 @@
     copyBtn.addEventListener('click', () => {
       const list = loadComments(secId);
       if (list.length === 0) { copyBtn.textContent = '댓글 없음'; setTimeout(() => copyBtn.textContent = '전체 복사', 1500); return; }
-      const text = `[${secName}] 섹션 댓글\n` + list.map(c => `${c.name} (${fmt(c.ts)})\n${c.text}`).join('\n\n');
+      const text = `[${secName}] 섹션 댓글\n` + list.map(c => `(${fmt(c.ts)})\n${c.text}`).join('\n\n');
       navigator.clipboard.writeText(text).then(() => {
         copyBtn.textContent = '복사됨 ✓';
         setTimeout(() => copyBtn.textContent = '전체 복사', 1800);
