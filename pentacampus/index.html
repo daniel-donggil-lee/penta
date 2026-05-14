@@ -267,16 +267,15 @@
     .why-proof-pill { font-size: 10px; font-weight: 600; color: rgba(201,168,76,0.8); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; padding: 4px 12px; }
 
     /* ── FEEDBACK WIDGET ── */
-    .fb-btn { position: absolute; top: 18px; right: 20px; z-index: 50; width: 34px; height: 34px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s, transform 0.2s; pointer-events: none; }
+    .fb-btn { position: absolute; top: 18px; right: 20px; z-index: 50; width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.28; transition: opacity 0.2s, transform 0.2s; }
     .fb-btn svg { width: 16px; height: 16px; }
-    section:hover .fb-btn, .why-sec:hover .fb-btn, .concern-sec:hover .fb-btn, .founders-sec:hover .fb-btn { opacity: 1; pointer-events: auto; }
-    .fb-btn:hover { transform: scale(1.12); }
+    .fb-btn:hover { opacity: 1; transform: scale(1.12); }
     /* 밝은 섹션용 */
-    .fb-btn.light { background: rgba(0,0,0,0.07); }
-    .fb-btn.light svg { stroke: #555; }
+    .fb-btn.light { background: rgba(0,0,0,0.09); }
+    .fb-btn.light svg { stroke: #444; fill: none; }
     /* 어두운 섹션용 */
-    .fb-btn.dark { background: rgba(255,255,255,0.1); }
-    .fb-btn.dark svg { stroke: rgba(255,255,255,0.7); }
+    .fb-btn.dark { background: rgba(255,255,255,0.13); }
+    .fb-btn.dark svg { stroke: rgba(255,255,255,0.85); fill: none; }
     /* 모달 */
     .fb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; align-items: center; justify-content: center; }
     .fb-overlay.open { display: flex; }
