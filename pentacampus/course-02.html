@@ -91,11 +91,28 @@
 </style>
 </head>
 <body>
-<nav>
+<nav id="main-nav">
   <a href="index.html" class="nav-logo">PENTA<em>CAMPUS</em></a>
-  <a href="index.html" class="nav-back"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>과정 목록으로</a>
-  <a href="http://13.124.27.141" target="_blank" class="nav-cta">수강 신청</a>
+  <ul class="nav-links">
+    <li><a href="index.html#paths">과정 안내</a></li>
+    <li><a href="courses.html">커리큘럼</a></li>
+    <li><a href="index.html#yt">채널 소개</a></li>
+    <li><a href="instructors.html">강사진</a></li>
+    <li><a href="index.html#process">수강 안내</a></li>
+  </ul>
+  <a href="index.html#cta" class="nav-cta">수강 신청</a>
+  <button class="nav-burger" id="nav-burger" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="index.html#paths" class="mobile-link">과정 안내</a>
+  <a href="courses.html" class="mobile-link">커리큘럼</a>
+  <a href="index.html#yt" class="mobile-link">채널 소개</a>
+  <a href="instructors.html" class="mobile-link">강사진</a>
+  <a href="index.html#process" class="mobile-link">수강 안내</a>
+  <a href="index.html#cta" class="mobile-cta">수강 신청 →</a>
+</div>
 
 <section class="chero">
   <div class="chero-glow"></div>
@@ -210,6 +227,15 @@
 <script>
   const ro = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target);}})  ,{threshold:0.06});
   document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+  // Burger menu
+  const burger = document.getElementById('nav-burger');
+  const menu   = document.getElementById('nav-mobile');
+  if (burger && menu) {
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+  }
 </script>
 </body>
 </html>
