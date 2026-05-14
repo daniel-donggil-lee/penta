@@ -99,7 +99,14 @@
     .sb { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; margin-top: 8px; }
     .badge-cert { background: #eef0ff; color: #3949ab; }
     .badge-live { background: #e8f5e9; color: #2e7d32; }
-    .inst-card { display: flex; gap: 24px; align-items: flex-start; padding: 28px; background: var(--off); border-radius: var(--r); border: 1px solid var(--light); margin-top: 20px; }
+    .inst-card { background: var(--off); border-radius: var(--r); border: 1px solid var(--light); margin-top: 20px; overflow: hidden; }
+    .inst-top { display: flex; gap: 20px; align-items: center; padding: 28px 28px 24px; }
+    .inst-stats { display: flex; border-top: 1px solid var(--light); border-bottom: 1px solid var(--light); }
+    .istat { flex: 1; padding: 14px 0; text-align: center; border-right: 1px solid var(--light); }
+    .istat:last-child { border-right: none; }
+    .istat-val { font-size: 16px; font-weight: 900; letter-spacing: -0.5px; color: var(--black); margin-bottom: 3px; }
+    .istat-key { font-size: 9px; color: var(--gray); font-weight: 500; letter-spacing: 0.3px; }
+    .inst-body { padding: 22px 28px 26px; }
     .im-photo { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 28px; }
     .im-photo img { width: 100%; height: 100%; object-fit: cover; }
     .im-name { font-size: 18px; font-weight: 900; letter-spacing: -0.3px; margin-bottom: 4px; }
