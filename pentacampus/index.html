@@ -212,6 +212,22 @@
     .ipc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .ipc-tag { font-size: 10px; font-weight: 600; color: var(--gray); padding: 5px 12px; border: 1px solid var(--light); border-radius: 3px; }
 
+    /* PAIR COURSE CARDS */
+    .pcc-block { margin-top: 52px; padding-top: 40px; border-top: 1px solid var(--light); }
+    .pcc-blk-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .pcc-blk-lbl { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px; }
+    .pcc-blk-lbl::before { content: ''; width: 16px; height: 1px; background: var(--gold); }
+    .pcc-grid { display: grid; gap: 14px; }
+    .pcc-grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .pcc-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .pcc-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .pcc { background: var(--white); border: 1px solid var(--light); border-radius: 10px; padding: 24px 22px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; transition: box-shadow 0.22s, transform 0.22s; }
+    .pcc:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .pcc-cat { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); }
+    .pcc-name { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.35; color: var(--black); }
+    .pcc-inst { font-size: 11px; color: var(--gray); }
+    .pcc-go { font-size: 11px; font-weight: 600; color: var(--gold); margin-top: auto; padding-top: 6px; }
+
     /* INSTRUCTOR */
     .inst-sec { background: var(--white); border-top: 1px solid var(--light); }
     .inst-wrap { max-width: 1100px; margin: 0 auto; padding: 100px 64px; display: grid; grid-template-columns: 340px 1fr; gap: 80px; align-items: center; }
@@ -330,6 +346,7 @@
       .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr 1fr; }
       .ipc-row { grid-template-columns: 200px 1fr; gap: 16px; }
       .ipc-text-card { padding: 28px 28px; }
+      .pcc-grid-4, .pcc-grid-3 { grid-template-columns: repeat(2, 1fr); }
       .founders-sec { padding: 88px 40px; }
       .founders-grid { gap: 24px; }
       .pitem { grid-template-columns: 60px 1fr; padding: 24px 24px; gap: 20px; }
@@ -358,6 +375,7 @@
       .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr; }
       .ipc-row { grid-template-columns: 1fr; gap: 12px; }
       .ipc-text-card { padding: 24px 22px; gap: 14px; }
+      .pcc-grid-4, .pcc-grid-3, .pcc-grid-2 { grid-template-columns: 1fr; }
       .founders-sec { padding: 64px 20px; }
       .founders-grid { grid-template-columns: 1fr; max-width: 440px; }
       .pitem { padding: 20px 16px; }
@@ -551,40 +569,6 @@
   </div>
 </section>
 
-<!-- COURSES -->
-<section class="sec courses" id="courses">
-  <div class="sec-in">
-    <div class="courses-top">
-      <div class="rv">
-        <div class="sec-lbl">Curriculum</div>
-        <h2 class="sec-h">대표 과정</h2>
-      </div>
-      <a href="courses.html" class="rv" style="font-size:13px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;white-space:nowrap;align-self:flex-end;padding-bottom:4px;">전체 17개 과정 보기 →</a>
-    </div>
-    <div class="cgrid" id="cgrid" style="grid-template-columns:repeat(2,1fr);">
-      <a class="ccard ccard-feat" href="course-04.html" style="text-decoration:none;color:inherit;cursor:pointer;">
-        <div class="ccat">전문가과정 · 추천 ↗</div>
-        <div class="cname">초등종합문해력<br>코칭전문가</div>
-        <p class="ccard-desc">독해·어휘·사고·표현·소통 5영역을 통합적으로 지도하는 종합 코칭 전문가 양성 과정.</p>
-        <div class="cmeta">
-          <div class="cinst">이은경 대표</div>
-          <div class="cdate">2026. 10. 01 개강</div>
-        </div>
-      </a>
-      <a class="ccard ccard-feat" href="course-05.html" style="text-decoration:none;color:inherit;cursor:pointer;">
-        <div class="ccat">전문가과정 · 추천 ↗</div>
-        <div class="cname">초등인문독서<br>코칭전문가</div>
-        <p class="ccard-desc">고전과 인문학을 활용해 아이들의 독서 깊이를 끌어올리는 인문독서 전문 코치 양성 과정.</p>
-        <div class="cmeta">
-          <div class="cinst">김문영 강사</div>
-          <div class="cdate">2026. 10. 01 개강</div>
-        </div>
-      </a>
-    </div>
-    <div class="courses-more rv"><a href="courses.html">전체 커리큘럼 살펴보기 →</a></div>
-  </div>
-</section>
-
 <!-- INSTRUCTOR PAIR 1 — 박지연 + 이현우 -->
 <section class="sec ipair-sec">
   <div class="sec-in">
@@ -639,6 +623,40 @@
       </div>
 
     </div>
+
+    <div class="pcc-block rv">
+      <div class="pcc-blk-top">
+        <div class="pcc-blk-lbl">관련 과정</div>
+        <a href="courses.html" style="font-size:11px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;">전체 커리큘럼 →</a>
+      </div>
+      <div class="pcc-grid pcc-grid-4">
+        <a class="pcc" href="course-01.html">
+          <div class="pcc-cat">기본과정</div>
+          <div class="pcc-name">초등 독서습관 지도사</div>
+          <div class="pcc-inst">강사: 박지연</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+        <a class="pcc" href="course-05.html">
+          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-name">초등 인문독서 코칭전문가</div>
+          <div class="pcc-inst">강사: 박지연</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+        <a class="pcc" href="course-07.html">
+          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-name">초등 주제요약 코칭전문가</div>
+          <div class="pcc-inst">강사: 이현우</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+        <a class="pcc" href="course-08.html">
+          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-name">초등 논증추론 코칭전문가</div>
+          <div class="pcc-inst">강사: 이현우</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -725,9 +743,31 @@
       </div>
 
     </div>
-    <div style="text-align:right;margin-top:32px;" class="rv d2">
-      <a href="instructors.html" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;">강사진 전체 보기 →</a>
+
+    <div class="pcc-block rv">
+      <div class="pcc-blk-lbl">관련 과정</div>
+      <div class="pcc-grid pcc-grid-3" style="margin-top:16px;">
+        <a class="pcc" href="course-06.html">
+          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-name">초등 소논문 코칭전문가</div>
+          <div class="pcc-inst">강사: 권보경</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+        <a class="pcc" href="course-02.html">
+          <div class="pcc-cat">기본과정</div>
+          <div class="pcc-name">초등 글쓰기습관 지도사</div>
+          <div class="pcc-inst">강사: 김민준</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+        <a class="pcc" href="course-09.html">
+          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-name">초등 글쓰기 5단계 첨삭법</div>
+          <div class="pcc-inst">강사: 김민준</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -785,6 +825,25 @@
       </div>
 
     </div>
+
+    <div class="pcc-block rv">
+      <div class="pcc-blk-lbl">관련 과정</div>
+      <div class="pcc-grid pcc-grid-2" style="margin-top:16px;">
+        <a class="pcc" href="course-16.html">
+          <div class="pcc-cat">원데이클래스</div>
+          <div class="pcc-name">생각정리 스피치클래스</div>
+          <div class="pcc-inst">강사: 최수진</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+        <a class="pcc" href="course-13.html">
+          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-name">북클럽 운영전문가</div>
+          <div class="pcc-inst">강사: 정미경</div>
+          <div class="pcc-go">자세히 보기 →</div>
+        </a>
+      </div>
+    </div>
+
     <div style="text-align:right;margin-top:32px;" class="rv d2">
       <a href="instructors.html" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;">강사진 전체 보기 →</a>
     </div>
