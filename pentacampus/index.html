@@ -18,7 +18,7 @@
       --r: 10px;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: clip; }
 
     /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; padding: 0 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -30,13 +30,13 @@
     .nav-cta { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.45); padding: 8px 22px; border-radius: 4px; transition: all 0.2s; }
     .nav-cta:hover { background: var(--gold); color: var(--black); }
 
-    /* HERO — split */
-    .hero { background: var(--black); display: block; padding: 140px 64px 120px; position: relative; overflow: hidden; }
-    .hero-in { max-width: 1100px; margin: 0 auto; }
+    /* HERO — sticky + 2-col */
+    .hero { background: var(--black); position: sticky; top: 0; z-index: 0; min-height: 100vh; padding: 0 64px; display: flex; align-items: center; overflow: hidden; }
+    .hero-in { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
     .hero-glow { position: absolute; top: -20%; left: -10%; width: 60%; height: 120%; background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 65%); pointer-events: none; }
-    .hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 0; max-width: 560px; }
+    .hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
     .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 28px; }
-    .hero-title { font-size: clamp(42px, 5.5vw, 76px); font-weight: 900; color: var(--white); letter-spacing: -3px; line-height: 1.0; margin-bottom: 28px; }
+    .hero-title { font-size: clamp(38px, 4.5vw, 68px); font-weight: 900; color: var(--white); letter-spacing: -3px; line-height: 1.0; margin-bottom: 28px; }
     .hero-title em { color: var(--gold); font-style: normal; display: block; }
     .hero-line { width: 36px; height: 1px; background: rgba(201,168,76,0.4); margin-bottom: 28px; }
     .hero-sub { font-size: 14px; color: rgba(255,255,255,0.38); line-height: 2.0; margin-bottom: 48px; letter-spacing: 0.1px; max-width: 400px; }
@@ -47,16 +47,37 @@
     .btn-ghost:hover { color: rgba(255,255,255,0.75); }
     .btn-ghost svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
-    /* Hero right — photo */
-    .hero-right { display: none; }
-    .hero-photo-wrap { position: relative; width: 100%; height: 90%; display: flex; align-items: flex-end; justify-content: center; }
-    .hero-photo-wrap::before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 70%; height: 60%; background: radial-gradient(ellipse at bottom, rgba(201,168,76,0.15) 0%, transparent 70%); border-radius: 50%; }
-    .hero-photo { width: 88%; max-width: 440px; height: auto; object-fit: contain; object-position: bottom; filter: drop-shadow(0 0 60px rgba(201,168,76,0.08)); position: relative; z-index: 1; display: block; }
-    .hero-photo-ring { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); width: 56%; aspect-ratio: 1; border: 1px solid rgba(201,168,76,0.12); border-radius: 50%; }
-    .hero-photo-ring2 { position: absolute; bottom: 4%; left: 50%; transform: translateX(-50%); width: 75%; aspect-ratio: 1; border: 1px solid rgba(201,168,76,0.06); border-radius: 50%; }
+    /* Hero right — video + toasts */
+    .hero-right { display: flex; align-items: center; justify-content: flex-end; }
+    .hero-vid-outer { position: relative; width: 100%; max-width: 440px; padding-bottom: 56px; }
+    .hero-vid-box { width: 100%; aspect-ratio: 1/1; border-radius: 22px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.08); position: relative; background: #111; }
+    .hero-vid-box iframe { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 178%; height: 100%; border: none; pointer-events: auto; }
 
-    /* SECTION BASE */
-    .sec { padding: 112px 64px; }
+    /* Toast notification cards */
+    .toast-wrap { position: absolute; bottom: 0; left: -12px; right: -12px; }
+    .toast { position: absolute; bottom: 0; left: 0; right: 0; display: flex; align-items: center; gap: 12px; background: rgba(20,18,16,0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 12px 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); opacity: 0; animation: toastSlide 12s ease infinite; }
+    .toast.t2 { animation-delay: 3s; }
+    .toast.t3 { animation-delay: 6s; }
+    .toast.t4 { animation-delay: 9s; }
+    .toast-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--black); flex-shrink: 0; }
+    .toast-info { flex: 1; min-width: 0; }
+    .toast-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); }
+    .toast-text { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .toast-stars { font-size: 11px; color: var(--gold); letter-spacing: 1px; flex-shrink: 0; }
+    @keyframes toastSlide {
+      0%   { opacity: 0; transform: translateY(28px) scale(0.96); }
+      8%   { opacity: 1; transform: translateY(0) scale(1); }
+      68%  { opacity: 1; transform: translateY(0) scale(1); }
+      82%  { opacity: 0; transform: translateY(-14px) scale(0.98); }
+      100% { opacity: 0; transform: translateY(-14px) scale(0.98); }
+    }
+
+    /* SECTION BASE — z-index로 히어로 위에 덮임 */
+    .sec { padding: 112px 64px; position: relative; z-index: 1; }
+    .yt-sec { position: relative; z-index: 1; }
+    .inst-sec { position: relative; z-index: 1; }
+    .cta-sec { position: relative; z-index: 1; }
+    footer { position: relative; z-index: 1; }
     .sec-in { max-width: 1100px; margin: 0 auto; }
     .sec-lbl { font-size: 9px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
     .sec-lbl::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
@@ -197,7 +218,8 @@
     /* ── 태블릿 (601 ~ 960px) ── */
     @media (max-width: 960px) {
       nav { padding: 0 32px; } .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 96px 40px 80px; align-items: flex-start; min-height: auto; }
+      .hero { padding: 96px 40px 80px; min-height: auto; }
+      .hero-in { grid-template-columns: 1fr; }
       .hero-right { display: none; }
       .hero-left { padding-right: 0; padding-bottom: 0; align-items: flex-start; text-align: left; }
       .hero-sub { margin: 0 0 40px; }
@@ -260,6 +282,48 @@
           수강 안내
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-vid-outer">
+        <div class="hero-vid-box">
+          <iframe src="https://www.youtube.com/embed/5N6fB1dj-1M?autoplay=1&mute=1&loop=1&playlist=5N6fB1dj-1M&controls=0&modestbranding=1&rel=0&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="toast-wrap">
+          <div class="toast t1">
+            <div class="toast-avatar">이</div>
+            <div class="toast-info">
+              <div class="toast-name">이현지 · 방과후 강사</div>
+              <div class="toast-text">드디어 자격증 취득! 커리큘럼이 정말 체계적이에요.</div>
+            </div>
+            <div class="toast-stars">★★★★★</div>
+          </div>
+          <div class="toast t2">
+            <div class="toast-avatar">박</div>
+            <div class="toast-info">
+              <div class="toast-name">박수연 · 독서논술 강사</div>
+              <div class="toast-text">취업 연계까지 연결돼서 바로 현장에 투입됐어요.</div>
+            </div>
+            <div class="toast-stars">★★★★★</div>
+          </div>
+          <div class="toast t3">
+            <div class="toast-avatar">김</div>
+            <div class="toast-info">
+              <div class="toast-name">김지민 · 홈스쿨링 맘</div>
+              <div class="toast-text">이은경 대표님 직강이라 신뢰도가 완전히 달라요!</div>
+            </div>
+            <div class="toast-stars">★★★★★</div>
+          </div>
+          <div class="toast t4">
+            <div class="toast-avatar">최</div>
+            <div class="toast-info">
+              <div class="toast-name">최아름 · 초등 학부모</div>
+              <div class="toast-text">온라인인데 집중도가 오히려 더 높아요. 강추!</div>
+            </div>
+            <div class="toast-stars">★★★★★</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
