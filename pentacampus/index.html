@@ -88,7 +88,7 @@
     /* Toast — 영상 아래서 등장, 3카드 동시(1활성+2희미), 3/4지점 소멸, 비겹침 */
     .hero-vid-outer { padding-bottom: 150px; }
     .toast-wrap { position: absolute; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; z-index: 3; }
-    .toast { position: absolute; left: 6%; right: 6%; top: 102%; display: flex; align-items: center; gap: 11px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 11px 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 12s linear infinite; }
+    .toast { position: absolute; left: 6%; right: 6%; top: 102%; display: flex; align-items: flex-start; gap: 11px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 14px 16px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 12s linear infinite; }
     .toast.t1 { animation-delay: 0s; }
     .toast.t2 { animation-delay: 3s; }
     .toast.t3 { animation-delay: 6s; }
@@ -107,8 +107,8 @@
     .toast-avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--gold), #e8b84b); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--black); flex-shrink: 0; }
     .toast-info { flex: 1; min-width: 0; }
     .toast-name { font-size: 12px; font-weight: 700; color: #111; }
-    .toast-text { font-size: 10px; color: #888; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .toast-time { font-size: 10px; color: #aaa; flex-shrink: 0; }
+    .toast-text { font-size: 11px; color: #666; margin-top: 5px; line-height: 1.6; }
+    .toast-time { font-size: 10px; color: #aaa; flex-shrink: 0; align-self: flex-start; }
 
     /* SECTION BASE — z-index로 히어로 위에 덮임 */
     .sec { padding: 112px 64px; position: relative; z-index: 1; }
@@ -526,7 +526,7 @@
             <div class="toast-avatar">이</div>
             <div class="toast-info">
               <div class="toast-name">이현지 · 방과후 강사</div>
-              <div class="toast-text">드디어 자격증 취득! 커리큘럼이 정말 체계적이에요.</div>
+              <div class="toast-text">드디어 자격증 취득했습니다! 커리큘럼이 정말 체계적이라 수업 설계가 한결 쉬워졌어요. 현장에서 바로 쓸 수 있는 내용들로 가득해서 수료하자마자 바로 활용하고 있습니다.</div>
             </div>
             <div class="toast-stars">★★★★★</div>
           </div>
@@ -534,7 +534,7 @@
             <div class="toast-avatar">박</div>
             <div class="toast-info">
               <div class="toast-name">박수연 · 독서논술 강사</div>
-              <div class="toast-text">취업 연계까지 바로 현장에 투입됐어요.</div>
+              <div class="toast-text">수료 후 취업 연계까지 연결돼서 바로 현장에 투입됐어요. 자격증 이름 하나로 학부모 신뢰도가 달라지는 걸 직접 느꼈습니다. 이렇게 빠르게 강사로 시작할 수 있을 줄 몰랐어요.</div>
             </div>
             <div class="toast-stars">★★★★★</div>
           </div>
@@ -542,7 +542,7 @@
             <div class="toast-avatar">김</div>
             <div class="toast-info">
               <div class="toast-name">김지민 · 홈스쿨링 맘</div>
-              <div class="toast-text">이은경 대표님 직강이라 신뢰도가 달라요!</div>
+              <div class="toast-text">이은경 대표님 직강이라 처음부터 신뢰가 갔어요. 유튜브에서만 보던 분의 노하우를 직접 배우니 내용의 밀도가 완전히 달랐습니다. 홈스쿨링에 그대로 적용하고 있어요.</div>
             </div>
             <div class="toast-stars">★★★★★</div>
           </div>
@@ -550,7 +550,7 @@
             <div class="toast-avatar">최</div>
             <div class="toast-info">
               <div class="toast-name">최아름 · 초등 학부모</div>
-              <div class="toast-text">온라인인데 집중도가 오히려 더 높아요!</div>
+              <div class="toast-text">온라인 강의인데 집중도가 오히려 더 높았어요. 짜임새 있는 구성 덕분에 끝까지 완주할 수 있었고, 아이 독서 지도에 바로 써먹을 수 있는 팁들이 많았습니다.</div>
             </div>
             <div class="toast-stars">★★★★★</div>
           </div>
