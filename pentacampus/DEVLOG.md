@@ -7,6 +7,23 @@
 
 ## feature/main-page (index.html)
 
+### 2026-05-14 · 세션 6 · 커밋 `6d7c37b`
+> 복구 포인트: 강사 섹션 완성 + Co-Founders 다크 섹션 + 네브바 전 페이지 통일
+
+**작업 내용**
+- 스크롤 애니메이션 완성: 강사 페어 카드 좌우 분리 (rv-left / rv-right), CTA rv-scale
+- PAIR 3 섹션 추가: 최수진 + 정미경 (off-white 배경, 리뷰 직전)
+- Co-Founders 섹션 추가: 이은경 + 이동길 나란히 2컬럼 (블랙 배경, CTA 직전)
+  - 흑백→컬러 hover, 사진 오버레이 이름/직함
+  - Founders 섹션 `position: relative; z-index: 1` — 히어로 투명 버그 수정
+  - 이동길 사진 위치 조정 (`translateY(27px)`), 상단 배경색 `#8e9095` 매칭
+- 네브바 전 페이지 통일 (instructors.html / courses.html)
+  - 링크 3개 정리: 커리큘럼 / 강사진 / 수강 안내
+  - 골드 언더라인 hover (::after) + breakpoint 960px 통일
+- 중복 이은경 단독 소개 섹션 제거
+
+---
+
 ### 2026-05-14 · 세션 5 · 커밋 `278eafe`
 > 복구 포인트: 강사 페어 카드 + 과정 큐레이션 + 리뷰 캐러셀
 
