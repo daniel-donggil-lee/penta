@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>썸네일 후보 — 펜타캠퍼스</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Pretendard', sans-serif; background: #111; padding: 60px 40px; -webkit-font-smoothing: antialiased; }
+
+    .section-title { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #444; margin-bottom: 32px; margin-top: 64px; padding-top: 32px; border-top: 1px solid #222; }
+    .section-title:first-child { border-top: none; margin-top: 0; }
+
+    .row { display: flex; gap: 32px; flex-wrap: wrap; }
+    .col { flex: 1; min-width: 280px; }
+    .col-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #555; margin-bottom: 12px; }
+    .col-desc { font-size: 11px; color: #444; line-height: 1.8; margin-top: 12px; }
+
+    /* 썸네일 공통 */
+    .thumb { width: 100%; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
+
+    /* 강사 뱃지 공통 */
+    .inst { position: absolute; bottom: 12px; left: 14px; z-index: 10;
+      width: 30px; height: 30px; border-radius: 50%;
+      background: linear-gradient(135deg, #C9A84C, #8a6020);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 800; color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.2); }
+    .sess { position: absolute; bottom: 14px; right: 14px; z-index: 10;
+      font-size: 8px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+
+    /* ── A: 다크 글로우 (기존 개선) ── */
+    .ta { background: #0a0a0a; }
+    .ta .g1 { position:absolute; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle,rgba(201,168,76,0.3) 0%,transparent 65%); top:-60px; left:-60px; animation:ga1 8s ease-in-out infinite alternate; }
+    .ta .g2 { position:absolute; width:160px; height:160px; border-radius:50%; background:radial-gradient(circle,rgba(201,168,76,0.18) 0%,transparent 65%); bottom:-40px; right:-40px; animation:ga2 11s ease-in-out infinite alternate; }
+    .ta .icon { position:relative; z-index:2; width:48px; height:48px; border:1px solid rgba(201,168,76,0.25); border-radius:10px; display:flex; align-items:center; justify-content:center; background:rgba(201,168,76,0.06); }
+    .ta .icon svg { width:24px; height:24px; }
+    .ta .sess { color: rgba(201,168,76,0.5); }
+    @keyframes ga1 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(55px,45px) scale(1.3)} }
+    @keyframes ga2 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-45px,-35px) scale(1.2)} }
+
+    /* ── B: 대각선 분할 ── */
+    .tb { background: #0a0a0a; }
+    .tb .split {
+      position: absolute; inset: 0;
+      background: linear-gradient(118deg, #0a0a0a 52%, #161410 52%);
+    }
+    .tb .gold-line {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(118deg, transparent 51.5%, rgba(201,168,76,0.6) 51.5%, rgba(201,168,76,0.6) 52.2%, transparent 52.2%);
+    }
+    .tb .right-fill {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(118deg, transparent 52%, rgba(201,168,76,0.04) 52%);
+    }
+    .tb .content { position:relative; z-index:3; width:100%; padding:0 24px; display:flex; flex-direction:column; gap:6px; }
+    .tb .eyebrow { font-size:8px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:rgba(201,168,76,0.7); }
+    .tb .title { font-size:17px; font-weight:900; letter-spacing:-0.5px; color:#fff; line-height:1.2; }
+    .tb .bar { width:28px; height:1.5px; background:#C9A84C; margin-top:6px; border-radius:1px; }
+    .tb .inst { border-color: rgba(201,168,76,0.3); }
+    .tb .sess { color: rgba(201,168,76,0.45); }
+
+    /* ── C: 에디토리얼 (흰배경 + 블랙박스) ── */
+    .tc { background: #fafaf8; }
+    .tc .black-box {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 44%;
+      background: #0a0a0a;
+      display: flex; flex-direction: column; justify-content: center; padding: 0 20px;
+      z-index: 2;
+    }
+    .tc .black-box .eyebrow { font-size:7px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(201,168,76,0.8); margin-bottom:8px; }
+    .tc .black-box .title { font-size:13px; font-weight:900; color:#fff; line-height:1.3; letter-spacing:-0.3px; }
+    .tc .black-box .bar { width:20px; height:1.5px; background:#C9A84C; margin-top:8px; }
+    .tc .right-area { position:absolute; right:0; top:0; bottom:0; width:56%; z-index:1; display:flex; align-items:center; justify-content:center; }
+    .tc .right-area svg { width:40px; height:40px; opacity:0.15; }
+    .tc .right-area .big-num { font-size:52px; font-weight:900; color:#e8e8e4; letter-spacing:-3px; line-height:1; }
+    .tc .inst { background: linear-gradient(135deg,#C9A84C,#8a6020); border-color:rgba(0,0,0,0.1); }
+    .tc .sess { color: #bbb; }
+
+    /* ── D: 수직 라인 그리드 ── */
+    .td { background: #0c0c0a; }
+    .td .grid-lines {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(201,168,76,0.06) 0px, rgba(201,168,76,0.06) 1px, transparent 1px, transparent 48px),
+        repeating-linear-gradient(0deg, rgba(201,168,76,0.04) 0px, rgba(201,168,76,0.04) 1px, transparent 1px, transparent 32px);
+    }
+    .td .fade { position:absolute; inset:0; z-index:1; background:radial-gradient(ellipse at center, transparent 30%, #0c0c0a 80%); }
+    .td .content { position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .td .penta {
+      width:50px; height:50px; display:flex; align-items:center; justify-content:center;
+    }
+    .td .penta svg { width:50px; height:50px; }
+    .td .label { font-size:8px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(201,168,76,0.6); }
+    .td .inst { border-color:rgba(201,168,76,0.25); }
+    .td .sess { color:rgba(201,168,76,0.4); }
+
+    /* ── E: 골드 그라데이션 배경 ── */
+    .te { background: linear-gradient(135deg, #1a1508 0%, #0a0a0a 50%, #120e04 100%); }
+    .te .shimmer {
+      position:absolute; inset:0; z-index:0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, transparent 40%, rgba(201,168,76,0.08) 100%);
+    }
+    .te .content { position:relative; z-index:2; width:100%; padding:0 26px; display:flex; flex-direction:column; gap:4px; }
+    .te .eyebrow { font-size:8px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:rgba(201,168,76,0.6); margin-bottom:4px; }
+    .te .title { font-size:18px; font-weight:900; color:#fff; line-height:1.2; letter-spacing:-0.5px; }
+    .te .sub { font-size:10px; color:rgba(255,255,255,0.3); margin-top:6px; font-weight:500; letter-spacing:0.3px; }
+    .te .badge-row { display:flex; gap:6px; margin-top:10px; }
+    .te .badge { font-size:8px; font-weight:700; letter-spacing:0.5px; padding:3px 8px; border-radius:100px; border:1px solid rgba(201,168,76,0.3); color:rgba(201,168,76,0.8); }
+    .te .inst { border-color:rgba(201,168,76,0.25); }
+    .te .sess { color:rgba(201,168,76,0.4); }
+
+    /* ── F: 미니멀 라인 (흰배경) ── */
+    .tf { background: #fff; border: 1px solid #ebebeb; }
+    .tf .top-bar { position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,#C9A84C,#e8c96e,#C9A84C); z-index:2; }
+    .tf .content { position:relative; z-index:2; width:100%; padding:0 24px; display:flex; flex-direction:column; gap:5px; }
+    .tf .eyebrow { font-size:8px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:#C9A84C; margin-bottom:2px; }
+    .tf .title { font-size:18px; font-weight:900; color:#0a0a0a; line-height:1.2; letter-spacing:-0.5px; }
+    .tf .sub { font-size:10px; color:#bbb; margin-top:5px; font-weight:500; }
+    .tf .icon-right { position:absolute; right:22px; top:50%; transform:translateY(-50%); z-index:1; opacity:0.08; }
+    .tf .icon-right svg { width:64px; height:64px; }
+    .tf .inst { background:linear-gradient(135deg,#C9A84C,#8a6020); border-color:rgba(0,0,0,0.08); }
+    .tf .sess { color:#ccc; }
+  </style>
+</head>
+<body>
+
+<div class="section-title">Round 1 — 기존 후보</div>
+<div class="row">
+
+  <!-- A: 다크 글로우 -->
+  <div class="col">
+    <div class="col-label">A — 다크 글로우</div>
+    <div class="thumb ta">
+      <div class="g1"></div>
+      <div class="g2"></div>
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div class="inst">이</div>
+      <div class="sess">10 sessions</div>
+    </div>
+    <div class="col-desc">블랙 + 골드 글로우 오로라. 아이콘 중앙 배치. 프리미엄 무드.</div>
+  </div>
+
+  <!-- B: 대각선 분할 -->
+  <div class="col">
+    <div class="col-label">B — 대각선 분할</div>
+    <div class="thumb tb">
+      <div class="split"></div>
+      <div class="gold-line"></div>
+      <div class="right-fill"></div>
+      <div class="content">
+        <div class="eyebrow">Elementary Literacy</div>
+        <div class="title">초등<br>독서습관<br>지도사</div>
+        <div class="bar"></div>
+      </div>
+      <div class="inst">이</div>
+      <div class="sess">10 sessions</div>
+    </div>
+    <div class="col-desc">블랙 바탕 + 대각선 골드 라인. 과정명 타이포 전면 배치. 정보 전달력 가장 강함.</div>
+  </div>
+
+  <!-- C: 에디토리얼 -->
+  <div class="col">
+    <div class="col-label">C — 에디토리얼</div>
+    <div class="thumb tc">
+      <div class="black-box">
+        <div class="eyebrow">Basic · Free</div>
+        <div class="title">초등<br>독서습관<br>지도사</div>
+        <div class="bar"></div>
+      </div>
+      <div class="right-area">
+        <div class="big-num">01</div>
+      </div>
+      <div class="inst">이</div>
+      <div class="sess">10 sessions</div>
+    </div>
+    <div class="col-desc">흰 배경 + 블랙 왼쪽 패널. 과정 번호가 오른쪽에 크게. 잡지 레이아웃 느낌.</div>
+  </div>
+
+</div>
+
+<div class="section-title">Round 2 — 신규 후보</div>
+<div class="row">
+
+  <!-- D: 그리드 라인 -->
+  <div class="col">
+    <div class="col-label">D — 그리드 + 오각형</div>
+    <div class="thumb td">
+      <div class="grid-lines"></div>
+      <div class="fade"></div>
+      <div class="content">
+        <div class="penta">
+          <svg viewBox="0 0 50 50" fill="none">
+            <polygon points="25,4 47,19 38,44 12,44 3,19" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.3"/>
+            <polygon points="25,11 40,23 34,41 16,41 10,23" fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.6"/>
+            <polygon points="25,17 35,27 31,38 19,38 15,27" fill="none" stroke="#C9A84C" stroke-width="1" opacity="0.9"/>
+            <circle cx="25" cy="25" r="3" fill="#C9A84C" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="label">Literacy · Pro</div>
+      </div>
+      <div class="inst">이</div>
+      <div class="sess">10 sessions</div>
+    </div>
+    <div class="col-desc">블랙 바탕 + 미세 격자 + 동심 오각형 3겹. 펜타 브랜드 정체성 가장 직접적. 기하학적이고 기술적인 느낌.</div>
+  </div>
+
+  <!-- E: 골드 워시 + 타이포 -->
+  <div class="col">
+    <div class="col-label">E — 골드 워시</div>
+    <div class="thumb te">
+      <div class="shimmer"></div>
+      <div class="content">
+        <div class="eyebrow">Elementary Literacy</div>
+        <div class="title">초등<br>독서습관<br>지도사</div>
+        <div class="sub">10차시 구성 · 강사 이은경</div>
+        <div class="badge-row">
+          <span class="badge">자격증</span>
+          <span class="badge">10 Sessions</span>
+        </div>
+      </div>
+      <div class="inst">이</div>
+    </div>
+    <div class="col-desc">짙은 블랙 + 골드 그러데이션 워시. 타이포 + 메타정보까지 카드 안에. 정보량 가장 많음.</div>
+  </div>
+
+  <!-- F: 미니멀 라인 -->
+  <div class="col">
+    <div class="col-label">F — 미니멀 탑바</div>
+    <div class="thumb tf">
+      <div class="top-bar"></div>
+      <div class="icon-right">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <div class="content">
+        <div class="eyebrow">Elementary Literacy</div>
+        <div class="title">초등<br>독서습관<br>지도사</div>
+        <div class="sub">10차시 · 이은경</div>
+      </div>
+      <div class="inst">이</div>
+      <div class="sess">10 sessions</div>
+    </div>
+    <div class="col-desc">흰 배경 + 상단 골드 3px 라인. 오른쪽에 아이콘 워터마크. 가장 가볍고 깔끔. 무료 과정에 잘 맞음.</div>
+  </div>
+
+</div>
+
+<!-- 조합 제안 -->
+<div class="section-title">조합 제안 — 무료 vs 유료 구분</div>
+<div class="row">
+
+  <div class="col">
+    <div class="col-label">무료 과정용 (기본)</div>
+    <div class="thumb tf">
+      <div class="top-bar"></div>
+      <div class="icon-right">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <div class="content">
+        <div class="eyebrow">Basic · Free</div>
+        <div class="title">초등<br>독서습관<br>지도사</div>
+        <div class="sub">10차시 · 박지연</div>
+      </div>
+      <div class="inst">박</div>
+      <div class="sess">Free</div>
+    </div>
+    <div class="col-desc">흰배경 F안 → 가볍고 접근하기 쉬운 느낌. "무료"라는 걸 자연스럽게 전달.</div>
+  </div>
+
+  <div class="col">
+    <div class="col-label">유료 자격증 과정용</div>
+    <div class="thumb tb">
+      <div class="split"></div>
+      <div class="gold-line"></div>
+      <div class="right-fill"></div>
+      <div class="content">
+        <div class="eyebrow">Pro · Certificate</div>
+        <div class="title">초등<br>종합문해력<br>코칭전문가</div>
+        <div class="bar"></div>
+      </div>
+      <div class="inst">이</div>
+      <div class="sess">10 sessions</div>
+    </div>
+    <div class="col-desc">다크 B안 → 무게감 있고 프리미엄. 유료 자격증과 어울림.</div>
+  </div>
+
+  <div class="col">
+    <div class="col-label">원데이클래스용</div>
+    <div class="thumb ta" style="background:#0a0a0a;">
+      <div class="g1" style="background:radial-gradient(circle,rgba(201,168,76,0.2) 0%,transparent 65%);"></div>
+      <div class="g2"></div>
+      <div style="position:relative;z-index:2;width:100%;padding:0 24px;">
+        <div style="font-size:8px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(201,168,76,0.6);margin-bottom:6px;">One-Day Class</div>
+        <div style="font-size:17px;font-weight:900;color:#fff;line-height:1.2;letter-spacing:-0.3px;">초등 글쓰기<br>5단계 첨삭법</div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-top:8px;">1회 집중 · 자료 제공</div>
+      </div>
+      <div class="inst">김</div>
+      <div class="sess" style="color:rgba(201,168,76,0.4);">1 session</div>
+    </div>
+    <div class="col-desc">A안 변형. 글로우 연하게 + 타이포 전면. 원데이 특성상 가볍게 변형.</div>
+  </div>
+
+</div>
+
+</body>
+</html>

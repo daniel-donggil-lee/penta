@@ -103,15 +103,43 @@
     .ccard:nth-child(15) .cthumb-bg::before { animation-delay: -4.8s; }
     .ccard:nth-child(16) .cthumb-bg::before { animation-delay: -1.2s; }
     .ccard:nth-child(17) .cthumb-bg::before { animation-delay: -3.2s; }
-    /* 카테고리별 보조 색상 */
-    .ccard[data-cat="literacy"] .cthumb-bg::before { background: radial-gradient(circle, rgba(201,168,76,0.6), transparent 65%); }
-    .ccard[data-cat="literacy"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(160,120,48,0.4), transparent 65%); }
-    .ccard[data-cat="oneday-lit"] .cthumb-bg::before { background: radial-gradient(circle, rgba(201,168,76,0.4), transparent 65%); }
-    .ccard[data-cat="oneday-lit"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(100,180,160,0.3), transparent 65%); }
-    .ccard[data-cat="selfdev"] .cthumb-bg::before { background: radial-gradient(circle, rgba(180,140,220,0.35), transparent 65%); }
-    .ccard[data-cat="selfdev"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(201,168,76,0.45), transparent 65%); }
-    .ccard[data-cat="oneday-self"] .cthumb-bg::before { background: radial-gradient(circle, rgba(201,168,76,0.35), transparent 65%); }
-    .ccard[data-cat="oneday-self"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(100,160,120,0.3), transparent 65%); }
+    /* 카테고리별 썸네일 배경 */
+    /* basic: 밝은 베이지 (기본값 유지) */
+    .ccard[data-cat="basic"] .cthumb { background: #fffdf5; }
+    .ccard[data-cat="basic"] .cthumb-bg::before { background: radial-gradient(circle, rgba(201,168,76,0.45), transparent 65%); }
+    .ccard[data-cat="basic"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(232,201,106,0.3), transparent 65%); }
+
+    /* literacy: 블랙 — 프리미엄 자격증 */
+    .ccard[data-cat="literacy"] .cthumb { background: #0a0a0a; }
+    .ccard[data-cat="literacy"] .cthumb-bg::before { background: radial-gradient(circle, rgba(201,168,76,0.32), transparent 65%); }
+    .ccard[data-cat="literacy"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(201,168,76,0.18), transparent 65%); }
+    .ccard[data-cat="literacy"] .cthumb-icon svg { stroke: #C9A84C; filter: drop-shadow(0 0 12px rgba(201,168,76,0.5)); }
+    .ccard[data-cat="literacy"] .cthumb-lock { background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); color: rgba(255,255,255,0.9); backdrop-filter: blur(8px); }
+    .ccard[data-cat="literacy"] .cthumb-lock svg { stroke: rgba(201,168,76,0.9); }
+
+    /* oneday-lit: 차콜 (블랙보다 살짝 밝게) */
+    .ccard[data-cat="oneday-lit"] .cthumb { background: #141210; }
+    .ccard[data-cat="oneday-lit"] .cthumb-bg::before { background: radial-gradient(circle, rgba(201,168,76,0.25), transparent 65%); }
+    .ccard[data-cat="oneday-lit"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 65%); }
+    .ccard[data-cat="oneday-lit"] .cthumb-icon svg { stroke: rgba(201,168,76,0.8); filter: drop-shadow(0 0 10px rgba(201,168,76,0.35)); }
+    .ccard[data-cat="oneday-lit"] .cthumb-lock { background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); color: rgba(255,255,255,0.85); }
+    .ccard[data-cat="oneday-lit"] .cthumb-lock svg { stroke: rgba(201,168,76,0.8); }
+
+    /* selfdev: 블랙 */
+    .ccard[data-cat="selfdev"] .cthumb { background: #0a0a0a; }
+    .ccard[data-cat="selfdev"] .cthumb-bg::before { background: radial-gradient(circle, rgba(201,168,76,0.32), transparent 65%); }
+    .ccard[data-cat="selfdev"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(201,168,76,0.18), transparent 65%); }
+    .ccard[data-cat="selfdev"] .cthumb-icon svg { stroke: #C9A84C; filter: drop-shadow(0 0 12px rgba(201,168,76,0.5)); }
+    .ccard[data-cat="selfdev"] .cthumb-lock { background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3); color: rgba(255,255,255,0.9); }
+    .ccard[data-cat="selfdev"] .cthumb-lock svg { stroke: rgba(201,168,76,0.9); }
+
+    /* oneday-self: 차콜 */
+    .ccard[data-cat="oneday-self"] .cthumb { background: #141210; }
+    .ccard[data-cat="oneday-self"] .cthumb-bg::before { background: radial-gradient(circle, rgba(201,168,76,0.25), transparent 65%); }
+    .ccard[data-cat="oneday-self"] .cthumb-bg::after  { background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 65%); }
+    .ccard[data-cat="oneday-self"] .cthumb-icon svg { stroke: rgba(201,168,76,0.8); filter: drop-shadow(0 0 10px rgba(201,168,76,0.35)); }
+    .ccard[data-cat="oneday-self"] .cthumb-lock { background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); color: rgba(255,255,255,0.85); }
+    .ccard[data-cat="oneday-self"] .cthumb-lock svg { stroke: rgba(201,168,76,0.8); }
     @keyframes ab1 {
       0%   { transform: translate(0, 0) scale(1); }
       100% { transform: translate(60%, 50%) scale(1.3); }
