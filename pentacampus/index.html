@@ -143,6 +143,17 @@
     .inst-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .itag { font-size: 10px; font-weight: 600; color: var(--gray); padding: 6px 13px; border: 1px solid var(--light); border-radius: 2px; letter-spacing: 0.3px; }
 
+    /* REVIEWS */
+    .rv-card { background: var(--white); border: 1px solid var(--light); border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; gap: 18px; }
+    .stars { color: var(--gold); font-size: 15px; letter-spacing: 2px; }
+    .rv-txt { font-size: 13px; color: #444; line-height: 1.85; flex: 1; }
+    .rv-author { display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid #f0f0f0; }
+    .rv-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--off); border: 1px solid var(--light); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--gray); flex-shrink: 0; }
+    .rv-name { font-size: 13px; font-weight: 700; color: var(--black); letter-spacing: -0.2px; }
+    .rv-role { font-size: 11px; color: #aaa; margin-top: 2px; }
+    @media (max-width: 960px) { .reviews-grid { grid-template-columns: 1fr !important; } }
+    @media (min-width: 601px) and (max-width: 960px) { .reviews-grid { grid-template-columns: 1fr 1fr !important; } }
+
     /* CTA */
     .cta-sec { background: var(--black); text-align: center; padding: 140px 48px; }
     .cta-lbl { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(201,168,76,0.6); margin-bottom: 28px; }
@@ -392,6 +403,58 @@
       <div class="pcell rv d1"><div class="pval">15<em>만+</em></div><div class="pkey">유튜브 구독자</div></div>
       <div class="pcell rv d2"><div class="pval">17<em>+</em></div><div class="pkey">전문 과정</div></div>
       <div class="pcell rv d3"><div class="pval">15<em>년</em></div><div class="pkey">현장 교육 경력</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec reviews-sec" id="reviews" style="background:var(--white);">
+  <div class="sec-in">
+    <div style="text-align:center;margin-bottom:56px;" class="rv">
+      <div style="display:inline-flex;align-items:center;justify-content:center;background:var(--off);border:1px solid var(--light);border-radius:100px;padding:6px 18px;margin-bottom:20px;">
+        <span style="font-size:9px;font-weight:700;letter-spacing:3px;color:#999;text-transform:uppercase;">Reviews</span>
+      </div>
+      <h2 class="sec-h" style="text-align:center;">수강생 후기</h2>
+      <p class="sec-p" style="margin:12px auto 0;text-align:center;">실제 수강생들의 생생한 수강 후기입니다.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="reviews-grid">
+
+      <div class="rv rv-card">
+        <div class="stars">★★★★★</div>
+        <p class="rv-txt">"체계적인 커리큘럼 덕분에 자신감을 갖고 수업을 설계할 수 있게 되었습니다. 특히 실습 중심이라 바로 현장에 적용할 수 있었어요."</p>
+        <div class="rv-author">
+          <div class="rv-avatar">김</div>
+          <div>
+            <div class="rv-name">김서연</div>
+            <div class="rv-role">방과후 교사 · 종합문해력 수료</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rv rv-card d1">
+        <div class="stars">★★★★★</div>
+        <p class="rv-txt">"인문독서 과정을 수강하고 나서 아이들과 깊이 있는 독서 토론이 가능해졌어요. 강사님의 노하우가 고스란히 담겨있습니다."</p>
+        <div class="rv-author">
+          <div class="rv-avatar">박</div>
+          <div>
+            <div class="rv-name">박민지</div>
+            <div class="rv-role">도서관 사서 · 인문독서 수료</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rv rv-card d2">
+        <div class="stars">★★★★★</div>
+        <p class="rv-txt">"아이들에게 논리적으로 생각하는 법을 가르치고 싶었는데, 이 과정에서 구체적인 방법론을 배울 수 있었습니다. 강력 추천합니다."</p>
+        <div class="rv-author">
+          <div class="rv-avatar">이</div>
+          <div>
+            <div class="rv-name">이하준</div>
+            <div class="rv-role">학습 코치 · 논증과추론 수료</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
