@@ -94,15 +94,11 @@
     .toast.t3 { animation-delay: 6s; }
     .toast.t4 { animation-delay: 9s; }
     @keyframes toastRise {
-      0%          { top: 102%; opacity: 0; }   /* 영상 아래 대기 */
-      5%          { top: 100%; opacity: 0; }   /* 보이지 않음 */
-      15%         { top: 94%; opacity: 0.2; }  /* 패딩 영역 진입, 매우 희미 */
-      40%         { top: 85%; opacity: 0.45; } /* 패딩 중간, 희미 (faint2) */
-      55%         { top: 79%; opacity: 1.0; }  /* 영상 하단 진입, 활성 */
-      70%         { top: 70%; opacity: 1.0; }  /* 영상 하단부 상승, 활성 */
-      80%         { top: 62%; opacity: 0.3; }  /* 3/4 지점 접근, 페이드 */
-      86%         { top: 58%; opacity: 0; }    /* 3/4 지점 도달, 소멸 */
-      87%, 100%   { top: 102%; opacity: 0; }  /* 리셋 */
+      0%,  18%    { top: 102%; opacity: 0; }   /* 대기 */
+      25%          { top: 84%;  opacity: 1.0; } /* 등장 */
+      42%          { top: 76%;  opacity: 1.0; } /* 활성 */
+      50%          { top: 71%;  opacity: 0; }   /* 소멸 */
+      51%, 100%    { top: 102%; opacity: 0; }   /* 리셋 */
     }
     .toast-avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--gold), #e8b84b); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--black); flex-shrink: 0; }
     .toast-info { flex: 1; min-width: 0; }
