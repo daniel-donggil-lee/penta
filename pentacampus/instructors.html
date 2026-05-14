@@ -68,9 +68,9 @@
     .inst-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .icard { background: var(--white); border: 1px solid var(--light); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; }
     .icard:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
-    .icard-photo { width: 100%; aspect-ratio: 4/5; overflow: hidden; background: linear-gradient(160deg, #f0ede8 0%, #e8e4dc 100%); position: relative; display: flex; align-items: center; justify-content: center; }
-    .icard-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-    .icard-placeholder { font-size: 64px; font-weight: 900; color: rgba(201,168,76,0.3); }
+    .icard-photo { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f0efed; position: relative; display: flex; align-items: flex-end; justify-content: center; }
+    .icard-photo img { width: 100%; height: 100%; object-fit: contain; object-position: bottom center; display: block; }
+    .icard-placeholder { font-size: 64px; font-weight: 900; color: rgba(201,168,76,0.3); margin-bottom: 20px; }
     .icard-body { padding: 24px 22px 26px; display: flex; flex-direction: column; gap: 0; flex: 1; }
     .icard-role { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
     .icard-name { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 10px; }
@@ -144,35 +144,6 @@
   </div>
 </section>
 
-<!-- FEATURED: 이은경 -->
-<section class="sec featured">
-  <div class="sec-in">
-    <div class="sec-lbl rv">Founding Instructor</div>
-    <h2 class="sec-h rv d1">대표 강사</h2>
-    <div class="featured-card rv d2">
-      <div class="feat-img-wrap">
-        <div class="feat-img">
-          <img src="images/instructors/lee-eunkyung.jpg" alt="이은경">
-        </div>
-        <div class="feat-badge">
-          <div class="feat-badge-name">이은경</div>
-          <div class="feat-badge-sub">슬기로운 초등생활</div>
-        </div>
-      </div>
-      <div>
-        <div class="feat-role">Founding Instructor · 대표</div>
-        <div class="feat-name">15년 현장,<br>60권의 기록</div>
-        <p class="feat-bio">초등교사로 15년간 아이들과 함께한 경험을 바탕으로 60권 이상의 교육 도서를 집필했습니다. '슬기로운 초등생활' 유튜브 채널을 통해 15만 학부모와 소통하며 초등 문해력 교육의 기준을 만들어왔습니다. 펜타캠퍼스는 그 축적된 커리큘럼을 강사 양성 시스템으로 구조화한 결과입니다.</p>
-        <div class="feat-tags">
-          <span class="ftag">초등교사 15년</span>
-          <span class="ftag">저서 60권+</span>
-          <span class="ftag">유튜브 15만+</span>
-          <span class="ftag">베스트셀러 작가</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- INSTRUCTOR GRID: 전문 강사 5인 -->
 <section class="sec inst-grid-sec">
@@ -181,9 +152,24 @@
     <h2 class="sec-h rv d1">전문 강사진</h2>
     <div class="inst-grid">
 
+      <!-- 이은경 -->
+      <div class="icard rv">
+        <div class="icard-photo"><img src="images/instructors/lee-eunkyung-final.png" alt="이은경"></div>
+        <div class="icard-body">
+          <div class="icard-role">대표 강사 · Founding Instructor</div>
+          <div class="icard-name">이은경</div>
+          <p class="icard-spec">초등교사 15년 경험, 저서 60권+, 유튜브 '슬기로운 초등생활' 15만 구독자. 초등 문해력 교육의 기준을 만들어온 대표 강사입니다.</p>
+          <div class="icard-tags">
+            <span class="ictag">초등교사 15년</span>
+            <span class="ictag">저서 60권+</span>
+            <span class="ictag">유튜브 15만+</span>
+          </div>
+        </div>
+      </div>
+
       <!-- 박지연 -->
       <div class="icard rv">
-        <div class="icard-photo"><img src="images/instructors/park-jiyeon.png" alt="박지연"></div>
+        <div class="icard-photo"><img src="images/instructors/park-jiyeon-final.png" alt="박지연"></div>
         <div class="icard-body">
           <div class="icard-role">독서교육 전문가</div>
           <div class="icard-name">박지연</div>
@@ -197,7 +183,7 @@
 
       <!-- 김민준 -->
       <div class="icard rv d1">
-        <div class="icard-photo"><img src="images/instructors/kim-minjun.png" alt="김민준"></div>
+        <div class="icard-photo"><img src="images/instructors/kim-minjun-final.png" alt="김민준"></div>
         <div class="icard-body">
           <div class="icard-role">글쓰기 코치</div>
           <div class="icard-name">김민준</div>
@@ -253,7 +239,7 @@
 
       <!-- 권보경 -->
       <div class="icard rv d5">
-        <div class="icard-photo"><img src="images/instructors/kwon-bokyung.jpg" alt="권보경"></div>
+        <div class="icard-photo"><img src="images/instructors/kwon-bokyung-final.png" alt="권보경"></div>
         <div class="icard-body">
           <div class="icard-role">소논문·연구 전문가</div>
           <div class="icard-name">권보경</div>
@@ -261,6 +247,20 @@
           <div class="icard-tags">
             <span class="ictag">초등소논문코칭전문가</span>
             <span class="ictag">행정학 박사</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이동길 -->
+      <div class="icard rv d5">
+        <div class="icard-photo"><img src="images/instructors/lee-donggil-final.png" alt="이동길"></div>
+        <div class="icard-body">
+          <div class="icard-role">Co-founder · CTO</div>
+          <div class="icard-name">이동길</div>
+          <p class="icard-spec">교육 현장 15년 경험 기반의 시스템 설계 전문가. 펜타캠퍼스의 교육 인프라와 운영 구조를 담당합니다.</p>
+          <div class="icard-tags">
+            <span class="ictag">교육경력 15년</span>
+            <span class="ictag">시스템 설계</span>
           </div>
         </div>
       </div>
