@@ -266,16 +266,11 @@
     .why-card-proof { margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap; }
     .why-proof-pill { font-size: 10px; font-weight: 600; color: rgba(201,168,76,0.8); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; padding: 4px 12px; }
 
-    /* ── FEEDBACK WIDGET ── */
-    .fb-btn { position: absolute; top: 18px; right: 20px; z-index: 50; width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0.28; transition: opacity 0.2s, transform 0.2s; }
-    .fb-btn svg { width: 16px; height: 16px; }
-    .fb-btn:hover { opacity: 1; transform: scale(1.12); }
-    /* 밝은 섹션용 */
-    .fb-btn.light { background: rgba(0,0,0,0.09); }
-    .fb-btn.light svg { stroke: #444; fill: none; }
-    /* 어두운 섹션용 */
-    .fb-btn.dark { background: rgba(255,255,255,0.13); }
-    .fb-btn.dark svg { stroke: rgba(255,255,255,0.85); fill: none; }
+    /* ── FEEDBACK WIDGET — 우하단 고정 버튼 ── */
+    #fbFloatBtn { position: fixed; bottom: 28px; right: 28px; z-index: 900; display: flex; align-items: center; gap: 8px; background: #0a0a0a; color: #fff; border: none; border-radius: 24px; padding: 11px 18px 11px 14px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: background 0.2s, transform 0.2s; }
+    #fbFloatBtn:hover { background: #c9a84c; color: #0a0a0a; transform: translateY(-2px); }
+    #fbFloatBtn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    #fbSectionLabel { max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     /* 모달 */
     .fb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; align-items: center; justify-content: center; }
     .fb-overlay.open { display: flex; }
@@ -655,7 +650,7 @@
 
 <!-- INSTRUCTOR PAIR 1 — 박지연 + 이현우 -->
 <section class="sec ipair-sec">
-  <button class="fb-btn light" data-section="강사소개 — 박지연·이현우" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div class="sec-in">
     <div class="ipair-hdr rv">
       <div class="sec-lbl">Our Instructors</div>
@@ -759,7 +754,7 @@
 
 <!-- PROCESS -->
 <section class="sec process" id="process">
-  <button class="fb-btn light" data-section="수강 프로세스" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div class="sec-in">
     <div class="process-hdr rv">
       <div class="sec-lbl" style="color:rgba(201,168,76,0.7)">How It Works</div>
@@ -776,7 +771,7 @@
 
 <!-- PROOF -->
 <section class="sec proof">
-  <button class="fb-btn light" data-section="숫자로 보는 펜타" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div class="sec-in">
     <div class="rv"><div class="sec-lbl">By the Numbers</div><h2 class="sec-h">펜타가 쌓아온 것들</h2></div>
     <div class="pgrid">
@@ -790,7 +785,7 @@
 
 <!-- INSTRUCTOR PAIR 2 — 권보경 + 김민준 -->
 <section class="sec ipair-sec">
-  <button class="fb-btn light" data-section="강사소개 — 권보경·김민준" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div class="sec-in">
     <div class="ipair-hdr rv">
       <div class="sec-lbl">Our Instructors</div>
@@ -882,7 +877,7 @@
 
 <!-- WHY PENTA CAMPUS -->
 <section class="why-sec" style="position:relative;">
-  <button class="fb-btn dark" data-section="왜 펜타캠퍼스인가" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div class="why-inner">
     <div class="why-eyebrow rv">Why Pentacampus</div>
     <h2 class="why-title rv">수많은 강사 플랫폼 중에서<br><em>펜타캠퍼스를 선택해야 하는 이유</em></h2>
@@ -933,7 +928,7 @@
 
 <!-- INSTRUCTOR PAIR 3 — 최수진 + 정미경 -->
 <section class="sec ipair-sec" style="background:var(--off);">
-  <button class="fb-btn light" data-section="강사소개 — 최수진·정미경" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div class="sec-in">
     <div class="ipair-hdr rv">
       <div class="sec-lbl">Our Instructors</div>
@@ -1019,7 +1014,7 @@
 
 <!-- CONCERN / HESITATION -->
 <section class="concern-sec" style="position:relative;">
-  <button class="fb-btn dark" data-section="고민 해소 섹션" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div class="concern-inner">
     <div class="concern-eyebrow rv">Before You Decide</div>
     <h2 class="concern-title rv">이런 고민,<br><em>해본 적 있으신가요?</em></h2>
@@ -1067,7 +1062,7 @@
 
 <!-- REVIEWS -->
 <section class="sec reviews-sec" id="reviews" style="background:var(--white);">
-  <button class="fb-btn light" data-section="수강생 후기" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div class="sec-in">
     <div style="text-align:center;margin-bottom:56px;" class="rv">
       <div style="display:inline-flex;align-items:center;justify-content:center;background:var(--off);border:1px solid var(--light);border-radius:100px;padding:6px 18px;margin-bottom:20px;">
@@ -1159,7 +1154,7 @@
 
 <!-- FOUNDERS -->
 <section class="founders-sec">
-  <button class="fb-btn dark" data-section="Co-Founders 섹션" onclick="fbOpen(this)"><svg fill="none" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+
   <div style="max-width:1100px;margin:0 auto;">
     <div class="founders-eyebrow rv">Co-Founders</div>
     <h2 class="founders-title rv d1">펜타캠퍼스를<br><em>만든 두 사람</em></h2>
@@ -1285,6 +1280,12 @@
     });
   });
 </script>
+<!-- ── FEEDBACK FLOAT BUTTON ── -->
+<button id="fbFloatBtn" onclick="fbOpen()">
+  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span id="fbSectionLabel">피드백</span>
+</button>
+
 <!-- ── FEEDBACK MODAL ── -->
 <div class="fb-overlay" id="fbOverlay" onclick="fbClose(event)">
   <div class="fb-modal">
@@ -1308,11 +1309,46 @@
 
 <script>
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbxN3NaaZpCPPZfH7gEJVOGnyzJp9kvH5KtTXBMh86gnp6OCxcFPN8dGaK7THmVQb9vJoQ/exec';
-  let fbSection = '';
 
-  function fbOpen(btn) {
-    fbSection = btn.dataset.section;
-    document.getElementById('fbTag').textContent = fbSection;
+  // 섹션 목록 — data-fb-section 속성으로 각 섹션 이름 지정
+  const FB_SECTIONS = [
+    { id: 'top',      name: '히어로' },
+    { id: 'pair1',    name: '강사소개 — 박지연·이현우' },
+    { id: 'process',  name: '수강 프로세스' },
+    { id: 'proof',    name: '숫자로 보는 펜타' },
+    { id: 'pair2',    name: '강사소개 — 권보경·김민준' },
+    { id: 'why',      name: '왜 펜타캠퍼스인가' },
+    { id: 'pair3',    name: '강사소개 — 최수진·정미경' },
+    { id: 'concern',  name: '고민 해소' },
+    { id: 'reviews',  name: '수강생 후기' },
+    { id: 'founders', name: 'Co-Founders' },
+    { id: 'cta',      name: 'CTA' },
+  ];
+
+  let currentSection = '전체 페이지';
+
+  // IntersectionObserver로 현재 섹션 감지
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const found = FB_SECTIONS.find(s => s.id === entry.target.id || entry.target.dataset.fbSection === s.id);
+        if (found) {
+          currentSection = found.name;
+          document.getElementById('fbSectionLabel').textContent = found.name;
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+
+  // 섹션 요소에 id/data-fb-section 붙여서 관찰
+  document.querySelectorAll('section').forEach((sec, i) => {
+    const match = FB_SECTIONS[i];
+    if (match && !sec.id) sec.id = match.id;
+    observer.observe(sec);
+  });
+
+  function fbOpen() {
+    document.getElementById('fbTag').textContent = currentSection;
     document.getElementById('fbContent').value = '';
     document.getElementById('fbName').value = '';
     document.getElementById('fbForm').style.display = 'block';
@@ -1331,16 +1367,13 @@
     if (!content) { document.getElementById('fbContent').focus(); return; }
     const name = document.getElementById('fbName').value.trim() || '익명';
     const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-
     try {
       await fetch(GAS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
+        method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sheet: '피드백_캠퍼스', timestamp: now, section: fbSection, content, name })
+        body: JSON.stringify({ sheet: '피드백_캠퍼스', timestamp: now, section: currentSection, content, name })
       });
     } catch(e) {}
-
     document.getElementById('fbForm').style.display = 'none';
     document.getElementById('fbDone').style.display = 'block';
     setTimeout(() => document.getElementById('fbOverlay').classList.remove('open'), 2200);
