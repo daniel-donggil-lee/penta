@@ -88,11 +88,11 @@
     /* Toast — 영상 아래서 등장, 3카드 동시(1활성+2희미), 3/4지점 소멸, 비겹침 */
     .hero-vid-outer { padding-bottom: 150px; }
     .toast-wrap { position: absolute; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; z-index: 3; }
-    .toast { position: absolute; left: 6%; right: 6%; top: 102%; display: flex; align-items: flex-start; gap: 11px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 14px 16px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 12s linear infinite; }
+    .toast { position: absolute; left: 6%; right: 6%; top: 102%; display: flex; align-items: flex-start; gap: 13px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 16px; padding: 20px 22px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 20s linear infinite; }
     .toast.t1 { animation-delay: 0s; }
-    .toast.t2 { animation-delay: 3s; }
-    .toast.t3 { animation-delay: 6s; }
-    .toast.t4 { animation-delay: 9s; }
+    .toast.t2 { animation-delay: 5s; }
+    .toast.t3 { animation-delay: 10s; }
+    .toast.t4 { animation-delay: 15s; }
     @keyframes toastRise {
       0%,  18%    { top: 102%; opacity: 0; }   /* 대기 */
       25%          { top: 84%;  opacity: 1.0; } /* 등장 */
@@ -102,8 +102,8 @@
     }
     .toast-avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--gold), #e8b84b); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--black); flex-shrink: 0; }
     .toast-info { flex: 1; min-width: 0; }
-    .toast-name { font-size: 14px; font-weight: 700; color: #111; }
-    .toast-text { font-size: 13px; color: #666; margin-top: 5px; line-height: 1.6; }
+    .toast-name { font-size: 16px; font-weight: 700; color: #111; }
+    .toast-text { font-size: 15px; color: #666; margin-top: 6px; line-height: 1.6; }
     .toast-time { font-size: 12px; color: #aaa; flex-shrink: 0; align-self: flex-start; }
 
     /* SECTION BASE — z-index로 히어로 위에 덮임 */
@@ -519,34 +519,30 @@
           <div class="toast t1">
             <div class="toast-avatar">이</div>
             <div class="toast-info">
-              <div class="toast-name">이현지 · 방과후 강사</div>
+              <div class="toast-name">이현지 · 방과후 강사 <span style="color:#f5a623;letter-spacing:1px;font-size:14px;">★★★★★</span></div>
               <div class="toast-text">드디어 자격증 취득했습니다! 커리큘럼이 정말 체계적이라 수업 설계가 한결 쉬워졌어요. 현장에서 바로 쓸 수 있는 내용들로 가득해서 수료하자마자 바로 활용하고 있습니다.</div>
             </div>
-            <div class="toast-stars">★★★★★</div>
           </div>
           <div class="toast t2">
             <div class="toast-avatar">박</div>
             <div class="toast-info">
-              <div class="toast-name">박수연 · 독서논술 강사</div>
+              <div class="toast-name">박수연 · 독서논술 강사 <span style="color:#f5a623;letter-spacing:1px;font-size:14px;">★★★★★</span></div>
               <div class="toast-text">수료 후 취업 연계까지 연결돼서 바로 현장에 투입됐어요. 자격증 이름 하나로 학부모 신뢰도가 달라지는 걸 직접 느꼈습니다. 이렇게 빠르게 강사로 시작할 수 있을 줄 몰랐어요.</div>
             </div>
-            <div class="toast-stars">★★★★★</div>
           </div>
           <div class="toast t3">
             <div class="toast-avatar">김</div>
             <div class="toast-info">
-              <div class="toast-name">김지민 · 홈스쿨링 맘</div>
+              <div class="toast-name">김지민 · 홈스쿨링 맘 <span style="color:#f5a623;letter-spacing:1px;font-size:14px;">★★★★★</span></div>
               <div class="toast-text">이은경 대표님 직강이라 처음부터 신뢰가 갔어요. 유튜브에서만 보던 분의 노하우를 직접 배우니 내용의 밀도가 완전히 달랐습니다. 홈스쿨링에 그대로 적용하고 있어요.</div>
             </div>
-            <div class="toast-stars">★★★★★</div>
           </div>
           <div class="toast t4">
             <div class="toast-avatar">최</div>
             <div class="toast-info">
-              <div class="toast-name">최아름 · 초등 학부모</div>
+              <div class="toast-name">최아름 · 초등 학부모 <span style="color:#f5a623;letter-spacing:1px;font-size:14px;">★★★★★</span></div>
               <div class="toast-text">온라인 강의인데 집중도가 오히려 더 높았어요. 짜임새 있는 구성 덕분에 끝까지 완주할 수 있었고, 아이 독서 지도에 바로 써먹을 수 있는 팁들이 많았습니다.</div>
             </div>
-            <div class="toast-stars">★★★★★</div>
           </div>
         </div>
       </div>
@@ -604,35 +600,9 @@
           </div>
         </div>
       </div>
-      <!-- 우측: 미니 썸네일 스택 (장식) -->
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
-          <div style="width:40px;height:40px;background:rgba(201,168,76,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:-0.2px;">초등 독서 습관 만드는 법</div>
-            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;">조회수 23만</div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
-          <div style="width:40px;height:40px;background:rgba(201,168,76,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:-0.2px;">글쓰기 싫어하는 아이 지도법</div>
-            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;">조회수 18만</div>
-          </div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:14px;">
-          <div style="width:40px;height:40px;background:rgba(201,168,76,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(201,168,76,0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <div>
-            <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:-0.2px;">문해력, 초등 때 잡는 이유</div>
-            <div style="font-size:10px;color:rgba(255,255,255,0.25);margin-top:3px;">조회수 31만</div>
-          </div>
-        </div>
+      <!-- 우측: 사진 -->
+      <div style="border-radius:16px;overflow:hidden;height:300px;box-shadow:0 20px 60px rgba(0,0,0,0.5);">
+        <img src="https://images.pexels.com/photos/9158511/pexels-photo-9158511.jpeg?auto=compress&cs=tinysrgb&w=700&h=500&fit=crop" alt="이은경 채널" style="width:100%;height:100%;object-fit:cover;display:block;">
       </div>
     </div>
     <!-- YouTube embed — 영상 ID를 아래 XXXXXXXXXXX 자리에 교체 -->
@@ -773,7 +743,7 @@
     </div>
     <div class="process-body">
       <div class="process-photo rv-left">
-        <img src="https://images.pexels.com/photos/9158999/pexels-photo-9158999.jpeg?auto=compress&cs=tinysrgb&w=500&h=680&fit=crop" alt="밝게 웃는 강사">
+        <img src="images/instructors/process-left.png" alt="강사">
       </div>
       <div class="process-right">
         <div class="process-list">
