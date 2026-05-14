@@ -56,17 +56,17 @@
     /* Toast — 영상 밖에서 보이면서 천천히 올라와 3/4지점 소멸 */
     .hero-vid-outer { padding-bottom: 90px; }
     .toast-wrap { position: absolute; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; z-index: 3; }
-    .toast { position: absolute; left: 6%; right: 6%; top: 95%; display: flex; align-items: center; gap: 11px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 11px 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 24s ease infinite; }
+    .toast { position: absolute; left: 6%; right: 6%; top: 97%; display: flex; align-items: center; gap: 11px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 11px 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 12s ease infinite; }
     .toast.t1 { animation-delay: 0s; }
-    .toast.t2 { animation-delay: 6s; }
-    .toast.t3 { animation-delay: 12s; }
-    .toast.t4 { animation-delay: 18s; }
+    .toast.t2 { animation-delay: 3s; }
+    .toast.t3 { animation-delay: 6s; }
+    .toast.t4 { animation-delay: 9s; }
     @keyframes toastRise {
-      0%, 3%      { top: 96%;  opacity: 0; }
-      8%          { top: 92%;  opacity: 1; }
-      55%         { top: 71%;  opacity: 1; }
-      68%         { top: 65%;  opacity: 0; }
-      69%, 100%   { top: 96%;  opacity: 0; }
+      0%        { top: 97%; opacity: 0; }
+      6%        { top: 93%; opacity: 1; }
+      48%       { top: 87%; opacity: 1; }
+      63%       { top: 81%; opacity: 0; }
+      64%, 100% { top: 97%; opacity: 0; }
     }
     .toast-avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--gold), #e8b84b); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--black); flex-shrink: 0; }
     .toast-info { flex: 1; min-width: 0; }
