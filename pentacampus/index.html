@@ -25,8 +25,10 @@
     .nav-logo { font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--white); text-transform: uppercase; text-decoration: none; text-shadow: 0 0 18px rgba(201,168,76,0.45), 0 2px 8px rgba(0,0,0,0.6); }
     .nav-logo em { color: var(--gold); font-style: normal; text-shadow: 0 0 24px rgba(201,168,76,0.7), 0 2px 8px rgba(0,0,0,0.6); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.45); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--white); }
+    .nav-links a { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.80); text-decoration: none; letter-spacing: 0.5px; transition: color 0.25s, text-shadow 0.25s; position: relative; padding-bottom: 3px; }
+    .nav-links a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1.5px; background: var(--gold); transition: width 0.25s ease; }
+    .nav-links a:hover { color: var(--white); text-shadow: 0 0 12px rgba(201,168,76,0.6); }
+    .nav-links a:hover::after { width: 100%; }
     .nav-cta { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.45); padding: 8px 22px; border-radius: 4px; transition: all 0.2s; }
     .nav-cta:hover { background: var(--gold); color: var(--black); }
 
@@ -35,24 +37,33 @@
     .hero-in { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
     /* Aurora blobs */
     .aurora { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(70px); }
-    .ab1 { width: 750px; height: 550px; top: -10%; left: -10%; background: radial-gradient(ellipse, rgba(201,168,76,0.50) 0%, transparent 65%); animation: ab1drift 20s ease-in-out infinite; }
-    .ab2 { width: 650px; height: 600px; top: 10%; right: -8%; background: radial-gradient(ellipse, rgba(180,110,30,0.42) 0%, transparent 65%); animation: ab2drift 26s ease-in-out infinite; }
-    .ab3 { width: 550px; height: 450px; bottom: 0%; left: 20%; background: radial-gradient(ellipse, rgba(220,155,50,0.36) 0%, transparent 65%); animation: ab3drift 32s ease-in-out infinite; }
+    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(70px); will-change: transform; }
+    .ab1 { width: 750px; height: 550px; top: -10%; left: -10%; background: radial-gradient(ellipse, rgba(201,168,76,0.50) 0%, transparent 65%); animation: ab1drift 18s ease-in-out infinite; }
+    .ab2 { width: 650px; height: 600px; top: 10%; right: -8%; background: radial-gradient(ellipse, rgba(180,110,30,0.42) 0%, transparent 65%); animation: ab2drift 24s ease-in-out infinite; }
+    .ab3 { width: 550px; height: 450px; bottom: 0%; left: 20%; background: radial-gradient(ellipse, rgba(220,155,50,0.36) 0%, transparent 65%); animation: ab3drift 30s ease-in-out infinite; }
     @keyframes ab1drift {
-      0%,100% { transform: translate(0px, 0px) scale(1); }
-      33%     { transform: translate(50px, 30px) scale(1.1); }
-      66%     { transform: translate(-30px, 60px) scale(0.92); }
+      0%   { transform: translate(0px, 0px) scale(1); }
+      20%  { transform: translate(200px, 80px) scale(1.12); }
+      45%  { transform: translate(120px, 260px) scale(0.88); }
+      65%  { transform: translate(-160px, 180px) scale(1.08); }
+      85%  { transform: translate(-80px, -60px) scale(0.94); }
+      100% { transform: translate(0px, 0px) scale(1); }
     }
     @keyframes ab2drift {
-      0%,100% { transform: translate(0px, 0px) scale(1); }
-      40%     { transform: translate(-60px, -40px) scale(1.08); }
-      70%     { transform: translate(30px, 50px) scale(0.95); }
+      0%   { transform: translate(0px, 0px) scale(1); }
+      25%  { transform: translate(-220px, 100px) scale(1.1); }
+      50%  { transform: translate(-100px, 280px) scale(0.9); }
+      70%  { transform: translate(180px, 160px) scale(1.06); }
+      90%  { transform: translate(80px, -80px) scale(0.96); }
+      100% { transform: translate(0px, 0px) scale(1); }
     }
     @keyframes ab3drift {
-      0%,100% { transform: translate(0px, 0px) scale(1); }
-      30%     { transform: translate(-40px, -50px) scale(1.06); }
-      60%     { transform: translate(60px, 20px) scale(0.94); }
+      0%   { transform: translate(0px, 0px) scale(1); }
+      20%  { transform: translate(-180px, -120px) scale(1.08); }
+      40%  { transform: translate(100px, -200px) scale(0.92); }
+      60%  { transform: translate(240px, 60px) scale(1.1); }
+      80%  { transform: translate(-60px, 140px) scale(0.95); }
+      100% { transform: translate(0px, 0px) scale(1); }
     }
     .hero-glow { display: none; }
     .hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
@@ -110,7 +121,7 @@
     .sec-lbl::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
     .sec-h { font-size: clamp(28px, 4vw, 48px); font-weight: 900; color: var(--black); letter-spacing: -2px; line-height: 1.1; }
     .sec-h-w { color: var(--white); }
-    .sec-p { font-size: 14px; color: var(--gray); line-height: 1.9; margin-top: 14px; max-width: 500px; }
+    .sec-p { font-size: 14px; color: var(--gray); line-height: 1.9; margin-top: 14px; max-width: 500px; word-break: keep-all; }
 
     /* YOUTUBE SECTION */
     .yt-sec { background: #0d0d0d; padding: 112px 64px; }
@@ -145,6 +156,10 @@
     .cf.on, .cf:hover { border-color: var(--black); background: var(--black); color: var(--white); }
     .cgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--light); border: 1px solid var(--light); border-radius: var(--r); overflow: hidden; }
     .ccard { background: var(--white); padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; transition: background 0.15s; }
+    .ccard-feat { padding: 36px 32px; gap: 14px; border-radius: 14px; border: 1px solid var(--light) !important; transition: box-shadow 0.22s, transform 0.22s !important; }
+    .ccard-feat:hover { box-shadow: 0 10px 36px rgba(0,0,0,0.08); transform: translateY(-3px); background: var(--white) !important; }
+    .ccard-feat .cname { font-size: 20px; font-weight: 900; letter-spacing: -0.8px; line-height: 1.3; }
+    .ccard-desc { font-size: 13px; color: var(--gray); line-height: 1.8; flex: 1; }
     .ccard:hover { background: #fafaf7; }
     .ccat { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #bbb; }
     .cname { font-size: 14px; font-weight: 800; letter-spacing: -0.2px; line-height: 1.5; }
@@ -176,6 +191,27 @@
     .pval em { font-style: normal; color: var(--gold); font-size: 24px; }
     .pkey { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #bbb; margin-top: 12px; }
 
+    /* INSTRUCTOR PAIR */
+    .ipair-sec { background: var(--white); }
+    .ipair-hdr { margin-bottom: 52px; }
+    .ipair-list { display: flex; flex-direction: column; gap: 48px; }
+    .ipc-row { display: grid; grid-template-columns: 260px 1fr; gap: 20px; align-items: start; }
+    /* 사진 카드 */
+    .ipc-photo-card { border-radius: 16px; overflow: hidden; background: #909396; box-shadow: 0 8px 32px rgba(0,0,0,0.10); position: relative; }
+    .ipc-photo-card img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top center; display: block; filter: grayscale(100%); transition: filter 0.45s ease; }
+    .ipc-row:hover .ipc-photo-card img { filter: grayscale(0%); }
+    .ipc-name-badge { background: var(--white); border-radius: 0 0 14px 14px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+    .ipc-badge-name { font-size: 15px; font-weight: 800; color: var(--black); letter-spacing: -0.3px; }
+    .ipc-badge-role { font-size: 10px; color: #aaa; margin-top: 2px; }
+    /* 글 카드 */
+    .ipc-text-card { background: var(--white); border: 1px solid var(--light); border-radius: 16px; padding: 36px 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 20px; }
+    .ipc-lbl { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+    .ipc-title { font-size: clamp(20px, 2.2vw, 28px); font-weight: 900; letter-spacing: -1px; line-height: 1.2; color: var(--black); }
+    .ipc-desc { font-size: 13px; color: #555; line-height: 1.9; }
+    .ipc-divider { width: 32px; height: 1px; background: var(--light); }
+    .ipc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .ipc-tag { font-size: 10px; font-weight: 600; color: var(--gray); padding: 5px 12px; border: 1px solid var(--light); border-radius: 3px; }
+
     /* INSTRUCTOR */
     .inst-sec { background: var(--white); border-top: 1px solid var(--light); }
     .inst-wrap { max-width: 1100px; margin: 0 auto; padding: 100px 64px; display: grid; grid-template-columns: 340px 1fr; gap: 80px; align-items: center; }
@@ -192,16 +228,21 @@
     .inst-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .itag { font-size: 10px; font-weight: 600; color: var(--gray); padding: 6px 13px; border: 1px solid var(--light); border-radius: 2px; letter-spacing: 0.3px; }
 
-    /* REVIEWS */
-    .rv-card { background: var(--white); border: 1px solid var(--light); border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; gap: 18px; }
+    /* REVIEWS — 무한 캐러셀 */
+    .rv-carousel { overflow: hidden; -webkit-mask: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); mask: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); }
+    .rv-track { display: flex; gap: 20px; width: max-content; animation: rvScroll 32s linear infinite; }
+    .rv-track:hover { animation-play-state: paused; }
+    @keyframes rvScroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .rv-card { flex-shrink: 0; width: 340px; background: var(--white); border: 1px solid var(--light); border-radius: 14px; padding: 32px 28px; display: flex; flex-direction: column; gap: 18px; }
     .stars { color: var(--gold); font-size: 15px; letter-spacing: 2px; }
     .rv-txt { font-size: 13px; color: #444; line-height: 1.85; flex: 1; }
     .rv-author { display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid #f0f0f0; }
     .rv-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--off); border: 1px solid var(--light); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--gray); flex-shrink: 0; }
     .rv-name { font-size: 13px; font-weight: 700; color: var(--black); letter-spacing: -0.2px; }
     .rv-role { font-size: 11px; color: #aaa; margin-top: 2px; }
-    @media (max-width: 960px) { .reviews-grid { grid-template-columns: 1fr !important; } }
-    @media (min-width: 601px) and (max-width: 960px) { .reviews-grid { grid-template-columns: 1fr 1fr !important; } }
 
     /* CTA */
     .cta-sec { background: var(--black); text-align: center; padding: 140px 48px; }
@@ -257,13 +298,16 @@
       nav { padding: 0 20px; width: calc(100% - 32px); } .nav-links { display: none; } .nav-cta { display: none; } .nav-burger { display: flex; }
       .hero { padding: 96px 40px 80px; min-height: auto; }
       .hero-in { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
+      .hero-right { display: flex; justify-content: center; margin-top: 40px; }
+      .hero-vid-outer { max-width: 480px; width: 100%; }
       .hero-left { padding-right: 0; padding-bottom: 0; align-items: flex-start; text-align: left; }
       .hero-sub { margin: 0 0 40px; }
       .sec { padding: 88px 40px; }
       .yt-sec { padding: 88px 40px; }
       .yt-top { grid-template-columns: 1fr; gap: 36px; }
       .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr 1fr; }
+      .ipc-row { grid-template-columns: 200px 1fr; gap: 16px; }
+      .ipc-text-card { padding: 28px 28px; }
       .pitem { grid-template-columns: 60px 1fr; padding: 24px 24px; gap: 20px; }
       .parr { display: none; }
       .inst-wrap { grid-template-columns: 1fr; gap: 40px; padding: 72px 40px; }
@@ -275,6 +319,11 @@
     @media (max-width: 600px) {
       nav { padding: 0 20px; }
       .hero { padding: 84px 20px 64px; }
+      .hero-right { margin-top: 32px; }
+      .hero-vid-outer { max-width: 100%; }
+      .ab1 { width: 280px; height: 220px; }
+      .ab2 { width: 250px; height: 260px; }
+      .ab3 { width: 220px; height: 180px; }
       .hero-eyebrow { font-size: 13px; }
       .hero-title { font-size: clamp(56px, 13vw, 80px); letter-spacing: -2px; }
       .hero-sub { font-size: 18px; line-height: 1.9; margin: 0 0 36px; }
@@ -283,6 +332,8 @@
       .sec { padding: 64px 20px; }
       .yt-sec { padding: 64px 20px; }
       .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr; }
+      .ipc-row { grid-template-columns: 1fr; gap: 12px; }
+      .ipc-text-card { padding: 24px 22px; gap: 14px; }
       .pitem { padding: 20px 16px; }
       .inst-wrap { padding: 56px 20px; }
       footer { padding: 28px 20px; }
@@ -295,9 +346,7 @@
 <nav id="main-nav">
   <a href="#top" class="nav-logo" style="text-decoration:none;">PENTA<em>CAMPUS</em></a>
   <ul class="nav-links">
-    <li><a href="#paths">과정 안내</a></li>
     <li><a href="courses.html">커리큘럼</a></li>
-    <li><a href="#yt">채널 소개</a></li>
     <li><a href="instructors.html">강사진</a></li>
     <li><a href="#process">수강 안내</a></li>
   </ul>
@@ -307,9 +356,7 @@
   </button>
 </nav>
 <div class="nav-mobile" id="nav-mobile">
-  <a href="#paths" class="mobile-link">과정 안내</a>
   <a href="courses.html" class="mobile-link">커리큘럼</a>
-  <a href="#yt" class="mobile-link">채널 소개</a>
   <a href="instructors.html" class="mobile-link">강사진</a>
   <a href="#process" class="mobile-link">수강 안내</a>
   <a href="#cta" class="mobile-cta">수강 신청 →</a>
@@ -484,36 +531,88 @@
     <div class="courses-top">
       <div class="rv">
         <div class="sec-lbl">Curriculum</div>
-        <h2 class="sec-h">17개 전문 과정</h2>
+        <h2 class="sec-h">대표 과정</h2>
       </div>
-      <div class="cfilters rv">
-        <button class="cf on" data-f="all">전체</button>
-        <button class="cf" data-f="free">기본</button>
-        <button class="cf" data-f="pro">전문가</button>
-        <button class="cf" data-f="oneday">원데이</button>
-        <button class="cf" data-f="self">자기계발</button>
+      <a href="courses.html" class="rv" style="font-size:13px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;white-space:nowrap;align-self:flex-end;padding-bottom:4px;">전체 17개 과정 보기 →</a>
+    </div>
+    <div class="cgrid" id="cgrid" style="grid-template-columns:repeat(2,1fr);">
+      <a class="ccard ccard-feat" href="course-04.html" style="text-decoration:none;color:inherit;cursor:pointer;">
+        <div class="ccat">전문가과정 · 추천 ↗</div>
+        <div class="cname">초등종합문해력<br>코칭전문가</div>
+        <p class="ccard-desc">독해·어휘·사고·표현·소통 5영역을 통합적으로 지도하는 종합 코칭 전문가 양성 과정.</p>
+        <div class="cmeta">
+          <div class="cinst">이은경 대표</div>
+          <div class="cdate">2026. 10. 01 개강</div>
+        </div>
+      </a>
+      <a class="ccard ccard-feat" href="course-05.html" style="text-decoration:none;color:inherit;cursor:pointer;">
+        <div class="ccat">전문가과정 · 추천 ↗</div>
+        <div class="cname">초등인문독서<br>코칭전문가</div>
+        <p class="ccard-desc">고전과 인문학을 활용해 아이들의 독서 깊이를 끌어올리는 인문독서 전문 코치 양성 과정.</p>
+        <div class="cmeta">
+          <div class="cinst">김문영 강사</div>
+          <div class="cdate">2026. 10. 01 개강</div>
+        </div>
+      </a>
+    </div>
+    <div class="courses-more rv"><a href="courses.html">전체 커리큘럼 살펴보기 →</a></div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR PAIR 1 — 박지연 + 이현우 -->
+<section class="sec ipair-sec">
+  <div class="sec-in">
+    <div class="ipair-hdr rv">
+      <div class="sec-lbl">Our Instructors</div>
+      <h2 class="sec-h">이 분야의 전문가들이 직접 가르칩니다</h2>
+    </div>
+    <div class="ipair-list">
+
+      <div class="ipc-row rv">
+        <div class="ipc-photo-card">
+          <img src="images/instructors/park-jiyeon.png" alt="박지연">
+          <div class="ipc-name-badge">
+            <div>
+              <div class="ipc-badge-name">박지연</div>
+              <div class="ipc-badge-role">독서교육 전문가</div>
+            </div>
+          </div>
+        </div>
+        <div class="ipc-text-card">
+          <div class="ipc-lbl">Instructor</div>
+          <div class="ipc-title">독서 습관을 설계하는 교육가</div>
+          <p class="ipc-desc">아이마다 읽기 패턴이 다릅니다. 박지연 강사는 15년간 수천 명의 초등학생을 관찰하며 각 아이에게 맞는 독서 루틴을 설계하는 방법론을 완성했습니다. 그 노하우를 이 과정에서 그대로 전달합니다.</p>
+          <div class="ipc-divider"></div>
+          <div class="ipc-tags">
+            <span class="ipc-tag">초등독서습관지도사</span>
+            <span class="ipc-tag">독서교육 15년</span>
+          </div>
+        </div>
       </div>
+
+      <div class="ipc-row rv d1">
+        <div class="ipc-photo-card">
+          <img src="images/instructors/lee-hyunwoo.png" alt="이현우">
+          <div class="ipc-name-badge">
+            <div>
+              <div class="ipc-badge-name">이현우</div>
+              <div class="ipc-badge-role">논증·추론 전문가</div>
+            </div>
+          </div>
+        </div>
+        <div class="ipc-text-card">
+          <div class="ipc-lbl">Instructor</div>
+          <div class="ipc-title">법적 사고로 다듬는 논리력</div>
+          <p class="ipc-desc">법학을 기반으로 한 비판적 사고 교육 전문가. 주장과 근거를 구분하고 오류를 찾아내는 훈련을 초등학생 수준에 맞게 재설계했습니다. 단순 암기가 아닌 실전 추론 능력을 길러줍니다.</p>
+          <div class="ipc-divider"></div>
+          <div class="ipc-tags">
+            <span class="ipc-tag">초등논증추론코칭전문가</span>
+            <span class="ipc-tag">법학 전공</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="cgrid" id="cgrid">
-      <a class="ccard" href="course-01.html" data-c="free" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">기본과정 · 무료 ↗</div><div class="cname">초등독서습관지도사</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">연수원 오픈 후 개강</div></div></a>
-      <a class="ccard" href="course-02.html" data-c="free" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">기본과정 · 무료 ↗</div><div class="cname">초등글쓰기습관지도사</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">연수원 오픈 후 개강</div></div></a>
-      <a class="ccard" href="course-03.html" data-c="free" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">기본과정 · 무료 ↗</div><div class="cname">중등문해력대비지도사</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">연수원 오픈 후 개강</div></div></a>
-      <a class="ccard" href="course-04.html" data-c="pro" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">전문가과정 ↗</div><div class="cname">초등종합문해력코칭전문가</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 10. 01</div></div></a>
-      <a class="ccard" href="course-05.html" data-c="pro" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">전문가과정 ↗</div><div class="cname">초등인문독서코칭전문가</div><div class="cmeta"><div class="cinst">김문영 강사</div><div class="cdate">2026. 10. 01</div></div></a>
-      <a class="ccard" href="course-06.html" data-c="pro" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">전문가과정 ↗</div><div class="cname">초등소논문코칭전문가</div><div class="cmeta"><div class="cinst">권보경 강사</div><div class="cdate">2026. 10. 01</div></div></a>
-      <a class="ccard" href="course-07.html" data-c="pro" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">전문가과정 ↗</div><div class="cname">초등주제요약코칭전문가</div><div class="cmeta"><div class="cinst">조승우 강사</div><div class="cdate">2026. 10. 01</div></div></a>
-      <a class="ccard" href="course-08.html" data-c="pro" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">전문가과정 ↗</div><div class="cname">초등논증추론코칭전문가</div><div class="cmeta"><div class="cinst">강사 확정 예정</div><div class="cdate">2026. 10. 01</div></div></a>
-      <a class="ccard" href="course-09.html" data-c="oneday" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">원데이클래스 ↗</div><div class="cname">초등글쓰기 5단계 첨삭법</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 11. 01</div></div></a>
-      <a class="ccard" href="course-10.html" data-c="oneday" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">원데이클래스 ↗</div><div class="cname">초등을 위한 단계별 인문독서</div><div class="cmeta"><div class="cinst">김문영 강사</div><div class="cdate">2026. 11. 02</div></div></a>
-      <a class="ccard" href="course-11.html" data-c="oneday" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">원데이클래스 ↗</div><div class="cname">예비중등을 위한 주제요약법</div><div class="cmeta"><div class="cinst">조승우 강사</div><div class="cdate">2026. 11. 03</div></div></a>
-      <a class="ccard" href="course-12.html" data-c="self" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">자기계발 ↗</div><div class="cname">브런치작가코칭전문가</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 07. 10</div></div></a>
-      <a class="ccard" href="course-13.html" data-c="self" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">자기계발 ↗</div><div class="cname">북클럽운영전문가</div><div class="cmeta"><div class="cinst">정미진 강사</div><div class="cdate">2026. 08. 07</div></div></a>
-      <a class="ccard" href="course-14.html" data-c="self" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">자기계발 ↗</div><div class="cname">1인미디어운영전문가</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 09. 11</div></div></a>
-      <a class="ccard" href="course-15.html" data-c="self" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">자기계발 ↗</div><div class="cname">첫 책 출간 계약 실전 클래스</div><div class="cmeta"><div class="cinst">이은경 대표</div><div class="cdate">2026. 06. 30</div></div></a>
-      <a class="ccard" href="course-16.html" data-c="self" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">자기계발 ↗</div><div class="cname">생각정리 스피치클래스</div><div class="cmeta"><div class="cinst">이민하 강사</div><div class="cdate">2026. 07. 31</div></div></a>
-      <a class="ccard" href="course-17.html" data-c="self" style="text-decoration:none;color:inherit;cursor:pointer;"><div class="ccat">자기계발 ↗</div><div class="cname">AI로 나만의 여행에세이 쓰기</div><div class="cmeta"><div class="cinst">조미연 강사</div><div class="cdate">2026. 08. 31</div></div></a>
-    </div>
-    <div class="courses-more rv"><a href="course-04.html">대표 과정 상세 보기 →</a></div>
   </div>
 </section>
 
@@ -546,6 +645,66 @@
   </div>
 </section>
 
+<!-- INSTRUCTOR PAIR 2 — 권보경 + 김민준 -->
+<section class="sec ipair-sec">
+  <div class="sec-in">
+    <div class="ipair-hdr rv">
+      <div class="sec-lbl">Our Instructors</div>
+      <h2 class="sec-h">글쓰기와 연구를 이끄는 전문가</h2>
+    </div>
+    <div class="ipair-list">
+
+      <div class="ipc-row rv">
+        <div class="ipc-photo-card">
+          <img src="images/instructors/kwon-bokyung.jpg" alt="권보경">
+          <div class="ipc-name-badge">
+            <div>
+              <div class="ipc-badge-name">권보경</div>
+              <div class="ipc-badge-role">소논문·연구 전문가</div>
+            </div>
+          </div>
+        </div>
+        <div class="ipc-text-card">
+          <div class="ipc-lbl">Instructor</div>
+          <div class="ipc-title">박사의 시선으로 가르치는 소논문</div>
+          <p class="ipc-desc">행정학 박사로서 쌓아온 연구 방법론을 초등 수준에 맞게 재설계했습니다. 아이들이 주제를 잡고, 근거를 찾고, 논리적으로 쓰는 전 과정을 단계별로 코칭합니다.</p>
+          <div class="ipc-divider"></div>
+          <div class="ipc-tags">
+            <span class="ipc-tag">초등소논문코칭전문가</span>
+            <span class="ipc-tag">행정학 박사</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ipc-row rv d1">
+        <div class="ipc-photo-card">
+          <img src="images/instructors/kim-minjun.png" alt="김민준">
+          <div class="ipc-name-badge">
+            <div>
+              <div class="ipc-badge-name">김민준</div>
+              <div class="ipc-badge-role">글쓰기 코치</div>
+            </div>
+          </div>
+        </div>
+        <div class="ipc-text-card">
+          <div class="ipc-lbl">Instructor</div>
+          <div class="ipc-title">생각을 글로 꺼내는 힘</div>
+          <p class="ipc-desc">아이들이 자신의 생각을 글로 표현하는 힘을 길러주는 단계별 글쓰기 코치. 무엇을 써야 할지 모르는 아이도, 이 과정을 마치면 스스로 한 편을 완성합니다.</p>
+          <div class="ipc-divider"></div>
+          <div class="ipc-tags">
+            <span class="ipc-tag">초등 글쓰기 코칭</span>
+            <span class="ipc-tag">단계별 표현 교육</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:right;margin-top:32px;" class="rv d2">
+      <a href="instructors.html" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;">강사진 전체 보기 →</a>
+    </div>
+  </div>
+</section>
+
 <!-- REVIEWS -->
 <section class="sec reviews-sec" id="reviews" style="background:var(--white);">
   <div class="sec-in">
@@ -556,44 +715,83 @@
       <h2 class="sec-h" style="text-align:center;">수강생 후기</h2>
       <p class="sec-p" style="margin:12px auto 0;text-align:center;">실제 수강생들의 생생한 수강 후기입니다.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="reviews-grid">
+    <div class="rv-carousel">
+      <div class="rv-track">
 
-      <div class="rv rv-card">
-        <div class="stars">★★★★★</div>
-        <p class="rv-txt">"체계적인 커리큘럼 덕분에 자신감을 갖고 수업을 설계할 수 있게 되었습니다. 특히 실습 중심이라 바로 현장에 적용할 수 있었어요."</p>
-        <div class="rv-author">
-          <div class="rv-avatar">김</div>
-          <div>
-            <div class="rv-name">김서연</div>
-            <div class="rv-role">방과후 교사 · 종합문해력 수료</div>
+        <div class="rv-card">
+          <div class="stars">★★★★★</div>
+          <p class="rv-txt">"체계적인 커리큘럼 덕분에 자신감을 갖고 수업을 설계할 수 있게 되었습니다. 특히 실습 중심이라 바로 현장에 적용할 수 있었어요."</p>
+          <div class="rv-author">
+            <div class="rv-avatar">김</div>
+            <div>
+              <div class="rv-name">김서연</div>
+              <div class="rv-role">방과후 교사 · 종합문해력 수료</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="rv rv-card d1">
-        <div class="stars">★★★★★</div>
-        <p class="rv-txt">"인문독서 과정을 수강하고 나서 아이들과 깊이 있는 독서 토론이 가능해졌어요. 강사님의 노하우가 고스란히 담겨있습니다."</p>
-        <div class="rv-author">
-          <div class="rv-avatar">박</div>
-          <div>
-            <div class="rv-name">박민지</div>
-            <div class="rv-role">도서관 사서 · 인문독서 수료</div>
+        <div class="rv-card">
+          <div class="stars">★★★★★</div>
+          <p class="rv-txt">"인문독서 과정을 수강하고 나서 아이들과 깊이 있는 독서 토론이 가능해졌어요. 강사님의 노하우가 고스란히 담겨있습니다."</p>
+          <div class="rv-author">
+            <div class="rv-avatar">박</div>
+            <div>
+              <div class="rv-name">박민지</div>
+              <div class="rv-role">도서관 사서 · 인문독서 수료</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="rv rv-card d2">
-        <div class="stars">★★★★★</div>
-        <p class="rv-txt">"아이들에게 논리적으로 생각하는 법을 가르치고 싶었는데, 이 과정에서 구체적인 방법론을 배울 수 있었습니다. 강력 추천합니다."</p>
-        <div class="rv-author">
-          <div class="rv-avatar">이</div>
-          <div>
-            <div class="rv-name">이하준</div>
-            <div class="rv-role">학습 코치 · 논증과추론 수료</div>
+        <div class="rv-card">
+          <div class="stars">★★★★★</div>
+          <p class="rv-txt">"아이들에게 논리적으로 생각하는 법을 가르치고 싶었는데, 이 과정에서 구체적인 방법론을 배울 수 있었습니다. 강력 추천합니다."</p>
+          <div class="rv-author">
+            <div class="rv-avatar">이</div>
+            <div>
+              <div class="rv-name">이하준</div>
+              <div class="rv-role">학습 코치 · 논증과추론 수료</div>
+            </div>
           </div>
         </div>
-      </div>
 
+        <!-- 무한 루프용 복제 -->
+        <div class="rv-card">
+          <div class="stars">★★★★★</div>
+          <p class="rv-txt">"체계적인 커리큘럼 덕분에 자신감을 갖고 수업을 설계할 수 있게 되었습니다. 특히 실습 중심이라 바로 현장에 적용할 수 있었어요."</p>
+          <div class="rv-author">
+            <div class="rv-avatar">김</div>
+            <div>
+              <div class="rv-name">김서연</div>
+              <div class="rv-role">방과후 교사 · 종합문해력 수료</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rv-card">
+          <div class="stars">★★★★★</div>
+          <p class="rv-txt">"인문독서 과정을 수강하고 나서 아이들과 깊이 있는 독서 토론이 가능해졌어요. 강사님의 노하우가 고스란히 담겨있습니다."</p>
+          <div class="rv-author">
+            <div class="rv-avatar">박</div>
+            <div>
+              <div class="rv-name">박민지</div>
+              <div class="rv-role">도서관 사서 · 인문독서 수료</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rv-card">
+          <div class="stars">★★★★★</div>
+          <p class="rv-txt">"아이들에게 논리적으로 생각하는 법을 가르치고 싶었는데, 이 과정에서 구체적인 방법론을 배울 수 있었습니다. 강력 추천합니다."</p>
+          <div class="rv-author">
+            <div class="rv-avatar">이</div>
+            <div>
+              <div class="rv-name">이하준</div>
+              <div class="rv-role">학습 코치 · 논증과추론 수료</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
