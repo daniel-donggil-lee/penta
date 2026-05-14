@@ -32,6 +32,7 @@
 
     /* HERO — split */
     .hero { background: var(--black); display: block; padding: 140px 64px 120px; position: relative; overflow: hidden; }
+    .hero-in { max-width: 1100px; margin: 0 auto; }
     .hero-glow { position: absolute; top: -20%; left: -10%; width: 60%; height: 120%; background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 65%); pointer-events: none; }
     .hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 0; max-width: 560px; }
     .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 28px; }
@@ -244,22 +245,23 @@
 <section class="hero" id="top">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-glow"></div>
-  <div class="hero-left">
-    <div class="hero-eyebrow">Penta Campus · 2026 Open</div>
-    <h1 class="hero-title">
-      초등 문해력<br>전문가 양성의<br><em>새로운 기준</em>
-    </h1>
-    <div class="hero-line"></div>
-    <p class="hero-sub">검증된 커리큘럼, 공인 자격증,<br>3가지 취업 경로까지 설계된 시스템.</p>
-    <div class="hero-actions">
-      <a href="#courses" class="btn-gold">커리큘럼 보기</a>
-      <a href="#process" class="btn-ghost">
-        수강 안내
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+  <div class="hero-in">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Penta Campus · 2026 Open</div>
+      <h1 class="hero-title">
+        초등 문해력<br>전문가 양성의<br><em>새로운 기준</em>
+      </h1>
+      <div class="hero-line"></div>
+      <p class="hero-sub">검증된 커리큘럼, 공인 자격증,<br>3가지 취업 경로까지 설계된 시스템.</p>
+      <div class="hero-actions">
+        <a href="#courses" class="btn-gold">커리큘럼 보기</a>
+        <a href="#process" class="btn-ghost">
+          수강 안내
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
     </div>
   </div>
-  <div class="hero-right"></div>
 </section>
 
 <!-- PATHS -->
