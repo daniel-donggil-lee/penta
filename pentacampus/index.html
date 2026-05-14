@@ -168,16 +168,21 @@
 
     /* PROCESS */
     .process { background: var(--black); }
-    .process-hdr { margin-bottom: 72px; }
+    .process-hdr { margin-bottom: 56px; }
+    .process-sub { font-size: 16px; color: rgba(255,255,255,0.45); line-height: 1.8; margin-top: 16px; }
     .process-list { border: 1px solid rgba(255,255,255,0.07); border-radius: var(--r); overflow: hidden; }
-    .pitem { display: grid; grid-template-columns: 72px 1fr 24px; align-items: center; gap: 36px; padding: 32px 44px; border-bottom: 1px solid rgba(255,255,255,0.06); transition: background 0.2s; }
+    .pitem { display: grid; grid-template-columns: 120px 1fr 24px; align-items: center; gap: 36px; padding: 32px 44px; border-bottom: 1px solid rgba(255,255,255,0.06); transition: background 0.2s; }
     .pitem:last-child { border-bottom: none; }
     .pitem:hover { background: rgba(255,255,255,0.025); }
-    .pn { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: rgba(201,168,76,0.55); text-transform: uppercase; }
-    .pinfo { display: flex; flex-direction: column; gap: 7px; }
-    .pttl { font-size: 18px; font-weight: 800; color: var(--white); letter-spacing: -0.2px; }
-    .ptxt { font-size: 14px; color: rgba(255,255,255,0.3); line-height: 1.75; }
+    .pn { display: flex; flex-direction: column; gap: 4px; }
+    .pn-step { font-size: 9px; font-weight: 700; letter-spacing: 3px; color: rgba(201,168,76,0.55); text-transform: uppercase; }
+    .pn-en { font-size: 8px; font-weight: 600; letter-spacing: 1.5px; color: rgba(255,255,255,0.2); text-transform: uppercase; white-space: nowrap; }
+    .pinfo { display: flex; flex-direction: column; gap: 8px; }
+    .pttl { font-size: 18px; font-weight: 800; color: var(--white); letter-spacing: -0.2px; display: flex; align-items: center; gap: 10px; }
+    .pttl-tag { font-size: 11px; font-weight: 700; color: rgba(201,168,76,0.9); background: rgba(201,168,76,0.12); border: 1px solid rgba(201,168,76,0.25); border-radius: 4px; padding: 2px 8px; letter-spacing: 0.5px; font-style: normal; }
+    .ptxt { font-size: 14px; color: rgba(255,255,255,0.35); line-height: 1.8; }
     .parr svg { width: 18px; height: 18px; stroke: rgba(255,255,255,0.2); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .process-closing { font-size: 17px; font-weight: 700; color: rgba(255,255,255,0.75); line-height: 1.9; margin-top: 48px; padding: 28px 36px; border-left: 2px solid var(--gold); background: rgba(255,255,255,0.03); border-radius: 0 8px 8px 0; }
 
     /* PROOF */
     .proof { background: var(--off); }
@@ -419,8 +424,9 @@
       .why-card { padding: 32px 28px; }
       .founders-sec { padding: 88px 40px; }
       .founders-grid { gap: 24px; }
-      .pitem { grid-template-columns: 60px 1fr; padding: 24px 24px; gap: 20px; }
+      .pitem { grid-template-columns: 90px 1fr; padding: 24px 24px; gap: 20px; }
       .parr { display: none; }
+      .process-closing { font-size: 15px; padding: 20px 24px; margin-top: 32px; }
       .inst-wrap { grid-template-columns: 1fr; gap: 40px; padding: 72px 40px; }
       .inst-img-wrap { max-width: 300px; }
       footer { flex-direction: column; gap: 10px; text-align: center; padding: 32px 40px; }
@@ -774,14 +780,16 @@
   <div class="sec-in">
     <div class="process-hdr rv">
       <div class="sec-lbl" style="color:rgba(201,168,76,0.7)">How It Works</div>
-      <h2 class="sec-h sec-h-w">수강부터 활동까지</h2>
+      <h2 class="sec-h sec-h-w">배우는 경험이, 새로운 직업이 되도록</h2>
+      <p class="process-sub">펜타는 교육 경험과 전문성을<br>실제 활동과 커리어로 연결하는 성장 플랫폼입니다.</p>
     </div>
     <div class="process-list">
-      <div class="pitem rv-left"><div class="pn">Step 01</div><div class="pinfo"><div class="pttl">무료 기본과정 체험</div><div class="ptxt">3개 기본과정을 무료로 수강하며 펜타캠퍼스 커리큘럼 방식을 직접 경험합니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
-      <div class="pitem rv-left d1"><div class="pn">Step 02</div><div class="pinfo"><div class="pttl">전문가과정 등록 및 이수</div><div class="ptxt">관심 분야 전문가과정에 등록. Zoom 실시간 강의와 녹화본으로 유연하게 수강합니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
-      <div class="pitem rv-left d2"><div class="pn">Step 03</div><div class="pinfo"><div class="pttl">공인 자격증 취득</div><div class="ptxt">전 과정 수료 시 펜타캠퍼스 평생교육원 공인 자격증이 발급됩니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
-      <div class="pitem rv-left d3"><div class="pn">Step 04</div><div class="pinfo"><div class="pttl">3경로 취업·창업 연결</div><div class="ptxt">펜타스쿨 가맹점, 학교 방과후, 독립 클래스 중 원하는 경로로 즉시 활동을 시작합니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+      <div class="pitem rv-left"><div class="pn"><span class="pn-step">STEP 01</span><span class="pn-en">PENTA EXPERIENCE</span></div><div class="pinfo"><div class="pttl">기본과정 자율연수 <em class="pttl-tag">무료</em></div><div class="ptxt">무료 기본 과정을 통해 펜타만의 커리큘럼과 교육 철학을 직접 경험합니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+      <div class="pitem rv-left d1"><div class="pn"><span class="pn-step">STEP 02</span><span class="pn-en">PENTA EXPERT COURSE</span></div><div class="pinfo"><div class="pttl">전문가과정 등록 및 이수</div><div class="ptxt">차시별 온라인 강의와 실시간 Zoom 강의를 병행하며 현장 중심의 전문성을 체계적으로 키워갑니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+      <div class="pitem rv-left d2"><div class="pn"><span class="pn-step">STEP 03</span><span class="pn-en">PENTA CERTIFICATION</span></div><div class="pinfo"><div class="pttl">공인 자격증 취득</div><div class="ptxt">서울시 강남서초교육지원청 소속 펜타미래교육재단에서 발급하는 자격증을 취득하여 전문 강사로서의 역량과 자격을 갖추게 됩니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
+      <div class="pitem rv-left d3"><div class="pn"><span class="pn-step">STEP 04</span><span class="pn-en">PENTA CAREER PATH</span></div><div class="pinfo"><div class="pttl">취업 · 창업 · 클래스 운영 연계</div><div class="ptxt">펜타스쿨 가맹센터 운영, 늘봄학교·방과후학교 출강, 온라인 클래스 개설까지.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
     </div>
+    <p class="process-closing rv">펜타는 배움이 자격이 되고,<br>자격이 다시 직업이 되는 구조를 만듭니다.</p>
     <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('수강 프로세스')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
