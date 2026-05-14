@@ -53,19 +53,20 @@
     .hero-vid-box { width: 100%; aspect-ratio: 1/1; border-radius: 22px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.08); position: relative; background: #111; }
     .hero-vid-box iframe { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 178%; height: 100%; border: none; pointer-events: auto; }
 
-    /* Toast — 아래에서 위로 떠오르며 통과 */
-    .toast-wrap { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
-    .toast { position: absolute; left: 6%; right: 6%; top: 105%; display: flex; align-items: center; gap: 11px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 11px 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 16s ease infinite; }
+    /* Toast — 영상 밖에서 보이면서 천천히 올라와 3/4지점 소멸 */
+    .hero-vid-outer { padding-bottom: 90px; }
+    .toast-wrap { position: absolute; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; z-index: 3; }
+    .toast { position: absolute; left: 6%; right: 6%; top: 95%; display: flex; align-items: center; gap: 11px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 11px 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 24s ease infinite; }
     .toast.t1 { animation-delay: 0s; }
-    .toast.t2 { animation-delay: 4s; }
-    .toast.t3 { animation-delay: 8s; }
-    .toast.t4 { animation-delay: 12s; }
+    .toast.t2 { animation-delay: 6s; }
+    .toast.t3 { animation-delay: 12s; }
+    .toast.t4 { animation-delay: 18s; }
     @keyframes toastRise {
-      0%, 4%      { top: 108%; opacity: 0; }
-      12%         { top: 83%;  opacity: 1; }
-      52%         { top: 77%;  opacity: 1; }
-      68%         { top: 73%;  opacity: 0; }
-      69%, 100%   { top: 108%; opacity: 0; }
+      0%, 3%      { top: 96%;  opacity: 0; }
+      8%          { top: 92%;  opacity: 1; }
+      55%         { top: 71%;  opacity: 1; }
+      68%         { top: 65%;  opacity: 0; }
+      69%, 100%   { top: 96%;  opacity: 0; }
     }
     .toast-avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--gold), #e8b84b); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--black); flex-shrink: 0; }
     .toast-info { flex: 1; min-width: 0; }
@@ -313,40 +314,40 @@
       <div class="hero-vid-outer">
         <div class="hero-vid-box">
           <iframe src="https://www.youtube.com/embed/5N6fB1dj-1M?autoplay=1&mute=1&loop=1&playlist=5N6fB1dj-1M&controls=0&modestbranding=1&rel=0&playsinline=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          <!-- 토스트 — video box 안에서 overflow:hidden 클리핑 -->
-          <div class="toast-wrap">
-            <div class="toast t1">
-              <div class="toast-avatar">이</div>
-              <div class="toast-info">
-                <div class="toast-name">이현지 · 방과후 강사</div>
-                <div class="toast-text">드디어 자격증 취득! 커리큘럼이 정말 체계적이에요.</div>
-              </div>
-              <div class="toast-stars">★★★★★</div>
+        </div>
+        <!-- 토스트 — video 밖(hero-vid-outer)에 위치, 영상 아래에서 보이다가 올라옴 -->
+        <div class="toast-wrap">
+          <div class="toast t1">
+            <div class="toast-avatar">이</div>
+            <div class="toast-info">
+              <div class="toast-name">이현지 · 방과후 강사</div>
+              <div class="toast-text">드디어 자격증 취득! 커리큘럼이 정말 체계적이에요.</div>
             </div>
-            <div class="toast t2">
-              <div class="toast-avatar">박</div>
-              <div class="toast-info">
-                <div class="toast-name">박수연 · 독서논술 강사</div>
-                <div class="toast-text">취업 연계까지 바로 현장에 투입됐어요.</div>
-              </div>
-              <div class="toast-stars">★★★★★</div>
+            <div class="toast-stars">★★★★★</div>
+          </div>
+          <div class="toast t2">
+            <div class="toast-avatar">박</div>
+            <div class="toast-info">
+              <div class="toast-name">박수연 · 독서논술 강사</div>
+              <div class="toast-text">취업 연계까지 바로 현장에 투입됐어요.</div>
             </div>
-            <div class="toast t3">
-              <div class="toast-avatar">김</div>
-              <div class="toast-info">
-                <div class="toast-name">김지민 · 홈스쿨링 맘</div>
-                <div class="toast-text">이은경 대표님 직강이라 신뢰도가 달라요!</div>
-              </div>
-              <div class="toast-stars">★★★★★</div>
+            <div class="toast-stars">★★★★★</div>
+          </div>
+          <div class="toast t3">
+            <div class="toast-avatar">김</div>
+            <div class="toast-info">
+              <div class="toast-name">김지민 · 홈스쿨링 맘</div>
+              <div class="toast-text">이은경 대표님 직강이라 신뢰도가 달라요!</div>
             </div>
-            <div class="toast t4">
-              <div class="toast-avatar">최</div>
-              <div class="toast-info">
-                <div class="toast-name">최아름 · 초등 학부모</div>
-                <div class="toast-text">온라인인데 집중도가 오히려 더 높아요!</div>
-              </div>
-              <div class="toast-stars">★★★★★</div>
+            <div class="toast-stars">★★★★★</div>
+          </div>
+          <div class="toast t4">
+            <div class="toast-avatar">최</div>
+            <div class="toast-info">
+              <div class="toast-name">최아름 · 초등 학부모</div>
+              <div class="toast-text">온라인인데 집중도가 오히려 더 높아요!</div>
             </div>
+            <div class="toast-stars">★★★★★</div>
           </div>
         </div>
       </div>
