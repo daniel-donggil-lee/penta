@@ -69,7 +69,7 @@
     .icard { background: var(--white); border: 1px solid var(--light); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; }
     .icard:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
     .icard-photo { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f0efed; position: relative; display: flex; align-items: flex-end; justify-content: center; }
-    .icard-photo img { width: 100%; height: 100%; object-fit: contain; object-position: bottom center; display: block; filter: grayscale(100%); transition: filter 0.4s ease; }
+    .icard-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; filter: grayscale(100%); transition: filter 0.4s ease; }
     .icard:hover .icard-photo img { filter: grayscale(0%); }
     .icard-placeholder { font-size: 64px; font-weight: 900; color: rgba(201,168,76,0.3); margin-bottom: 20px; }
     .icard-body { padding: 24px 22px 26px; display: flex; flex-direction: column; gap: 0; flex: 1; }
@@ -155,7 +155,7 @@
 
       <!-- 이은경 -->
       <div class="icard rv">
-        <div class="icard-photo"><img src="images/instructors/lee-eunkyung-final.png" alt="이은경"></div>
+        <div class="icard-photo"><img src="images/instructors/lee-eunkyung.jpg" alt="이은경"></div>
         <div class="icard-body">
           <div class="icard-role">대표 강사 · Founding Instructor</div>
           <div class="icard-name">이은경</div>
@@ -240,7 +240,7 @@
 
       <!-- 권보경 -->
       <div class="icard rv d5">
-        <div class="icard-photo"><img src="images/instructors/kwon-bokyung-final.png" alt="권보경"></div>
+        <div class="icard-photo"><img src="images/instructors/kwon-bokyung.jpg" alt="권보경"></div>
         <div class="icard-body">
           <div class="icard-role">소논문·연구 전문가</div>
           <div class="icard-name">권보경</div>
@@ -254,7 +254,7 @@
 
       <!-- 이동길 -->
       <div class="icard rv d5">
-        <div class="icard-photo"><img src="images/instructors/lee-donggil-final.png" alt="이동길"></div>
+        <div class="icard-photo"><img src="images/instructors/lee-donggil.jpg" alt="이동길"></div>
         <div class="icard-body">
           <div class="icard-role">Co-founder · CTO</div>
           <div class="icard-name">이동길</div>
