@@ -586,9 +586,6 @@
       if(Math.abs(d[0]*d[0]+d[1]*d[1]+d[2]*d[2]-EL2)<0.01) EDGES.push([i,j]);
     }
   // 위쪽 오각형 면 꼭짓점 순서 (PENTA 레이블용): 12→0→8→4→13
-  const TOP_FACE = [12, 0, 8, 4, 13];
-  const LBLS  = ['P','E','N','T','A'];
-  const SUBLBLS = ['독해','어휘','사고','표현','소통'];
 
   /* Floating particles */
   const PARTICLES = Array.from({length:24},()=>({
@@ -636,21 +633,6 @@
       ctx.fillStyle=`rgba(201,168,76,${a.toFixed(2)})`; ctx.fill();
     });
 
-    /* PENTA 레이블 — 위쪽 면 꼭짓점, 데스크톱만 */
-    if(W>600){
-      TOP_FACE.forEach((vi,i)=>{
-        const pp=verts[vi];
-        const a=Math.max(0.1,Math.min(0.9,0.2+(pp[2]-0.5)*1.5));
-        ctx.save(); ctx.globalAlpha=a; ctx.textAlign='center';
-        ctx.fillStyle='rgba(201,168,76,1)';
-        ctx.font=`800 ${Math.round(17*pp[2])}px 'Pretendard',sans-serif`;
-        ctx.fillText(LBLS[i],pp[0],pp[1]-4*pp[2]);
-        ctx.fillStyle='rgba(255,255,255,0.65)';
-        ctx.font=`600 ${Math.round(9*pp[2])}px 'Pretendard',sans-serif`;
-        ctx.fillText(SUBLBLS[i],pp[0],pp[1]+10*pp[2]);
-        ctx.restore();
-      });
-    }
   }
   tick();
 })();
