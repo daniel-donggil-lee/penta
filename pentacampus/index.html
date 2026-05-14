@@ -161,10 +161,26 @@
     .cta-h em { color: var(--gold); font-style: normal; }
 
     /* FOOTER */
-    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.05); padding: 36px 64px; display: flex; align-items: center; justify-content: space-between; }
-    .flogo { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
-    .flogo em { color: var(--gold); font-style: normal; }
-    .fcopy { font-size: 11px; color: rgba(255,255,255,0.18); }
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.07); }
+    .footer-body { max-width: 1100px; margin: 0 auto; padding: 64px 64px 48px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; }
+    .footer-col-title { font-size: 13px; font-weight: 800; color: var(--white); letter-spacing: -0.2px; margin-bottom: 18px; }
+    .footer-col p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.9; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; margin-top: 0; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); max-width: 1100px; margin: 0 auto; padding: 20px 64px; display: flex; align-items: center; gap: 24px; }
+    .footer-bottom a { font-size: 11px; color: rgba(255,255,255,0.3); text-decoration: underline; transition: color 0.2s; }
+    .footer-bottom a:hover { color: rgba(255,255,255,0.6); }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
+    @media (max-width: 960px) {
+      .footer-body { grid-template-columns: 1fr 1fr; padding: 48px 40px 36px; gap: 36px; }
+      .footer-bottom { padding: 20px 40px; flex-wrap: wrap; gap: 12px; }
+    }
+    @media (max-width: 600px) {
+      .footer-body { grid-template-columns: 1fr; padding: 40px 20px 28px; }
+      .footer-bottom { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+    }
 
     /* REVEAL */
     .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
@@ -493,8 +509,35 @@
 </section>
 
 <footer>
-  <div class="flogo">PENTA<em>CAMPUS</em></div>
-  <div class="fcopy">© 2026 펜타캠퍼스. All rights reserved.</div>
+  <div class="footer-body">
+    <div class="footer-col">
+      <div class="footer-col-title">펜타에듀원격평생교육원</div>
+      <p>펜타문해교육연구소 부설 펜타에듀원격평생교육원<br>
+      서울시 강남구 테헤란로86길 15, 308호<br>
+      (대치동, 동구빌딩)<br>
+      사업자등록번호: 253-87-02433</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">빠른 링크</div>
+      <div class="footer-links">
+        <a href="course-04.html">초등 종합문해력</a>
+        <a href="course-05.html">인문독서</a>
+        <a href="course-08.html">논증과추론</a>
+        <a href="#courses">전체 과정 보기</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">고객 지원</div>
+      <p>펜타문해교육연구소 부설 펜타에듀원격평생교육원<br>
+      서울시 강남구 테헤란로86길 15, 308호<br>
+      (대치동, 동구빌딩)<br>
+      사업자등록번호: 253-87-02433</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <a href="#">개인정보처리방침</a>
+    <span class="footer-copy">© 2026 펜타문해교육연구소 부설 펜타에듀원격평생교육원. All rights reserved.</span>
+  </div>
 </footer>
 
 <script>
