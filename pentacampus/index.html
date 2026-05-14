@@ -1325,9 +1325,11 @@
     { id: 'cta',      name: 'CTA' },
   ];
 
-  let currentSection = '전체 페이지';
+  let currentSection = '히어로';
+  document.getElementById('fbSectionLabel').textContent = '히어로';
 
   // IntersectionObserver로 현재 섹션 감지
+  // rootMargin: 뷰포트 상단 40% ~ 하단 50% 사이 10% 띠만 감지 구역으로 제한
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1338,7 +1340,7 @@
         }
       }
     });
-  }, { threshold: 0.3 });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
 
   // 섹션 요소에 id/data-fb-section 붙여서 관찰
   document.querySelectorAll('section').forEach((sec, i) => {
