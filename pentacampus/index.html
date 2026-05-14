@@ -266,11 +266,13 @@
     .why-card-proof { margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap; }
     .why-proof-pill { font-size: 10px; font-weight: 600; color: rgba(201,168,76,0.8); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; padding: 4px 12px; }
 
-    /* ── FEEDBACK WIDGET — 우하단 고정 버튼 ── */
-    #fbFloatBtn { position: fixed; bottom: 28px; right: 28px; z-index: 900; display: flex; align-items: center; gap: 8px; background: #0a0a0a; color: #fff; border: none; border-radius: 24px; padding: 11px 18px 11px 14px; font-size: 13px; font-weight: 700; font-family: inherit; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: background 0.2s, transform 0.2s; }
-    #fbFloatBtn:hover { background: #c9a84c; color: #0a0a0a; transform: translateY(-2px); }
-    #fbFloatBtn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-    #fbSectionLabel { max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    /* ── FEEDBACK WIDGET — 섹션별 버튼 ── */
+    .fb-btn-row { display: flex; justify-content: flex-end; padding: 16px 0 0; }
+    .fb-sec-btn { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.18); border-radius: 20px; padding: 6px 14px; font-size: 11px; font-weight: 600; font-family: inherit; cursor: pointer; letter-spacing: 0.3px; transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    .fb-sec-btn:hover { background: rgba(201,168,76,0.2); color: #c9a84c; border-color: rgba(201,168,76,0.5); }
+    .fb-sec-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .fb-sec-btn.on-light { background: rgba(0,0,0,0.05); color: rgba(0,0,0,0.3); border-color: rgba(0,0,0,0.1); }
+    .fb-sec-btn.on-light:hover { background: rgba(201,168,76,0.12); color: #8a6f2a; border-color: rgba(201,168,76,0.35); }
     /* 모달 */
     .fb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1000; align-items: center; justify-content: center; }
     .fb-overlay.open { display: flex; }
@@ -552,6 +554,7 @@
         </div>
       </div>
     </div>
+    <div class="fb-btn-row" style="padding-right:20px;"><button class="fb-sec-btn" onclick="fbOpen('히어로')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -586,6 +589,7 @@
         <div class="path-tag">Independent</div>
       </div>
     </div>
+    <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('수강 경로')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -645,6 +649,7 @@
         allowfullscreen>
       </iframe>
     </div>
+    <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('소개 영상')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -748,7 +753,7 @@
         </a>
       </div>
     </div>
-
+    <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('강사소개 — 박지연·이현우')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -766,6 +771,7 @@
       <div class="pitem rv-left d2"><div class="pn">Step 03</div><div class="pinfo"><div class="pttl">공인 자격증 취득</div><div class="ptxt">전 과정 수료 시 펜타캠퍼스 평생교육원 공인 자격증이 발급됩니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
       <div class="pitem rv-left d3"><div class="pn">Step 04</div><div class="pinfo"><div class="pttl">3경로 취업·창업 연결</div><div class="ptxt">펜타스쿨 가맹점, 학교 방과후, 독립 클래스 중 원하는 경로로 즉시 활동을 시작합니다.</div></div><div class="parr"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div></div>
     </div>
+    <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('수강 프로세스')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -780,6 +786,7 @@
       <div class="pcell rv-scale d2"><div class="pval">17<em>+</em></div><div class="pkey">전문 과정</div></div>
       <div class="pcell rv-scale d3"><div class="pval">15<em>년</em></div><div class="pkey">현장 교육 경력</div></div>
     </div>
+    <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('숫자로 보는 펜타')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -871,7 +878,7 @@
         </a>
       </div>
     </div>
-
+    <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('강사소개 — 권보경·김민준')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -923,6 +930,7 @@
       </div>
 
     </div>
+    <div class="fb-btn-row" style="padding-right:40px;"><button class="fb-sec-btn" onclick="fbOpen('왜 펜타캠퍼스인가')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -1009,6 +1017,7 @@
     <div style="text-align:right;margin-top:32px;" class="rv d2">
       <a href="instructors.html" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;">강사진 전체 보기 →</a>
     </div>
+    <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('강사소개 — 최수진·정미경')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -1057,6 +1066,7 @@
       </div>
 
     </div>
+    <div class="fb-btn-row" style="padding-right:40px;"><button class="fb-sec-btn" onclick="fbOpen('고민 해소')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -1149,6 +1159,7 @@
 
       </div>
     </div>
+    <div class="fb-btn-row"><button class="fb-sec-btn on-light" onclick="fbOpen('수강생 후기')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -1199,6 +1210,7 @@
       </div>
 
     </div>
+    <div class="fb-btn-row" style="padding-right:40px;"><button class="fb-sec-btn" onclick="fbOpen('Co-Founders')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
   </div>
 </section>
 
@@ -1207,6 +1219,7 @@
   <div class="cta-lbl">Ready to Start</div>
   <h2 class="cta-h rv-scale">지금, 전문가의<br><em>첫 걸음</em>을 시작하세요</h2>
   <a href="#courses" class="btn-gold">커리큘럼 살펴보기</a>
+  <div class="fb-btn-row" style="justify-content:center; margin-top:20px;"><button class="fb-sec-btn" onclick="fbOpen('CTA')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>피드백</button></div>
 </section>
 
 <footer>
@@ -1280,11 +1293,6 @@
     });
   });
 </script>
-<!-- ── FEEDBACK FLOAT BUTTON ── -->
-<button id="fbFloatBtn" onclick="fbOpen()">
-  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-  <span id="fbSectionLabel">피드백</span>
-</button>
 
 <!-- ── FEEDBACK MODAL ── -->
 <div class="fb-overlay" id="fbOverlay" onclick="fbClose(event)">
@@ -1310,46 +1318,10 @@
 <script>
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbxN3NaaZpCPPZfH7gEJVOGnyzJp9kvH5KtTXBMh86gnp6OCxcFPN8dGaK7THmVQb9vJoQ/exec';
 
-  // 섹션 목록 — data-fb-section 속성으로 각 섹션 이름 지정
-  const FB_SECTIONS = [
-    { id: 'top',      name: '히어로' },
-    { id: 'pair1',    name: '강사소개 — 박지연·이현우' },
-    { id: 'process',  name: '수강 프로세스' },
-    { id: 'proof',    name: '숫자로 보는 펜타' },
-    { id: 'pair2',    name: '강사소개 — 권보경·김민준' },
-    { id: 'why',      name: '왜 펜타캠퍼스인가' },
-    { id: 'pair3',    name: '강사소개 — 최수진·정미경' },
-    { id: 'concern',  name: '고민 해소' },
-    { id: 'reviews',  name: '수강생 후기' },
-    { id: 'founders', name: 'Co-Founders' },
-    { id: 'cta',      name: 'CTA' },
-  ];
+  let currentSection = '';
 
-  let currentSection = '히어로';
-  document.getElementById('fbSectionLabel').textContent = '히어로';
-
-  // IntersectionObserver로 현재 섹션 감지
-  // rootMargin: 뷰포트 상단 40% ~ 하단 50% 사이 10% 띠만 감지 구역으로 제한
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const found = FB_SECTIONS.find(s => s.id === entry.target.id || entry.target.dataset.fbSection === s.id);
-        if (found) {
-          currentSection = found.name;
-          document.getElementById('fbSectionLabel').textContent = found.name;
-        }
-      }
-    });
-  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
-
-  // 섹션 요소에 id/data-fb-section 붙여서 관찰
-  document.querySelectorAll('section').forEach((sec, i) => {
-    const match = FB_SECTIONS[i];
-    if (match && !sec.id) sec.id = match.id;
-    observer.observe(sec);
-  });
-
-  function fbOpen() {
+  function fbOpen(sectionName) {
+    currentSection = sectionName || '';
     document.getElementById('fbTag').textContent = currentSection;
     document.getElementById('fbContent').value = '';
     document.getElementById('fbName').value = '';
