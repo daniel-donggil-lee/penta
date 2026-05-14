@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전체 과정 — 펜타캠퍼스</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a;
+      --gold: #C9A84C;
+      --white: #ffffff;
+      --off: #f5f4f0;
+      --gray: #888;
+      --light: #e8e8e8;
+    }
+    body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; padding: 0 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .nav-logo { font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--white); text-transform: uppercase; text-decoration: none; text-shadow: 0 0 18px rgba(201,168,76,0.45), 0 2px 8px rgba(0,0,0,0.6); }
+    .nav-logo em { color: var(--gold); font-style: normal; text-shadow: 0 0 24px rgba(201,168,76,0.7), 0 2px 8px rgba(0,0,0,0.6); }
+    .nav-back { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); text-decoration: none; letter-spacing: 0.5px; display: flex; align-items: center; gap: 7px; transition: color 0.2s; }
+    .nav-back:hover { color: rgba(255,255,255,0.75); }
+    .nav-back svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-cta { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.45); padding: 8px 22px; border-radius: 4px; transition: all 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+    /* PAGE HEADER */
+    .page-header { padding: 120px 64px 56px; text-align: center; background: var(--white); }
+    .page-lbl { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .page-title { font-size: clamp(36px, 5vw, 56px); font-weight: 900; letter-spacing: -2.5px; line-height: 1.1; margin-bottom: 16px; }
+    .page-sub { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 460px; margin: 0 auto; }
+
+    /* FILTER TABS */
+    .filter-wrap { padding: 0 64px 48px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+    .ftab { font-size: 12px; font-weight: 600; letter-spacing: 0.3px; padding: 9px 20px; border-radius: 100px; border: 1px solid var(--light); background: transparent; color: #999; cursor: pointer; transition: all 0.18s; font-family: 'Pretendard', sans-serif; }
+    .ftab:hover { border-color: #bbb; color: var(--black); }
+    .ftab.on { background: var(--black); border-color: var(--black); color: var(--white); }
+
+    /* COURSE GRID */
+    .courses-wrap { max-width: 1100px; margin: 0 auto; padding: 0 64px 120px; }
+    .cgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .ccard { background: var(--white); border: 1px solid var(--light); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; }
+    .ccard:hover { box-shadow: 0 12px 48px rgba(0,0,0,0.1); transform: translateY(-3px); }
+    .ccard[data-cat].hidden { display: none; }
+
+    /* CARD THUMBNAIL */
+    .cthumb { width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .cthumb-bg { position: absolute; inset: 0; }
+    .cthumb-icon { position: relative; z-index: 1; font-size: 36px; }
+    .cthumb-lock { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-radius: 100px; padding: 8px 18px; font-size: 11px; font-weight: 700; color: var(--black); letter-spacing: 0.3px; display: flex; align-items: center; gap: 6px; white-space: nowrap; z-index: 2; }
+    .cthumb-lock svg { width: 12px; height: 12px; stroke: var(--black); stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* CARD BODY */
+    .cbody { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .ctags { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .ctag { font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 100px; border: 1px solid var(--light); color: #888; display: flex; align-items: center; gap: 5px; }
+    .ctag svg { width: 10px; height: 10px; stroke: currentColor; stroke-width: 2; fill: none; }
+    .ctag.free { border-color: rgba(201,168,76,0.4); color: var(--gold); background: rgba(201,168,76,0.06); }
+    .ctag.pro { border-color: rgba(10,10,10,0.15); color: #555; background: #f8f8f8; }
+    .cname { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.45; margin-bottom: 14px; }
+    .cmeta { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; margin-top: auto; padding-top: 14px; border-top: 1px solid #f2f2f2; }
+    .cmeta-row { display: flex; align-items: center; gap: 7px; font-size: 11px; color: #aaa; }
+    .cmeta-row svg { width: 12px; height: 12px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .cbtn { display: block; width: 100%; text-align: center; padding: 12px; background: var(--black); color: var(--white); font-size: 12px; font-weight: 700; letter-spacing: 0.8px; border-radius: 8px; text-decoration: none; transition: background 0.18s, opacity 0.18s; margin-top: auto; }
+    .cbtn:hover { background: #222; }
+    .cbtn.gold { background: var(--gold); color: var(--black); }
+    .cbtn.gold:hover { opacity: 0.88; }
+
+    /* EMPTY STATE */
+    .empty { display: none; text-align: center; padding: 80px 0; color: #bbb; font-size: 14px; }
+    .empty.show { display: block; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      nav { padding: 0 32px; }
+      .page-header { padding: 100px 40px 48px; }
+      .filter-wrap { padding: 0 40px 40px; }
+      .courses-wrap { padding: 0 40px 80px; }
+      .cgrid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .page-header { padding: 88px 20px 40px; }
+      .filter-wrap { padding: 0 20px 32px; }
+      .courses-wrap { padding: 0 20px 60px; }
+      .cgrid { grid-template-columns: 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">PENTA<em>CAMPUS</em></a>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    홈으로
+  </a>
+  <a href="index.html#cta" class="nav-cta">수강 신청</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-lbl">Penta Campus · 2026</div>
+  <h1 class="page-title">전체 과정</h1>
+  <p class="page-sub">초등 문해력부터 자기계발까지, 검증된 전문가가 설계한 17개 과정</p>
+</div>
+
+<!-- FILTER TABS -->
+<div class="filter-wrap">
+  <button class="ftab on" data-filter="all">전체</button>
+  <button class="ftab" data-filter="basic">초등문해력 기본 (무료)</button>
+  <button class="ftab" data-filter="literacy">초등문해력 전문가</button>
+  <button class="ftab" data-filter="oneday-lit">초등문해력 원데이</button>
+  <button class="ftab" data-filter="selfdev">자기계발 전문가</button>
+  <button class="ftab" data-filter="oneday-self">자기계발 원데이</button>
+</div>
+
+<!-- COURSE GRID -->
+<div class="courses-wrap">
+  <div class="cgrid" id="cgrid">
+
+    <!-- ── 초등문해력 기본과정 (무료) ── -->
+    <div class="ccard" data-cat="basic">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);"></div>
+        <div class="cthumb-icon">📚</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          무료 수강
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag free">✦ 초등문해력 기본</span>
+          <span class="ctag free">무료</span>
+        </div>
+        <div class="cname">초등독서습관지도사</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>연수원 오픈 후 동시 개강</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이은경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-01.html" class="cbtn gold">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="basic">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 50%, #2d3a4a 100%);"></div>
+        <div class="cthumb-icon">✍️</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          무료 수강
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag free">✦ 초등문해력 기본</span>
+          <span class="ctag free">무료</span>
+        </div>
+        <div class="cname">초등글쓰기습관지도사</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>연수원 오픈 후 동시 개강</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이은경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-02.html" class="cbtn gold">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="basic">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #3d2b6a 100%);"></div>
+        <div class="cthumb-icon">🎓</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          무료 수강
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag free">✦ 초등문해력 기본</span>
+          <span class="ctag free">무료</span>
+        </div>
+        <div class="cname">중등문해력대비지도사</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>연수원 오픈 후 동시 개강</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이은경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-03.html" class="cbtn gold">과정 보기</a>
+      </div>
+    </div>
+
+    <!-- ── 초등문해력 전문가과정 ── -->
+    <div class="ccard" data-cat="literacy">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1410 50%, #2a1f0a 100%);"></div>
+        <div class="cthumb-icon">🏆</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag pro">◈ 초등문해력 전문가</span>
+          <span class="ctag pro">자격증</span>
+        </div>
+        <div class="cname">초등종합문해력코칭전문가</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 10월 1일 (목) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이은경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-04.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="literacy">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0a120a 0%, #0f2010 50%, #1a3020 100%);"></div>
+        <div class="cthumb-icon">📖</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag pro">◈ 초등문해력 전문가</span>
+          <span class="ctag pro">자격증</span>
+        </div>
+        <div class="cname">초등인문독서코칭전문가</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 10월 1일 (목) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 김문영</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-05.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="literacy">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0a0a14 0%, #141428 50%, #1e1e3c 100%);"></div>
+        <div class="cthumb-icon">📝</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag pro">◈ 초등문해력 전문가</span>
+          <span class="ctag pro">자격증</span>
+        </div>
+        <div class="cname">초등소논문코칭전문가</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 10월 1일 (목) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 권보경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-06.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="literacy">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #100a0a 0%, #201010 50%, #301818 100%);"></div>
+        <div class="cthumb-icon">🔍</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag pro">◈ 초등문해력 전문가</span>
+          <span class="ctag pro">자격증</span>
+        </div>
+        <div class="cname">초등주제요약코칭전문가</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 10월 1일 (목) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 조승우</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-07.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="literacy">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0a0a0a 0%, #181818 50%, #282410 100%);"></div>
+        <div class="cthumb-icon">⚖️</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag pro">◈ 초등문해력 전문가</span>
+          <span class="ctag pro">자격증</span>
+        </div>
+        <div class="cname">초등논증추론코칭전문가</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 10월 1일 (목) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 변호사 (섭외 중)</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-08.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <!-- ── 초등문해력 원데이클래스 ── -->
+    <div class="ccard" data-cat="oneday-lit">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0f0a1a 0%, #1a1030 50%, #2a1848 100%);"></div>
+        <div class="cthumb-icon">✏️</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag">◇ 원데이클래스</span>
+          <span class="ctag">자료 제공</span>
+        </div>
+        <div class="cname">초등글쓰기, 5단계 첨삭법</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 11월 1일 (일) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이은경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>1회 집중 클래스</div>
+        </div>
+        <a href="course-09.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="oneday-lit">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0a120f 0%, #102018 50%, #183028 100%);"></div>
+        <div class="cthumb-icon">🌿</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag">◇ 원데이클래스</span>
+          <span class="ctag">자료 제공</span>
+        </div>
+        <div class="cname">초등을 위한 단계별 인문독서</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 11월 2일 (월) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 김문영</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>1회 집중 클래스</div>
+        </div>
+        <a href="course-10.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="oneday-lit">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #14100a 0%, #241c10 50%, #342a18 100%);"></div>
+        <div class="cthumb-icon">🎯</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag">◇ 원데이클래스</span>
+          <span class="ctag">자료 제공</span>
+        </div>
+        <div class="cname">예비중등을 위한 주제요약법</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 11월 3일 (화) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 조승우</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>1회 집중 클래스</div>
+        </div>
+        <a href="course-11.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <!-- ── 자기계발 전문가과정 ── -->
+    <div class="ccard" data-cat="selfdev">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #100818 0%, #1c1028 50%, #281838 100%);"></div>
+        <div class="cthumb-icon">🖊️</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag pro">◈ 자기계발 전문가</span>
+          <span class="ctag pro">자격증</span>
+        </div>
+        <div class="cname">브런치작가코칭전문가</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 7월 10일 (금) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이은경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-12.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="selfdev">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #080e14 0%, #101c24 50%, #182a34 100%);"></div>
+        <div class="cthumb-icon">☕</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag pro">◈ 자기계발 전문가</span>
+          <span class="ctag pro">자격증</span>
+        </div>
+        <div class="cname">북클럽운영전문가</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 8월 7일 (금) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 정미진</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-13.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="selfdev">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0a0a10 0%, #141422 50%, #1e1e32 100%);"></div>
+        <div class="cthumb-icon">📱</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag pro">◈ 자기계발 전문가</span>
+          <span class="ctag pro">자격증</span>
+        </div>
+        <div class="cname">1인미디어운영전문가</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 9월 11일 (금) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이은경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>10차시 구성</div>
+        </div>
+        <a href="course-14.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <!-- ── 자기계발 원데이클래스 ── -->
+    <div class="ccard" data-cat="oneday-self">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #10140a 0%, #1c2010 50%, #283018 100%);"></div>
+        <div class="cthumb-icon">📗</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag">◇ 원데이 + 1:1 코칭</span>
+        </div>
+        <div class="cname">첫 책 출간 계약 실전 클래스</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 6월 30일 (화) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이은경</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>1:1 코칭 포함</div>
+        </div>
+        <a href="course-15.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="oneday-self">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #14080a 0%, #240c10 50%, #341218 100%);"></div>
+        <div class="cthumb-icon">🎤</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag">◇ 원데이 + 1:1 코칭</span>
+        </div>
+        <div class="cname">생각정리 스피치클래스</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 7월 31일 (금) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 이민하</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>1:1 코칭 포함</div>
+        </div>
+        <a href="course-16.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+    <div class="ccard" data-cat="oneday-self">
+      <div class="cthumb">
+        <div class="cthumb-bg" style="background: linear-gradient(135deg, #0a0e14 0%, #10182a 50%, #18243e 100%);"></div>
+        <div class="cthumb-icon">✈️</div>
+        <div class="cthumb-lock">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          수강 신청
+        </div>
+      </div>
+      <div class="cbody">
+        <div class="ctags">
+          <span class="ctag">◇ 원데이 + 1:1 코칭</span>
+        </div>
+        <div class="cname">AI로 나만의 여행에세이 쓰기</div>
+        <div class="cmeta">
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>2026년 8월 31일 (일) 밤 8시</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>강사: 조미연</div>
+          <div class="cmeta-row"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>1:1 코칭 포함</div>
+        </div>
+        <a href="course-17.html" class="cbtn">과정 보기</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="empty" id="empty-msg">해당 카테고리의 과정이 없습니다.</div>
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.ftab');
+  const cards = document.querySelectorAll('.ccard');
+  const empty = document.getElementById('empty-msg');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('on'));
+      tab.classList.add('on');
+      const filter = tab.dataset.filter;
+      let visible = 0;
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.cat === filter) {
+          card.style.display = '';
+          visible++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      empty.classList.toggle('show', visible === 0);
+    });
+  });
+</script>
+
+</body>
+</html>

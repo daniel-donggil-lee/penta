@@ -21,7 +21,7 @@
     body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: clip; }
 
     /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; padding: 0 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    nav { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); width: calc(100% - 48px); max-width: 1148px; z-index: 100; height: 58px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.90); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
     .nav-logo { font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--white); text-transform: uppercase; text-decoration: none; text-shadow: 0 0 18px rgba(201,168,76,0.45), 0 2px 8px rgba(0,0,0,0.6); }
     .nav-logo em { color: var(--gold); font-style: normal; text-shadow: 0 0 24px rgba(201,168,76,0.7), 0 2px 8px rgba(0,0,0,0.6); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
@@ -31,7 +31,7 @@
     .nav-cta:hover { background: var(--gold); color: var(--black); }
 
     /* HERO — sticky + 2-col */
-    .hero { background: var(--black); position: sticky; top: 0; z-index: 0; min-height: 100vh; padding: 0 64px; display: flex; align-items: center; overflow: hidden; }
+    .hero { background: var(--black); position: sticky; top: 0; z-index: 0; min-height: 100vh; padding: 0 64px; display: flex; align-items: center; overflow: hidden; padding-top: 86px; }
     .hero-in { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
     .hero-glow { position: absolute; top: -20%; left: -10%; width: 60%; height: 120%; background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 65%); pointer-events: none; }
     .hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
@@ -49,28 +49,18 @@
 
     /* Hero right — video + toasts */
     .hero-right { display: flex; align-items: center; justify-content: flex-end; }
-    .hero-vid-outer { position: relative; width: 100%; max-width: 440px; padding-bottom: 56px; }
+    .hero-vid-outer { position: relative; width: 100%; max-width: 440px; padding-bottom: 96px; }
     .hero-vid-box { width: 100%; aspect-ratio: 1/1; border-radius: 22px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.08); position: relative; background: #111; }
     .hero-vid-box iframe { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 178%; height: 100%; border: none; pointer-events: auto; }
 
-    /* Toast notification cards */
-    .toast-wrap { position: absolute; bottom: 0; left: -12px; right: -12px; }
-    .toast { position: absolute; bottom: 0; left: 0; right: 0; display: flex; align-items: center; gap: 12px; background: rgba(20,18,16,0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 12px 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); opacity: 0; animation: toastSlide 12s ease infinite; }
-    .toast.t2 { animation-delay: 3s; }
-    .toast.t3 { animation-delay: 6s; }
-    .toast.t4 { animation-delay: 9s; }
+    /* Toast stack — peeking cards */
+    .toast-wrap { position: absolute; bottom: 0; left: -12px; right: -12px; height: 90px; }
+    .toast { position: absolute; left: 0; right: 0; bottom: 14px; display: flex; align-items: center; gap: 12px; background: rgba(20,18,16,0.80); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 12px 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.4); transition: transform 0.6s cubic-bezier(.22,.68,0,1.2), opacity 0.5s ease, z-index 0s; transform-origin: bottom center; }
     .toast-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--black); flex-shrink: 0; }
     .toast-info { flex: 1; min-width: 0; }
     .toast-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); }
     .toast-text { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .toast-stars { font-size: 11px; color: var(--gold); letter-spacing: 1px; flex-shrink: 0; }
-    @keyframes toastSlide {
-      0%   { opacity: 0; transform: translateY(28px) scale(0.96); }
-      8%   { opacity: 1; transform: translateY(0) scale(1); }
-      68%  { opacity: 1; transform: translateY(0) scale(1); }
-      82%  { opacity: 0; transform: translateY(-14px) scale(0.98); }
-      100% { opacity: 0; transform: translateY(-14px) scale(0.98); }
-    }
 
     /* SECTION BASE — z-index로 히어로 위에 덮임 */
     .sec { padding: 112px 64px; position: relative; z-index: 1; }
@@ -209,15 +199,25 @@
     .rv.on { opacity: 1; transform: none; }
     .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
 
-    /* HERO CANVAS */
-    #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.7; }
     .hero-left, .hero-right { position: relative; z-index: 1; }
 
     /* RESPONSIVE — 3단계 */
 
+    /* HAMBURGER */
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; }
+    .nav-burger span { width: 22px; height: 1.8px; background: rgba(255,255,255,0.7); border-radius: 2px; display: block; transition: all 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.8px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.8px) rotate(-45deg); }
+    .nav-mobile { display: none; position: fixed; top: 84px; left: 24px; right: 24px; background: rgba(10,10,10,0.97); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 16px 0; z-index: 99; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .nav-mobile.open { display: block; }
+    .nav-mobile a { display: block; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.6); text-decoration: none; padding: 12px 24px; letter-spacing: 0.3px; transition: color 0.15s, background 0.15s; }
+    .nav-mobile a:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+    .nav-mobile a.mobile-cta { color: var(--gold); font-weight: 700; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 8px; padding-top: 16px; }
+
     /* ── 태블릿 (601 ~ 960px) ── */
     @media (max-width: 960px) {
-      nav { padding: 0 32px; } .nav-links { display: none; }
+      nav { padding: 0 20px; width: calc(100% - 32px); } .nav-links { display: none; } .nav-cta { display: none; } .nav-burger { display: flex; }
       .hero { padding: 96px 40px 80px; min-height: auto; }
       .hero-in { grid-template-columns: 1fr; }
       .hero-right { display: none; }
@@ -252,21 +252,31 @@
 </head>
 <body>
 
-<nav>
+<nav id="main-nav">
   <a href="#top" class="nav-logo" style="text-decoration:none;">PENTA<em>CAMPUS</em></a>
   <ul class="nav-links">
     <li><a href="#paths">과정 안내</a></li>
-    <li><a href="#courses">커리큘럼</a></li>
+    <li><a href="courses.html">커리큘럼</a></li>
     <li><a href="#yt">채널 소개</a></li>
     <li><a href="instructors.html">강사진</a></li>
     <li><a href="#process">수강 안내</a></li>
   </ul>
   <a href="#cta" class="nav-cta">수강 신청</a>
+  <button class="nav-burger" id="nav-burger" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="#paths" class="mobile-link">과정 안내</a>
+  <a href="courses.html" class="mobile-link">커리큘럼</a>
+  <a href="#yt" class="mobile-link">채널 소개</a>
+  <a href="instructors.html" class="mobile-link">강사진</a>
+  <a href="#process" class="mobile-link">수강 안내</a>
+  <a href="#cta" class="mobile-cta">수강 신청 →</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <canvas id="hero-canvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-in">
     <div class="hero-left">
@@ -608,98 +618,59 @@
 </footer>
 
 <script>
-/* ─── 3D Dodecahedron Hero Canvas ─── */
+/* ─── Toast Stack — peeking cards ─── */
 (function(){
-  const canvas = document.getElementById('hero-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, cx, cy;
-  let rotY = 0;
-  let mx = 0, my = 0;
+  const toasts = Array.from(document.querySelectorAll('.toast'));
+  if(!toasts.length) return;
+  let active = 0;
+  const N = toasts.length;
 
-  function resize(){
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-    cx = W * 0.68; cy = H / 2;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  document.addEventListener('mousemove', e => {
-    mx = (e.clientX / window.innerWidth  - 0.5) * 2;
-    my = (e.clientY / window.innerHeight - 0.5) * 2;
-  });
-
-  /* 3-D helpers */
-  function ryFn(p,a){ return [p[0]*Math.cos(a)+p[2]*Math.sin(a), p[1], -p[0]*Math.sin(a)+p[2]*Math.cos(a)]; }
-  function rxFn(p,a){ return [p[0], p[1]*Math.cos(a)-p[2]*Math.sin(a), p[1]*Math.sin(a)+p[2]*Math.cos(a)]; }
-  function proj(p){ const fov=900, s=fov/(fov+p[2]); return [cx+p[0]*s, cy+p[1]*s, s]; }
-
-  /* ── 정12면체 (Dodecahedron) 꼭짓점 & 모서리 ── */
-  const phi = (1+Math.sqrt(5))/2, inv = 1/phi;
-  const BASE = [
-    [1,1,1],[1,1,-1],[1,-1,1],[1,-1,-1],
-    [-1,1,1],[-1,1,-1],[-1,-1,1],[-1,-1,-1],
-    [0,inv,phi],[0,inv,-phi],[0,-inv,phi],[0,-inv,-phi],
-    [inv,phi,0],[-inv,phi,0],[inv,-phi,0],[-inv,-phi,0],
-    [phi,0,inv],[phi,0,-inv],[-phi,0,inv],[-phi,0,-inv]
+  // position config: [translateY, scale, opacity, zIndex]
+  const SLOTS = [
+    [0,     1,    1,    4],   // active (front)
+    [10,    0.95, 0.65, 3],   // peek 1
+    [18,    0.90, 0.38, 2],   // peek 2
+    [24,    0.85, 0,    1],   // hidden (back)
   ];
-  const EL2 = 4/(phi*phi);
-  const EDGES = [];
-  for(let i=0;i<BASE.length;i++)
-    for(let j=i+1;j<BASE.length;j++){
-      const d=BASE[i].map((v,k)=>v-BASE[j][k]);
-      if(Math.abs(d[0]*d[0]+d[1]*d[1]+d[2]*d[2]-EL2)<0.01) EDGES.push([i,j]);
-    }
-  // 위쪽 오각형 면 꼭짓점 순서 (PENTA 레이블용): 12→0→8→4→13
 
-  /* Floating particles */
-  const PARTICLES = Array.from({length:24},()=>({
-    x:(Math.random()-.5)*600, y:(Math.random()-.5)*600,
-    z:(Math.random()-.5)*300, r:Math.random()*1.3+0.3,
-    sp:(Math.random()-.5)*0.25
-  }));
-
-  function tick(){
-    requestAnimationFrame(tick);
-    ctx.clearRect(0,0,W,H);
-
-    rotY += 0.004;
-    const eyA = rotY + mx * 0.15;
-    const exA = my * 0.10;
-    const sz = Math.min(H*0.30, W*0.17) / Math.sqrt(3);
-
-    /* 꼭짓점 변환 */
-    const verts = BASE.map(v=>{
-      let p = [v[0]*sz, v[1]*sz, v[2]*sz];
-      p = ryFn(p, eyA);
-      p = rxFn(p, exA);
-      return proj(p);
+  function apply(){
+    toasts.forEach((t, i) => {
+      const slot = ((i - active) % N + N) % N;
+      const [ty, sc, op, zi] = SLOTS[Math.min(slot, SLOTS.length-1)];
+      t.style.transform = `translateY(${ty}px) scale(${sc})`;
+      t.style.opacity   = op;
+      t.style.zIndex    = zi;
     });
-
-    /* 모서리 그리기 — 뒤쪽(scale 작음)은 흐리게 */
-    EDGES.forEach(([i,j])=>{
-      const s = (verts[i][2]+verts[j][2])*0.5;
-      const a = Math.max(0.04, Math.min(0.45, (s-0.55)*1.1));
-      ctx.beginPath();
-      ctx.moveTo(verts[i][0],verts[i][1]);
-      ctx.lineTo(verts[j][0],verts[j][1]);
-      ctx.strokeStyle = `rgba(201,168,76,${a.toFixed(2)})`;
-      ctx.lineWidth = 0.9;
-      ctx.stroke();
-    });
-
-    /* 파티클 */
-    PARTICLES.forEach(p=>{
-      p.x += p.sp*0.4; if(p.x>400) p.x=-400;
-      let pt = ryFn([p.x,p.y,p.z],eyA); pt=rxFn(pt,exA);
-      const pp=proj(pt);
-      const a=Math.min(0.5,Math.max(0.05,0.1+(pp[2]-0.3)));
-      ctx.beginPath(); ctx.arc(pp[0],pp[1],p.r*pp[2],0,Math.PI*2);
-      ctx.fillStyle=`rgba(201,168,76,${a.toFixed(2)})`; ctx.fill();
-    });
-
   }
-  tick();
+
+  apply();
+  setInterval(() => {
+    active = (active + 1) % N;
+    apply();
+  }, 3200);
+})();
+
+/* ─── Hamburger menu ─── */
+(function(){
+  const burger = document.getElementById('nav-burger');
+  const menu   = document.getElementById('nav-mobile');
+  if(!burger || !menu) return;
+  burger.addEventListener('click', () => {
+    const open = menu.classList.toggle('open');
+    burger.classList.toggle('open', open);
+  });
+  // 메뉴 항목 클릭 시 닫기
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.remove('open');
+    burger.classList.remove('open');
+  }));
+  // 바깥 클릭 시 닫기
+  document.addEventListener('click', e => {
+    if(!burger.contains(e.target) && !menu.contains(e.target)) {
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+    }
+  });
 })();
 
 /* ─── Scroll reveal / Filter ─── */

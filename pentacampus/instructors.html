@@ -21,7 +21,7 @@
     body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
     /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; padding: 0 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    nav { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); width: calc(100% - 48px); max-width: 1148px; z-index: 100; height: 58px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.90); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
     .nav-logo { font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--white); text-transform: uppercase; text-decoration: none; text-shadow: 0 0 18px rgba(201,168,76,0.45), 0 2px 8px rgba(0,0,0,0.6); }
     .nav-logo em { color: var(--gold); font-style: normal; text-shadow: 0 0 24px rgba(201,168,76,0.7), 0 2px 8px rgba(0,0,0,0.6); }
     .nav-links { display: flex; gap: 36px; list-style: none; }
@@ -111,9 +111,22 @@
     .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; }
     .d4 { transition-delay: 0.4s; } .d5 { transition-delay: 0.5s; } .d6 { transition-delay: 0.6s; }
 
-    /* RESPONSIVE */
+    /* HAMBURGER */
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; }
+    .nav-burger span { width: 22px; height: 1.8px; background: rgba(255,255,255,0.7); border-radius: 2px; display: block; transition: all 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.8px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.8px) rotate(-45deg); }
+    .nav-mobile { display: none; position: fixed; top: 84px; left: 24px; right: 24px; background: rgba(10,10,10,0.97); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 16px 0; z-index: 99; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .nav-mobile.open { display: block; }
+    .nav-mobile a { display: block; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.6); text-decoration: none; padding: 12px 24px; letter-spacing: 0.3px; transition: color 0.15s, background 0.15s; }
+    .nav-mobile a:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+    .nav-mobile a.mobile-cta { color: var(--gold); font-weight: 700; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 8px; padding-top: 16px; }
+
+    /* RESPONSIVE — 3단계 */
+    /* ── 태블릿 (601 ~ 960px) ── */
     @media (max-width: 960px) {
-      nav { padding: 0 32px; } .nav-links { display: none; }
+      nav { padding: 0 20px; width: calc(100% - 32px); } .nav-links { display: none; } .nav-cta { display: none; } .nav-burger { display: flex; }
       .page-hero { padding: 100px 40px 72px; }
       .sec { padding: 72px 40px; }
       .featured-card { grid-template-columns: 1fr; gap: 36px; padding: 36px; }
@@ -123,8 +136,9 @@
       .footer-body { grid-template-columns: 1fr 1fr; padding: 48px 40px 36px; gap: 36px; }
       .footer-bottom { padding: 20px 40px; flex-wrap: wrap; }
     }
+    /* ── 모바일 (≤ 600px) ── */
     @media (max-width: 600px) {
-      nav { padding: 0 20px; }
+      nav { padding: 0 16px; }
       .page-hero { padding: 84px 20px 60px; }
       .sec { padding: 56px 20px; }
       .featured-card { padding: 24px; gap: 28px; }
@@ -137,16 +151,26 @@
 </head>
 <body>
 
-<nav>
+<nav id="main-nav">
   <a href="index.html" class="nav-logo">PENTA<em>CAMPUS</em></a>
   <ul class="nav-links">
     <li><a href="index.html#paths">과정 안내</a></li>
-    <li><a href="index.html#courses">커리큘럼</a></li>
+    <li><a href="courses.html">커리큘럼</a></li>
     <li><a href="instructors.html" class="active">강사진</a></li>
     <li><a href="index.html#process">수강 안내</a></li>
   </ul>
   <a href="index.html#cta" class="nav-cta">수강 신청</a>
+  <button class="nav-burger" id="nav-burger" aria-label="메뉴">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="index.html#paths">과정 안내</a>
+  <a href="courses.html">커리큘럼</a>
+  <a href="instructors.html">강사진</a>
+  <a href="index.html#process">수강 안내</a>
+  <a href="index.html#cta" class="mobile-cta">수강 신청 →</a>
+</div>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
@@ -319,6 +343,27 @@
     if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); }
   }), { threshold: 0.08 });
   document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+  // Hamburger menu
+  (function(){
+    const burger = document.getElementById('nav-burger');
+    const menu   = document.getElementById('nav-mobile');
+    if(!burger || !menu) return;
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      burger.classList.toggle('open', open);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.remove('open');
+      burger.classList.remove('open');
+    }));
+    document.addEventListener('click', e => {
+      if(!burger.contains(e.target) && !menu.contains(e.target)) {
+        menu.classList.remove('open');
+        burger.classList.remove('open');
+      }
+    });
+  })();
 </script>
 
 </body>
