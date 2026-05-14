@@ -9,16 +9,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
       --black: #0a0a0a;
+      --bg: #111111;
+      --card-bg: #1a1a1a;
       --gold: #C9A84C;
-      --gold2: rgba(201,168,76,0.12);
       --white: #ffffff;
-      --off: #f5f4f0;
-      --gray: #888;
-      --light: #e2e2e2;
-      --r: 10px;
+      --muted: rgba(255,255,255,0.42);
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--bg); color: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
     /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 60px; padding: 0 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -30,60 +28,30 @@
     .nav-cta { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.45); padding: 8px 22px; border-radius: 4px; transition: all 0.2s; }
     .nav-cta:hover { background: var(--gold); color: var(--black); }
 
-    /* PAGE HERO */
-    .page-hero { background: var(--black); padding: 140px 64px 100px; position: relative; overflow: hidden; }
-    .page-hero::before { content: ''; position: absolute; top: -20%; left: -10%; width: 60%; height: 140%; background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 65%); pointer-events: none; }
-    .page-hero-in { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
-    .page-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-    .page-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
-    .page-title { font-size: clamp(38px, 5vw, 68px); font-weight: 900; color: var(--white); letter-spacing: -3px; line-height: 1.0; margin-bottom: 24px; }
-    .page-title em { color: var(--gold); font-style: normal; }
-    .page-sub { font-size: 14px; color: rgba(255,255,255,0.38); line-height: 2.0; max-width: 480px; }
+    /* TEAM SECTION */
+    .team-sec { padding: 120px 48px 100px; }
+    .team-header { text-align: center; margin-bottom: 72px; }
+    .team-eyebrow { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(201,168,76,0.35); padding: 6px 18px; border-radius: 20px; margin-bottom: 28px; }
+    .team-title { font-size: clamp(36px, 5vw, 62px); font-weight: 900; letter-spacing: -3px; line-height: 1.05; margin-bottom: 20px; }
+    .team-sub { font-size: 14px; color: var(--muted); line-height: 1.85; max-width: 460px; margin: 0 auto; }
 
-    /* SECTION */
-    .sec { padding: 100px 64px; }
-    .sec-in { max-width: 1100px; margin: 0 auto; }
-    .sec-lbl { font-size: 9px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
-    .sec-lbl::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
-    .sec-h { font-size: clamp(24px, 3.5vw, 42px); font-weight: 900; color: var(--black); letter-spacing: -2px; line-height: 1.1; margin-bottom: 56px; }
+    /* GRID */
+    .team-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 
-    /* FEATURED INSTRUCTOR */
-    .featured { background: var(--off); }
-    .featured-card { display: grid; grid-template-columns: 320px 1fr; gap: 80px; align-items: center; background: var(--white); border: 1px solid var(--light); border-radius: 16px; padding: 52px; }
-    .feat-img-wrap { position: relative; }
-    .feat-img { width: 100%; aspect-ratio: 3/4; border-radius: 12px; overflow: hidden; background: linear-gradient(160deg, #1a1a1a 0%, #2a2420 100%); display: flex; align-items: center; justify-content: center; }
-    .feat-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-    .feat-img-placeholder { font-size: 72px; font-weight: 900; color: rgba(201,168,76,0.2); letter-spacing: -2px; }
-    .feat-badge { position: absolute; bottom: -1px; left: 0; right: 0; background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, transparent 100%); padding: 32px 20px 20px; border-radius: 0 0 12px 12px; }
-    .feat-badge-name { font-size: 18px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
-    .feat-badge-sub { font-size: 11px; color: rgba(255,255,255,0.45); letter-spacing: 0.5px; margin-top: 4px; }
-    .feat-role { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-    .feat-name { font-size: 38px; font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; }
-    .feat-bio { font-size: 14px; color: var(--gray); line-height: 1.9; max-width: 500px; margin-bottom: 28px; }
-    .feat-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-    .ftag { font-size: 10px; font-weight: 600; color: var(--gray); padding: 6px 13px; border: 1px solid var(--light); border-radius: 2px; letter-spacing: 0.3px; }
-
-    /* INSTRUCTOR GRID */
-    .inst-grid-sec { background: var(--white); }
-    .inst-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .icard { background: var(--white); border: 1px solid var(--light); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s; }
-    .icard:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
-    .icard-photo { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: #f0efed; position: relative; display: flex; align-items: flex-end; justify-content: center; }
-    .icard-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; filter: grayscale(100%); transition: filter 0.4s ease; }
-    .icard:hover .icard-photo img { filter: grayscale(0%); }
-    .icard-placeholder { font-size: 64px; font-weight: 900; color: rgba(201,168,76,0.3); margin-bottom: 20px; }
-    .icard-body { padding: 24px 22px 26px; display: flex; flex-direction: column; gap: 0; flex: 1; }
-    .icard-role { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-    .icard-name { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 10px; }
-    .icard-spec { font-size: 12px; color: var(--gray); line-height: 1.75; margin-bottom: 18px; flex: 1; }
-    .icard-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; }
-    .ictag { font-size: 9px; font-weight: 600; color: #aaa; padding: 4px 10px; border: 1px solid #ebebeb; border-radius: 2px; letter-spacing: 0.3px; }
-
+    /* CARD */
+    .tcard { display: flex; flex-direction: column; cursor: default; }
+    .tcard-photo { width: 100%; aspect-ratio: 3/4; overflow: hidden; background: var(--card-bg); position: relative; }
+    .tcard-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; filter: grayscale(100%); transition: filter 0.5s ease, transform 0.5s ease; }
+    .tcard:hover .tcard-photo img { filter: grayscale(0%); transform: scale(1.03); }
+    .tcard-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 64px; font-weight: 900; color: rgba(201,168,76,0.18); letter-spacing: -2px; }
+    .tcard-info { padding: 16px 4px 0; }
+    .tcard-name { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; color: var(--white); margin-bottom: 4px; }
+    .tcard-role { font-size: 11px; color: var(--muted); letter-spacing: 0.2px; }
 
     /* FOOTER */
     footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.07); }
     .footer-body { max-width: 1100px; margin: 0 auto; padding: 64px 64px 48px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; }
-    .footer-col-title { font-size: 13px; font-weight: 800; color: var(--white); letter-spacing: -0.2px; margin-bottom: 18px; }
+    .footer-col-title { font-size: 13px; font-weight: 800; color: var(--white); margin-bottom: 18px; }
     .footer-col p { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.9; }
     .footer-links { display: flex; flex-direction: column; gap: 10px; }
     .footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
@@ -94,32 +62,27 @@
     .footer-copy { font-size: 11px; color: rgba(255,255,255,0.18); }
 
     /* REVEAL */
-    .rv { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .rv.on { opacity: 1; transform: none; }
-    .d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; }
-    .d4 { transition-delay: 0.4s; } .d5 { transition-delay: 0.5s; } .d6 { transition-delay: 0.6s; }
+    .d1 { transition-delay: 0.08s; } .d2 { transition-delay: 0.16s; } .d3 { transition-delay: 0.24s; }
+    .d4 { transition-delay: 0.32s; } .d5 { transition-delay: 0.40s; } .d6 { transition-delay: 0.48s; }
+    .d7 { transition-delay: 0.56s; } .d8 { transition-delay: 0.64s; }
 
     /* RESPONSIVE */
-    @media (max-width: 960px) {
-      nav { padding: 0 32px; } .nav-links { display: none; }
-      .page-hero { padding: 100px 40px 72px; }
-      .sec { padding: 72px 40px; }
-      .featured-card { grid-template-columns: 1fr; gap: 36px; padding: 36px; }
-      .feat-img-wrap { max-width: 260px; }
-      .inst-grid { grid-template-columns: 1fr 1fr; }
-      .founders-grid { grid-template-columns: 1fr; }
-      .footer-body { grid-template-columns: 1fr 1fr; padding: 48px 40px 36px; gap: 36px; }
-      .footer-bottom { padding: 20px 40px; flex-wrap: wrap; }
+    @media (max-width: 1024px) {
+      .team-grid { grid-template-columns: repeat(3, 1fr); }
     }
-    @media (max-width: 600px) {
-      nav { padding: 0 20px; }
-      .page-hero { padding: 84px 20px 60px; }
-      .sec { padding: 56px 20px; }
-      .featured-card { padding: 24px; gap: 28px; }
-      .inst-grid { grid-template-columns: 1fr; }
-      .founder-card { grid-template-columns: 1fr; gap: 20px; }
-      .footer-body { grid-template-columns: 1fr; padding: 40px 20px 28px; }
-      .footer-bottom { padding: 16px 20px; flex-direction: column; align-items: flex-start; }
+    @media (max-width: 760px) {
+      nav { padding: 0 24px; } .nav-links { display: none; }
+      .team-sec { padding: 88px 20px 72px; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .footer-body { grid-template-columns: 1fr 1fr; padding: 40px 24px 32px; gap: 32px; }
+      .footer-bottom { padding: 16px 24px; flex-wrap: wrap; }
+    }
+    @media (max-width: 480px) {
+      .team-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .tcard-name { font-size: 14px; }
+      .footer-body { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -136,137 +99,88 @@
   <a href="index.html#cta" class="nav-cta">수강 신청</a>
 </nav>
 
-<!-- PAGE HERO -->
-<section class="page-hero">
-  <div class="page-hero-in">
-    <div class="page-eyebrow rv">Our Instructors</div>
-    <h1 class="page-title rv d1">검증된 전문가들이<br><em>직접 가르칩니다</em></h1>
-    <p class="page-sub rv d2">현장 경험과 연구를 겸비한 8인의 강사진. 각 분야 최고의 전문가들이 펜타캠퍼스 커리큘럼을 이끕니다.</p>
+<!-- TEAM -->
+<section class="team-sec">
+  <div class="team-header rv">
+    <div class="team-eyebrow">Our Instructors</div>
+    <h1 class="team-title rv d1">강사진 소개</h1>
+    <p class="team-sub rv d2">현장 경험과 연구를 겸비한 강사진.<br>각 분야 전문가들이 펜타캠퍼스 커리큘럼을 직접 이끕니다.</p>
   </div>
-</section>
 
+  <div class="team-grid">
 
-<!-- INSTRUCTOR GRID: 전문 강사 5인 -->
-<section class="sec inst-grid-sec">
-  <div class="sec-in">
-    <div class="sec-lbl rv">Specialist Instructors</div>
-    <h2 class="sec-h rv d1">전문 강사진</h2>
-    <div class="inst-grid">
-
-      <!-- 이은경 -->
-      <div class="icard rv">
-        <div class="icard-photo"><img src="images/instructors/lee-eunkyung.jpg" alt="이은경"></div>
-        <div class="icard-body">
-          <div class="icard-role">대표 강사 · Founding Instructor</div>
-          <div class="icard-name">이은경</div>
-          <p class="icard-spec">초등교사 15년 경험, 저서 60권+, 유튜브 '슬기로운 초등생활' 15만 구독자. 초등 문해력 교육의 기준을 만들어온 대표 강사입니다.</p>
-          <div class="icard-tags">
-            <span class="ictag">초등교사 15년</span>
-            <span class="ictag">저서 60권+</span>
-            <span class="ictag">유튜브 15만+</span>
-          </div>
-        </div>
+    <!-- 이은경 -->
+    <div class="tcard rv d1">
+      <div class="tcard-photo"><img src="images/instructors/lee-eunkyung.jpg" alt="이은경"></div>
+      <div class="tcard-info">
+        <div class="tcard-name">이은경</div>
+        <div class="tcard-role">대표 강사 · 초등문해력</div>
       </div>
-
-      <!-- 박지연 -->
-      <div class="icard rv">
-        <div class="icard-photo"><img src="images/instructors/park-jiyeon-final.png" alt="박지연"></div>
-        <div class="icard-body">
-          <div class="icard-role">독서교육 전문가</div>
-          <div class="icard-name">박지연</div>
-          <p class="icard-spec">초등 독서습관 형성 분야 15년 경력. 아이의 읽기 패턴을 분석하고 맞춤형 독서 루틴을 설계합니다.</p>
-          <div class="icard-tags">
-            <span class="ictag">초등독서습관지도사</span>
-            <span class="ictag">독서교육 15년</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 김민준 -->
-      <div class="icard rv d1">
-        <div class="icard-photo"><img src="images/instructors/kim-minjun-final.png" alt="김민준"></div>
-        <div class="icard-body">
-          <div class="icard-role">글쓰기 코치</div>
-          <div class="icard-name">김민준</div>
-          <p class="icard-spec">초등 글쓰기 교육 전문가. 아이들이 자신의 생각을 글로 표현하는 힘을 길러주는 단계별 코칭으로 정평이 나 있습니다.</p>
-          <div class="icard-tags">
-            <span class="ictag">초등글쓰기습관지도사</span>
-            <span class="ictag">글쓰기코칭 12년</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 최수진 -->
-      <div class="icard rv d2">
-        <div class="icard-photo"><img src="images/instructors/choi-sujin-final.png" alt="최수진"></div>
-        <div class="icard-body">
-          <div class="icard-role">소논문·논술 전문가</div>
-          <div class="icard-name">최수진</div>
-          <p class="icard-spec">초등 소논문 및 논술 교육 전문가. 논리적 사고와 구조화된 글쓰기 능력을 체계적으로 지도합니다.</p>
-          <div class="icard-tags">
-            <span class="ictag">초등소논문코칭전문가</span>
-            <span class="ictag">논술교육 10년</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 이현우 -->
-      <div class="icard rv d3">
-        <div class="icard-photo"><span class="icard-placeholder">이</span></div>
-        <div class="icard-body">
-          <div class="icard-role">논증·추론 전문가</div>
-          <div class="icard-name">이현우</div>
-          <p class="icard-spec">법률적 사고 기반의 논증 교육 전문가. 비판적 사고력과 추론 능력을 실전 중심으로 가르칩니다.</p>
-          <div class="icard-tags">
-            <span class="ictag">초등논증추론코칭전문가</span>
-            <span class="ictag">법학 전공</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 정미경 -->
-      <div class="icard rv d4">
-        <div class="icard-photo"><span class="icard-placeholder">정</span></div>
-        <div class="icard-body">
-          <div class="icard-role">북클럽·독서문화 전문가</div>
-          <div class="icard-name">정미경</div>
-          <p class="icard-spec">독서 커뮤니티 운영 20년 경력. 북클럽 기획·운영의 모든 노하우를 체계적인 커리큘럼으로 전달합니다.</p>
-          <div class="icard-tags">
-            <span class="ictag">북클럽운영전문가</span>
-            <span class="ictag">독서문화 20년</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 권보경 -->
-      <div class="icard rv d5">
-        <div class="icard-photo"><img src="images/instructors/kwon-bokyung.jpg" alt="권보경"></div>
-        <div class="icard-body">
-          <div class="icard-role">소논문·연구 전문가</div>
-          <div class="icard-name">권보경</div>
-          <p class="icard-spec">행정학 박사 학위를 보유한 교육 연구 전문가. 초등 소논문 코칭과 체계적인 리서치 방법론을 지도합니다.</p>
-          <div class="icard-tags">
-            <span class="ictag">초등소논문코칭전문가</span>
-            <span class="ictag">행정학 박사</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 이동길 -->
-      <div class="icard rv d5">
-        <div class="icard-photo"><img src="images/instructors/lee-donggil.jpg" alt="이동길"></div>
-        <div class="icard-body">
-          <div class="icard-role">Co-founder · CTO</div>
-          <div class="icard-name">이동길</div>
-          <p class="icard-spec">교육 현장 15년 경험 기반의 시스템 설계 전문가. 펜타캠퍼스의 교육 인프라와 운영 구조를 담당합니다.</p>
-          <div class="icard-tags">
-            <span class="ictag">교육경력 15년</span>
-            <span class="ictag">시스템 설계</span>
-          </div>
-        </div>
-      </div>
-
     </div>
+
+    <!-- 박지연 -->
+    <div class="tcard rv d2">
+      <div class="tcard-photo"><img src="images/instructors/park-jiyeon.png" alt="박지연"></div>
+      <div class="tcard-info">
+        <div class="tcard-name">박지연</div>
+        <div class="tcard-role">독서교육 전문가</div>
+      </div>
+    </div>
+
+    <!-- 김민준 -->
+    <div class="tcard rv d3">
+      <div class="tcard-photo"><img src="images/instructors/kim-minjun.png" alt="김민준"></div>
+      <div class="tcard-info">
+        <div class="tcard-name">김민준</div>
+        <div class="tcard-role">글쓰기 코치</div>
+      </div>
+    </div>
+
+    <!-- 최수진 -->
+    <div class="tcard rv d4">
+      <div class="tcard-photo"><img src="images/instructors/choi-sujin-final.png" alt="최수진"></div>
+      <div class="tcard-info">
+        <div class="tcard-name">최수진</div>
+        <div class="tcard-role">소논문·논술 전문가</div>
+      </div>
+    </div>
+
+    <!-- 권보경 -->
+    <div class="tcard rv d5">
+      <div class="tcard-photo"><img src="images/instructors/kwon-bokyung.jpg" alt="권보경"></div>
+      <div class="tcard-info">
+        <div class="tcard-name">권보경</div>
+        <div class="tcard-role">소논문·연구 전문가</div>
+      </div>
+    </div>
+
+    <!-- 이동길 -->
+    <div class="tcard rv d6">
+      <div class="tcard-photo"><img src="images/instructors/lee-donggil.jpg" alt="이동길"></div>
+      <div class="tcard-info">
+        <div class="tcard-name">이동길</div>
+        <div class="tcard-role">Co-founder · CTO</div>
+      </div>
+    </div>
+
+    <!-- 이현우 (플레이스홀더) -->
+    <div class="tcard rv d7">
+      <div class="tcard-photo"><div class="tcard-placeholder">이</div></div>
+      <div class="tcard-info">
+        <div class="tcard-name">이현우</div>
+        <div class="tcard-role">논증·추론 전문가</div>
+      </div>
+    </div>
+
+    <!-- 정미경 (플레이스홀더) -->
+    <div class="tcard rv d8">
+      <div class="tcard-photo"><div class="tcard-placeholder">정</div></div>
+      <div class="tcard-info">
+        <div class="tcard-name">정미경</div>
+        <div class="tcard-role">북클럽·독서문화 전문가</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -305,7 +219,7 @@
 <script>
   const ro = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); }
-  }), { threshold: 0.08 });
+  }), { threshold: 0.06 });
   document.querySelectorAll('.rv').forEach(el => ro.observe(el));
 </script>
 
