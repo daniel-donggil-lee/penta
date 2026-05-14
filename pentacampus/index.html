@@ -49,29 +49,29 @@
 
     /* Hero right — video + toasts */
     .hero-right { display: flex; align-items: center; justify-content: flex-end; }
-    .hero-vid-outer { position: relative; width: 100%; max-width: 440px; }
+    .hero-vid-outer { position: relative; width: 100%; max-width: 528px; }
     .hero-vid-box { width: 100%; aspect-ratio: 1/1; border-radius: 22px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.08); position: relative; background: #111; }
     .hero-vid-box iframe { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 178%; height: 100%; border: none; pointer-events: auto; }
 
-    /* Toast — video 안에서 슬라이드 인/아웃 */
-    .toast-wrap { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-    .toast { position: absolute; left: 6%; right: 6%; display: flex; align-items: center; gap: 11px; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 11px 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.18); transform: translateX(115%); opacity: 0; animation: toastIn 16s ease infinite; }
-    .toast.t1 { top: 24%; animation-delay: 0s; }
-    .toast.t2 { top: 50%; animation-delay: 4s; }
-    .toast.t3 { top: 24%; animation-delay: 8s; }
-    .toast.t4 { top: 50%; animation-delay: 12s; }
-    @keyframes toastIn {
-      0%          { transform: translateX(115%); opacity: 0; }
-      6%          { transform: translateX(0);    opacity: 1; }
-      55%         { transform: translateX(0);    opacity: 1; }
-      65%         { transform: translateX(-115%); opacity: 0; }
-      65.1%, 100% { transform: translateX(115%); opacity: 0; }
+    /* Toast — 아래에서 위로 떠오르며 통과 */
+    .toast-wrap { position: absolute; inset: 0; pointer-events: none; z-index: 2; overflow: hidden; }
+    .toast { position: absolute; left: 6%; right: 6%; top: 105%; display: flex; align-items: center; gap: 11px; background: rgba(255,255,255,0.93); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 14px; padding: 11px 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.2); opacity: 0; animation: toastRise 16s ease infinite; }
+    .toast.t1 { animation-delay: 0s; }
+    .toast.t2 { animation-delay: 4s; }
+    .toast.t3 { animation-delay: 8s; }
+    .toast.t4 { animation-delay: 12s; }
+    @keyframes toastRise {
+      0%, 3%      { top: 105%; opacity: 0; }
+      10%         { top: 68%;  opacity: 1; }
+      55%         { top: 26%;  opacity: 1; }
+      68%         { top: 6%;   opacity: 0; }
+      69%, 100%   { top: 105%; opacity: 0; }
     }
-    .toast-avatar { width: 34px; height: 34px; border-radius: 10px; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; color: var(--black); flex-shrink: 0; }
+    .toast-avatar { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--gold), #e8b84b); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: var(--black); flex-shrink: 0; }
     .toast-info { flex: 1; min-width: 0; }
     .toast-name { font-size: 12px; font-weight: 700; color: #111; }
-    .toast-text { font-size: 10px; color: #777; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .toast-stars { font-size: 10px; color: var(--gold); letter-spacing: 1px; flex-shrink: 0; }
+    .toast-text { font-size: 10px; color: #888; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .toast-time { font-size: 10px; color: #aaa; flex-shrink: 0; }
 
     /* SECTION BASE — z-index로 히어로 위에 덮임 */
     .sec { padding: 112px 64px; position: relative; z-index: 1; }
@@ -249,8 +249,11 @@
     @media (max-width: 600px) {
       nav { padding: 0 20px; }
       .hero { padding: 84px 20px 64px; }
-      .hero-title { letter-spacing: -2px; }
-      .hero-sub { margin: 0 0 32px; }
+      .hero-eyebrow { font-size: 13px; }
+      .hero-title { font-size: clamp(50px, 11vw, 68px); letter-spacing: -2px; }
+      .hero-sub { font-size: 18px; line-height: 1.9; margin: 0 0 36px; }
+      .btn-gold { font-size: 15px; padding: 15px 36px; }
+      .btn-ghost { font-size: 15px; }
       .sec { padding: 64px 20px; }
       .yt-sec { padding: 64px 20px; }
       .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr; }
