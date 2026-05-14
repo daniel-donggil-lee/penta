@@ -250,7 +250,26 @@
     .cta-h { font-size: clamp(34px, 5vw, 60px); font-weight: 900; color: var(--white); letter-spacing: -2.5px; line-height: 1.1; margin-bottom: 44px; }
     .cta-h em { color: var(--gold); font-style: normal; }
 
-    /* FOOTER */
+    /* FOUNDERS */
+    .founders-sec { background: var(--black); padding: 120px 64px; position: relative; z-index: 1; }
+    .founders-eyebrow { text-align: center; font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .founders-eyebrow::before, .founders-eyebrow::after { content: ''; width: 32px; height: 1px; background: rgba(201,168,76,0.4); }
+    .founders-title { text-align: center; font-size: clamp(28px, 3.5vw, 48px); font-weight: 900; color: var(--white); letter-spacing: -2px; line-height: 1.1; margin-bottom: 72px; }
+    .founders-title em { color: var(--gold); font-style: normal; }
+    .founders-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 860px; margin: 0 auto; }
+    .fcard { display: flex; flex-direction: column; }
+    .fcard-photo { border-radius: 16px; overflow: hidden; position: relative; background: #1a1a1a; }
+    .fcard-photo img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top center; display: block; filter: grayscale(100%); transition: filter 0.5s ease; }
+    .fcard:hover .fcard-photo img { filter: grayscale(0%); }
+    .fcard-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, transparent 60%); padding: 40px 24px 24px; border-radius: 0 0 16px 16px; }
+    .fcard-role { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .fcard-name { font-size: 22px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+    .fcard-body { padding: 28px 4px 0; display: flex; flex-direction: column; gap: 16px; }
+    .fcard-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.85; }
+    .fcard-divider { width: 100%; height: 1px; background: rgba(255,255,255,0.07); }
+    .fcard-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .fcard-tag { font-size: 10px; font-weight: 600; color: rgba(201,168,76,0.7); padding: 5px 12px; border: 1px solid rgba(201,168,76,0.2); border-radius: 2px; letter-spacing: 0.3px; }
+
     /* FOOTER */
     footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.07); }
     .footer-body { max-width: 1100px; margin: 0 auto; padding: 64px 64px 48px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; }
@@ -311,6 +330,8 @@
       .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr 1fr; }
       .ipc-row { grid-template-columns: 200px 1fr; gap: 16px; }
       .ipc-text-card { padding: 28px 28px; }
+      .founders-sec { padding: 88px 40px; }
+      .founders-grid { gap: 24px; }
       .pitem { grid-template-columns: 60px 1fr; padding: 24px 24px; gap: 20px; }
       .parr { display: none; }
       .inst-wrap { grid-template-columns: 1fr; gap: 40px; padding: 72px 40px; }
@@ -337,6 +358,8 @@
       .paths-grid, .cgrid, .pgrid { grid-template-columns: 1fr; }
       .ipc-row { grid-template-columns: 1fr; gap: 12px; }
       .ipc-text-card { padding: 24px 22px; gap: 14px; }
+      .founders-sec { padding: 64px 20px; }
+      .founders-grid { grid-template-columns: 1fr; max-width: 440px; }
       .pitem { padding: 20px 16px; }
       .inst-wrap { padding: 56px 20px; }
       footer { padding: 28px 20px; }
@@ -708,6 +731,66 @@
   </div>
 </section>
 
+<!-- INSTRUCTOR PAIR 3 — 최수진 + 정미경 -->
+<section class="sec ipair-sec" style="background:var(--off);">
+  <div class="sec-in">
+    <div class="ipair-hdr rv">
+      <div class="sec-lbl">Our Instructors</div>
+      <h2 class="sec-h">논술과 독서문화를 이끄는 전문가</h2>
+    </div>
+    <div class="ipair-list">
+
+      <div class="ipc-row">
+        <div class="ipc-photo-card rv-left">
+          <img src="images/instructors/choi-sujin-final.png" alt="최수진">
+          <div class="ipc-name-badge">
+            <div>
+              <div class="ipc-badge-name">최수진</div>
+              <div class="ipc-badge-role">소논문·논술 전문가</div>
+            </div>
+          </div>
+        </div>
+        <div class="ipc-text-card rv-right d1">
+          <div class="ipc-lbl">Instructor</div>
+          <div class="ipc-title">논리로 쌓는 초등 소논문의 힘</div>
+          <p class="ipc-desc">초등 소논문·논술 교육 전문가. 아이들이 주제를 정하고 근거를 찾아 구조적으로 쓰는 전 과정을 체계적으로 안내합니다. 논리적 사고력이 글쓰기 실력으로 이어지는 커리큘럼을 설계합니다.</p>
+          <div class="ipc-divider"></div>
+          <div class="ipc-tags">
+            <span class="ipc-tag">초등소논문코칭전문가</span>
+            <span class="ipc-tag">논리적 사고 교육</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ipc-row">
+        <div class="ipc-photo-card rv-left d1">
+          <img src="images/instructors/jeong-mikyung.png?v=3" alt="정미경">
+          <div class="ipc-name-badge">
+            <div>
+              <div class="ipc-badge-name">정미경</div>
+              <div class="ipc-badge-role">북클럽·독서문화 전문가</div>
+            </div>
+          </div>
+        </div>
+        <div class="ipc-text-card rv-right d2">
+          <div class="ipc-lbl">Instructor</div>
+          <div class="ipc-title">독서를 문화로 만드는 20년 내공</div>
+          <p class="ipc-desc">독서 커뮤니티 운영 20년의 경력을 체계적인 커리큘럼으로 담아냈습니다. 북클럽 기획부터 운영 노하우까지, 독서를 일상의 문화로 정착시키는 방법을 전합니다.</p>
+          <div class="ipc-divider"></div>
+          <div class="ipc-tags">
+            <span class="ipc-tag">북클럽운영전문가</span>
+            <span class="ipc-tag">독서문화 20년</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div style="text-align:right;margin-top:32px;" class="rv d2">
+      <a href="instructors.html" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;">강사진 전체 보기 →</a>
+    </div>
+  </div>
+</section>
+
 <!-- REVIEWS -->
 <section class="sec reviews-sec" id="reviews" style="background:var(--white);">
   <div class="sec-in">
@@ -799,28 +882,51 @@
   </div>
 </section>
 
-<!-- INSTRUCTOR -->
-<section class="inst-sec">
-  <div class="inst-wrap">
-    <div class="inst-img-wrap rv">
-      <div class="inst-img">
-        <div style="width:100%;height:100%;background:linear-gradient(160deg,#1a1a1a 0%,#2a2420 100%);display:flex;align-items:center;justify-content:center;"><span style="font-size:64px;font-weight:900;color:rgba(201,168,76,0.25);letter-spacing:-2px;">이은경</span></div>
+<!-- FOUNDERS -->
+<section class="founders-sec">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="founders-eyebrow rv">Co-Founders</div>
+    <h2 class="founders-title rv d1">펜타캠퍼스를<br><em>만든 두 사람</em></h2>
+    <div class="founders-grid">
+
+      <div class="fcard rv-left">
+        <div class="fcard-photo">
+          <img src="images/instructors/lee-eunkyung.jpg" alt="이은경" style="transform: translateY(-5px);">
+          <div class="fcard-overlay">
+            <div class="fcard-role">CEO · Founding Instructor</div>
+            <div class="fcard-name">이은경</div>
+          </div>
+        </div>
+        <div class="fcard-body">
+          <p class="fcard-desc">초등교사 15년, 저서 60권+, 유튜브 구독자 15만. 초등 문해력 교육의 기준을 만들어온 교육자이자, 펜타캠퍼스의 모든 커리큘럼을 설계한 대표입니다.</p>
+          <div class="fcard-divider"></div>
+          <div class="fcard-tags">
+            <span class="fcard-tag">초등교사 15년</span>
+            <span class="fcard-tag">저서 60권+</span>
+            <span class="fcard-tag">유튜브 15만+</span>
+          </div>
+        </div>
       </div>
-      <div class="inst-img-badge">
-        <div class="inst-img-name">이은경</div>
-        <div class="inst-img-sub">슬기로운 초등생활</div>
+
+      <div class="fcard rv-right">
+        <div class="fcard-photo" style="background: #8e9095;">
+          <img src="images/instructors/lee-donggil.jpg" alt="이동길" style="transform: translateY(27px);">
+          <div class="fcard-overlay">
+            <div class="fcard-role">Co-founder · CTO</div>
+            <div class="fcard-name">이동길</div>
+          </div>
+        </div>
+        <div class="fcard-body">
+          <p class="fcard-desc">교육 현장 15년 경험 기반의 시스템 설계 전문가. 펜타캠퍼스의 교육 인프라·운영 구조·플랫폼 전체를 담당합니다.</p>
+          <div class="fcard-divider"></div>
+          <div class="fcard-tags">
+            <span class="fcard-tag">교육경력 10년</span>
+            <span class="fcard-tag">시스템 설계</span>
+            <span class="fcard-tag">AI·자동화</span>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="inst-right rv d1">
-      <div class="inst-role">Founding Instructor</div>
-      <div class="inst-name">15년 현장,<br>60권의 기록</div>
-      <p class="inst-bio">초등교사로 15년간 아이들과 함께한 경험을 바탕으로 60권 이상의 교육 도서를 집필했습니다. '슬기로운 초등생활' 유튜브 채널을 통해 15만 학부모와 소통하며 초등 문해력 교육의 기준을 만들어왔습니다. 펜타캠퍼스는 그 축적된 커리큘럼을 강사 양성 시스템으로 구조화한 결과입니다.</p>
-      <div class="inst-tags">
-        <span class="itag">초등교사 15년</span>
-        <span class="itag">저서 60권+</span>
-        <span class="itag">유튜브 15만+</span>
-        <span class="itag">베스트셀러 작가</span>
-      </div>
+
     </div>
   </div>
 </section>
