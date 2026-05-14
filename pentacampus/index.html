@@ -33,7 +33,28 @@
     /* HERO — sticky + 2-col */
     .hero { background: var(--black); position: sticky; top: 0; z-index: 0; min-height: 100vh; padding: 0 64px; display: flex; align-items: center; overflow: hidden; padding-top: 86px; }
     .hero-in { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-    .hero-glow { position: absolute; top: -20%; left: -10%; width: 60%; height: 120%; background: radial-gradient(ellipse, rgba(201,168,76,0.06) 0%, transparent 65%); pointer-events: none; }
+    /* Aurora blobs */
+    .aurora { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+    .aurora-blob { position: absolute; border-radius: 50%; filter: blur(70px); }
+    .ab1 { width: 750px; height: 550px; top: -10%; left: -10%; background: radial-gradient(ellipse, rgba(201,168,76,0.50) 0%, transparent 65%); animation: ab1drift 20s ease-in-out infinite; }
+    .ab2 { width: 650px; height: 600px; top: 10%; right: -8%; background: radial-gradient(ellipse, rgba(180,110,30,0.42) 0%, transparent 65%); animation: ab2drift 26s ease-in-out infinite; }
+    .ab3 { width: 550px; height: 450px; bottom: 0%; left: 20%; background: radial-gradient(ellipse, rgba(220,155,50,0.36) 0%, transparent 65%); animation: ab3drift 32s ease-in-out infinite; }
+    @keyframes ab1drift {
+      0%,100% { transform: translate(0px, 0px) scale(1); }
+      33%     { transform: translate(50px, 30px) scale(1.1); }
+      66%     { transform: translate(-30px, 60px) scale(0.92); }
+    }
+    @keyframes ab2drift {
+      0%,100% { transform: translate(0px, 0px) scale(1); }
+      40%     { transform: translate(-60px, -40px) scale(1.08); }
+      70%     { transform: translate(30px, 50px) scale(0.95); }
+    }
+    @keyframes ab3drift {
+      0%,100% { transform: translate(0px, 0px) scale(1); }
+      30%     { transform: translate(-40px, -50px) scale(1.06); }
+      60%     { transform: translate(60px, 20px) scale(0.94); }
+    }
+    .hero-glow { display: none; }
     .hero-left { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
     .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 28px; }
     .hero-title { font-size: clamp(56px, 7vw, 96px); font-weight: 900; color: var(--white); letter-spacing: -2px; line-height: 1.0; margin-bottom: 28px; }
@@ -296,7 +317,12 @@
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-glow"></div>
+  <div class="aurora">
+    <div class="aurora-blob ab1"></div>
+    <div class="aurora-blob ab2"></div>
+    <div class="aurora-blob ab3"></div>
+    <div class="aurora-blob ab4"></div>
+  </div>
   <div class="hero-in">
     <div class="hero-left">
       <div class="hero-eyebrow">Penta Campus · 2026 Open</div>
