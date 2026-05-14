@@ -7,95 +7,151 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --black:#0a0a0a; --gold:#C9A84C; --white:#fff; --off:#f5f4f0; --gray:#888; --light:#e2e2e2; --r:10px; }
+    :root { --black:#0a0a0a; --gold:#C9A84C; --gold-light:#E8C96A; --white:#fff; --off:#f7f6f3; --gray:#888; --light:#e8e8e8; --r:12px; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
-    nav { position:fixed; top:0; left:0; right:0; z-index:100; height:60px; padding:0 48px; display:flex; align-items:center; justify-content:space-between; background:rgba(10,10,10,0.96); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,0.05); }
-    .nav-logo { font-size:13px; font-weight:700; letter-spacing:3px; color:var(--white); text-transform:uppercase; text-decoration:none; }
-    .nav-logo em { color:var(--gold); font-style:normal; }
-    .nav-back { font-size:11px; font-weight:600; color:rgba(255,255,255,0.4); text-decoration:none; letter-spacing:0.5px; display:flex; align-items:center; gap:7px; transition:color 0.2s; }
-    .nav-back:hover { color:rgba(255,255,255,0.75); }
-    .nav-back svg { width:13px; height:13px; stroke:currentColor; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
-    .nav-cta { font-size:12px; font-weight:700; letter-spacing:0.8px; color:var(--gold); text-decoration:none; border:1px solid rgba(201,168,76,0.45); padding:8px 22px; border-radius:4px; transition:all 0.2s; }
-    .nav-cta:hover { background:var(--gold); color:var(--black); }
-    .chero { background:var(--black); padding:140px 48px 80px; position:relative; overflow:hidden; }
-    .chero-glow { position:absolute; top:-200px; right:-100px; width:700px; height:700px; background:radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 65%); pointer-events:none; }
-    .chero-in { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 380px; gap:80px; align-items:end; }
-    .chero-cat { font-size:9px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:20px; display:flex; align-items:center; gap:12px; }
-    .chero-cat::before { content:''; width:20px; height:1px; background:var(--gold); }
-    .chero-title { font-size:clamp(30px,4.5vw,52px); font-weight:900; color:var(--white); letter-spacing:-2px; line-height:1.1; margin-bottom:24px; }
-    .chero-sub { font-size:14px; color:rgba(255,255,255,0.35); line-height:1.9; max-width:500px; }
-    .chero-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:28px; }
-    .ctag { font-size:10px; font-weight:600; letter-spacing:1px; color:rgba(255,255,255,0.4); border:1px solid rgba(255,255,255,0.1); padding:5px 12px; border-radius:3px; }
-    .enroll-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:var(--r); padding:32px 28px; display:flex; flex-direction:column; gap:18px; }
-    .ec-label { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(201,168,76,0.6); }
-    .ec-name { font-size:16px; font-weight:800; color:var(--white); letter-spacing:-0.3px; line-height:1.4; }
-    .ec-div { height:1px; background:rgba(255,255,255,0.07); }
-    .ec-row { display:flex; justify-content:space-between; align-items:center; }
-    .ec-k { font-size:11px; color:rgba(255,255,255,0.35); }
-    .ec-v { font-size:12px; font-weight:700; color:rgba(255,255,255,0.75); }
-    .ec-v-g { color:var(--gold); }
-    .ec-btn { background:var(--gold); color:var(--black); font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:14px; border-radius:4px; text-decoration:none; text-align:center; display:block; transition:opacity 0.2s; }
-    .ec-btn:hover { opacity:0.85; }
-    .ec-note { font-size:10px; color:rgba(255,255,255,0.2); text-align:center; line-height:1.6; }
-    .cbody { max-width:1100px; margin:0 auto; padding:80px 48px; display:grid; grid-template-columns:1fr 380px; gap:80px; }
-    .cleft { display:flex; flex-direction:column; gap:64px; }
-    .csec-lbl { font-size:9px; font-weight:700; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:10px; }
-    .csec-lbl::before { content:''; width:16px; height:1px; background:var(--gold); }
-    .csec-h { font-size:24px; font-weight:900; letter-spacing:-0.8px; margin-bottom:16px; }
-    .csec-p { font-size:14px; color:var(--gray); line-height:1.9; }
-    .syllabus { display:flex; flex-direction:column; border:1px solid var(--light); border-radius:var(--r); overflow:hidden; margin-top:24px; }
-    .si { display:grid; grid-template-columns:56px 1fr; border-bottom:1px solid var(--light); transition:background 0.15s; }
-    .si:last-child { border-bottom:none; }
-    .si:hover { background:var(--off); }
-    .sin { padding:20px 0; text-align:center; font-size:10px; font-weight:700; letter-spacing:1.5px; color:#ccc; border-right:1px solid var(--light); }
-    .sic { padding:20px 24px; }
-    .sit { font-size:14px; font-weight:700; letter-spacing:-0.2px; }
-    .sid { font-size:12px; color:var(--gray); margin-top:4px; line-height:1.6; }
-    .sb { display:inline-block; font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:3px 8px; border-radius:2px; margin-top:6px; }
-    .badge-final { background:#faf0e0; color:#b8860b; }
-    .badge-live { background:#e8f5e9; color:#2e7d32; }
-    .badge-cert { background:#e8eaf6; color:#3949ab; }
-    .inst-mini { display:flex; gap:20px; align-items:center; padding:28px; background:var(--off); border-radius:var(--r); }
-    .im-photo { width:72px; height:72px; border-radius:50%; overflow:hidden; flex-shrink:0; background:#eee; display:flex; align-items:center; justify-content:center; }
-    .im-photo img { width:100%; height:100%; object-fit:cover; }
-    .im-name { font-size:16px; font-weight:800; letter-spacing:-0.3px; }
-    .im-role { font-size:11px; color:var(--gray); margin-top:3px; }
-    .im-bio { font-size:13px; color:var(--gray); line-height:1.75; margin-top:10px; }
-    .cright { position:sticky; top:80px; display:flex; flex-direction:column; gap:20px; }
-    .info-card { border:1px solid var(--light); border-radius:var(--r); overflow:hidden; }
-    .ic-h { background:var(--black); padding:20px 24px; }
-    .ic-hl { font-size:9px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(201,168,76,0.6); margin-bottom:8px; }
-    .ic-hv { font-size:20px; font-weight:900; color:var(--white); letter-spacing:-0.5px; }
-    .ic-rows { padding:16px 24px; display:flex; flex-direction:column; gap:12px; }
-    .ic-row { display:flex; justify-content:space-between; align-items:center; }
-    .ic-k { font-size:11px; color:var(--gray); }
-    .ic-v { font-size:12px; font-weight:700; }
-    .ic-btn { display:block; background:var(--gold); color:var(--black); font-size:13px; font-weight:700; letter-spacing:1px; text-transform:uppercase; padding:16px 24px; text-align:center; text-decoration:none; transition:opacity 0.2s; }
-    .ic-btn:hover { opacity:0.85; }
-    footer { background:var(--black); border-top:1px solid rgba(255,255,255,0.05); padding:36px 48px; display:flex; align-items:center; justify-content:space-between; }
-    .flogo { font-size:12px; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,0.35); }
-    .flogo em { color:var(--gold); font-style:normal; }
-    .fcopy { font-size:11px; color:rgba(255,255,255,0.18); }
-    .rv { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
-    .rv.on { opacity:1; transform:none; }
-    .d1{transition-delay:.1s} .d2{transition-delay:.2s}
-    @media(max-width:900px){
-      nav{padding:0 20px;}
-      .chero{padding:100px 24px 60px;}
-      .chero-in{grid-template-columns:1fr;gap:32px;}
-      .cbody{grid-template-columns:1fr;padding:48px 24px;gap:48px;}
-      .cright{position:static;}
-      footer{flex-direction:column;gap:10px;text-align:center;padding:28px 24px;}
+    nav { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); width: calc(100% - 48px); max-width: 1148px; z-index: 100; height: 58px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.90); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
+    .nav-logo { font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--white); text-transform: uppercase; text-decoration: none; text-shadow: 0 0 18px rgba(201,168,76,0.45), 0 2px 8px rgba(0,0,0,0.6); }
+    .nav-logo em { color: var(--gold); font-style: normal; text-shadow: 0 0 24px rgba(201,168,76,0.7), 0 2px 8px rgba(0,0,0,0.6); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.45); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.45); padding: 8px 22px; border-radius: 4px; transition: all 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: var(--black); }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; }
+    .nav-burger span { width: 22px; height: 1.8px; background: rgba(255,255,255,0.7); border-radius: 2px; display: block; transition: all 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.8px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.8px) rotate(-45deg); }
+    .nav-mobile { display: none; position: fixed; top: 84px; left: 24px; right: 24px; background: rgba(10,10,10,0.97); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 16px 0; z-index: 99; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .nav-mobile.open { display: block; }
+    .nav-mobile a { display: block; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.6); text-decoration: none; padding: 12px 24px; letter-spacing: 0.3px; transition: color 0.15s, background 0.15s; }
+    .nav-mobile a:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+    .nav-mobile a.mobile-cta { color: var(--gold); font-weight: 700; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 8px; padding-top: 16px; }
+    .chero { background: var(--black); padding: 130px 0 0; position: relative; overflow: hidden; }
+    .chero-glow { position: absolute; top: -150px; right: -80px; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(201,168,76,0.09) 0%, transparent 65%); pointer-events: none; }
+    .chero-glow2 { position: absolute; bottom: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 65%); pointer-events: none; }
+    .sec-in { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    .chero-in { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; padding-bottom: 64px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+    .breadcrumb a { font-size: 11px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.6); }
+    .breadcrumb span { font-size: 11px; color: rgba(255,255,255,0.15); }
+    .course-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .course-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+    .chero-title { font-size: clamp(28px, 4vw, 48px); font-weight: 900; color: var(--white); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; }
+    .chero-sub { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.85; max-width: 520px; margin-bottom: 32px; }
+    .meta-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+    .chip { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45); }
+    .chip svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .chip + .chip::before { content: ''; width: 1px; height: 12px; background: rgba(255,255,255,0.12); }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--black); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; padding: 14px 28px; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,168,76,0.4); }
+    .btn-ghost { background: transparent; color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; padding: 14px 24px; border-radius: 8px; text-decoration: none; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; transition: border-color 0.2s, color 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.35); color: var(--white); }
+    .btn-ghost svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+    .enroll-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 16px; position: sticky; top: 84px; }
+    .ec-price { font-size: 28px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+    .ec-price span { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.35); margin-left: 4px; }
+    .ec-divider { height: 1px; background: rgba(255,255,255,0.07); }
+    .ec-row { display: flex; justify-content: space-between; align-items: center; }
+    .ec-k { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .ec-v { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.75); }
+    .ec-v-gold { color: var(--gold); }
+    .ec-btn { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--black); font-size: 13px; font-weight: 800; letter-spacing: 0.5px; padding: 15px; border-radius: 8px; text-decoration: none; text-align: center; display: block; transition: opacity 0.2s, transform 0.2s; }
+    .ec-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .ec-note { font-size: 11px; color: rgba(255,255,255,0.2); text-align: center; line-height: 1.6; }
+    .course-body { max-width: 1100px; margin: 0 auto; padding: 72px 48px 80px; display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; }
+    .cleft { display: flex; flex-direction: column; gap: 56px; }
+    .sec-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .sec-title { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .sec-desc { font-size: 14px; color: var(--gray); line-height: 1.9; }
+    .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .outcome-item { display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; background: var(--off); border-radius: 8px; }
+    .outcome-item svg { width: 16px; height: 16px; stroke: var(--gold); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+    .outcome-item span { font-size: 13px; font-weight: 600; line-height: 1.5; color: #222; }
+    .req-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .req-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #444; line-height: 1.6; }
+    .req-item::before { content: '·'; color: var(--gold); font-size: 20px; line-height: 1.1; flex-shrink: 0; }
+    .video-section { margin-top: 20px; }
+    .video-wrap { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 14px; overflow: hidden; background: #111; }
+    .video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+    .feature-card { padding: 24px; border: 1px solid var(--light); border-radius: var(--r); transition: border-color 0.2s; }
+    .feature-card:hover { border-color: rgba(201,168,76,0.4); }
+    .feat-icon { font-size: 24px; margin-bottom: 12px; }
+    .feat-title { font-size: 14px; font-weight: 800; letter-spacing: -0.2px; margin-bottom: 6px; }
+    .feat-desc { font-size: 12px; color: var(--gray); line-height: 1.7; }
+    .syllabus { border: 1px solid var(--light); border-radius: var(--r); overflow: hidden; margin-top: 20px; }
+    .si { border-bottom: 1px solid var(--light); }
+    .si:last-child { border-bottom: none; }
+    .si-header { display: grid; grid-template-columns: 52px 1fr auto; align-items: center; cursor: pointer; transition: background 0.15s; }
+    .si-header:hover { background: var(--off); }
+    .sin { padding: 18px 0; text-align: center; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; color: #bbb; border-right: 1px solid var(--light); }
+    .sic { padding: 18px 20px; }
+    .sit { font-size: 14px; font-weight: 700; letter-spacing: -0.2px; }
+    .si-arrow { padding: 18px 20px; color: #bbb; font-size: 12px; transition: transform 0.2s; }
+    .si.open .si-arrow { transform: rotate(180deg); }
+    .si-detail { display: none; padding: 16px 20px 20px 72px; background: var(--off); border-top: 1px solid var(--light); }
+    .si.open .si-detail { display: block; }
+    .sid { font-size: 13px; color: var(--gray); line-height: 1.7; }
+    .sb { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; margin-top: 8px; }
+    .badge-cert { background: #eef0ff; color: #3949ab; }
+    .badge-live { background: #e8f5e9; color: #2e7d32; }
+    .inst-card { display: flex; gap: 24px; align-items: flex-start; padding: 28px; background: var(--off); border-radius: var(--r); border: 1px solid var(--light); margin-top: 20px; }
+    .im-photo { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+    .im-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .im-name { font-size: 18px; font-weight: 900; letter-spacing: -0.3px; margin-bottom: 4px; }
+    .im-role { font-size: 12px; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+    .im-bio { font-size: 13px; color: #555; line-height: 1.8; }
+    .cright { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 16px; }
+    .sidebar-card { border: 1px solid var(--light); border-radius: var(--r); overflow: hidden; }
+    .sc-head { background: var(--black); padding: 22px 24px; }
+    .sc-label { font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(201,168,76,0.6); margin-bottom: 8px; }
+    .sc-val { font-size: 20px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+    .sc-rows { padding: 18px 24px; display: flex; flex-direction: column; gap: 13px; }
+    .sc-row { display: flex; justify-content: space-between; align-items: center; }
+    .sc-k { font-size: 11px; color: var(--gray); }
+    .sc-v { font-size: 12px; font-weight: 700; }
+    .sc-btn { display: block; background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--black); font-size: 13px; font-weight: 800; letter-spacing: 0.5px; padding: 16px 24px; text-align: center; text-decoration: none; transition: opacity 0.2s; }
+    .sc-btn:hover { opacity: 0.88; }
+    .sidebar-back { font-size: 12px; color: var(--gray); text-align: center; display: block; text-decoration: none; letter-spacing: 0.3px; padding: 4px; transition: color 0.2s; }
+    .sidebar-back:hover { color: var(--black); }
+    .cta-banner { background: var(--black); padding: 72px 48px; text-align: center; position: relative; overflow: hidden; }
+    .cta-banner-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 65%); pointer-events: none; }
+    .cta-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .cta-title { font-size: clamp(24px, 3.5vw, 40px); font-weight: 900; color: var(--white); letter-spacing: -1px; line-height: 1.2; margin-bottom: 12px; }
+    .cta-sub { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 32px; line-height: 1.7; }
+    .cta-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.05); padding: 36px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .flogo { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .flogo em { color: var(--gold); font-style: normal; }
+    .fcopy { font-size: 11px; color: rgba(255,255,255,0.18); }
+    .rv { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .rv.on { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
+    @media (max-width: 960px) {
+      nav { padding: 0 20px; width: calc(100% - 32px); } .nav-links { display: none; } .nav-cta { display: none; } .nav-burger { display: flex; }
+      .sec-in { padding: 0 24px; }
+      .chero-in { grid-template-columns: 1fr; gap: 32px; padding-bottom: 48px; }
+      .enroll-card { position: static; }
+      .course-body { grid-template-columns: 1fr; padding: 48px 24px; gap: 48px; }
+      .cright { position: static; }
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .cta-banner { padding: 56px 24px; }
+      footer { flex-direction: column; gap: 10px; text-align: center; padding: 28px 24px; }
     }
-</style>
+  </style>
 </head>
 <body>
+
 <nav id="main-nav">
   <a href="index.html" class="nav-logo">PENTA<em>CAMPUS</em></a>
   <ul class="nav-links">
     <li><a href="index.html#paths">과정 안내</a></li>
-    <li><a href="courses.html">커리큘럼</a></li>
+    <li><a href="courses.html" class="active">커리큘럼</a></li>
     <li><a href="index.html#yt">채널 소개</a></li>
     <li><a href="instructors.html">강사진</a></li>
     <li><a href="index.html#process">수강 안내</a></li>
@@ -114,155 +170,343 @@
   <a href="index.html#cta" class="mobile-cta">수강 신청 →</a>
 </div>
 
+<!-- ── HERO ── -->
 <section class="chero">
   <div class="chero-glow"></div>
-  <div class="chero-in">
-    <div class="rv">
-      <div class="chero-cat">자기계발 전문가과정</div>
-      <h1 class="chero-title">브런치작가코칭전문가</h1>
-      <p class="chero-sub">브런치에서 독자를 사로잡는 글을 쓰는 방법을 배우고, 이를 다른 사람에게 코칭하는 전문가 과정입니다. 이은경 대표의 브런치 운영 노하우를 직접 전수받습니다.</p>
-      <div class="chero-tags"><span class="ctag">10차시</span><span class="ctag">Zoom 실시간 + 녹화</span><span class="ctag">공인 자격증 발급</span><span class="ctag">브런치 계정 운영 실습</span></div>
-    </div>
-    <div class="enroll-card rv d1">
-      <div class="ec-label">자기계발 전문가과정</div>
-      <div class="ec-name">브런치작가코칭전문가</div>
-      <div class="ec-div"></div>
-      <div class="ec-row"><span class="ec-k">강사</span><span class="ec-v">이은경 대표</span></div>
-      <div class="ec-row"><span class="ec-k">개강일</span><span class="ec-v">2026. 07. 10 (금)</span></div>
-      <div class="ec-row"><span class="ec-k">시간</span><span class="ec-v">매주 금 · 밤 8시</span></div>
-      <div class="ec-row"><span class="ec-k">총 차시</span><span class="ec-v">10차시</span></div>
-      <div class="ec-row"><span class="ec-k">형식</span><span class="ec-v">Zoom + 녹화본</span></div>
-      <div class="ic-row"><span class="ic-k">자격증</span><span class="ic-v" style="color:var(--gold)">수료 후 발급</span></div>
-      <div class="ec-div"></div>
-      <a href="http://13.124.27.141" target="_blank" class="ec-btn">수강 신청하기</a>
-      <div class="ec-note">무료 기본과정 먼저 체험 후<br>전문가과정 등록을 권장합니다.</div>
+  <div class="chero-glow2"></div>
+  <div class="sec-in">
+    <div class="chero-in">
+
+      <!-- LEFT -->
+      <div class="rv">
+        <div class="breadcrumb">
+          <a href="index.html">홈</a>
+          <span>/</span>
+          <a href="courses.html">전체 과정</a>
+          <span>/</span>
+          <a href="#">전문가과정</a>
+        </div>
+        <div class="course-badge">전문가과정 · 10차시 · 자격증 취득</div>
+        <h1 class="chero-title">브런치작가<br>코칭전문가</h1>
+        <p class="chero-sub">브런치 플랫폼 이해, 브랜드 글쓰기, 연재 기획, 독자 소통, 출간 연결까지 브런치 작가를 꿈꾸는 수강생을 코칭하는 전문가 양성 과정입니다. 나만의 이야기로 세상과 연결하세요.</p>
+        <div class="meta-chips">
+          <div class="chip">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            10차시
+          </div>
+          <div class="chip">
+            <svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.07A1 1 0 0 1 21 8.845v6.31a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2"/></svg>
+            Zoom 실시간 + 녹화 제공
+          </div>
+          <div class="chip">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            자격증 발급
+          </div>
+          <div class="chip">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            강사: 이은경 대표
+          </div>
+        </div>
+        <div class="hero-btns">
+          <a href="http://13.124.27.141" target="_blank" class="btn-gold">수강 신청하기 →</a>
+          <a href="#syllabus" class="btn-ghost">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><polyline points="6 9 12 15 18 9"/></svg>
+            커리큘럼 보기
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT — Enroll Card -->
+      <div class="enroll-card rv d1">
+        <div>
+          <div class="ec-price">추후공지<span>원</span></div>
+        </div>
+        <div class="ec-divider"></div>
+        <div class="ec-row"><span class="ec-k">강사</span><span class="ec-v">이은경 대표</span></div>
+        <div class="ec-row"><span class="ec-k">개강일</span><span class="ec-v ec-v-gold">2026. 07. 10 (금)</span></div>
+        <div class="ec-row"><span class="ec-k">시간</span><span class="ec-v">매주 금 · 밤 8시</span></div>
+        <div class="ec-row"><span class="ec-k">총 차시</span><span class="ec-v">10차시</span></div>
+        <div class="ec-row"><span class="ec-k">수강 방식</span><span class="ec-v">Zoom + 녹화본</span></div>
+        <div class="ec-row"><span class="ec-k">자격증</span><span class="ec-v">발급</span></div>
+        <div class="ec-divider"></div>
+        <a href="http://13.124.27.141" target="_blank" class="ec-btn">수강 신청하기</a>
+        <div class="ec-note">수강료는 추후 공지됩니다.<br>사전 신청 시 얼리버드 혜택이 제공됩니다.</div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<div class="cbody">
+<!-- ── BODY ── -->
+<div class="course-body">
   <div class="cleft">
+
+    <!-- 0. 과정 소개 영상 -->
     <div class="rv">
-      <div class="csec-lbl">About</div>
-      <h2 class="csec-h">이 과정에서 배우는 것</h2>
-      <p class="csec-p">브런치에서 독자를 사로잡는 글을 쓰는 방법을 배우고, 이를 다른 사람에게 코칭하는 전문가 과정입니다. 이은경 대표의 브런치 운영 노하우를 직접 전수받습니다.</p>
+      <div class="sec-label">Preview</div>
+      <h2 class="sec-title">과정 소개 영상</h2>
+      <div class="video-section">
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/24bLIJ21sQg" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        </div>
+      </div>
     </div>
+
+    <!-- 1. 학습 성과 -->
     <div class="rv">
-      <div class="csec-lbl">Syllabus</div>
-      <h2 class="csec-h">전체 커리큘럼</h2>
+      <div class="sec-label">What you'll learn</div>
+      <h2 class="sec-title">이 과정에서 배우는 것</h2>
+      <p class="sec-desc">10차시를 통해 브런치 작가 코칭 전문가로서의 역량을 완성합니다.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>브런치 플랫폼의 특성과 독자 생태계 이해</span>
+        </div>
+        <div class="outcome-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>브랜드 글쓰기 — 나다운 목소리 찾기</span>
+        </div>
+        <div class="outcome-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>연재 기획과 콘텐츠 캘린더 작성</span>
+        </div>
+        <div class="outcome-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>제목·썸네일 최적화로 조회수 높이기</span>
+        </div>
+        <div class="outcome-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>슬럼프 극복과 꾸준히 쓰는 루틴 설계</span>
+        </div>
+        <div class="outcome-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>브런치에서 책 출간으로 연결하는 전략</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 수강 요건 -->
+    <div class="rv">
+      <div class="sec-label">Requirements</div>
+      <h2 class="sec-title">수강 요건</h2>
+      <div class="req-list">
+        <div class="req-item">글쓰기와 콘텐츠 창작에 관심 있는 분이라면 누구나 환영합니다.</div>
+        <div class="req-item">브런치 계정이 없어도 수강 가능합니다. 수업 중 함께 만들어 봅니다.</div>
+        <div class="req-item">Zoom 접속 가능한 PC 또는 스마트폰이 필요합니다.</div>
+        <div class="req-item">전 과정(10차시) 수강 완료 시 자격증이 발급됩니다.</div>
+      </div>
+    </div>
+
+    <!-- 3. 이 과정의 특징 -->
+    <div class="rv">
+      <div class="sec-label">Why this course</div>
+      <h2 class="sec-title">이 과정의 특징</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feat-icon">✍️</div>
+          <div class="feat-title">이은경 대표 직강</div>
+          <div class="feat-desc">60권 베스트셀러 작가 이은경 대표가 직접 브런치 글쓰기와 출간 전략을 알려드립니다.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">📱</div>
+          <div class="feat-title">실전 플랫폼 운영</div>
+          <div class="feat-desc">브런치 계정 설정부터 연재 운영, 독자 소통까지 실전으로 배웁니다.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">📹</div>
+          <div class="feat-title">녹화본 영구 제공</div>
+          <div class="feat-desc">모든 차시는 녹화 후 수강생에게 제공됩니다. 반복 학습이 가능합니다.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon">📖</div>
+          <div class="feat-title">출간 연결</div>
+          <div class="feat-desc">브런치 연재 → 출판사 투고 → 책 출간까지 이어지는 전략을 배웁니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. 커리큘럼 -->
+    <div class="rv" id="syllabus">
+      <div class="sec-label">Curriculum</div>
+      <h2 class="sec-title">전체 커리큘럼</h2>
+      <p class="sec-desc" style="margin-bottom:0">총 10차시 · Zoom 실시간 + 녹화본 제공 · 매주 금요일 밤 8시</p>
       <div class="syllabus">
         <div class="si">
-          <div class="sin">01</div>
-          <div class="sic">
-            <div class="sit">브런치 플랫폼 이해</div>
-            <div class="sid">브런치 독자 분석, 인기 작가 글의 특징</div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">01</div>
+            <div class="sic"><div class="sit">브런치 플랫폼 이해</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">브런치의 독자 생태계, 알고리즘, 다른 플랫폼과의 차이를 이해합니다. 브런치에서 성공한 작가들의 공통점을 분석합니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">02</div>
-          <div class="sic">
-            <div class="sit">나만의 브랜드 글쓰기</div>
-            <div class="sid">개인 서사 발굴과 글쓰기 정체성 설정</div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">02</div>
+            <div class="sic"><div class="sit">브랜드 글쓰기</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">나만의 목소리와 관점을 찾는 방법을 배웁니다. 브랜드 포지셔닝 워크시트를 통해 '나다운 글쓰기'의 방향을 설정합니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">03</div>
-          <div class="sic">
-            <div class="sit">브런치 글 구조 설계</div>
-            <div class="sid">도입·전개·마무리 — 독자를 붙잡는 구조</div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">03</div>
+            <div class="sic"><div class="sit">글 구조 설계</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">독자가 끝까지 읽고 싶은 글의 구조를 설계하는 방법을 배웁니다. 도입·전개·마무리 패턴과 각 단계의 역할을 실습합니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">04</div>
-          <div class="sic">
-            <div class="sit">제목과 썸네일 전략</div>
-            <div class="sid">클릭을 부르는 제목 짓기와 이미지 선택</div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">04</div>
+            <div class="sic"><div class="sit">제목·썸네일 최적화</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">클릭하고 싶은 제목을 쓰는 법과 썸네일 이미지 선택 기준을 배웁니다. A/B 테스트 방법도 함께 다룹니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">05</div>
-          <div class="sic">
-            <div class="sit">연재 기획과 콘텐츠 캘린더</div>
-            <div class="sid">시리즈 기획과 꾸준한 발행 시스템</div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">05</div>
+            <div class="sic"><div class="sit">연재 기획</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">시리즈 연재의 기획 방법과 콘텐츠 캘린더 작성 방법을 실습합니다. 오래 지속할 수 있는 연재 주제 선정 기준도 배웁니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">06</div>
-          <div class="sic">
-            <div class="sit">글쓰기 슬럼프 극복</div>
-            <div class="sid">블로킹 원인 분석과 루틴 재건 코칭법</div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">06</div>
+            <div class="sic"><div class="sit">슬럼프 극복</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">꾸준히 쓰지 못하는 이유와 슬럼프를 극복하는 실전 전략을 공유합니다. 글쓰기 습관을 유지하는 루틴 설계 방법을 실습합니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">07</div>
-          <div class="sic">
-            <div class="sit">독자 소통과 피드백 활용</div>
-            <div class="sid">댓글 관리와 독자 반응 기반 성장 전략</div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">07</div>
+            <div class="sic"><div class="sit">독자 소통</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">댓글·구독자 관리와 독자와의 관계를 강화하는 방법을 배웁니다. 독자 피드백을 다음 글에 반영하는 방법도 다룹니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">08</div>
-          <div class="sic">
-            <div class="sit">브런치에서 책 출간으로</div>
-            <div class="sid">에디터 눈에 띄는 글과 출판 제안서 작성</div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">08</div>
+            <div class="sic"><div class="sit">출간으로 이어가기</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">브런치 연재를 출판사 투고로 연결하는 방법과 출간 제안서 작성 방법을 배웁니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">09</div>
-          <div class="sic">
-            <div class="sit">코칭 실습</div>
-            <div class="sid">수강생 브런치 글 1:1 첨삭 및 피드백<span class="sb badge-live">실시간 필수</span></div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">09</div>
+            <div class="sic"><div class="sit">코칭 실습</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="sid">실제 수강생의 브런치 글을 코칭하는 방법을 실습합니다. 강점 발견과 개선점 제안 방법을 배웁니다.</div>
           </div>
         </div>
         <div class="si">
-          <div class="sin">10</div>
-          <div class="sic">
-            <div class="sit">최종 발표 및 자격증 취득</div>
-            <div class="sid">나의 브런치 전략 발표 및 자격증 발급<span class="sb badge-final">자격증 발급</span></div>
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">10</div>
+            <div class="sic"><div class="sit">최종 발표 + 자격증 수여</div></div>
+            <div class="si-arrow">▾</div>
           </div>
-        </div></div>
+          <div class="si-detail">
+            <div class="sid">브런치 작가 코칭 포트폴리오를 발표하고 동료 피드백을 받습니다. 기준 충족 시 펜타캠퍼스 공식 자격증이 수여됩니다.
+              <span class="sb badge-cert">자격증 발급</span></div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- 5. 강사 소개 -->
     <div class="rv">
-      <div class="csec-lbl">Instructor</div>
-      <h2 class="csec-h">담당 강사</h2>
-      
-      <div class="inst-mini">
-        <div class="im-photo"><img src="http://13.124.27.141/pix/penta/lee-eunkyung.jpg" alt="이은경 대표"></div>
+      <div class="sec-label">Instructor</div>
+      <h2 class="sec-title">담당 강사</h2>
+      <div class="inst-card">
+        <div class="im-photo">
+          <img src="http://13.124.27.141/pix/penta/lee-eunkyung.jpg" alt="이은경"
+               onerror="this.style.display='none';this.parentElement.innerHTML='👩‍🏫'">
+        </div>
         <div>
-          <div class="im-name">이은경 대표</div>
+          <div class="im-name">이은경</div>
           <div class="im-role">초등교사 15년 · 저서 60권+ · 유튜브 15만+</div>
-          <p class="im-bio">슬기로운 초등생활 채널 운영자. 15년 현장 경험을 바탕으로 60권 이상 집필한 초등 교육 전문가입니다.</p>
+          <p class="im-bio">
+            '슬기로운 초등생활' 채널 운영자. 초등교사로 15년간 현장을 누빈 뒤 대한민국 대표 초등 교육 전문가로 자리잡았습니다. 60권 이상의 저서와 15만 구독자의 신뢰를 바탕으로, 학부모와 교사 모두가 실제로 활용할 수 있는 콘텐츠를 설계합니다.
+          </p>
         </div>
       </div>
     </div>
+
   </div>
+
+  <!-- RIGHT SIDEBAR -->
   <div class="cright rv d1">
-    <div class="info-card">
-      <div class="ic-h">
-        <div class="ic-hl">개강 일정</div>
-        <div class="ic-hv">2026. 07. 10 (금)</div>
+    <div class="sidebar-card">
+      <div class="sc-head">
+        <div class="sc-label">개강 일정</div>
+        <div class="sc-val">2026. 07. 10 (금)</div>
       </div>
-      <div class="ic-rows">
-        <div class="ic-row"><span class="ic-k">강사</span><span class="ic-v">이은경 대표</span></div>
-        <div class="ic-row"><span class="ic-k">요일·시간</span><span class="ic-v">매주 금 · 밤 8시</span></div>
-        <div class="ic-row"><span class="ic-k">총 차시</span><span class="ic-v">10차시</span></div>
-        <div class="ic-row"><span class="ic-k">수강 방식</span><span class="ic-v">Zoom + 녹화</span></div>
-        <div class="ic-row"><span class="ic-k">자격증</span><span class="ic-v" style="color:var(--gold)">수료 후 발급</span></div>
+      <div class="sc-rows">
+        <div class="sc-row"><span class="sc-k">강사</span><span class="sc-v">이은경 대표</span></div>
+        <div class="sc-row"><span class="sc-k">요일·시간</span><span class="sc-v">매주 금 · 밤 8시</span></div>
+        <div class="sc-row"><span class="sc-k">총 차시</span><span class="sc-v">10차시</span></div>
+        <div class="sc-row"><span class="sc-k">수강 방식</span><span class="sc-v">Zoom + 녹화</span></div>
+        <div class="sc-row"><span class="sc-k">자격증</span><span class="sc-v">발급</span></div>
+        <div class="sc-row"><span class="sc-k">수강료</span><span class="sc-v" style="color:var(--gold)">추후 공지</span></div>
       </div>
-      <a href="http://13.124.27.141" target="_blank" class="ic-btn">수강 신청하기</a>
+      <a href="http://13.124.27.141" target="_blank" class="sc-btn">수강 신청하기</a>
     </div>
-    <a href="index.html" style="font-size:12px;color:var(--gray);text-align:center;display:block;text-decoration:none;letter-spacing:0.3px;">← 전체 과정 목록 보기</a>
+    <a href="courses.html" class="sidebar-back">← 전체 과정 목록 보기</a>
   </div>
 </div>
+
+<section class="cta-banner rv">
+  <div class="cta-banner-glow"></div>
+  <div class="cta-label">함께 성장하세요</div>
+  <h2 class="cta-title">브런치 작가로<br>나만의 이야기를 시작하세요</h2>
+  <p class="cta-sub">브런치작가코칭전문가 자격증 취득 후 글쓰기 코칭 강사로 활동하세요.<br>더 넓은 독자와 연결되는 새로운 커리어가 기다립니다.</p>
+  <div class="cta-btns">
+    <a href="courses.html" class="btn-gold">전체 과정 보기 →</a>
+    <a href="courses.html" class="btn-ghost">
+      <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      전체 과정 보기
+    </a>
+  </div>
+</section>
 
 <footer>
   <div class="flogo">PENTA<em>CAMPUS</em></div>
   <div class="fcopy">© 2026 펜타캠퍼스. All rights reserved.</div>
 </footer>
+
 <script>
-  const ro = new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');ro.unobserve(e.target);}})  ,{threshold:0.06});
-  document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
-  // Burger menu
+  const ro = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); }
+  }), { threshold: 0.06 });
+  document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+  function toggleSi(header) {
+    const si = header.closest('.si');
+    si.classList.toggle('open');
+  }
+
   const burger = document.getElementById('nav-burger');
   const menu   = document.getElementById('nav-mobile');
   if (burger && menu) {
