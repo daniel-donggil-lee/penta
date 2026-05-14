@@ -403,9 +403,15 @@
     /* ── 모바일 (≤ 600px) ── */
     @media (max-width: 600px) {
       nav { padding: 0 20px; }
-      .hero { padding: 84px 20px 64px; }
-      .hero-right { margin-top: 32px; }
-      .hero-vid-outer { max-width: 100%; }
+      /* 히어로: 고정 높이 제거 + overflow 해제 → 영상 전체 노출 */
+      .hero { padding: 84px 20px 60px; min-height: auto; overflow: visible; }
+      .hero-right { margin-top: 28px; }
+      .hero-vid-outer { max-width: 100%; padding-bottom: 0; }
+      /* 영상 16:9 비율로 전환 (모바일에선 정사각형 불필요) */
+      .hero-vid-box { aspect-ratio: 16/9; border-radius: 14px; }
+      .hero-vid-box iframe { width: 100%; height: 178%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+      /* 토스트 카드 모바일에서 숨김 (영상 아래 공간 없음) */
+      .toast-wrap { display: none; }
       .ab1 { width: 280px; height: 220px; }
       .ab2 { width: 250px; height: 260px; }
       .ab3 { width: 220px; height: 180px; }
