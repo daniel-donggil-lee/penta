@@ -212,21 +212,59 @@
     .ipc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
     .ipc-tag { font-size: 10px; font-weight: 600; color: var(--gray); padding: 5px 12px; border: 1px solid var(--light); border-radius: 3px; }
 
-    /* PAIR COURSE CARDS */
+    /* PAIR COURSE CARDS — Tokko Style */
     .pcc-block { margin-top: 52px; padding-top: 40px; border-top: 1px solid var(--light); }
-    .pcc-blk-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .pcc-blk-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
     .pcc-blk-lbl { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px; }
     .pcc-blk-lbl::before { content: ''; width: 16px; height: 1px; background: var(--gold); }
-    .pcc-grid { display: grid; gap: 14px; }
+    .pcc-grid { display: grid; gap: 16px; }
     .pcc-grid-4 { grid-template-columns: repeat(4, 1fr); }
     .pcc-grid-3 { grid-template-columns: repeat(3, 1fr); }
     .pcc-grid-2 { grid-template-columns: repeat(2, 1fr); }
-    .pcc { background: var(--white); border: 1px solid var(--light); border-radius: 10px; padding: 24px 22px; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: inherit; transition: box-shadow 0.22s, transform 0.22s; }
-    .pcc:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-3px); }
-    .pcc-cat { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); }
-    .pcc-name { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.35; color: var(--black); }
-    .pcc-inst { font-size: 11px; color: var(--gray); }
-    .pcc-go { font-size: 11px; font-weight: 600; color: var(--gold); margin-top: auto; padding-top: 6px; }
+    .pcc { background: var(--white); border-radius: 20px; padding: 32px 30px 28px; display: flex; flex-direction: column; gap: 0; text-decoration: none; color: inherit; box-shadow: 0 2px 16px rgba(0,0,0,0.06); transition: box-shadow 0.28s, transform 0.28s; }
+    .pcc:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.12); transform: translateY(-5px); }
+    .pcc-icon { width: 60px; height: 60px; background: var(--gold); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; flex-shrink: 0; }
+    .pcc-icon svg { width: 28px; height: 28px; stroke: #fff; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .pcc-cat { font-size: 12px; font-weight: 500; color: #aaa; margin-bottom: 10px; }
+    .pcc-name { font-size: 20px; font-weight: 900; letter-spacing: -0.7px; line-height: 1.3; color: var(--black); margin-bottom: 24px; }
+    .pcc-foot { display: flex; gap: 7px; flex-wrap: wrap; margin-top: auto; }
+    .pcc-tag { font-size: 11px; font-weight: 500; color: #555; background: #f0f0f0; border-radius: 20px; padding: 5px 13px; }
+
+    /* CONCERN / HESITATION SECTION */
+    .concern-sec { background: var(--black); padding: 100px 64px; position: relative; z-index: 1; overflow: hidden; }
+    .concern-sec::after { content: ''; position: absolute; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.09) 0%, transparent 70%); bottom: -100px; left: -60px; pointer-events: none; }
+    .concern-inner { max-width: 1100px; margin: 0 auto; }
+    .concern-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(201,168,76,0.7); margin-bottom: 20px; }
+    .concern-title { font-size: clamp(26px, 3.2vw, 42px); font-weight: 900; letter-spacing: -1px; color: var(--white); line-height: 1.25; margin-bottom: 60px; }
+    .concern-title em { color: var(--gold); font-style: normal; }
+    .concern-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+    .concern-card { padding: 44px 40px; border: 1px solid rgba(255,255,255,0.07); transition: background 0.3s; position: relative; }
+    .concern-card:hover { background: rgba(255,255,255,0.03); }
+    .concern-q { font-size: 17px; font-weight: 800; letter-spacing: -0.4px; color: var(--white); line-height: 1.4; margin-bottom: 18px; }
+    .concern-q::before { content: '"'; color: var(--gold); font-size: 22px; font-weight: 900; margin-right: 2px; }
+    .concern-q::after  { content: '"'; color: var(--gold); font-size: 22px; font-weight: 900; margin-left: 2px; }
+    .concern-a { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.85; margin-bottom: 24px; }
+    .concern-a strong { color: rgba(255,255,255,0.85); font-weight: 700; }
+    .concern-proof { display: flex; gap: 7px; flex-wrap: wrap; }
+    .concern-pill { font-size: 10px; font-weight: 600; color: rgba(201,168,76,0.8); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; padding: 4px 12px; }
+
+    /* WHY PENTA SECTION */
+    .why-sec { background: var(--black); padding: 100px 64px; position: relative; z-index: 1; overflow: hidden; }
+    .why-sec::before { content: ''; position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%); top: -120px; right: -80px; pointer-events: none; }
+    .why-inner { max-width: 1100px; margin: 0 auto; }
+    .why-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(201,168,76,0.7); margin-bottom: 20px; }
+    .why-title { font-size: clamp(28px, 3.5vw, 44px); font-weight: 900; letter-spacing: -1px; color: var(--white); line-height: 1.2; margin-bottom: 64px; }
+    .why-title em { color: var(--gold); font-style: normal; }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .why-card { padding: 40px 36px; border: 1px solid rgba(255,255,255,0.07); position: relative; transition: background 0.3s; }
+    .why-card:hover { background: rgba(255,255,255,0.03); }
+    .why-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: rgba(201,168,76,0.5); margin-bottom: 28px; }
+    .why-icon { width: 48px; height: 48px; margin-bottom: 20px; }
+    .why-icon svg { width: 48px; height: 48px; stroke: var(--gold); fill: none; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+    .why-card-title { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; color: var(--white); line-height: 1.3; margin-bottom: 14px; }
+    .why-card-desc { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.8; }
+    .why-card-proof { margin-top: 24px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .why-proof-pill { font-size: 10px; font-weight: 600; color: rgba(201,168,76,0.8); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; padding: 4px 12px; }
 
     /* INSTRUCTOR */
     .inst-sec { background: var(--white); border-top: 1px solid var(--light); }
@@ -347,6 +385,12 @@
       .ipc-row { grid-template-columns: 200px 1fr; gap: 16px; }
       .ipc-text-card { padding: 28px 28px; }
       .pcc-grid-4, .pcc-grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .concern-sec { padding: 80px 40px; }
+      .concern-grid { grid-template-columns: 1fr; }
+      .concern-card { padding: 32px 28px; }
+      .why-sec { padding: 80px 40px; }
+      .why-grid { grid-template-columns: 1fr; gap: 2px; }
+      .why-card { padding: 32px 28px; }
       .founders-sec { padding: 88px 40px; }
       .founders-grid { gap: 24px; }
       .pitem { grid-template-columns: 60px 1fr; padding: 24px 24px; gap: 20px; }
@@ -376,6 +420,10 @@
       .ipc-row { grid-template-columns: 1fr; gap: 12px; }
       .ipc-text-card { padding: 24px 22px; gap: 14px; }
       .pcc-grid-4, .pcc-grid-3, .pcc-grid-2 { grid-template-columns: 1fr; }
+      .concern-sec { padding: 64px 20px; }
+      .concern-card { padding: 28px 22px; }
+      .why-sec { padding: 64px 20px; }
+      .why-card { padding: 28px 22px; }
       .founders-sec { padding: 64px 20px; }
       .founders-grid { grid-template-columns: 1fr; max-width: 440px; }
       .pitem { padding: 20px 16px; }
@@ -629,30 +677,42 @@
         <div class="pcc-blk-lbl">관련 과정</div>
         <a href="courses.html" style="font-size:11px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;">전체 커리큘럼 →</a>
       </div>
-      <div class="pcc-grid pcc-grid-4">
+      <div class="pcc-grid pcc-grid-2">
         <a class="pcc" href="course-01.html">
-          <div class="pcc-cat">기본과정</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <div class="pcc-cat">기본과정 · 박지연</div>
           <div class="pcc-name">초등 독서습관 지도사</div>
-          <div class="pcc-inst">강사: 박지연</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">📖 독서습관</span>
+            <span class="pcc-tag">자격증</span>
+          </div>
         </a>
         <a class="pcc" href="course-05.html">
-          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <div class="pcc-cat">전문가과정 · 박지연</div>
           <div class="pcc-name">초등 인문독서 코칭전문가</div>
-          <div class="pcc-inst">강사: 박지연</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">📚 인문독서</span>
+            <span class="pcc-tag">코칭전문가</span>
+          </div>
         </a>
         <a class="pcc" href="course-07.html">
-          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+          <div class="pcc-cat">전문가과정 · 이현우</div>
           <div class="pcc-name">초등 주제요약 코칭전문가</div>
-          <div class="pcc-inst">강사: 이현우</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">🎯 주제요약</span>
+            <span class="pcc-tag">코칭전문가</span>
+          </div>
         </a>
         <a class="pcc" href="course-08.html">
-          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="pcc-cat">전문가과정 · 이현우</div>
           <div class="pcc-name">초등 논증추론 코칭전문가</div>
-          <div class="pcc-inst">강사: 이현우</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">🧠 논증추론</span>
+            <span class="pcc-tag">코칭전문가</span>
+          </div>
         </a>
       </div>
     </div>
@@ -748,26 +808,85 @@
       <div class="pcc-blk-lbl">관련 과정</div>
       <div class="pcc-grid pcc-grid-3" style="margin-top:16px;">
         <a class="pcc" href="course-06.html">
-          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <div class="pcc-cat">전문가과정 · 권보경</div>
           <div class="pcc-name">초등 소논문 코칭전문가</div>
-          <div class="pcc-inst">강사: 권보경</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">📝 소논문</span>
+            <span class="pcc-tag">코칭전문가</span>
+          </div>
         </a>
         <a class="pcc" href="course-02.html">
-          <div class="pcc-cat">기본과정</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+          <div class="pcc-cat">기본과정 · 김민준</div>
           <div class="pcc-name">초등 글쓰기습관 지도사</div>
-          <div class="pcc-inst">강사: 김민준</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">✏️ 글쓰기</span>
+            <span class="pcc-tag">자격증</span>
+          </div>
         </a>
         <a class="pcc" href="course-09.html">
-          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
+          <div class="pcc-cat">전문가과정 · 김민준</div>
           <div class="pcc-name">초등 글쓰기 5단계 첨삭법</div>
-          <div class="pcc-inst">강사: 김민준</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">🖊️ 첨삭코칭</span>
+            <span class="pcc-tag">코칭전문가</span>
+          </div>
         </a>
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- WHY PENTA CAMPUS -->
+<section class="why-sec">
+  <div class="why-inner">
+    <div class="why-eyebrow rv">Why Pentacampus</div>
+    <h2 class="why-title rv">수많은 강사 플랫폼 중에서<br><em>펜타캠퍼스를 선택해야 하는 이유</em></h2>
+    <div class="why-grid">
+
+      <div class="why-card rv">
+        <div class="why-num">01</div>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="why-card-title">검증된 브랜드 파워,<br>그 이름을 달고 시작한다</div>
+        <div class="why-card-desc">구독자 15만, 저서 60권+. 이은경 대표의 이름은 이미 초등 교육 현장에서 신뢰의 증거입니다. 펜타캠퍼스 자격증은 그 신뢰를 나의 것으로 만드는 가장 빠른 경로입니다.</div>
+        <div class="why-card-proof">
+          <span class="why-proof-pill">유튜브 구독자 15만+</span>
+          <span class="why-proof-pill">저서 60권+</span>
+        </div>
+      </div>
+
+      <div class="why-card rv d1">
+        <div class="why-num">02</div>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="why-card-title">수료 다음 날부터<br>바로 수익을 만들 수 있다</div>
+        <div class="why-card-desc">펜타스쿨 가맹 · 학교 방과후 · 독립 클래스. 세 가지 경로 중 내 상황에 맞는 방법으로 자격증 취득 즉시 활동을 시작할 수 있도록 펜타캠퍼스가 연결합니다.</div>
+        <div class="why-card-proof">
+          <span class="why-proof-pill">3경로 즉시 연결</span>
+          <span class="why-proof-pill">수료 즉시 활동 가능</span>
+        </div>
+      </div>
+
+      <div class="why-card rv d2">
+        <div class="why-num">03</div>
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="why-card-title">현직 교사 출신이 설계한<br>살아있는 커리큘럼</div>
+        <div class="why-card-desc">강사진 8인 전원이 초등 교육 현장에서 직접 검증한 내용만 담았습니다. 이론이 아닌 실제 교실에서 효과가 증명된 방법을 배웁니다.</div>
+        <div class="why-card-proof">
+          <span class="why-proof-pill">현직·전직 교사 출신 8인</span>
+          <span class="why-proof-pill">평생교육원 공인</span>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -830,22 +949,75 @@
       <div class="pcc-blk-lbl">관련 과정</div>
       <div class="pcc-grid pcc-grid-2" style="margin-top:16px;">
         <a class="pcc" href="course-16.html">
-          <div class="pcc-cat">원데이클래스</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
+          <div class="pcc-cat">원데이클래스 · 최수진</div>
           <div class="pcc-name">생각정리 스피치클래스</div>
-          <div class="pcc-inst">강사: 최수진</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">🎤 스피치</span>
+            <span class="pcc-tag">원데이</span>
+          </div>
         </a>
         <a class="pcc" href="course-13.html">
-          <div class="pcc-cat">전문가과정</div>
+          <div class="pcc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="pcc-cat">전문가과정 · 정미경</div>
           <div class="pcc-name">북클럽 운영전문가</div>
-          <div class="pcc-inst">강사: 정미경</div>
-          <div class="pcc-go">자세히 보기 →</div>
+          <div class="pcc-foot">
+            <span class="pcc-tag">📖 북클럽</span>
+            <span class="pcc-tag">코칭전문가</span>
+          </div>
         </a>
       </div>
     </div>
 
     <div style="text-align:right;margin-top:32px;" class="rv d2">
       <a href="instructors.html" style="font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:0.3px;">강사진 전체 보기 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONCERN / HESITATION -->
+<section class="concern-sec">
+  <div class="concern-inner">
+    <div class="concern-eyebrow rv">Before You Decide</div>
+    <h2 class="concern-title rv">이런 고민,<br><em>해본 적 있으신가요?</em></h2>
+    <div class="concern-grid">
+
+      <div class="concern-card rv">
+        <div class="concern-q">가르친 경험이 없는데 자격증 과정을 따라갈 수 있을까요?</div>
+        <div class="concern-a">펜타캠퍼스 과정은 <strong>교육 경험이 전혀 없는 분도 시작할 수 있도록</strong> 설계되어 있습니다. 기본과정 → 전문가과정으로 이어지는 단계별 구조 덕분에, 처음 배우는 분도 무리 없이 이수할 수 있습니다. 지금 이 순간이 가장 빠른 시작점입니다.</div>
+        <div class="concern-proof">
+          <span class="concern-pill">기본 → 전문가 단계별 구성</span>
+          <span class="concern-pill">교육 경험 불필요</span>
+        </div>
+      </div>
+
+      <div class="concern-card rv d1">
+        <div class="concern-q">자격증을 따도 실제로 수업을 할 수 있을지 모르겠어요.</div>
+        <div class="concern-a">수료 후 활동 경로가 구체적으로 열려 있습니다. <strong>펜타스쿨 가맹 · 학교 방과후 · 독립 클래스</strong>, 세 가지 경로 중 내 상황에 맞는 방법으로 바로 연결됩니다. 자격증만 주고 끝나는 플랫폼이 아닙니다.</div>
+        <div class="concern-proof">
+          <span class="concern-pill">3경로 취업·창업 연결</span>
+          <span class="concern-pill">수료 즉시 활동 가능</span>
+        </div>
+      </div>
+
+      <div class="concern-card rv d1">
+        <div class="concern-q">온라인 강의는 중간에 흐지부지될까 봐 걱정돼요.</div>
+        <div class="concern-a">Zoom <strong>실시간 강의와 녹화본을 함께 제공</strong>하기 때문에, 일정이 맞지 않는 날도 놓치지 않고 이수할 수 있습니다. 또한 소규모 코호트로 운영되어 함께 완주하는 동료가 있습니다.</div>
+        <div class="concern-proof">
+          <span class="concern-pill">Zoom 실시간 + 녹화 병행</span>
+          <span class="concern-pill">소규모 코호트</span>
+        </div>
+      </div>
+
+      <div class="concern-card rv d2">
+        <div class="concern-q">이미 좋은 플랫폼이 많은데 왜 굳이 펜타캠퍼스여야 하나요?</div>
+        <div class="concern-a">자격증 이름에 <strong>"이은경"이라는 검증된 브랜드</strong>가 붙습니다. 구독자 15만, 저서 60권+의 신뢰가 자격증에 담기는 건 펜타캠퍼스만의 차별점입니다. 수강생이 아닌, <strong>활동하는 전문가</strong>로 시장에 나가는 것이 목표입니다.</div>
+        <div class="concern-proof">
+          <span class="concern-pill">이은경 브랜드 신뢰</span>
+          <span class="concern-pill">평생교육원 공인</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
