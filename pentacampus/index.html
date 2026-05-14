@@ -636,11 +636,12 @@
     const eyA = rotY + targetRY;
     const exA = targetRX;
 
-    /* Prism — 3 rings at different sizes/depths */
+    /* Prism — 크기를 캔버스 높이 기준으로 비율 계산 */
+    const sz = Math.min(H * 0.32, W * 0.18);
     const configs = [
-      {r:180, z1:-110, z2:110, a:0.18, lw:0.8},
-      {r:280, z1:-170, z2:170, a:0.09, lw:0.6},
-      {r:100, z1: -60, z2: 60, a:0.28, lw:1.0},
+      {r: sz,        z1: -sz*0.61, z2: sz*0.61,  a:0.18, lw:0.8},
+      {r: sz * 1.52, z1: -sz*0.94, z2: sz*0.94,  a:0.09, lw:0.6},
+      {r: sz * 0.55, z1: -sz*0.33, z2: sz*0.33,  a:0.28, lw:1.0},
     ];
 
     configs.forEach(({r,z1,z2,a,lw})=>{
@@ -662,7 +663,7 @@
       {letter:'T', sub:'표현'},
       {letter:'A', sub:'소통'},
     ];
-    const labelRing = pentagonRing(148, 0);
+    const labelRing = pentagonRing(sz * 0.82, 0);
     labelRing.forEach((p, i)=>{
       let q = ry(p, eyA); q = rx(q, exA);
       const pp = proj(q);
