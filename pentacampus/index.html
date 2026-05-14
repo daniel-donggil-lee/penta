@@ -653,7 +653,8 @@
 
     drawParticles(eyA, exA);
 
-    /* PENTA labels — at innermost ring vertices */
+    /* PENTA labels — desktop only */
+    if (W <= 600) return;
     const LABELS = [
       {letter:'P', sub:'독해'},
       {letter:'E', sub:'어휘'},
