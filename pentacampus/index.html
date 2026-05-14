@@ -543,13 +543,12 @@
 </footer>
 
 <script>
-/* ─── 3D Hero Canvas ─── */
+/* ─── 3D Dodecahedron Hero Canvas ─── */
 (function(){
   const canvas = document.getElementById('hero-canvas');
   const ctx = canvas.getContext('2d');
   let W, H, cx, cy;
-  let rotY = 0, rotX = 0;
-  let targetRY = 0, targetRX = 0;
+  let rotY = 0;
   let mx = 0, my = 0;
 
   function resize(){
@@ -560,143 +559,100 @@
   window.addEventListener('resize', resize);
   resize();
 
-  /* Mouse parallax */
   document.addEventListener('mousemove', e => {
     mx = (e.clientX / window.innerWidth  - 0.5) * 2;
     my = (e.clientY / window.innerHeight - 0.5) * 2;
   });
 
   /* 3-D helpers */
-  function pentagonRing(r, z, n=5) {
-    const pts = [];
-    for(let i=0;i<n;i++){
-      const a = (i*2*Math.PI/n) - Math.PI/2;
-      pts.push([r*Math.cos(a), r*Math.sin(a), z]);
+  function ryFn(p,a){ return [p[0]*Math.cos(a)+p[2]*Math.sin(a), p[1], -p[0]*Math.sin(a)+p[2]*Math.cos(a)]; }
+  function rxFn(p,a){ return [p[0], p[1]*Math.cos(a)-p[2]*Math.sin(a), p[1]*Math.sin(a)+p[2]*Math.cos(a)]; }
+  function proj(p){ const fov=900, s=fov/(fov+p[2]); return [cx+p[0]*s, cy+p[1]*s, s]; }
+
+  /* ── 정12면체 (Dodecahedron) 꼭짓점 & 모서리 ── */
+  const phi = (1+Math.sqrt(5))/2, inv = 1/phi;
+  const BASE = [
+    [1,1,1],[1,1,-1],[1,-1,1],[1,-1,-1],
+    [-1,1,1],[-1,1,-1],[-1,-1,1],[-1,-1,-1],
+    [0,inv,phi],[0,inv,-phi],[0,-inv,phi],[0,-inv,-phi],
+    [inv,phi,0],[-inv,phi,0],[inv,-phi,0],[-inv,-phi,0],
+    [phi,0,inv],[phi,0,-inv],[-phi,0,inv],[-phi,0,-inv]
+  ];
+  const EL2 = 4/(phi*phi);
+  const EDGES = [];
+  for(let i=0;i<BASE.length;i++)
+    for(let j=i+1;j<BASE.length;j++){
+      const d=BASE[i].map((v,k)=>v-BASE[j][k]);
+      if(Math.abs(d[0]*d[0]+d[1]*d[1]+d[2]*d[2]-EL2)<0.01) EDGES.push([i,j]);
     }
-    return pts;
-  }
-
-  function ry(p, a){ return [p[0]*Math.cos(a)+p[2]*Math.sin(a), p[1], -p[0]*Math.sin(a)+p[2]*Math.cos(a)]; }
-  function rx(p, a){ return [p[0], p[1]*Math.cos(a)-p[2]*Math.sin(a), p[1]*Math.sin(a)+p[2]*Math.cos(a)]; }
-  function proj(p, fov=900){ const s=fov/(fov+p[2]); return [cx+p[0]*s, cy+p[1]*s, s]; }
-
-  function drawRing(pts, alpha, lw){
-    ctx.beginPath();
-    const pp = pts.map(p=>proj(p));
-    ctx.moveTo(pp[0][0],pp[0][1]);
-    for(let i=1;i<pp.length;i++) ctx.lineTo(pp[i][0],pp[i][1]);
-    ctx.closePath();
-    ctx.strokeStyle = `rgba(201,168,76,${alpha})`;
-    ctx.lineWidth = lw;
-    ctx.stroke();
-  }
-
-  function drawEdges(a, b, alpha, lw){
-    ctx.strokeStyle = `rgba(201,168,76,${alpha})`;
-    ctx.lineWidth = lw;
-    for(let i=0;i<a.length;i++){
-      const pa=proj(a[i]), pb=proj(b[i]);
-      ctx.beginPath(); ctx.moveTo(pa[0],pa[1]); ctx.lineTo(pb[0],pb[1]); ctx.stroke();
-    }
-  }
+  // 위쪽 오각형 면 꼭짓점 순서 (PENTA 레이블용): 12→0→8→4→13
+  const TOP_FACE = [12, 0, 8, 4, 13];
+  const LBLS  = ['P','E','N','T','A'];
+  const SUBLBLS = ['독해','어휘','사고','표현','소통'];
 
   /* Floating particles */
-  const PARTICLES = Array.from({length:28}, ()=>({
-    x:(Math.random()-0.5)*700,
-    y:(Math.random()-0.5)*700,
-    z:(Math.random()-0.5)*300,
-    r: Math.random()*1.4+0.4,
-    sp: (Math.random()-0.5)*0.3
+  const PARTICLES = Array.from({length:24},()=>({
+    x:(Math.random()-.5)*600, y:(Math.random()-.5)*600,
+    z:(Math.random()-.5)*300, r:Math.random()*1.3+0.3,
+    sp:(Math.random()-.5)*0.25
   }));
 
-  function drawParticles(ryA, rxA){
-    PARTICLES.forEach(p=>{
-      p.x += p.sp * 0.4;
-      if(p.x > 400) p.x = -400;
-      let pt = ry([p.x,p.y,p.z], ryA);
-      pt = rx(pt, rxA);
-      const pp = proj(pt);
-      const alpha = Math.min(0.55, 0.15 + (pp[2]-0.3));
-      ctx.beginPath();
-      ctx.arc(pp[0], pp[1], p.r*pp[2], 0, Math.PI*2);
-      ctx.fillStyle = `rgba(201,168,76,${alpha.toFixed(2)})`;
-      ctx.fill();
-    });
-  }
-
-  /* Main loop */
   function tick(){
     requestAnimationFrame(tick);
     ctx.clearRect(0,0,W,H);
 
     rotY += 0.004;
-    targetRY = mx * 0.15;
-    targetRX = my * 0.08;
+    const eyA = rotY + mx * 0.15;
+    const exA = my * 0.10;
+    const sz = Math.min(H*0.30, W*0.17) / Math.sqrt(3);
 
-    const eyA = rotY + targetRY;
-    const exA = targetRX;
-
-    /* Prism — 크기를 캔버스 높이 기준으로 비율 계산 */
-    const sz = Math.min(H * 0.32, W * 0.18);
-    const configs = [
-      {r: sz,        z1: -sz*0.61, z2: sz*0.61,  a:0.18, lw:0.8},
-      {r: sz * 1.52, z1: -sz*0.94, z2: sz*0.94,  a:0.09, lw:0.6},
-      {r: sz * 0.55, z1: -sz*0.33, z2: sz*0.33,  a:0.28, lw:1.0},
-    ];
-
-    configs.forEach(({r,z1,z2,a,lw})=>{
-      let top = pentagonRing(r,z1).map(p=>{ let q=ry(p,eyA); return rx(q,exA); });
-      let bot = pentagonRing(r,z2).map(p=>{ let q=ry(p,eyA); return rx(q,exA); });
-      drawRing(top, a, lw);
-      drawRing(bot, a, lw);
-      drawEdges(top, bot, a*0.6, lw*0.7);
+    /* 꼭짓점 변환 */
+    const verts = BASE.map(v=>{
+      let p = [v[0]*sz, v[1]*sz, v[2]*sz];
+      p = ryFn(p, eyA);
+      p = rxFn(p, exA);
+      return proj(p);
     });
 
-    drawParticles(eyA, exA);
-
-    /* PENTA labels — desktop only */
-    if (W <= 600) return;
-    const LABELS = [
-      {letter:'P', sub:'독해'},
-      {letter:'E', sub:'어휘'},
-      {letter:'N', sub:'사고'},
-      {letter:'T', sub:'표현'},
-      {letter:'A', sub:'소통'},
-    ];
-    const labelRing = pentagonRing(sz * 0.82, 0);
-    labelRing.forEach((p, i)=>{
-      let q = ry(p, eyA); q = rx(q, exA);
-      const pp = proj(q);
-      // depth-based alpha (front brighter, back dimmer)
-      const alpha = Math.max(0.08, Math.min(0.85, 0.25 + (pp[2] - 0.5) * 1.2));
-      ctx.save();
-      ctx.globalAlpha = alpha;
-      ctx.textAlign = 'center';
-      ctx.fillStyle = `rgba(201,168,76,1)`;
-      ctx.font = `800 ${Math.round(18*pp[2])}px 'Pretendard', sans-serif`;
-      ctx.fillText(LABELS[i].letter, pp[0], pp[1] - 4*pp[2]);
-      ctx.fillStyle = `rgba(255,255,255,0.7)`;
-      ctx.font = `600 ${Math.round(10*pp[2])}px 'Pretendard', sans-serif`;
-      ctx.letterSpacing = '1px';
-      ctx.fillText(LABELS[i].sub, pp[0], pp[1] + 11*pp[2]);
-      ctx.restore();
+    /* 모서리 그리기 — 뒤쪽(scale 작음)은 흐리게 */
+    EDGES.forEach(([i,j])=>{
+      const s = (verts[i][2]+verts[j][2])*0.5;
+      const a = Math.max(0.04, Math.min(0.45, (s-0.55)*1.1));
+      ctx.beginPath();
+      ctx.moveTo(verts[i][0],verts[i][1]);
+      ctx.lineTo(verts[j][0],verts[j][1]);
+      ctx.strokeStyle = `rgba(201,168,76,${a.toFixed(2)})`;
+      ctx.lineWidth = 0.9;
+      ctx.stroke();
     });
+
+    /* 파티클 */
+    PARTICLES.forEach(p=>{
+      p.x += p.sp*0.4; if(p.x>400) p.x=-400;
+      let pt = ryFn([p.x,p.y,p.z],eyA); pt=rxFn(pt,exA);
+      const pp=proj(pt);
+      const a=Math.min(0.5,Math.max(0.05,0.1+(pp[2]-0.3)));
+      ctx.beginPath(); ctx.arc(pp[0],pp[1],p.r*pp[2],0,Math.PI*2);
+      ctx.fillStyle=`rgba(201,168,76,${a.toFixed(2)})`; ctx.fill();
+    });
+
+    /* PENTA 레이블 — 위쪽 면 꼭짓점, 데스크톱만 */
+    if(W>600){
+      TOP_FACE.forEach((vi,i)=>{
+        const pp=verts[vi];
+        const a=Math.max(0.1,Math.min(0.9,0.2+(pp[2]-0.5)*1.5));
+        ctx.save(); ctx.globalAlpha=a; ctx.textAlign='center';
+        ctx.fillStyle='rgba(201,168,76,1)';
+        ctx.font=`800 ${Math.round(17*pp[2])}px 'Pretendard',sans-serif`;
+        ctx.fillText(LBLS[i],pp[0],pp[1]-4*pp[2]);
+        ctx.fillStyle='rgba(255,255,255,0.65)';
+        ctx.font=`600 ${Math.round(9*pp[2])}px 'Pretendard',sans-serif`;
+        ctx.fillText(SUBLBLS[i],pp[0],pp[1]+10*pp[2]);
+        ctx.restore();
+      });
+    }
   }
   tick();
-
-  /* Photo parallax */
-  const photo = document.querySelector('.hero-photo-wrap');
-  if(photo){
-    document.addEventListener('mousemove', e=>{
-      const px = (e.clientX/window.innerWidth -0.5)*18;
-      const py = (e.clientY/window.innerHeight-0.5)*10;
-      photo.style.transform = `rotateY(${-px}deg) rotateX(${py}deg)`;
-      photo.style.transition = 'transform 0.12s ease-out';
-    });
-    document.addEventListener('mouseleave', ()=>{
-      photo.style.transform = '';
-    });
-  }
 })();
 
 /* ─── Scroll reveal / Filter ─── */
