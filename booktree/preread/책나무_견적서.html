@@ -270,12 +270,37 @@
   }
   .comment-copy:hover { border-color: var(--gold); color: var(--black); }
 
+  /* ── BASE PACKAGE ── */
+  .base-pkg { background: var(--black); border-radius: 10px; padding: 32px; display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; margin-bottom: 16px; }
+  .base-pkg-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .base-pkg-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.4; }
+  .base-pkg-list { list-style: none; font-size: 13px; }
+  .base-pkg-list li { padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; color: rgba(255,255,255,0.65); }
+  .base-pkg-list li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+  .base-pkg-right { text-align: right; flex-shrink: 0; }
+  .base-pkg-price { font-size: 52px; font-weight: 900; color: var(--gold); letter-spacing: -0.03em; line-height: 1; white-space: nowrap; }
+  .base-pkg-unit { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 6px; }
+
+  /* ── ADD-ON ── */
+  .addon-head { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute); margin-bottom: 12px; margin-top: 4px; }
+  .addon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .addon-card { border: 1.5px solid var(--line); border-radius: 8px; padding: 20px; }
+  .addon-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .addon-price { font-size: 32px; font-weight: 900; color: var(--black); letter-spacing: -0.03em; margin-bottom: 4px; }
+  .addon-unit { font-size: 13px; color: var(--mute); margin-bottom: 12px; }
+  .addon-bullets { list-style: none; font-size: 13px; border-top: 1px solid var(--line); padding-top: 12px; }
+  .addon-bullets li { padding: 3px 0; display: flex; gap: 8px; align-items: flex-start; color: var(--mute); }
+  .addon-bullets li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+
   @media print {
     .comment-toggle, .comment-panel { display: none !important; }
     .section { page-break-inside: avoid; }
   }
   @media (max-width: 700px) {
-    .option-grid, .inout-cols, .ext-grid, .terms-grid, .tier-grid { grid-template-columns: 1fr; }
+    .option-grid, .inout-cols, .ext-grid, .terms-grid, .tier-grid, .addon-grid { grid-template-columns: 1fr; }
+    .base-pkg { flex-direction: column; gap: 20px; }
+    .base-pkg-right { text-align: left; }
+    .base-pkg-price { font-size: 38px; }
     .ext-grid { grid-template-columns: 1fr; }
     .inout-col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
     .wrap { padding: 0 18px; }
@@ -292,7 +317,7 @@
   <div class="doc-header">
     <div class="label">Quotation · 2026</div>
     <h1>책나무 원격연수원<br>구축 견적서</h1>
-    <p class="sub">대표/필수/선택 3단계 과정 구성 · LMS 플랫폼 별도 · VAT 별도</p>
+    <p class="sub">Base Package 8,300만 + 과정 추가 단가 · VAT 별도 · 구축 기간 약 6개월</p>
     <div class="doc-meta">
       <div><strong>수신</strong> 책나무 대표</div>
       <div><strong>발신</strong> PENTA LAB</div>
@@ -306,54 +331,50 @@
   <div class="section" id="sec-pricing" data-sec-name="견적 구성">
     <div class="section-label">Pricing Summary</div>
     <h2>견적 구성</h2>
-    <p class="desc">과정 유형에 따라 단가가 다릅니다. LMS 플랫폼은 과정 수와 무관하게 1회 별도 청구됩니다. 모든 금액은 VAT 별도입니다.</p>
+    <p class="desc">대표과정 1과정 + LMS 플랫폼 + 자격체계를 기본 패키지로 제공합니다. 이후 자격증과정 수에 따라 필수·선택 과정을 추가합니다. 모든 금액은 VAT 별도입니다.</p>
 
-    <!-- 3단계 과정 단가 -->
-    <div class="tier-grid">
-      <div class="tier-card">
-        <div class="tier-label">대표과정</div>
-        <div class="tier-price">5,000만원</div>
-        <div class="tier-unit">/ 과정 · VAT 별도</div>
-        <ul class="tier-bullets">
-          <li>이은경 대표 + 책나무 대표강사 공동 기획·출연</li>
-          <li>15차시 내외 · 차시당 30분 내외</li>
-          <li>교재 집필·레이아웃·PDF 납품 포함</li>
-          <li>스튜디오 2회 이상 포함</li>
-          <li>자격증 필수 취득 연계</li>
+    <!-- 기본 패키지 -->
+    <div class="base-pkg">
+      <div>
+        <div class="base-pkg-eyebrow">Base Package · 턴키 기본</div>
+        <div class="base-pkg-title">대표과정 1과정 + LMS 플랫폼 + 자격체계</div>
+        <ul class="base-pkg-list">
+          <li>대표과정 1과정 완전 제작 — 이은경 대표 + 책나무 대표강사 공동 출연, 15차시 내외, 교수설계·교재·평가 일체 포함</li>
+          <li>책나무 전용 LMS 플랫폼 — PG 결제 게이트웨이·수료 자동화·학습 분석(Learning Analytics) 대시보드 일체</li>
+          <li>자격 프레임워크(Qualification Framework) 설계 + 민간자격 등록 대행 (한국직업능력연구원 기준)</li>
+          <li>클라우드 인프라(AWS) 1년 · 운영 코칭 2개월 포함</li>
         </ul>
       </div>
-      <div class="tier-card highlight">
-        <div class="tier-label">필수과정</div>
-        <div class="tier-price">3,000만원</div>
-        <div class="tier-unit">/ 과정 · VAT 별도</div>
-        <ul class="tier-bullets">
-          <li>이은경 대표 단독 기획·출연</li>
-          <li>10차시 내외 · 차시당 25분 내외</li>
-          <li>교재 집필·레이아웃·PDF 납품 포함</li>
-          <li>스튜디오 1회 포함</li>
-          <li>자격증 필수 취득 연계</li>
-        </ul>
-      </div>
-      <div class="tier-card">
-        <div class="tier-label">선택과정</div>
-        <div class="tier-price">2,000만원</div>
-        <div class="tier-unit">/ 과정 · VAT 별도</div>
-        <ul class="tier-bullets">
-          <li>이은경 대표 기획·감수, 전문 강사 출연</li>
-          <li>10차시 내외 · 차시당 25분 내외</li>
-          <li>교재 집필·레이아웃·PDF 납품 포함</li>
-          <li>스튜디오 1회 포함</li>
-          <li>자격증 선택 취득 연계</li>
-        </ul>
+      <div class="base-pkg-right">
+        <div class="base-pkg-price">8,300만원</div>
+        <div class="base-pkg-unit">VAT 별도 · 구축 기간 약 6개월</div>
       </div>
     </div>
 
-    <!-- LMS 플랫폼 별도 -->
-    <div class="platform-row">
-      <div class="platform-label">LMS 플랫폼 구축 (별도)</div>
-      <div class="platform-price-wrap">
-        <div class="platform-price">2,500만원</div>
-        <div class="platform-unit">1회 청구 · 과정 수와 무관 · VAT 별도</div>
+    <!-- 과정 추가 단가 -->
+    <div class="addon-head">+ 과정 추가 단가 — 기본 패키지 완료 후 자격증과정 수에 따라 추가</div>
+    <div class="addon-grid">
+      <div class="addon-card">
+        <div class="addon-label">필수과정</div>
+        <div class="addon-price">3,000만원</div>
+        <div class="addon-unit">/ 과정 · VAT 별도</div>
+        <ul class="addon-bullets">
+          <li>이은경 대표 단독 기획·출연</li>
+          <li>10차시 내외 · 차시당 25분 내외</li>
+          <li>교수설계 명세서·교재·평가 포함</li>
+          <li>자격증 필수 취득 연계</li>
+        </ul>
+      </div>
+      <div class="addon-card">
+        <div class="addon-label">선택과정</div>
+        <div class="addon-price">2,000만원</div>
+        <div class="addon-unit">/ 과정 · VAT 별도</div>
+        <ul class="addon-bullets">
+          <li>이은경 대표 기획·감수, 전문 강사 출연</li>
+          <li>10차시 내외 · 차시당 25분 내외</li>
+          <li>교수설계 명세서·교재·평가 포함</li>
+          <li>자격증 선택 취득 연계</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -386,26 +407,26 @@
           </thead>
           <tbody>
             <tr>
-              <td class="col-item">과정 선정 컨설팅</td>
-              <td class="col-spec">과정명·수강 대상·학습 목표 설계, 책나무 브랜드 방향성 반영, 미팅 최대 2회</td>
+              <td class="col-item">러닝 아키텍처 기획</td>
+              <td class="col-spec">과정명·학습 대상(Target Audience)·학습 목표(Learning Objectives) 정의, 책나무 브랜드 방향성 반영, 킥오프 미팅 최대 2회</td>
               <td class="col-mkt">100만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">커리큘럼 설계서</td>
-              <td class="col-spec">10~15차시 전체 학습 흐름 설계, 차시별 학습목표·핵심 내용·활동 정의</td>
+              <td class="col-item">교수설계 명세서</td>
+              <td class="col-spec">Instructional Design Specification — 10~15차시 전체 학습 시퀀스(Sequence) 설계, 차시별 학습목표·핵심 내용·학습 활동(Learning Activity) 정의</td>
               <td class="col-mkt">150만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">강의 기획안 (스크립트)</td>
-              <td class="col-spec">차시별 강의 흐름 기획안 작성 — 강사 촬영 전 전달용</td>
+              <td class="col-item">강의 스크립트 및 스토리보드</td>
+              <td class="col-spec">차시별 강의 스크립트 + 촬영 콘티(Storyboard) 작성 — 강사 촬영 전 전달용</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">LMS 과정 등록·세팅</td>
-              <td class="col-spec">플랫폼 내 과정 생성, 차시 구성, 수료 조건 설정, 수강 흐름 점검</td>
+              <td class="col-item">LMS 코스웨어 등록·구성</td>
+              <td class="col-spec">플랫폼 내 코스웨어(Courseware) 등록, 학습 경로(Learning Path) 구성, 수료 조건 및 수강 흐름 사전 검수</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
@@ -430,50 +451,50 @@
           </thead>
           <tbody>
             <tr>
-              <td class="col-item">강사 — 이은경 대표 직접 출연</td>
-              <td class="col-spec">기본 3과정은 이은경 대표 본인이 직접 출연. 일정 조율·촬영 준비 일체 포함</td>
+              <td class="col-item">강사 섭외 및 일정 조율</td>
+              <td class="col-spec">전문 강사 섭외·계약, 촬영 일정 조율·준비 일체 (필수과정: 이은경 대표 단독 / 선택과정: PENTA 네트워크 전문 강사)</td>
               <td class="col-mkt">—</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">강사 출연료</td>
-              <td class="col-spec">촬영 기간 4~5일 기준 출연료 포함 (일당 100~120만원 수준)</td>
+              <td class="col-item">출연료 및 저작인접권 처리</td>
+              <td class="col-spec">촬영 4~5일 기준 출연료 + 초상권·저작인접권 사용 동의 일체 포함</td>
               <td class="col-mkt">500만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">스튜디오 대관</td>
-              <td class="col-spec">촬영 일정 기준 스튜디오 예약·대관, 조명 세팅 포함</td>
+              <td class="col-item">촬영 스튜디오 대관</td>
+              <td class="col-spec">스튜디오 예약·대관 — 키라이트·백라이트·필라이트 3점 조명 세팅 포함</td>
               <td class="col-mkt">60만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
               <td class="col-item">촬영 장비 일체</td>
-              <td class="col-spec">카메라(4K), 조명, 마이크(라발리에), 프롬프터 등 촬영에 필요한 장비 전체</td>
+              <td class="col-spec">4K 카메라 · 3점 조명 · 라발리에 마이크 · 프롬프터(Teleprompter) 등 촬영 장비 전체</td>
               <td class="col-mkt">40만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">영상 편집 (차시별)</td>
-              <td class="col-spec">컷 편집, 색보정, 음향 정리, 화면 전환, 강조 텍스트 삽입 — 차시당 15만원 기준</td>
+              <td class="col-item">멀티트랙 편집 및 후처리</td>
+              <td class="col-spec">컷 편집 · 색보정(Color Grading) · 음향 후처리(Sound Mastering) · 화면 전환 · 강조 텍스트 삽입 — 차시당 15만원 기준</td>
               <td class="col-mkt">150~225만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">자막 삽입 (차시별)</td>
-              <td class="col-spec">전 차시 한국어 자막 제작 및 싱크 — 차시당 5만원 기준</td>
+              <td class="col-item">CC 자막 및 타임코드 동기화</td>
+              <td class="col-spec">전 차시 한국어 CC(Closed Caption) 제작 및 타임코드(Timecode) 동기화 — 차시당 5만원 기준</td>
               <td class="col-mkt">50~75만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">인트로·아웃트로 제작</td>
-              <td class="col-spec">책나무 브랜드 적용 오프닝·엔딩 영상 (과정당 1세트, 전 차시 공통 사용)</td>
+              <td class="col-item">브랜드 모션그래픽 인트로·아웃트로</td>
+              <td class="col-spec">책나무 브랜드 CI 적용 오프닝·엔딩 모션그래픽 (과정당 1세트, 전 차시 공통 사용)</td>
               <td class="col-mkt">50만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">썸네일 디자인 (차시별)</td>
-              <td class="col-spec">LMS 내 차시 썸네일 이미지 — 차시별 1장</td>
+              <td class="col-item">차시 썸네일 디자인</td>
+              <td class="col-spec">LMS 내 차시 썸네일 이미지 — 차시별 1장, 브랜드 가이드라인 준수</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
@@ -498,20 +519,20 @@
           </thead>
           <tbody>
             <tr>
-              <td class="col-item">교재 원고 집필</td>
-              <td class="col-spec">차시별 학습자료 원고 작성 — A4 기준 4~8페이지/차시, 총 40~120페이지</td>
+              <td class="col-item">교수학습 자료 개발</td>
+              <td class="col-spec">Teaching &amp; Learning Materials — 차시별 학습자료 원고 작성, A4 기준 4~8p/차시, 총 40~120p</td>
               <td class="col-mkt">200만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">교재 레이아웃 디자인</td>
-              <td class="col-spec">책나무 브랜드 적용, 표·이미지·도식 포함 인쇄용 레이아웃 완성</td>
+              <td class="col-item">편집 디자인 및 인쇄 원고 제작</td>
+              <td class="col-spec">InDesign 기준 편집 디자인 — 책나무 브랜드 CI 적용, 표·인포그래픽·도식 포함, CMYK 4도 인쇄용 원고 완성</td>
               <td class="col-mkt">150만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
               <td class="col-item">PDF 최종 파일 납품</td>
-              <td class="col-spec">인쇄용(고해상도) + 디지털 배포용(저용량) 2종 납품</td>
+              <td class="col-spec">인쇄용 고해상도 PDF(300dpi) + 웹 배포용 최적화 PDF 2종 납품</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
@@ -542,20 +563,20 @@
           </thead>
           <tbody>
             <tr>
-              <td class="col-item">차시별 퀴즈 문항</td>
-              <td class="col-spec">차시당 3~5문항, 객관식·OX 혼합 — 총 30~75문항, LMS 자동 채점 세팅 포함</td>
+              <td class="col-item">형성평가 문항 개발</td>
+              <td class="col-spec">Formative Assessment — 차시당 3~5문항, 객관식·OX 혼합, 총 30~75문항, LMS 자동채점 로직 연동</td>
               <td class="col-mkt">150만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">과정 종합 평가</td>
-              <td class="col-spec">과정 이수 후 최종 평가 — 20문항 이상, 합격 기준 설정</td>
+              <td class="col-item">총괄평가 설계</td>
+              <td class="col-spec">Summative Assessment — 과정 이수 후 최종 평가 20문항 이상, 합격 기준(Cut Score) 설정</td>
               <td class="col-mkt">100만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">수료 조건 설계</td>
-              <td class="col-spec">진도율 기준 + 평가 합격 기준 설정, 자동 수료 판정 연동</td>
+              <td class="col-item">이수 기준 및 자동 판정 로직</td>
+              <td class="col-spec">Completion Criteria — 진도율 기준 + 평가 합격 조건 정의, LMS 자동 이수 판정 로직 구현</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
@@ -602,56 +623,56 @@
           </thead>
           <tbody>
             <tr>
-              <td class="col-item">브랜드·도메인 적용</td>
-              <td class="col-spec">책나무 로고·컬러 시스템 적용, 전용 도메인 구매 및 연동, SSL 인증서 설치</td>
+              <td class="col-item">브랜드 CI 적용 및 도메인 구성</td>
+              <td class="col-spec">책나무 로고·컬러시스템 적용, 전용 도메인 구매 및 DNS 연동, SSL/TLS 인증서 설치</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">회원 관리 시스템</td>
-              <td class="col-spec">교사 계정 생성·발급·일괄 등록, 지사별 그룹 관리, 수강 이력 조회</td>
+              <td class="col-item">역할 기반 접근 제어(RBAC)</td>
+              <td class="col-spec">사용자 계정 관리 및 역할 기반 접근 제어(Role-Based Access Control) — 교사 계정 일괄 등록·발급, 지사별 코호트(Cohort) 구성</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">강의 스트리밍</td>
-              <td class="col-spec">영상 업로드·스트리밍 환경, 배속 재생, 이어보기, 모바일 대응</td>
+              <td class="col-item">적응형 스트리밍 환경 구축</td>
+              <td class="col-spec">Adaptive Bitrate Streaming — 영상 업로드·스트리밍 환경, 배속 재생·이어보기·모바일 대응</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">진도율·이수 자동 관리</td>
-              <td class="col-spec">차시별 진도율 자동 추적, 수료 조건 자동 판정, 이수 완료 기록</td>
+              <td class="col-item">학습 이력 자동 추적</td>
+              <td class="col-spec">차시별 진도율 실시간 집계, 수료 조건 자동 판정, 이수 완료 기록 영구 보존</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">퀴즈·과제 시스템</td>
-              <td class="col-spec">차시별 퀴즈 자동 채점, 과제 제출·관리자 확인, 결과 자동 기록</td>
+              <td class="col-item">평가 자동채점 엔진 및 과제 워크플로우</td>
+              <td class="col-spec">형성평가 자동채점 엔진 + 과제 제출·관리자 검토 워크플로우, 결과 자동 기록</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">본사 관리자 대시보드</td>
-              <td class="col-spec">전체 수강 현황·지사별 이수율·교사별 이력·수료 통계, CSV 내보내기</td>
+              <td class="col-item">학습 분석(Learning Analytics) 대시보드</td>
+              <td class="col-spec">전체 수강 현황·지사별 이수율·교사별 학습 이력·수료 통계 BI 리포트, CSV 익스포트</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">수강료 결제 시스템</td>
-              <td class="col-spec">카드·계좌이체·간편결제 연동, 결제 내역 자동 기록, 환불 처리 기능</td>
+              <td class="col-item">PG사 연동 결제 게이트웨이</td>
+              <td class="col-spec">카드·계좌이체·간편결제 멀티채널 PG 연동, 결제 내역 자동 원장 기록, 환불 처리 기능</td>
               <td class="col-mkt">300만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">수료증 자동 발급</td>
-              <td class="col-spec">수료 조건 충족 시 자동 생성, 책나무 브랜드 디자인, PDF 다운로드, 고유번호 부여</td>
+              <td class="col-item">수료 인증서 자동 발급</td>
+              <td class="col-spec">수료 조건 충족 시 인증서(Certificate of Completion) 자동 생성·발급, 위·변조 방지 고유번호 부여, PDF 다운로드</td>
               <td class="col-mkt">200만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">모바일 반응형</td>
-              <td class="col-spec">PC·태블릿·스마트폰 전 기기 정상 작동 보장</td>
+              <td class="col-item">반응형 웹(RWD) 전 디바이스 대응</td>
+              <td class="col-spec">PC·태블릿·스마트폰 전 디바이스, 크로스브라우저(Chrome·Safari·Edge) 정상 작동 보장</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
@@ -668,14 +689,14 @@
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">이메일 발송 서비스 1년</td>
-              <td class="col-spec">수강 안내·수료 알림·자격 갱신 안내 발송 서비스 1년치</td>
+              <td class="col-item">트랜잭셔널 이메일 발송 서비스 1년</td>
+              <td class="col-spec">Transactional Email — 수강 안내·수료 알림·자격 갱신 알림 자동 발송 서비스 1년치</td>
               <td class="col-mkt">60만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
               <td class="col-item">운영 매뉴얼 납품</td>
-              <td class="col-spec">본사 담당자용 관리 매뉴얼, 교사용 이용 가이드 PDF 각 1종</td>
+              <td class="col-spec">본사 관리자용 어드민 매뉴얼 + 교사용 UX 가이드 PDF 각 1종 납품</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
@@ -720,20 +741,20 @@
           </thead>
           <tbody>
             <tr>
-              <td class="col-item">자격 등급 설계</td>
-              <td class="col-spec">2단계 이상 자격 등급 체계 설계, 등급별 취득·유지·갱신 요건 전체 정의</td>
+              <td class="col-item">자격 프레임워크 설계</td>
+              <td class="col-spec">Qualification Framework — 2단계 이상 등급 체계 설계, 등급별 역량 기술서(Competency Descriptor) 및 취득·유지·갱신 요건 전체 정의</td>
               <td class="col-mkt">300만</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">갱신 알림 자동화</td>
-              <td class="col-spec">유효기간 만료 30·7일 전 이메일 자동 발송 (LMS 플랫폼 내 처리)</td>
+              <td class="col-item">유효기간 만료 알림 자동화</td>
+              <td class="col-spec">D-30·D-7 트리거 기반 이메일 자동 발송 — LMS 플랫폼 내 스케줄 처리</td>
               <td class="col-mkt">포함</td>
               <td class="col-inc">✓</td>
             </tr>
             <tr>
-              <td class="col-item">자격 조회 페이지</td>
-              <td class="col-spec">고유번호 입력 시 자격 유효성 확인 가능한 공개 조회 페이지</td>
+              <td class="col-item">자격 진위 확인 공개 조회 시스템</td>
+              <td class="col-spec">고유번호 입력 시 실시간 유효성 검증 — 위·변조 방지 공개 조회 페이지</td>
               <td class="col-mkt">100만</td>
               <td class="col-inc">✓</td>
             </tr>
