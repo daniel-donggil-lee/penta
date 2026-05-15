@@ -193,8 +193,18 @@
   .full-note strong { color: var(--black); }
 
   /* ── FOOTER ── */
-  footer { padding: 36px 0 48px; border-top: 2px solid var(--black); font-size: 12px; color: var(--mute); }
-  footer .brand { font-weight: 800; color: var(--black); letter-spacing: 0.1em; margin-bottom: 2px; }
+  footer { background: var(--black); color: rgba(255,255,255,0.55); font-size: 13px; margin-top: 0; }
+  .footer-main { padding: 48px 0 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+  .footer-col-title { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .footer-brand-sub { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 4px; }
+  .footer-links { list-style: none; }
+  .footer-links li { padding: 4px 0; }
+  .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bar { border-top: 1px solid rgba(255,255,255,0.1); padding: 16px 0; display: flex; align-items: center; gap: 24px; font-size: 11px; color: rgba(255,255,255,0.3); }
+  .footer-bar a { color: rgba(255,255,255,0.3); text-decoration: none; }
+  .footer-bar a:hover { color: rgba(255,255,255,0.6); }
+  @media print { footer { display: none; } }
 
   /* ── COMMENT SYSTEM ── */
   .comment-toggle {
@@ -1016,8 +1026,40 @@
 
 <footer>
   <div class="wrap">
-    <div class="brand">PENTA LAB</div>
-    <div>책나무 대표 전용 · 외부 유출 삼가 · 2026</div>
+    <div class="footer-main">
+      <!-- 좌: 브랜드 -->
+      <div>
+        <div class="footer-col-title">펜타랩</div>
+        <p class="footer-brand-sub">교육 콘텐츠 &middot; 이러닝 플랫폼 &middot; 에듀테크 전문 스튜디오</p>
+        <p class="footer-brand-sub">PENTA LAB Co., Ltd.</p>
+        <p class="footer-brand-sub" style="margin-top:10px;">이메일 문의 · contact@openpenta.com</p>
+        <p class="footer-brand-sub">이 견적서는 수신인 전용이며 외부 유출을 삼가 주십시오.</p>
+      </div>
+      <!-- 중: 빠른 링크 -->
+      <div>
+        <div class="footer-col-title">빠른 링크</div>
+        <ul class="footer-links">
+          <li><a href="#sec-pricing">견적 구성</a></li>
+          <li><a href="#sec-course">대표과정 세목</a></li>
+          <li><a href="#sec-platform">LMS 플랫폼</a></li>
+          <li><a href="#sec-qual">자격 체계</a></li>
+          <li><a href="#sec-addon">연수과정 세목</a></li>
+          <li><a href="#sec-terms">계약 조건</a></li>
+        </ul>
+      </div>
+      <!-- 우: 발신처 -->
+      <div>
+        <div class="footer-col-title">발신처</div>
+        <p class="footer-brand-sub">펜타랩 (PENTA LAB)</p>
+        <p class="footer-brand-sub">이은경 대표 &middot; 이동길 CTO</p>
+        <p class="footer-brand-sub" style="margin-top:10px;">유효기간 발행일로부터 30일</p>
+        <p class="footer-brand-sub">VAT 별도 · 구축 기간 약 6개월</p>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <a href="#">개인정보처리방침</a>
+      <span>&copy; 2026 펜타랩 (PENTA LAB). All rights reserved.</span>
+    </div>
   </div>
 </footer>
 
