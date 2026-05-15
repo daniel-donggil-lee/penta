@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>책나무 원격연수원 커리큘럼 설계안 — PENTA LAB</title>
+<style>
+  :root {
+    --navy: #0a1628;
+    --gold: #c9a84c;
+    --gold-light: #e8d49e;
+    --gray-100: #f7f8fa;
+    --gray-200: #e9ecef;
+    --gray-400: #9098a9;
+    --gray-700: #3d4656;
+    --text: #1a2333;
+    --border: #dde2ea;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    background: #f4f5f7;
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ── 헤더 ── */
+  .doc-header {
+    background: var(--navy);
+    color: #fff;
+    padding: 48px 60px 40px;
+  }
+  .doc-header .label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .doc-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .doc-header .meta {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+  }
+  .doc-header .meta span { margin-right: 24px; }
+
+  /* ── 메인 ── */
+  .doc-body {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── 섹션 ── */
+  .section {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 28px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+
+  /* ── 과정 개요 카드 ── */
+  .course-overview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .overview-card {
+    background: var(--gray-100);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .overview-card .oc-label {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-bottom: 4px;
+  }
+  .overview-card .oc-value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* ── 트랙 헤더 ── */
+  .track-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+  .track-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .track-badge.basic {
+    background: #e8f0fe;
+    color: #1a56db;
+  }
+  .track-badge.advanced {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  .track-desc {
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+
+  /* ── 차시 카드 ── */
+  .lesson-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+
+  .lesson-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .lesson-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 20px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .lesson-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .lesson-num.advanced-num {
+    background: var(--gold);
+    color: var(--navy);
+  }
+  .lesson-info { flex: 1; }
+  .lesson-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+    letter-spacing: -0.2px;
+  }
+  .lesson-question {
+    font-size: 13px;
+    color: var(--gray-400);
+    font-style: italic;
+  }
+
+  .lesson-body {
+    padding: 16px 20px 18px 72px;
+    background: var(--gray-100);
+    border-top: 1px solid var(--border);
+  }
+  .lesson-body .body-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 10px;
+  }
+  .point-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .point-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--gray-700);
+  }
+  .point-list li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 7px;
+  }
+
+  /* ── 5과정 개요 테이블 ── */
+  .course-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .course-table th {
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+  .course-table th:first-child { border-radius: 8px 0 0 0; }
+  .course-table th:last-child { border-radius: 0 8px 0 0; }
+  .course-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .course-table tr:last-child td { border-bottom: none; }
+  .course-table tr:nth-child(even) td { background: var(--gray-100); }
+  .course-table .course-num {
+    font-weight: 700;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .course-table .course-name {
+    font-weight: 700;
+    color: var(--text);
+  }
+  .course-table .course-desc {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 3px;
+  }
+  .badge-basic {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #1a56db;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  .badge-adv {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+  .badge-lv {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 4px;
+  }
+  .highlight-row td { background: #fffbf0 !important; }
+
+  /* ── 경쟁 분석 ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .compare-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .compare-card .cc-head {
+    padding: 14px 16px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .compare-card.hanuri .cc-head { background: #e8f0fe; color: #1a56db; }
+  .compare-card.readin .cc-head { background: #fce7f3; color: #9d174d; }
+  .compare-card.booktree .cc-head { background: #d1fae5; color: #065f46; }
+  .compare-card .cc-body {
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.8;
+  }
+  .compare-card .cc-gap {
+    padding: 12px 16px;
+    background: var(--gray-100);
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+  .compare-card .cc-gap strong { color: var(--text); font-weight: 700; }
+
+  /* ── 갭 분석 ── */
+  .gap-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .gap-item {
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 18px;
+    background: #fff;
+  }
+  .gap-item .gi-title {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .gap-item .gi-desc {
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+
+  /* ── 노트 박스 ── */
+  .note-box {
+    background: #fffbf0;
+    border: 1px solid #f0d98a;
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #78530a;
+    margin-top: 20px;
+  }
+  .note-box strong { color: #92400e; }
+
+  /* ── 푸터 ── */
+  .doc-footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    color: var(--gray-400);
+  }
+
+  @media print {
+    body { background: #fff; font-size: 13px; }
+    .doc-body { margin: 0; padding: 0 20px; }
+    .section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="label">Curriculum Design — Confidential</div>
+  <h1>책나무 원격연수원 커리큘럼 설계안</h1>
+  <div class="meta">
+    <span>PENTA LAB</span>
+    <span>작성일 2026-05-15</span>
+    <span>Ver. 0.1 — 이은경 대표 커리 반영 전</span>
+  </div>
+</div>
+
+<div class="doc-body">
+
+  <!-- ── 경쟁사 분석 ── -->
+  <div class="section">
+    <div class="section-label">Market Research</div>
+    <div class="section-title">경쟁사 교사 교육 현황과 빈틈</div>
+
+    <div class="compare-grid">
+      <div class="compare-card hanuri">
+        <div class="cc-head">한우리독서토론논술</div>
+        <div class="cc-body">
+          교육 규모: 64차시 (원격 60 + OJT 4)<br>
+          자격 체계: 독서지도사 — 협회 발급, 업계 최고 공신력<br>
+          가격: 원격 42만 / 출석 54만<br>
+          35년 업력, 6.5만 교사 양성
+        </div>
+        <div class="cc-gap"><strong>강점:</strong> 자격 공신력 최강</div>
+      </div>
+      <div class="compare-card readin">
+        <div class="cc-head">리드인</div>
+        <div class="cc-body">
+          교사 관리: 카카오 점수표 실시간 전송<br>
+          평가: 학생 성과 데이터 기반<br>
+          공식 자격 체계: 불명확<br>
+          기술 차별화로 빠르게 성장 중
+        </div>
+        <div class="cc-gap"><strong>강점:</strong> 실시간 데이터 관리</div>
+      </div>
+      <div class="compare-card booktree">
+        <div class="cc-head">책나무 (현재)</div>
+        <div class="cc-body">
+          교사 교육 과정: 공개 정보 없음<br>
+          자격 체계: 없음<br>
+          가맹 교사 수: 700명+<br>
+          폐업률 0%대, 매출 42.7억 — 기반은 탄탄
+        </div>
+        <div class="cc-gap"><strong>빈틈:</strong> 교사 역량 관리 시스템 전무</div>
+      </div>
+    </div>
+
+    <div class="gap-list" style="margin-top: 20px;">
+      <div class="gap-item">
+        <div class="gi-title">책나무 전용 자격 체계 없음</div>
+        <div class="gi-desc">700명 교사를 관리하는 공식 등급 체계가 없음. 이탈 비용 = 0.</div>
+      </div>
+      <div class="gap-item">
+        <div class="gi-title">교사 성장 경로 없음</div>
+        <div class="gi-desc">입문→숙련→마스터 단계별 커리어 경로 업계 전체에 없음.</div>
+      </div>
+      <div class="gap-item">
+        <div class="gi-title">학부모 소통 교육 없음</div>
+        <div class="gi-desc">기술 교육에만 치우침. 상담·재등록 유도 역량 교육 전무.</div>
+      </div>
+      <div class="gap-item">
+        <div class="gi-title">디지털 실무 교육 없음</div>
+        <div class="gi-desc">카카오 점수 전송, 학생 기록 자동화 같은 실무 교육 없음.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5과정 전체 구조 ── -->
+  <div class="section">
+    <div class="section-label">Curriculum Overview</div>
+    <div class="section-title">5과정 교사 성장 경로</div>
+
+    <table class="course-table">
+      <thead>
+        <tr>
+          <th>과정</th>
+          <th>과정명</th>
+          <th>대상 교사</th>
+          <th>구성</th>
+          <th>수료 자격</th>
+          <th>수강료</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td class="course-num">1과정</td>
+          <td>
+            <div class="course-name">책나무 교사 입문</div>
+            <div class="course-desc">첫 수업부터 학부모 신뢰까지<br>현장 생존 키트</div>
+          </td>
+          <td>가맹 예정 /<br>신규 교사</td>
+          <td>
+            <span class="badge-basic">기본 6</span>
+            <span class="badge-adv">심화 4</span>
+          </td>
+          <td><span class="badge-lv">Lv. 1</span></td>
+          <td>20만원</td>
+        </tr>
+        <tr>
+          <td class="course-num">2과정</td>
+          <td>
+            <div class="course-name">독서 진단과 맞춤 지도</div>
+            <div class="course-desc">학생별 수준 진단 +<br>개인화 지도안 설계</div>
+          </td>
+          <td>경력 6개월~1년</td>
+          <td>
+            <span class="badge-basic">기본 6</span>
+            <span class="badge-adv">심화 4</span>
+          </td>
+          <td><span class="badge-lv">Lv. 2</span></td>
+          <td>20만원</td>
+        </tr>
+        <tr>
+          <td class="course-num">3과정</td>
+          <td>
+            <div class="course-name">토론·논술 심화 지도</div>
+            <div class="course-desc">발문 기술 + 토론 촉진 +<br>글쓰기 지도</div>
+          </td>
+          <td>경력 1~2년</td>
+          <td>
+            <span class="badge-basic">기본 6</span>
+            <span class="badge-adv">심화 4</span>
+          </td>
+          <td><span class="badge-lv">Lv. 3</span></td>
+          <td>20만원</td>
+        </tr>
+        <tr>
+          <td class="course-num">4과정</td>
+          <td>
+            <div class="course-name">학부모 소통과 센터 운영</div>
+            <div class="course-desc">상담 스크립트 + 재등록 전략 +<br>수익 구조 이해</div>
+          </td>
+          <td>경력 2년+</td>
+          <td>
+            <span class="badge-basic">기본 4</span>
+            <span class="badge-adv">심화 4</span>
+          </td>
+          <td><span class="badge-lv">Lv. 4</span></td>
+          <td>20만원</td>
+        </tr>
+        <tr>
+          <td class="course-num">5과정</td>
+          <td>
+            <div class="course-name">마스터 교사와 후배 육성</div>
+            <div class="course-desc">신규 교사 코칭 +<br>커리큘럼 개발 참여</div>
+          </td>
+          <td>지역 대표급</td>
+          <td>
+            <span class="badge-basic">기본 4</span>
+            <span class="badge-adv">심화 4</span>
+          </td>
+          <td><span class="badge-lv">Lv. 5</span></td>
+          <td>20만원</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box" style="margin-top: 16px;">
+      <strong>수익 시뮬레이션:</strong> 과정당 연 3기 운영, 기당 100명 수강 기준 →
+      1과정 단독 6,000만원 / 5과정 풀 운영 시 연 3억원 반복 매출
+    </div>
+  </div>
+
+  <!-- ── 1과정 강의안 ── -->
+  <div class="section">
+    <div class="section-label">Course 1 — Full Lecture Plan</div>
+    <div class="section-title">1과정: 책나무 교사 입문 (10차시)</div>
+
+    <div class="course-overview">
+      <div class="overview-card">
+        <div class="oc-label">대상</div>
+        <div class="oc-value">가맹 예정 / 신규 교사</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-label">구성</div>
+        <div class="oc-value">기본 6 + 심화 4차시</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-label">수료 자격</div>
+        <div class="oc-value">Lv.1 취득</div>
+      </div>
+      <div class="overview-card">
+        <div class="oc-label">수강료</div>
+        <div class="oc-value">20만원</div>
+      </div>
+    </div>
+
+    <!-- 기본 트랙 -->
+    <div class="track-header">
+      <span class="track-badge basic">기본 트랙 — 필수 수강</span>
+      <span class="track-desc">6차시 / 가맹 등록 조건</span>
+    </div>
+
+    <div class="lesson-list">
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num">1</div>
+          <div class="lesson-info">
+            <div class="lesson-title">책나무 독서 교육 철학 — 왜 독서인가, 왜 책나무인가</div>
+            <div class="lesson-question">핵심 질문: 독서가 왜 공부보다 먼저여야 하는가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>책나무 교육 철학과 창업 스토리 — 대표님이 왜 이 사업을 시작했는가</li>
+            <li>가맹 교사의 역할 정의 — 강사가 아닌 독서 코치로의 전환</li>
+            <li>한우리·리드인과 책나무의 차별점 — 우리가 잘하는 것</li>
+            <li>책나무 교사로 성공한 사례 2~3개 (숫자 포함)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num">2</div>
+          <div class="lesson-info">
+            <div class="lesson-title">연령별 독서 발달 단계 — 초1부터 중3까지 무엇이 달라지는가</div>
+            <div class="lesson-question">핵심 질문: 같은 책을 같은 방식으로 가르치면 왜 안 되는가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>초등 저학년 (1~2학년): 소리 내어 읽기, 그림과 글의 연결, 이야기 구조 파악</li>
+            <li>초등 중학년 (3~4학년): 정보 추출, 인과관계 이해, 어휘 확장</li>
+            <li>초등 고학년 (5~6학년): 비판적 읽기 시작, 관점 파악, 글의 의도 파악</li>
+            <li>중학생 (1~3학년): 논증 구조 이해, 추론, 자기 의견 형성</li>
+            <li>학년별 도서 선정 기준과 흔한 실수 사례</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num">3</div>
+          <div class="lesson-info">
+            <div class="lesson-title">첫 수업 설계 — 학생 파악부터 교안 작성까지</div>
+            <div class="lesson-question">핵심 질문: 첫 수업에서 무엇을 반드시 알아야 하는가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>학생 입학 인터뷰 10가지 질문 — 독서 경험, 좋아하는 장르, 어려운 점</li>
+            <li>책나무 교안 양식 해설 — 각 항목의 의미와 작성 요령</li>
+            <li>50분 수업 흐름 기본형 — 도입 10분 / 본시 30분 / 정리 10분</li>
+            <li>실습: 가상 학생 정보를 주고 교안 작성해보기</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num">4</div>
+          <div class="lesson-info">
+            <div class="lesson-title">교재 완전 해독 — 책나무 교재 단원별 활용법</div>
+            <div class="lesson-question">핵심 질문: 교재를 어떻게 '내 것'으로 만드는가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>책나무 교재 구성 원리 — 왜 이 순서인가</li>
+            <li>단원별 핵심 활동과 빠지기 쉬운 함정</li>
+            <li>교재 밖으로 확장하는 발문 예시 20개</li>
+            <li>학생이 막혔을 때 교재를 우회하는 방법</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num">5</div>
+          <div class="lesson-info">
+            <div class="lesson-title">수업 실연과 자기 점검 — 좋은 수업은 무엇이 다른가</div>
+            <div class="lesson-question">핵심 질문: 내 수업의 어디가 부족한가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>모범 수업 영상 2편 분석 — 잘된 점, 아쉬운 점 토론</li>
+            <li>수업 자가진단 체크리스트 15항목</li>
+            <li>자주 나오는 실수 TOP 5와 즉각 개선 방법</li>
+            <li>수업 촬영 후 셀프 피드백 루틴 만들기</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num">6</div>
+          <div class="lesson-info">
+            <div class="lesson-title">학부모 첫 상담 — 신뢰를 만드는 대화법</div>
+            <div class="lesson-question">핵심 질문: 학부모가 나를 믿게 하려면 무엇이 필요한가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>입학 상담 완전 스크립트 — 첫 인사부터 등록 결정까지</li>
+            <li>자주 나오는 학부모 질문 20개와 모범 답변</li>
+            <li>첫 달 수업 후 피드백 전화 요령 — 재등록을 부르는 대화</li>
+            <li>학부모 유형별 소통 전략 (꼼꼼형 / 결과 중심형 / 방관형)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 심화 트랙 -->
+    <div class="track-header">
+      <span class="track-badge advanced">심화 트랙 — Lv.1 자격 취득 조건</span>
+      <span class="track-desc">4차시 / 기본 수료 후 수강 가능</span>
+    </div>
+
+    <div class="lesson-list">
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num advanced-num">7</div>
+          <div class="lesson-info">
+            <div class="lesson-title">어려운 학생 유형 대처법</div>
+            <div class="lesson-question">핵심 질문: 집중 못 하는 아이, 거부하는 아이를 어떻게 잡는가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>주의력 분산형: 짧은 과제 분할 + 성공 경험 설계</li>
+            <li>독서 거부형: 흥미 도서 찾기 + 강요 없는 접근법</li>
+            <li>조용한 소극형: 질문 방식 바꾸기 + 1:1 비공개 피드백</li>
+            <li>학부모에게 어려운 상황을 어떻게 보고하는가</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num advanced-num">8</div>
+          <div class="lesson-info">
+            <div class="lesson-title">독서록 지도의 기술</div>
+            <div class="lesson-question">핵심 질문: 형식적 독서록과 진짜 독서록은 무엇이 다른가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>독서록 유형 4가지 — 줄거리형 / 감상형 / 분석형 / 창의형</li>
+            <li>학년별 독서록 기대 수준 — 무엇을 요구해야 하는가</li>
+            <li>쓰기 거부 학생을 독서록으로 끌어오는 3단계</li>
+            <li>좋은 독서록 예시 10편 분석 + 교사 피드백 쓰는 법</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num advanced-num">9</div>
+          <div class="lesson-info">
+            <div class="lesson-title">6주 단기 커리큘럼 설계</div>
+            <div class="lesson-question">핵심 질문: 6주 안에 학부모가 체감하는 변화를 어떻게 만드는가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>6주 목표 설정 프레임 — 눈에 보이는 변화 1가지 선정법</li>
+            <li>6주 수업 계획서 양식 작성 실습</li>
+            <li>3주차 중간 점검 기준 — 목표 수정이 필요한 신호</li>
+            <li>6주 후 학부모 보고 방법 — 수치와 스토리의 결합</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lesson-card">
+        <div class="lesson-head">
+          <div class="lesson-num advanced-num">10</div>
+          <div class="lesson-info">
+            <div class="lesson-title">교사 자기 진단과 다음 단계</div>
+            <div class="lesson-question">핵심 질문: 나는 지금 어느 수준인가, 다음에 무엇을 해야 하는가?</div>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <div class="body-label">주요 내용</div>
+          <ul class="point-list">
+            <li>Lv.1 수료 기준 — 항목별 자가 평가 루브릭</li>
+            <li>최근 3개월 수업 돌아보기 — 성장 지점과 남은 과제</li>
+            <li>2과정 미리 보기 — 독서 진단 역량이 왜 다음 단계인가</li>
+            <li>교사 성장 커뮤니티 안내 (책나무 교사 네트워크)</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-box">
+      <strong>이은경 대표 커리 반영 전 초안입니다.</strong>
+      달콤쌤(김문영) 입력값(5/20) + 이은경 대표 필수커리 수령 후 각 차시 내용 교체 예정.
+      현재 버전은 시장 리서치 기반 구조 뼈대.
+    </div>
+  </div>
+
+  <!-- ── 2~5과정 개요 ── -->
+  <div class="section">
+    <div class="section-label">Courses 2–5 — Structure Overview</div>
+    <div class="section-title">2~5과정 구성 개요</div>
+
+    <table class="course-table">
+      <thead>
+        <tr>
+          <th style="width:80px">과정</th>
+          <th>기본 트랙 (차시 제목)</th>
+          <th>심화 트랙 (차시 제목)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="course-num" style="vertical-align:middle">
+            2과정<br>
+            <span style="font-size:11px; font-weight:400; color:var(--gray-400)">독서 진단과<br>맞춤 지도</span>
+          </td>
+          <td style="font-size:13px; line-height:2">
+            1차시 독서 수준 진단 도구 개요<br>
+            2차시 독서 능력 평가 실습<br>
+            3차시 학생별 지도안 설계<br>
+            4차시 도서 추천 알고리즘 이해<br>
+            5차시 진단 결과 학부모 전달법<br>
+            6차시 개인화 포트폴리오 만들기
+          </td>
+          <td style="font-size:13px; line-height:2">
+            7차시 느린 학습자 진단과 지도<br>
+            8차시 영재형 학생 확장 전략<br>
+            9차시 진단 오류 수정법<br>
+            10차시 반별 수준 데이터 분석
+          </td>
+        </tr>
+        <tr>
+          <td class="course-num" style="vertical-align:middle">
+            3과정<br>
+            <span style="font-size:11px; font-weight:400; color:var(--gray-400)">토론·논술<br>심화 지도</span>
+          </td>
+          <td style="font-size:13px; line-height:2">
+            1차시 좋은 발문이란 무엇인가<br>
+            2차시 블룸 분류에 따른 발문 설계<br>
+            3차시 토론 수업 진행법<br>
+            4차시 갈등 상황 해결 기술<br>
+            5차시 글쓰기 지도 단계별 접근<br>
+            6차시 논술문 첨삭 실습
+          </td>
+          <td style="font-size:13px; line-height:2">
+            7차시 소크라테스식 질문법<br>
+            8차시 비판적 읽기 수업 설계<br>
+            9차시 창의적 글쓰기 유도법<br>
+            10차시 논술 대회 준비 지도
+          </td>
+        </tr>
+        <tr>
+          <td class="course-num" style="vertical-align:middle">
+            4과정<br>
+            <span style="font-size:11px; font-weight:400; color:var(--gray-400)">학부모 소통과<br>센터 운영</span>
+          </td>
+          <td style="font-size:13px; line-height:2">
+            1차시 학부모 유형별 소통 전략<br>
+            2차시 재등록율을 높이는 상담법<br>
+            3차시 클레임 대응과 신뢰 회복<br>
+            4차시 센터 수익 구조 이해
+          </td>
+          <td style="font-size:13px; line-height:2">
+            5차시 학부모 커뮤니티 운영<br>
+            6차시 SNS 기반 학원 홍보<br>
+            7차시 교사 채용과 온보딩<br>
+            8차시 센터 연간 운영 계획 수립
+          </td>
+        </tr>
+        <tr>
+          <td class="course-num" style="vertical-align:middle">
+            5과정<br>
+            <span style="font-size:11px; font-weight:400; color:var(--gray-400)">마스터 교사와<br>후배 육성</span>
+          </td>
+          <td style="font-size:13px; line-height:2">
+            1차시 교사 코칭의 원칙<br>
+            2차시 신규 교사 온보딩 설계<br>
+            3차시 수업 피드백 주는 법<br>
+            4차시 마스터 교사의 역할 정의
+          </td>
+          <td style="font-size:13px; line-height:2">
+            5차시 커리큘럼 개발 참여 방법<br>
+            6차시 지역 교사 모임 운영<br>
+            7차시 책나무 교육 철학 전도사<br>
+            8차시 마스터 교사 자기 브랜딩
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box" style="margin-top: 16px;">
+      <strong>PT 노출 원칙:</strong> 2~5과정은 과정명 + 대상 + 기본/심화 구분 + 차시 수까지만 공개.
+      차시 제목과 내용은 계약 후 공개. 1과정만 차시 제목 5개 샘플 공개.
+    </div>
+  </div>
+
+</div>
+
+<div class="doc-footer">
+  PENTA LAB — 내부 작업용 문서 / 외부 공유 금지
+</div>
+
+</body>
+</html>
