@@ -191,6 +191,11 @@
   .lk { font-weight: 700; color: var(--black); white-space: nowrap; min-width: 68px; font-size: 12px; }
   .full-note { background: #fafafa; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin-top: 16px; font-size: 13px; color: var(--mute); line-height: 1.8; }
   .full-note strong { color: var(--black); }
+  .std-note { background: #fffdf5; border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 16px 20px; margin-bottom: 24px; font-size: 13px; color: #555; line-height: 1.75; }
+  .std-note .std-title { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .std-note ul { list-style: none; padding: 0; }
+  .std-note ul li { padding: 2px 0; padding-left: 14px; position: relative; }
+  .std-note ul li::before { content: "—"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
 
   /* ── FOOTER ── */
   footer { background: var(--black); color: rgba(255,255,255,0.55); font-size: 13px; margin-top: 0; }
@@ -386,6 +391,16 @@
     <div class="section-label">Scope · 대표과정 제작</div>
     <h2>대표과정 5,000만원 세부 내역</h2>
     <p class="desc">차시별 출연 방식은 ① 이은경 대표 단독 ② 이은경 대표 + 내부 강사 공동 ③ 내부 강사 단독 중 역량·내용에 따라 혼용 적용합니다. 60차시, 교수설계·교재·평가 일체 포함. 교재 인쇄는 실비 별도입니다.</p>
+
+    <div class="std-note">
+      <div class="std-title">단가 근거 — 전문 연수기관 콘텐츠 제작 기준</div>
+      <ul>
+        <li><strong>원격연수원 인정 요건 준수</strong> — 교육부 원격연수 인정 기준(차시당 25분·진도율 자동 집계·평가 연계 수료)을 충족하는 콘텐츠는 일반 강의 영상 대비 제작 공수 2~3배입니다. 단순 촬영·편집 외주 단가와 직접 비교할 수 없습니다.</li>
+        <li><strong>IDS 기반 교수설계 의무</strong> — 학습목표·내용·형성평가·수료 기준이 차시 단위로 연계된 Instructional Design Specification 작성은 원격연수원 심사 통과의 핵심 요건입니다.</li>
+        <li><strong>저작권·초상권 법적 처리 일체 포함</strong> — 상업적 연수 판매를 위한 강사 초상권·저작인접권 계약, CMYK 인쇄 원고 저작권 귀속 등 법적 요건 전체 처리 비용이 반영됩니다.</li>
+        <li><strong>수료 이력 장기 보관 의무 대응</strong> — 원격연수 기록 의무 보존(5년 이상) 요건을 충족하는 시스템 설계가 포함되어 있습니다.</li>
+      </ul>
+    </div>
 
     <div class="detail-wrap">
 
@@ -599,6 +614,15 @@
     <h2>LMS 플랫폼 + 결제·수료 자동화 = 2,500만원</h2>
     <p class="desc">책나무 전용 플랫폼 구축 세부 내역입니다. 서버·도메인 1년치 포함입니다.</p>
 
+    <div class="std-note">
+      <div class="std-title">단가 근거 — 원격평생교육시설 신고 기술 요건</div>
+      <ul>
+        <li><strong>SCORM 2004 / xAPI 표준 호환 필수</strong> — 원격평생교육시설 신고 시 학습 이력 추적 표준 준수가 심사 요건입니다. 일반 영상 스트리밍 플랫폼과 아키텍처가 근본적으로 다릅니다.</li>
+        <li><strong>진도율·평가·수료 자동 연동</strong> — 교육 당국 감사 시 제출 가능한 차시별 학습 이력·수료 기록 자동 생성 로직 구현이 포함됩니다.</li>
+        <li><strong>멀티테넌트 구조 — 500+ 가맹점 대응</strong> — 책나무 본사·지사·개별 교사 계정을 계층 구조로 관리하는 Role-Based Access Control 설계는 일반 소규모 플랫폼 단가보다 공수가 큽니다.</li>
+      </ul>
+    </div>
+
     <div class="detail-wrap">
       <div class="detail-group">
         <div class="detail-group-head">
@@ -716,6 +740,15 @@
   <div class="section" id="sec-qual" data-sec-name="자격 체계">
     <div class="section-label">Scope · 자격 체계</div>
     <h2>자격 체계 설계·시스템 + 민간자격 등록 + 공납비 포함 = 1,130만원</h2>
+
+    <div class="std-note">
+      <div class="std-title">단가 근거 — 한국직업능력연구원 민간자격 등록 기준</div>
+      <ul>
+        <li><strong>민간자격 등록 = 법적 근거 확보</strong> — 한국직업능력연구원에 자격을 등록해야 자격증의 법적 효력이 발생합니다. 등록 없이 발급하는 자격증은 사설 수료증과 법적 지위가 동일합니다.</li>
+        <li><strong>협회 법인 설립 — 자격 발급 주체 확보</strong> — 민간자격은 법인 또는 단체만 등록 가능합니다. 책나무 사명 그대로 발급하려면 별도 법인(교육전문가협회) 설립이 선행 조건입니다.</li>
+        <li><strong>5단계 등급 체계 — 한우리 독서지도사 모델 벤치마크</strong> — 35년간 6.5만 명을 배출한 한우리 자격 체계와 동일한 구조 설계. 업계 최고 공신력 자격 체계와의 동등성 확보가 목표입니다.</li>
+      </ul>
+    </div>
 
     <div class="detail-wrap">
       <div class="detail-group">
