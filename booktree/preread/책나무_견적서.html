@@ -47,6 +47,24 @@
 
   /* ── OPTION CARDS ── */
   .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ── TIER CARDS (과정 유형 3단계) ── */
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+  .tier-card { border: 1.5px solid var(--line); border-radius: 8px; padding: 24px 20px; }
+  .tier-card.highlight { border-color: var(--black); background: var(--black); }
+  .tier-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .tier-price { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--gold); margin-bottom: 4px; }
+  .tier-unit { font-size: 13px; color: var(--mute); margin-bottom: 16px; }
+  .tier-card.highlight .tier-unit { color: rgba(255,255,255,0.5); }
+  .tier-bullets { list-style: none; font-size: 13px; }
+  .tier-bullets li { padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; color: var(--mute); }
+  .tier-card.highlight .tier-bullets li { color: rgba(255,255,255,0.7); }
+  .tier-bullets li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+  .platform-row { border: 1.5px solid var(--line); border-radius: 8px; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
+  .platform-label { font-size: 15px; font-weight: 700; color: var(--black); }
+  .platform-price-wrap { display: flex; align-items: baseline; gap: 8px; }
+  .platform-price { font-size: 28px; font-weight: 900; color: var(--gold); letter-spacing: -0.02em; }
+  .platform-unit { font-size: 13px; color: var(--mute); }
   .option-card { border: 1.5px solid var(--line); border-radius: 8px; padding: 28px 24px 24px; }
   .option-card.primary { border-color: var(--black); background: var(--black); }
   .option-num { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
@@ -257,7 +275,7 @@
     .section { page-break-inside: avoid; }
   }
   @media (max-width: 700px) {
-    .option-grid, .inout-cols, .ext-grid, .terms-grid { grid-template-columns: 1fr; }
+    .option-grid, .inout-cols, .ext-grid, .terms-grid, .tier-grid { grid-template-columns: 1fr; }
     .ext-grid { grid-template-columns: 1fr; }
     .inout-col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
     .wrap { padding: 0 18px; }
@@ -274,7 +292,7 @@
   <div class="doc-header">
     <div class="label">Quotation · 2026</div>
     <h1>책나무 원격연수원<br>구축 견적서</h1>
-    <p class="sub">턴키 기준 · 기본 3과정 이은경 대표 직접 출연 · 추가 과정 이은경 기획·전문 강사 섭외</p>
+    <p class="sub">대표/필수/선택 3단계 과정 구성 · LMS 플랫폼 별도 · VAT 별도</p>
     <div class="doc-meta">
       <div><strong>수신</strong> 책나무 대표</div>
       <div><strong>발신</strong> PENTA LAB</div>
@@ -288,35 +306,54 @@
   <div class="section" id="sec-pricing" data-sec-name="견적 구성">
     <div class="section-label">Pricing Summary</div>
     <h2>견적 구성</h2>
-    <p class="desc">구축 기본과 과정 확장 두 가지로 구성됩니다. 모든 금액은 VAT 별도입니다.</p>
-    <div class="option-grid">
-      <div class="option-card primary">
-        <div class="option-num">Option 1</div>
-        <div class="option-name">구축 기본<br>— 3개 과정 포함</div>
-        <div class="option-price">1.2억</div>
-        <div class="option-unit">VAT 별도 · 구축 기간 약 6개월</div>
-        <ul class="option-bullets">
-          <li>과정 3개 완전 제작 포함 (과정당 2,000만)</li>
-          <li>이은경 대표 직접 출연 · 스튜디오 포함</li>
-          <li>책나무 전용 LMS 플랫폼 구축 포함</li>
-          <li>결제·수료증 자동화 포함</li>
-          <li>자격 체계 설계 및 민간자격 등록 포함</li>
-          <li>서버·운영비 1년 포함</li>
-          <li>초기 운영 코칭 2개월 포함</li>
+    <p class="desc">과정 유형에 따라 단가가 다릅니다. LMS 플랫폼은 과정 수와 무관하게 1회 별도 청구됩니다. 모든 금액은 VAT 별도입니다.</p>
+
+    <!-- 3단계 과정 단가 -->
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-label">대표과정</div>
+        <div class="tier-price">5,000만원</div>
+        <div class="tier-unit">/ 과정 · VAT 별도</div>
+        <ul class="tier-bullets">
+          <li>이은경 대표 + 책나무 대표강사 공동 기획·출연</li>
+          <li>15차시 내외 · 차시당 30분 내외</li>
+          <li>교재 집필·레이아웃·PDF 납품 포함</li>
+          <li>스튜디오 2회 이상 포함</li>
+          <li>자격증 필수 취득 연계</li>
         </ul>
       </div>
-      <div class="option-card">
-        <div class="option-num">Option 2</div>
-        <div class="option-name">과정 확장<br>— 과정 추가 단가</div>
-        <div class="option-price">2,000만</div>
-        <div class="option-unit">/ 과정 · VAT 별도</div>
-        <ul class="option-bullets">
-          <li>1~5개 추가: 2,000만원/과정</li>
-          <li>6개 동시 계약: 1,900만원/과정 (5% 할인)</li>
-          <li>10개 동시 계약: 1,800만원/과정 (10% 할인)</li>
-          <li>이은경 대표 기획·감수, 전문 강사 섭외·출연료 포함</li>
-          <li>스튜디오 포함, 교재 인쇄 실비 별도</li>
+      <div class="tier-card highlight">
+        <div class="tier-label">필수과정</div>
+        <div class="tier-price">3,000만원</div>
+        <div class="tier-unit">/ 과정 · VAT 별도</div>
+        <ul class="tier-bullets">
+          <li>이은경 대표 단독 기획·출연</li>
+          <li>10차시 내외 · 차시당 25분 내외</li>
+          <li>교재 집필·레이아웃·PDF 납품 포함</li>
+          <li>스튜디오 1회 포함</li>
+          <li>자격증 필수 취득 연계</li>
         </ul>
+      </div>
+      <div class="tier-card">
+        <div class="tier-label">선택과정</div>
+        <div class="tier-price">2,000만원</div>
+        <div class="tier-unit">/ 과정 · VAT 별도</div>
+        <ul class="tier-bullets">
+          <li>이은경 대표 기획·감수, 전문 강사 출연</li>
+          <li>10차시 내외 · 차시당 25분 내외</li>
+          <li>교재 집필·레이아웃·PDF 납품 포함</li>
+          <li>스튜디오 1회 포함</li>
+          <li>자격증 선택 취득 연계</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LMS 플랫폼 별도 -->
+    <div class="platform-row">
+      <div class="platform-label">LMS 플랫폼 구축 (별도)</div>
+      <div class="platform-price-wrap">
+        <div class="platform-price">1,500만원</div>
+        <div class="platform-unit">1회 청구 · 과정 수와 무관 · VAT 별도</div>
       </div>
     </div>
   </div>
@@ -327,8 +364,8 @@
   <!-- 과정 제작 세목 -->
   <div class="section" id="sec-course" data-sec-name="과정 제작 세목">
     <div class="section-label">Scope · 과정 제작</div>
-    <h2>과정 1개 = 2,000만원 세부 내역</h2>
-    <p class="desc">10~15차시, 차시당 25분 내외 기준입니다. 강사 출연료·스튜디오 전부 포함, 교재 인쇄는 실비 별도입니다.</p>
+    <h2>과정 제작 세부 내역</h2>
+    <p class="desc">선택과정(2,000만) 기준 세부 내역입니다. 필수과정은 이은경 대표 출연료 포함(+1,000만), 대표과정은 공동 출연·차시 추가 반영(+3,000만). 교재 인쇄는 실비 별도입니다.</p>
 
     <div class="detail-wrap">
 
@@ -536,8 +573,8 @@
 
     <!-- 소계 -->
     <div style="margin-top:12px; background:#fafafa; border:1px solid var(--line); border-radius:6px; padding:16px 20px; display:flex; justify-content:space-between; align-items:center;">
-      <div style="font-size:13px; color:var(--mute);">기획 250만 + 영상 1,050만 + 교재 400만 + 평가 300만</div>
-      <div style="font-size:20px; font-weight:900; color:var(--gold);">과정당 합계 2,000만원</div>
+      <div style="font-size:13px; color:var(--mute);">기획 250만 + 영상 1,050만 + 교재 400만 + 평가 300만 (선택과정 기준)</div>
+      <div style="font-size:20px; font-weight:900; color:var(--gold);">선택 2,000만 · 필수 3,000만 · 대표 5,000만</div>
     </div>
   </div>
 
@@ -545,14 +582,14 @@
   <!-- LMS 세목 -->
   <div class="section" id="sec-platform" data-sec-name="LMS 플랫폼 구축">
     <div class="section-label">Scope · 플랫폼 구축</div>
-    <h2>LMS 플랫폼 + 결제·수료 자동화 = 2,500만원</h2>
+    <h2>LMS 플랫폼 + 결제·수료 자동화 = 1,500만원</h2>
     <p class="desc">책나무 전용 플랫폼 구축 세부 내역입니다. 서버·도메인 1년치 포함입니다.</p>
 
     <div class="detail-wrap">
       <div class="detail-group">
         <div class="detail-group-head">
           <span class="gh-title">플랫폼 · 시스템 전체</span>
-          <span class="gh-amt">2,500만원</span>
+          <span class="gh-amt">1,500만원</span>
         </div>
         <table class="sow-table">
           <thead>
@@ -737,44 +774,43 @@
   </div>
 
 
-  <!-- OPTION 2 -->
+  <!-- 과정 확장 -->
   <div class="section" id="sec-option2" data-sec-name="과정 확장">
-    <div class="section-label">Option 2 · 과정 확장</div>
-    <h2>Option 1 이후 과정 추가 단가</h2>
-    <p class="desc">구축 완료 후 과정을 추가할 경우의 단가입니다. LMS 플랫폼·서버비는 포함되지 않습니다.</p>
+    <div class="section-label">Expansion · 과정 확장</div>
+    <h2>초기 계약 이후 과정 추가 단가</h2>
+    <p class="desc">LMS 구축 완료 후 과정을 추가하는 경우 단가입니다. 플랫폼·서버비 추가 없음. 3개 이상 동시 계약 시 할인 적용.</p>
     <div class="ext-grid">
       <div class="ext-card">
-        <div class="ext-type">소량 추가 (1~5개)</div>
+        <div class="ext-type">대표과정 추가</div>
+        <div class="ext-price">5,000만원</div>
+        <div class="ext-unit">/ 과정 · VAT 별도</div>
+        <div class="ext-note">
+          이은경 대표 + 책나무 대표강사 공동 출연.<br>
+          3개 동시 추가: 4,750만/과정 (5% 할인)<br>
+          LMS 추가 구축·서버비 없음. 교재 인쇄 실비 별도.
+        </div>
+      </div>
+      <div class="ext-card" style="border-color:var(--black);">
+        <div class="ext-type" style="display:flex; justify-content:space-between; align-items:center;">
+          <span>필수과정 추가</span>
+          <span style="background:var(--black); color:var(--gold); font-size:10px; font-weight:800; padding:2px 8px; border-radius:3px;">추천</span>
+        </div>
+        <div class="ext-price">3,000만원</div>
+        <div class="ext-unit">/ 과정 · VAT 별도</div>
+        <div class="ext-note">
+          이은경 대표 단독 기획·출연.<br>
+          3개 동시 추가: 2,850만/과정 (5% 할인)<br>
+          LMS 추가 구축·서버비 없음. 교재 인쇄 실비 별도.
+        </div>
+      </div>
+      <div class="ext-card">
+        <div class="ext-type">선택과정 추가</div>
         <div class="ext-price">2,000만원</div>
         <div class="ext-unit">/ 과정 · VAT 별도</div>
         <div class="ext-note">
-          구축 완료 후 1~5개 추가 계약 시 정가 적용.<br>
-          포함: 이은경 기획·감수 · 강사 섭외·출연료 · 스튜디오 · 영상 제작(10~15차시) · 교재 집필·PDF · 평가 문항.<br>
-          LMS 재구축·서버비 추가 없음. 교재 인쇄 실비 별도.
-        </div>
-      </div>
-      <div class="ext-card">
-        <div class="ext-type">6개 동시 계약 (5% 할인)</div>
-        <div class="ext-price">1,900만원</div>
-        <div class="ext-unit">/ 과정 · VAT 별도 · 6개 총 1.14억</div>
-        <div class="ext-note">
-          Option 1 계약 당일 6개 과정을 동시 계약하는 경우 적용.<br>
-          예) 기본 3과정(1.2억) + 동시 추가 6과정(1.14억) = 총 2.34억.<br>
-          계약 당일 이후 추가 시 일반 단가(2,000만) 적용.
-        </div>
-      </div>
-      <div class="ext-card" style="border-color:var(--gold); box-shadow:0 0 0 1px var(--gold);">
-        <div class="ext-type" style="display:flex; justify-content:space-between; align-items:center;">
-          <span>10개 동시 계약 (10% 할인)</span>
-          <span style="background:var(--gold); color:#000; font-size:10px; font-weight:800; padding:2px 8px; border-radius:3px;">BEST</span>
-        </div>
-        <div class="ext-price">1,800만원</div>
-        <div class="ext-unit">/ 과정 · VAT 별도 · 10개 총 1.8억</div>
-        <div class="ext-note">
-          Option 1 계약 당일 10개 과정을 동시 계약하는 경우 적용.<br>
-          <strong style="color:var(--ink)">납품 일정:</strong> 3년 순차 제작, 반기당 1~2개 페이스.<br>
-          예) 기본 3과정(1.2억) + 동시 추가 10과정(1.8억) = 총 3.0억.<br>
-          계약 당일 이후 추가 시 일반 단가(2,000만) 적용.
+          이은경 기획·감수, 전문 강사 섭외·출연.<br>
+          3개 동시 추가: 1,900만/과정 (5% 할인)<br>
+          LMS 추가 구축·서버비 없음. 교재 인쇄 실비 별도.
         </div>
       </div>
     </div>
@@ -789,9 +825,9 @@
       <div class="terms-box">
         <h3>결제 일정</h3>
         <ul>
-          <li><span class="lk">계약금 30%</span> 계약 체결 시 — 3,600만원</li>
-          <li><span class="lk">중도금 40%</span> 착수 3개월차 — 4,800만원</li>
-          <li><span class="lk">잔금 30%</span> 플랫폼 납품 완료 시 — 3,600만원</li>
+          <li><span class="lk">계약금 30%</span> 계약 체결 시</li>
+          <li><span class="lk">중도금 40%</span> 착수 3개월차</li>
+          <li><span class="lk">잔금 30%</span> 플랫폼 납품 완료 시</li>
         </ul>
       </div>
       <div class="terms-box">
