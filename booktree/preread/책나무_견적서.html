@@ -24,11 +24,12 @@
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
     color: var(--ink);
-    background: var(--bg);
+    background: #f0f0f0;
     line-height: 1.7;
     font-size: 15px;
   }
   .wrap { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+  .page-body { background: #fff; max-width: 860px; margin: 0 auto; box-shadow: 0 0 40px rgba(0,0,0,0.08); }
 
   /* ── HEADER ── */
   .doc-header { border-bottom: 3px solid var(--black); padding: 48px 0 32px; }
@@ -210,82 +211,6 @@
   .footer-bar a:hover { color: rgba(255,255,255,0.6); }
   @media print { footer { display: none; } }
 
-  /* ── COMMENT SYSTEM ── */
-  .comment-toggle {
-    display: inline-flex; align-items: center; gap: 6px;
-    margin-top: 24px; padding: 7px 14px;
-    border: 1.5px solid var(--line); border-radius: 20px;
-    background: #fff; cursor: pointer;
-    font-size: 12px; font-weight: 600; color: var(--mute);
-    transition: border-color 0.15s, color 0.15s;
-  }
-  .comment-toggle:hover { border-color: var(--gold); color: var(--black); }
-  .comment-toggle.has-comments { border-color: var(--gold); color: var(--black); }
-  .comment-toggle .ct-icon { font-size: 13px; }
-  .comment-toggle .ct-count {
-    background: var(--gold); color: #000;
-    font-size: 10px; font-weight: 800;
-    padding: 1px 6px; border-radius: 10px;
-    display: none;
-  }
-  .comment-toggle.has-comments .ct-count { display: inline; }
-
-  .comment-panel {
-    display: none; margin-top: 12px;
-    border: 1.5px solid var(--line); border-radius: 10px;
-    overflow: hidden;
-  }
-  .comment-panel.open { display: block; }
-
-  .comment-list { padding: 0; }
-  .comment-item {
-    padding: 14px 18px;
-    border-bottom: 1px solid #f0f0f0;
-    display: flex; flex-direction: column; gap: 4px;
-  }
-  .comment-item:last-child { border-bottom: none; }
-  .comment-item-header {
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .comment-author { font-size: 12px; font-weight: 700; color: var(--black); }
-  .comment-time { font-size: 11px; color: var(--mute); }
-  .comment-text { font-size: 13px; color: var(--ink); line-height: 1.6; white-space: pre-wrap; }
-  .comment-del {
-    background: none; border: none; cursor: pointer;
-    font-size: 11px; color: #ccc; padding: 2px 6px;
-    border-radius: 4px; transition: color 0.15s, background 0.15s;
-  }
-  .comment-del:hover { color: var(--exclude); background: var(--exclude-bg); }
-  .comment-empty { padding: 20px 18px; font-size: 13px; color: var(--mute); text-align: center; }
-
-  .comment-input-area {
-    padding: 14px 18px; background: #fafafa;
-    border-top: 1px solid var(--line);
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  .comment-text-input {
-    flex: 1; padding: 7px 10px;
-    border: 1.5px solid var(--line); border-radius: 6px;
-    font-size: 13px; font-family: inherit; color: var(--ink);
-    resize: none; outline: none; transition: border-color 0.15s;
-    min-height: 60px;
-  }
-  .comment-text-input:focus { border-color: var(--gold); }
-  .comment-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-  .comment-submit {
-    padding: 7px 18px; background: var(--black); color: #fff;
-    border: none; border-radius: 6px; font-size: 12px; font-weight: 700;
-    cursor: pointer; font-family: inherit; transition: background 0.15s;
-  }
-  .comment-submit:hover { background: #333; }
-  .comment-copy {
-    padding: 6px 14px; background: none; color: var(--mute);
-    border: 1.5px solid var(--line); border-radius: 6px;
-    font-size: 11px; font-weight: 600; cursor: pointer;
-    font-family: inherit; transition: border-color 0.15s, color 0.15s;
-  }
-  .comment-copy:hover { border-color: var(--gold); color: var(--black); }
-
   /* ── BASE PACKAGE ── */
   .base-pkg { background: var(--black); border-radius: 10px; padding: 32px; display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; margin-bottom: 16px; }
   .base-pkg-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
@@ -309,7 +234,6 @@
   .addon-bullets li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
 
   @media print {
-    .comment-toggle, .comment-panel { display: none !important; }
     .section { page-break-inside: avoid; }
   }
   @media (max-width: 700px) {
@@ -327,6 +251,7 @@
 </style>
 </head>
 <body>
+<div class="page-body">
 <div class="wrap">
 
   <!-- HEADER -->
@@ -950,7 +875,6 @@
           <div class="std-title">Premium 단가 근거</div>
           <ul>
             <li>한국SW산업협회 2026년 SW기술자 노임단가 기준 (응용 SW 개발자 월 평균 775만원) 적용</li>
-            <li>시장가 비교: 엔터프라이즈 풀커스텀 LMS 시장가 7,000만~1억원 범위</li>
             <li>Premium은 책나무 측에서 자체 IT팀 구축 또는 펜타랩 위탁 유지보수 계약(월 200만원)이 필수 적용됩니다.</li>
           </ul>
         </div>
@@ -1310,7 +1234,7 @@
       <div>
         <div class="footer-col-title">발신처</div>
         <p class="footer-brand-sub">펜타랩 (PENTA LAB)</p>
-        <p class="footer-brand-sub">이은경 대표 &middot; 이동길 CTO</p>
+        <p class="footer-brand-sub">이은경 단독대표 &middot; 이동길 CTO</p>
         <p class="footer-brand-sub" style="margin-top:10px;">유효기간 발행일로부터 30일</p>
         <p class="footer-brand-sub">VAT 별도 · 구축 기간 약 6개월</p>
       </div>
@@ -1321,161 +1245,6 @@
     </div>
   </div>
 </footer>
-
-<script>
-(function() {
-  const STORAGE_PREFIX = 'penta_quote_';
-
-  function loadComments(secId) {
-    try { return JSON.parse(localStorage.getItem(STORAGE_PREFIX + secId) || '[]'); }
-    catch(e) { return []; }
-  }
-  function saveComments(secId, list) {
-    localStorage.setItem(STORAGE_PREFIX + secId, JSON.stringify(list));
-  }
-
-  function fmt(ts) {
-    const d = new Date(ts);
-    const mm = String(d.getMonth()+1).padStart(2,'0');
-    const dd = String(d.getDate()).padStart(2,'0');
-    const hh = String(d.getHours()).padStart(2,'0');
-    const mi = String(d.getMinutes()).padStart(2,'0');
-    return `${mm}/${dd} ${hh}:${mi}`;
-  }
-
-  function renderList(listEl, emptyEl, secId, toggleBtn) {
-    const comments = loadComments(secId);
-    listEl.innerHTML = '';
-    if (comments.length === 0) {
-      emptyEl.style.display = 'block';
-    } else {
-      emptyEl.style.display = 'none';
-      comments.forEach((c, i) => {
-        const item = document.createElement('div');
-        item.className = 'comment-item';
-        item.innerHTML =
-          `<div class="comment-item-header">
-            <span class="comment-time">${fmt(c.ts)}</span>
-            <button class="comment-del" data-idx="${i}" title="삭제">✕</button>
-          </div>
-          <div class="comment-text">${escHtml(c.text)}</div>`;
-        listEl.appendChild(item);
-      });
-    }
-    // update toggle badge
-    toggleBtn.classList.toggle('has-comments', comments.length > 0);
-    const countEl = toggleBtn.querySelector('.ct-count');
-    if (countEl) countEl.textContent = comments.length;
-  }
-
-  function escHtml(s) {
-    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function buildCommentUI(section) {
-    const secId   = section.id;
-    const secName = section.dataset.secName || secId;
-
-    // Toggle button
-    const toggle = document.createElement('button');
-    toggle.className = 'comment-toggle';
-    toggle.innerHTML = `<span class="ct-icon">💬</span><span class="ct-label">댓글</span><span class="ct-count">0</span>`;
-
-    // Panel
-    const panel = document.createElement('div');
-    panel.className = 'comment-panel';
-
-    const listEl  = document.createElement('div');
-    listEl.className = 'comment-list';
-    const emptyEl = document.createElement('div');
-    emptyEl.className = 'comment-empty';
-    emptyEl.textContent = '아직 댓글이 없습니다.';
-
-    const inputArea = document.createElement('div');
-    inputArea.className = 'comment-input-area';
-
-    const textInput = document.createElement('textarea');
-    textInput.className = 'comment-text-input';
-    textInput.placeholder = '의견을 입력하세요…';
-    textInput.rows = 2;
-
-    const actionsRow = document.createElement('div');
-    actionsRow.className = 'comment-actions';
-
-    const submitBtn = document.createElement('button');
-    submitBtn.className = 'comment-submit';
-    submitBtn.textContent = '등록';
-
-    const copyBtn = document.createElement('button');
-    copyBtn.className = 'comment-copy';
-    copyBtn.textContent = '전체 복사';
-
-    actionsRow.appendChild(copyBtn);
-    actionsRow.appendChild(submitBtn);
-
-    inputArea.appendChild(textInput);
-    inputArea.appendChild(actionsRow);
-
-    panel.appendChild(listEl);
-    panel.appendChild(emptyEl);
-    panel.appendChild(inputArea);
-
-    section.appendChild(toggle);
-    section.appendChild(panel);
-
-    // Initial render
-    renderList(listEl, emptyEl, secId, toggle);
-
-    // Toggle panel
-    toggle.addEventListener('click', () => {
-      panel.classList.toggle('open');
-    });
-
-    // Delete
-    listEl.addEventListener('click', e => {
-      const btn = e.target.closest('.comment-del');
-      if (!btn) return;
-      const idx = parseInt(btn.dataset.idx);
-      const list = loadComments(secId);
-      list.splice(idx, 1);
-      saveComments(secId, list);
-      renderList(listEl, emptyEl, secId, toggle);
-    });
-
-    // Submit
-    submitBtn.addEventListener('click', () => {
-      const text = textInput.value.trim();
-      if (!text) { textInput.focus(); return; }
-      const list = loadComments(secId);
-      list.push({ text, ts: Date.now() });
-      saveComments(secId, list);
-      textInput.value = '';
-      renderList(listEl, emptyEl, secId, toggle);
-      panel.classList.add('open');
-    });
-
-    // Enter to submit (Shift+Enter = newline)
-    textInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        submitBtn.click();
-      }
-    });
-
-    // Copy all
-    copyBtn.addEventListener('click', () => {
-      const list = loadComments(secId);
-      if (list.length === 0) { copyBtn.textContent = '댓글 없음'; setTimeout(() => copyBtn.textContent = '전체 복사', 1500); return; }
-      const text = `[${secName}] 섹션 댓글\n` + list.map(c => `(${fmt(c.ts)})\n${c.text}`).join('\n\n');
-      navigator.clipboard.writeText(text).then(() => {
-        copyBtn.textContent = '복사됨 ✓';
-        setTimeout(() => copyBtn.textContent = '전체 복사', 1800);
-      });
-    });
-  }
-
-  document.querySelectorAll('.section[id][data-sec-name]').forEach(buildCommentUI);
-})();
-</script>
+</div><!-- /page-body -->
 </body>
 </html>
