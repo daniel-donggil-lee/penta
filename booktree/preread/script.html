@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>발표 스크립트 — 책나무 원격연수원 구축 제안</title>
+<style>
+  :root {
+    --gold: #C9A84C;
+    --ek-color: #e8a020;
+    --ek-bg: #fffbf0;
+    --ek-border: #f0d080;
+    --dk-color: #2563eb;
+    --dk-bg: #f0f6ff;
+    --dk-border: #bfdbfe;
+    --para-bg: #fff7ed;
+    --para-border: #fed7aa;
+    --para-color: #c2410c;
+    --nonverbal-bg: #f0fdf4;
+    --nonverbal-border: #bbf7d0;
+    --nonverbal-color: #166534;
+    --pause-bg: #fef2f2;
+    --pause-border: #fecaca;
+    --pause-color: #dc2626;
+    --demo-bg: #faf5ff;
+    --demo-border: #e9d5ff;
+    --demo-color: #7c3aed;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+    background: #f8f8f8;
+    color: #1a1a1a;
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── 헤더 ── */
+  .doc-header {
+    background: #0a0a0a;
+    color: #fff;
+    padding: 36px 48px;
+    border-bottom: 3px solid var(--gold);
+  }
+  .doc-header .brand { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 8px; }
+  .doc-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+  .doc-header .meta { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 8px; }
+
+  /* ── 범례 ── */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    background: #fff; border: 1px solid #e5e5e5;
+    padding: 16px 24px; margin: 20px 40px;
+    border-radius: 10px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 600; }
+  .legend-dot {
+    display: inline-block; padding: 2px 10px; border-radius: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  }
+
+  /* ── 발표자 전환 헤더 ── */
+  .speaker-header {
+    margin: 32px 40px 0;
+    padding: 20px 28px;
+    border-radius: 12px 12px 0 0;
+    font-size: 18px; font-weight: 800; letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .speaker-header.ek { background: var(--ek-color); color: #fff; }
+  .speaker-header.dk { background: var(--dk-color); color: #fff; }
+  .speaker-header .spk-badge {
+    font-size: 12px; font-weight: 800; letter-spacing: 0.1em;
+    background: rgba(255,255,255,0.2); padding: 3px 12px; border-radius: 20px;
+  }
+  .speaker-header .spk-role { font-size: 14px; font-weight: 500; opacity: 0.85; }
+
+  /* ── 슬라이드 블록 ── */
+  .slide-block {
+    margin: 0 40px 20px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+  }
+  .slide-block.ek-slide { border-top: 3px solid var(--ek-color); }
+  .slide-block.dk-slide { border-top: 3px solid var(--dk-color); }
+  .slide-block + .slide-block { border-radius: 12px; margin-top: 12px; }
+
+  .slide-meta {
+    padding: 14px 24px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; align-items: baseline; gap: 12px;
+    background: #fafafa;
+  }
+  .slide-num {
+    font-size: 12px; font-weight: 800; letter-spacing: 0.1em;
+    padding: 3px 10px; border-radius: 6px;
+    background: #1a1a1a; color: #fff; white-space: nowrap;
+  }
+  .slide-num.ek { background: var(--ek-color); }
+  .slide-num.dk { background: var(--dk-color); }
+  .slide-title { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+  .slide-subtitle { font-size: 13px; color: #888; margin-left: auto; font-style: italic; }
+
+  .script-body { padding: 20px 24px; }
+
+  /* ── 스크립트 텍스트 ── */
+  .script-line {
+    font-size: 16px;
+    line-height: 1.85;
+    color: #222;
+    margin-bottom: 6px;
+  }
+  .script-line b { font-weight: 800; }
+  .em { font-style: normal; font-weight: 700; color: #0a0a0a; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; }
+
+  /* ── 반언어적 태그 ── */
+  .tag {
+    display: inline-block; border-radius: 5px; padding: 1px 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.03em;
+    vertical-align: middle; margin: 0 3px; white-space: nowrap;
+  }
+  .t-slow { background: var(--para-bg); color: var(--para-color); border: 1px solid var(--para-border); }
+  .t-fast { background: #fff7ed; color: #7c2d12; border: 1px solid #fcd9a0; }
+  .t-loud { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+  .t-soft { background: #f5f3ff; color: #5b21b6; border: 1px solid #ddd6fe; }
+  .t-emph { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-style: italic; }
+  .t-pause { background: var(--pause-bg); color: var(--pause-color); border: 1px solid var(--pause-border); }
+  .t-firm { background: #0f172a; color: #fff; border: none; }
+  .t-warm { background: #fdf4ff; color: #86198f; border: 1px solid #f5d0fe; }
+  .t-breath { background: #f0fdfa; color: #065f46; border: 1px solid #a7f3d0; font-style: italic; }
+
+  /* ── 비언어적 태그 ── */
+  .t-eyes { background: var(--nonverbal-bg); color: var(--nonverbal-color); border: 1px solid var(--nonverbal-border); }
+  .t-hand { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+  .t-posture { background: #fefce8; color: #854d0e; border: 1px solid #fef08a; }
+  .t-face { background: #fff0f3; color: #9f1239; border: 1px solid #fecdd3; }
+
+  /* ── 실연 메모 박스 ── */
+  .memo-box {
+    margin: 14px 0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px; line-height: 1.7;
+  }
+  .memo-box.nonverbal {
+    background: var(--nonverbal-bg);
+    border-left: 4px solid #4ade80;
+    color: #14532d;
+  }
+  .memo-box.paralinguistic {
+    background: var(--para-bg);
+    border-left: 4px solid #fb923c;
+    color: #7c2d12;
+  }
+  .memo-box.demo {
+    background: var(--demo-bg);
+    border-left: 4px solid #a855f7;
+    color: var(--demo-color);
+    font-weight: 600;
+  }
+  .memo-box.pause-box {
+    background: var(--pause-bg);
+    border-left: 4px solid #f87171;
+    color: #7f1d1d;
+    font-weight: 700; text-align: center;
+    letter-spacing: 0.05em;
+  }
+  .memo-box strong { font-weight: 800; }
+
+  /* ── 파트 전환 ── */
+  .part-divider {
+    margin: 40px 40px 0;
+    padding: 20px 28px;
+    background: #0a0a0a;
+    border-radius: 12px 12px 0 0;
+    color: #fff;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.2em; color: var(--gold);
+  }
+
+  /* ── 인쇄 ── */
+  @media print {
+    body { background: #fff; }
+    .slide-block { break-inside: avoid; border: 1px solid #ccc; }
+    .speaker-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .tag, .memo-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  @media (max-width: 768px) {
+    .doc-header { padding: 24px 20px; }
+    .slide-block, .speaker-header, .legend, .part-divider { margin-left: 12px; margin-right: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="brand">PENTA LAB · 발표 스크립트</div>
+  <h1>책나무 원격연수원 구축 제안 — 발표 가이드</h1>
+  <div class="meta">2026. 05. 19 (월) 14:00 · 책나무 본사 · CONFIDENTIAL</div>
+</div>
+
+<div class="legend">
+  <span style="font-size:13px; font-weight:700; color:#555; margin-right:4px;">범례</span>
+  <span class="legend-item"><span class="legend-dot t-slow">천천히</span> 반언어적 — 속도</span>
+  <span class="legend-item"><span class="legend-dot t-emph">강조</span> 반언어적 — 강조/톤</span>
+  <span class="legend-item"><span class="legend-dot t-pause">잠시 멈춤</span> 반언어적 — 쉼</span>
+  <span class="legend-item"><span class="legend-dot t-eyes">눈 맞춤</span> 비언어적 — 시선</span>
+  <span class="legend-item"><span class="legend-dot t-hand">화면 가리키며</span> 비언어적 — 제스처</span>
+  <span class="legend-item"><span class="legend-dot t-posture">앞으로 기울기</span> 비언어적 — 자세</span>
+  <span class="legend-item"><span class="legend-dot t-face">미소</span> 비언어적 — 표정</span>
+  <span class="legend-item"><span class="legend-dot" style="background:var(--demo-bg);color:var(--demo-color);border:1px solid var(--demo-border);">라이브 데모</span> 실연 액션</span>
+</div>
+
+
+<!-- =========================================================== -->
+<!-- PART 1: 이은경 대표 -->
+<!-- =========================================================== -->
+
+<div class="speaker-header ek">
+  <span class="spk-badge">PART 1</span>
+  <span>이은경 대표</span>
+  <span class="spk-role">슬라이드 1 – 19 · 커리큘럼 파트</span>
+</div>
+
+<div class="slide-block ek-slide">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 1</span>
+    <span class="slide-title">표지 — 책나무 밸류업 전략 미팅</span>
+    <span class="slide-subtitle">입장 직후 · 분위기 만들기</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box nonverbal">
+      <strong>입장 시:</strong> 자리에 앉기 전 가볍게 목례 — 화면 켜진 채 인사. 앉은 후 잠깐 슬라이드 보여주고 시작.
+    </div>
+    <div class="script-line">
+      <span class="tag t-warm">따뜻하게</span><span class="tag t-slow">천천히</span>
+      안녕하세요. 오늘 미팅 자리를 만들어 주셔서 감사합니다.
+    </div>
+    <div class="script-line">
+      저는 <span class="em">교육 콘텐츠 파트</span>를 맡은 이은경이고요,
+    </div>
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      오늘은 두 분이 함께 준비했습니다. 잠시 후 시스템과 견적 부분은 저희 CTO 이동길이 이어서 발표합니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>톤 가이드:</strong> 첫 마디는 낮고 부드럽게. 큰 소리로 시작하면 긴장됨. 숨을 내쉬고 시작.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      오늘 발표는 크게 두 파트입니다.
+      <span class="tag t-slow">천천히</span>
+      제가 먼저 <span class="em">커리큘럼과 연수원, 협회, 자격 체계</span>를 말씀드리고요,
+    </div>
+    <div class="script-line">
+      이어서 이동길 CTO가 <span class="em">시스템 구조와 견적</span>을 말씀드립니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>제스처:</strong> "제가"라고 할 때 가볍게 자신을 가리킴. "이동길 CTO"라고 할 때 이동길을 향해 고개 돌리기.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 2</span>
+    <span class="slide-title">Agenda — 오늘 미팅 진행 순서</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      순서를 잠깐 보여드리면요,
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      먼저 <span class="em">커리큘럼 PT</span>—저희가 구체적으로 어떤 교육과정을 만들 수 있는지 말씀드리고,
+    </div>
+    <div class="script-line">
+      그다음에 <span class="em">시스템과 견적</span> 순서입니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>눈 맞춤:</strong> 화면 보지 말고, 화면을 가리키되 시선은 상대방에게. "커리큘럼 PT", "견적" 이야기할 때 각각 상대의 눈을 보며.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      그럼 바로 시작하겠습니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 3</span>
+    <span class="slide-title">책나무 IP로 두 가지가 시작됩니다</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-emph">강조</span><span class="tag t-slow">천천히</span>
+      오늘 제안드리는 건, 한마디로 <span class="em">두 가지입니다.</span>
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>제스처:</strong> 두 손가락을 펴서 "2개"를 시각화. 왼손에 하나, 오른손에 하나.
+    </div>
+    <div class="script-line">
+      첫 번째는 <span class="em">원격연수원</span>—책나무미래교육캠퍼스입니다.
+      700명 가맹 교사를 위한 온라인 교육 플랫폼이에요.
+    </div>
+    <div class="script-line">
+      두 번째는 <span class="em">협회</span>—(사)책나무미래교육협회를 신설합니다.
+      협회가 자격증을 발급하는 주체가 됩니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>속도 조절:</strong> "원격연수원"과 "협회" 각각 말하고 나서 0.5초 멈춤. 상대가 인식할 시간.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">1초 멈춤</span>
+      이 두 가지가 만들어지면—교사 역량이 <span class="em">시스템</span>으로 관리됩니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 4</span>
+    <span class="slide-title">브랜드가 권위를 만듭니다</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box nonverbal">
+      <strong>자세:</strong> 앞으로 약간 기울기. 이 슬라이드부터 본론. 진지하되 자신감 있는 표정.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      이름이 중요합니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      <span class="em">책나무미래교육캠퍼스</span>—서울 송파강동교육청 정식 허가 기관입니다.
+      교사들이 이수하면 공식 기관에서 이수한 것이 됩니다.
+    </div>
+    <div class="script-line">
+      <span class="em">(사)책나무미래교육협회</span>—한국직업능력연구원에 자격을 정식 등록합니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      <span class="tag t-firm">단호하게</span>
+      이름이 있어야 교사들이 지킵니다. 이름이 있어야 학부모가 신뢰합니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>마지막 문장:</strong> 천천히, 또박또박. "지킵니다"와 "신뢰합니다" 모두 같은 강도로 끊어서.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 5</span>
+    <span class="slide-title">교사가 브랜드의 자격을 만든다</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      벤치마크를 하나 들어드리면, <span class="em">한우리</span>는 35년 동안 원격연수원을 운영했습니다.
+      누적 양성 6만 5천 명이에요.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      수강료가 42만원인데도 교사들이 자발적으로 신청합니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-emph">강조</span>
+      이유가 뭐냐면—<span class="em">자격증</span>이 있기 때문입니다. 자격증이 교사의 값어치를 만들어요.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>제스처:</strong> "자격증"이라고 말할 때 테이블에 손을 짚거나, 두 손을 모아 강조.
+    </div>
+    <div class="script-line">
+      책나무도 똑같이 할 수 있습니다. 그리고 더 빠르게 할 수 있습니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 6</span>
+    <span class="slide-title">500+ 가맹점, 700명의 교사</span>
+    <span class="slide-subtitle">현황 진단</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box nonverbal">
+      <strong>자세:</strong> 조금 뒤로 앉으며 숫자를 천천히 제시. 상대가 숫자를 인지하도록 여유를 줌.
+    </div>
+    <div class="script-line">
+      <span class="tag t-loud">크게</span>
+      <span class="em">500개 가맹점, 700명의 교사.</span>
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">1초 멈춤</span>
+      연매출 42.7억, 영업이익 12.3억.
+    </div>
+    <div class="script-line">
+      숫자가 말해주는 게 있습니다.
+      <span class="tag t-slow">천천히</span>
+      <span class="em">가맹점이 늘수록</span>—교사 수준을 관리하기가 더 어려워집니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>톤:</strong> "가맹점이 늘수록" 이후 살짝 목소리를 낮추며. 문제 제기이므로 무거운 톤.
+    </div>
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      그게 지금 책나무의 상황 아닌가요?
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 7</span>
+    <span class="slide-title">책나무독서교육전문가 과정</span>
+    <span class="slide-subtitle">대표과정 소개</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-emph">강조</span>
+      그래서 준비한 게 바로 이겁니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      <span class="em">책나무독서교육전문가 과정.</span>
+    </div>
+    <div class="script-line">
+      온라인 영상 콘텐츠 <span class="em">60차시</span>,
+      전문 교재 <span class="em">2권</span>,
+      그리고 <span class="em">1급·2급</span> 두 가지 급수로 나눕니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>제스처:</strong> "60차시", "2권", "1급·2급" 각각 손가락으로 하나씩 짚어가며 카드 순서대로 가리키기.
+    </div>
+    <div class="script-line">
+      이게 <span class="em">대표과정</span>입니다.
+      책나무 교사라면 누구나 거쳐야 하는 첫 번째 과정이에요.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 8</span>
+    <span class="slide-title">이은경 대표 단독 설계 — 책나무 독서교육전문가 과정 (60차시)</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box nonverbal">
+      <strong>표정:</strong> 이 슬라이드에서는 자신감 있는 미소. 자신의 작업임을 자연스럽게 드러내는 장면.
+    </div>
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span><span class="tag t-warm">따뜻하게</span>
+      이 커리큘럼은 제가 직접 설계했습니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      총 10챕터, 60차시 구성인데요—
+    </div>
+    <div class="script-line">
+      1챕터부터 8챕터까지는 이론과 실무,
+      <span class="em">9·10챕터는 실전</span>입니다. 책나무 수업에 바로 적용할 수 있는 케이스 중심이에요.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>강조 포인트:</strong> "9·10챕터는 실전"—다른 연수와 차별화되는 부분. 속도 줄이고 강조.
+    </div>
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      이 구성을 보시면—이론으로 시작해서 현장 실전으로 끝납니다. 교사가 수료 후 바로 쓸 수 있어요.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 9</span>
+    <span class="slide-title">전문 교재 2권 제공</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      교재도 같이 만듭니다.
+    </div>
+    <div class="script-line">
+      첫 번째 교재 <span class="em">《독서교육의 이해와 실제》</span>는 이론 교재예요.
+      독서교육 원리, 읽기 발달, 습관 형성—기초를 잡아줍니다.
+    </div>
+    <div class="script-line">
+      두 번째 교재 <span class="em">《독서지도 전문가 실전 매뉴얼》</span>은 말 그대로 현장 매뉴얼입니다.
+      상담 사례, 수업 방법론—책을 펼치면 바로 쓸 수 있는 구성이에요.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>제스처:</strong> 두 교재를 말할 때 왼손, 오른손으로 각각 구분. "펼치면 바로 쓸 수 있는"에서 책 펼치는 손동작.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      교재까지 포함되어 있다는 게 중요합니다. 교사가 교재를 사서 스스로 공부하는 구조예요.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 10</span>
+    <span class="slide-title">챕터별 학습 과제</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      각 챕터에는 <span class="em">과제</span>가 있습니다.
+    </div>
+    <div class="script-line">
+      단순히 영상만 보는 게 아니라—직접 써보고, 설계해보고, 시뮬레이션해봅니다.
+    </div>
+    <div class="script-line">
+      예를 들어 7챕터 학부모 상담 과제는
+      <span class="tag t-slow">천천히</span>
+      <span class="em">"학부모 상담 시뮬레이션 및 피드백"</span>입니다.
+      실제 상황을 연습하는 거예요.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>톤:</strong> 과제 예시를 들 때 읽는 듯 말하지 말고, 직접 설명하듯이. "실제 상황을 연습하는 거예요"는 밝은 톤으로.
+    </div>
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      이 과제들을 통과해야 자격증을 받을 수 있습니다. 형식적인 이수가 아니에요.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 11</span>
+    <span class="slide-title">과정 이수 시 공식 수료증 발급</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-emph">강조</span>
+      수료하면 이게 나옵니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      수료증에 이름, 과정명, 교육시간—그리고 <span class="em">(사)책나무미래교육협회</span> 명의로 발급됩니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      <span class="tag t-slow">천천히</span>
+      이 수료증을 받은 교사는—강사 활동도 할 수 있고, 교육기관에 출강도 됩니다.
+      책나무 공식 인증 교사로 등록돼요.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>표정·자세:</strong> 수료증이 가져오는 효과를 말할 때 앞으로 살짝 기울기. 실질적인 가치를 강조하는 표정.
+    </div>
+    <div class="script-line">
+      교사 입장에서는 <span class="em">자기 값어치가 올라가는</span> 겁니다.
+      그래서 자발적으로 수강하게 됩니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 12</span>
+    <span class="slide-title">(사)책나무미래교육협회</span>
+    <span class="slide-subtitle">임팩트 슬라이드 — 이름만</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box pause-box">
+      슬라이드 전환 후 3초 침묵. 화면을 그냥 보여준다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>눈 맞춤:</strong> 화면 보여주고, 이름이 전달되도록 잠시 기다린 뒤 상대 눈을 보며 말한다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span><span class="tag t-firm">단호하게</span>
+      이 이름이 생기는 겁니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      협회 이름으로 자격증이 발급되면—
+      이건 한우리가 35년 걸린 걸, <span class="em">책나무는 6개월 만에</span> 갖게 되는 구조입니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>강조:</strong> "6개월 만에"를 또렷하게. 너무 빠르게 지나치지 말것.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 13</span>
+    <span class="slide-title">온라인 필기평가 + 실무형 수행평가</span>
+    <span class="slide-subtitle">자격 시험</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      자격증을 아무에게나 주면 의미가 없습니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      그래서 <span class="em">시험을 봅니다.</span>
+    </div>
+    <div class="script-line">
+      필기는 독서교육 이론, 문해력, 독서지도 역량을 종합 평가하고요—
+    </div>
+    <div class="script-line">
+      수행평가는 <span class="em">수업 설계, 발문 작성, 학부모 상담</span>—
+      현장에서 실제로 쓰는 능력을 봅니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>제스처:</strong> "필기"와 "수행" 각각 손 위치를 달리해 두 가지를 구분. 왼손=필기, 오른손=수행.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span><span class="tag t-eyes">청중 눈 맞춤</span>
+      기준을 충족한 사람만 자격증을 받는 구조—그래야 협회 이름에 무게가 실립니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 14</span>
+    <span class="slide-title">민간자격 등록 기반 공식 자격증 발급</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      자격증 자체에 대해 한 가지만 더 말씀드리면—
+    </div>
+    <div class="script-line">
+      <span class="tag t-emph">강조</span>
+      <span class="em">한국직업능력연구원</span>에 정식 등록되는 민간자격증입니다.
+    </div>
+    <div class="script-line">
+      보수교육 기반으로 지속 갱신이 됩니다.
+      <span class="tag t-slow">천천히</span>
+      그러니까 교사가 한 번 받고 끝이 아니라—<span class="em">계속 책나무와 연결</span>되는 구조예요.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>핵심 포인트:</strong> "계속 책나무와 연결되는 구조"—이 문장이 이 슬라이드의 핵심. 약간 음성을 낮추며 또렷하게.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      교사 이탈을 막는 가장 좋은 방법이 뭔지 아세요? 이탈하면 잃는 게 생기는 구조입니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>표정:</strong> 마지막 문장은 살짝 미소 지으며. 전략적 포인트임을 드러내되 과하지 않게.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 15</span>
+    <span class="slide-title">대표과정 단독 3억</span>
+    <span class="slide-subtitle">수익 시뮬레이션</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box pause-box">
+      슬라이드 전환 후 2초 침묵. "3억"이라는 숫자를 먼저 눈에 들어오게.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      숫자를 보겠습니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-loud">크게</span>
+      대표과정 하나만으로 <span class="em">연 3억</span>입니다.
+    </div>
+    <div class="script-line">
+      계산이 단순해요.
+      <span class="tag t-pause">잠시 멈춤</span>
+      수업료 42만원에 자격증 수수료 8만원—합산 <span class="em">50만원</span>.
+      거기에 600명이면 3억이에요.
+    </div>
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      700명 가맹 교사 중 600명이면 85%입니다. 충분히 현실적인 숫자예요.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>톤:</strong> 수익 슬라이드인 만큼 확신 있는 톤. 하지만 과장하거나 세일즈맨처럼 들리면 안 됨. 사실을 제시하는 느낌으로.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 16</span>
+    <span class="slide-title">대표과정 + 자격과정 추가 개강 시 → 4.5억</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      그런데—대표과정만이 아닙니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      자격과정들을 추가로 개강하면—
+      <span class="tag t-pause">잠시 멈춤</span>
+      합산 <span class="em">연 4.5억</span>이 됩니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      이게 반복매출입니다. 한 번 시스템을 만들면—매년 이 숫자가 돌아오는 구조예요.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>제스처:</strong> "한 번 시스템을 만들면"에서 두 손을 마주 잡으며 "완성된 구조"를 상징. 그 후 두 손을 펼치며 "매년 돌아오는" 을 표현.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      다음 슬라이드에서 그 자격과정들이 어떤 것들인지 보여드리겠습니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 17</span>
+    <span class="slide-title">자격 과정 1/3 — 문해력·독서교육 핵심과정 / 초등 수업·실전 코칭</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box nonverbal">
+      <strong>눈 맞춤:</strong> 화면 보지 말고 상대 보며. "이 정도면 필요한 거 다 있죠?" 느낌으로 여유 있게.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      3페이지에 걸쳐 보여드릴 텐데요—
+      대표과정 외에 교사들이 선택할 수 있는 자격과정들입니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      왼쪽은 <span class="em">문해력·독서교육 핵심과정</span>—읽기독립, 질문독서, 사고력독서토론 같은 것들이에요.
+    </div>
+    <div class="script-line">
+      오른쪽은 <span class="em">초등 수업·실전 코칭</span>—독서록 지도, 발문 스킬, 수업 설계.
+      현장에서 바로 쓰는 것들이에요.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>속도:</strong> 과정명을 하나씩 다 읽지 말고, 카테고리 이름과 대표 2~3개만 언급. 나머지는 "등"으로 마무리.
+    </div>
+    <div class="script-line">
+      교사마다 본인이 필요한 걸 골라서 수강합니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 18</span>
+    <span class="slide-title">자격 과정 2/3 — 그림책·활동 중심 / 문해력 확장 심화</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      두 번째 페이지—왼쪽은 <span class="em">그림책 중심 과정</span>들이에요. 저학년 담당 교사들에게 특히 필요한 것들이고요,
+    </div>
+    <div class="script-line">
+      오른쪽은 <span class="em">심화 과정</span>—역사 문해력, 과학 문해력, AI 시대 문해력 같은 것들이 있습니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      교사가 성장하고 싶은 방향이 다르잖아요. 그 방향마다 과정이 있는 겁니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block ek-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num ek">S 19</span>
+    <span class="slide-title">자격 과정 3/3 — 학부모 상담 / 원장 성장 / 시니어 확장</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      마지막 페이지—세 가지 카테고리인데요.
+    </div>
+    <div class="script-line">
+      <span class="em">학부모 상담·관계 중심 과정</span>, <span class="em">원장·운영자 성장 과정</span>, 그리고 <span class="em">시니어 확장 과정</span>입니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      특히 원장 성장 과정—이건 가맹점주들이 센터를 운영하면서 필요한 SNS 마케팅, 재원 관리, 센터 리더십 같은 것들이에요.
+      <span class="em">교사가 아닌 원장을 대상</span>으로 한 과정이 있다는 게 차별점입니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>마무리 톤:</strong> 세 페이지 다 보여준 후 자신감 있게. 상대에게 "이 정도면 충분하죠?"라는 느낌을 전달.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span><span class="tag t-eyes">청중 눈 맞춤</span>
+      이렇게—커리큘럼 파트는 여기까지입니다.
+    </div>
+    <div class="script-line">
+      이제 저희 CTO 이동길이 시스템과 견적을 말씀드리겠습니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>전환:</strong> 이동길에게 시선·몸을 돌리며 자연스럽게 넘김. 너무 급하게 말고 충분히 여유 있게.
+    </div>
+  </div>
+</div>
+
+
+<!-- =========================================================== -->
+<!-- PART 2: 이동길 CTO -->
+<!-- =========================================================== -->
+
+<div class="speaker-header dk" style="margin-top:40px;">
+  <span class="spk-badge">PART 2</span>
+  <span>이동길 CTO</span>
+  <span class="spk-role">슬라이드 20 – 32 · 시스템 · 견적 파트</span>
+</div>
+
+<div class="slide-block dk-slide">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 20</span>
+    <span class="slide-title">PART II 전환 — 시스템 구조 그리고 견적</span>
+    <span class="slide-subtitle">파트 전환</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box nonverbal">
+      <strong>입장:</strong> 이은경 대표가 자리 이동하거나 마무리하면, 잠깐 간격을 두고 시작. 0.5초만 여유 줘도 전환이 자연스러움.
+    </div>
+    <div class="script-line">
+      <span class="tag t-soft">차분하게</span>
+      안녕하세요. 이동길입니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      방금 이은경 대표가 커리큘럼을 말씀드렸는데—
+      그 커리큘럼이 실제로 돌아가려면 <span class="em">시스템</span>이 필요합니다.
+    </div>
+    <div class="script-line">
+      제가 그 시스템을 맡습니다. 그리고 견적을 말씀드리겠습니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>톤 전환:</strong> 이은경 대표와는 다른 톤. 더 간결하고 기술적인 느낌. 문장이 짧아야 함.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 21</span>
+    <span class="slide-title">시스템만 파는 곳은 많습니다. 우리는 다릅니다.</span>
+    <span class="slide-subtitle">라이브 데모 포함</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      LMS 업체는 시스템만 납품합니다.
+      커리큘럼은 책나무가 알아서 채워야 해요.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      저희는 다릅니다.
+    </div>
+    <div class="script-line">
+      이은경 대표가 커리큘럼을 직접 설계하고, 제가 시스템을 구축합니다.
+      <span class="em">기획부터 운영까지 단일 팀이 책임</span>집니다.
+    </div>
+    <div class="memo-box demo">
+      <strong>라이브 데모 — 홈페이지 직접 열기</strong><br>
+      "실제로 지금 만들고 있는 걸 보여드리겠습니다."<br>
+      → 화면에 <strong>https://daniel-donggil-lee.github.io/penta/pentacampus/</strong> 열기<br>
+      → 30초 이내 훑어보기: 메인 페이지 → 강좌 목록 → 강사 소개 순으로<br>
+      → "지금 구축 중인 펜타캠퍼스입니다. 이 구조를 책나무에 맞게 그대로 적용합니다."
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>데모 중 자세:</strong> 화면을 직접 조작하며 설명. 클릭할 때 어디를 보는지 말로 안내. "여기가 강좌 목록이고요, 이 부분이 강사 프로필입니다."
+    </div>
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      이미 만들어본 사람이 만든다는 게—이게 가장 큰 차이점입니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 22</span>
+    <span class="slide-title">4개 블록, 하나의 시스템</span>
+    <span class="slide-subtitle">시스템 아키텍처</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      시스템 구조는 4개 블록입니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      <span class="em">LMS 플랫폼</span>—교사들이 강의를 듣는 곳이에요. 책나무 전용 도메인, 700명 계정, 영상 스트리밍.
+    </div>
+    <div class="script-line">
+      <span class="em">결제·수료 자동화</span>—온라인 결제, 수료증·자격증 자동 발급. 사람이 개입할 필요 없어요.
+    </div>
+    <div class="script-line">
+      <span class="em">자격 시스템</span>—교사 DB 관리. 취득 이력, 유효기간, 갱신 이력 전부 추적됩니다.
+    </div>
+    <div class="script-line">
+      <span class="em">본사 대시보드</span>—전체 수강 현황, 지사별 이수율, 통계 리포트. 본사에서 한눈에 봅니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>제스처:</strong> 화면의 4분할 블록을 순서대로 가리키며. 각 블록 이름 말할 때 해당 위치 짚기.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      이 4개가 연결되면—교사가 결제하고, 수강하고, 자격증 받고, 본사가 관리하는 게 <span class="em">자동</span>으로 됩니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 23</span>
+    <span class="slide-title">TF팀 · 마일스톤 전환</span>
+    <span class="slide-subtitle">실행 계획 파트 시작</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      그러면—계약 이후 어떻게 진행되는지 말씀드리겠습니다.
+    </div>
+    <div class="script-line">
+      TF팀 구성과 마일스톤 두 가지를 보여드릴게요.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>표정:</strong> 실행 계획 파트는 신뢰감이 중요. 안정적이고 자신감 있는 표정 유지.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 24</span>
+    <span class="slide-title">2:2 공동 TF</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      TF 구성은 <span class="em">2:2</span>입니다.
+    </div>
+    <div class="script-line">
+      저희 쪽에서 이은경 대표가 커리큘럼과 강의 기획을 담당하고, 제가 시스템 구축을 맡습니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      책나무 쪽에서는 <span class="em">대표님</span>이 방향 결정과 검수를—
+      <span class="em">콘텐츠연구팀</span>이 현장 코디네이션을 맡아주시면 됩니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>강조:</strong> "책나무 쪽에서"를 말할 때 상대방 쪽을 바라보며. 요청이기도 하니까 눈 맞춤 중요.
+    </div>
+    <div class="script-line">
+      크게 무거운 역할은 아닙니다. 저희가 준비된 게 많아서요—
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      방향을 잡아주시고, 현장을 연결해주시는 역할이에요.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 25</span>
+    <span class="slide-title">역할 분담 — 대표 / 콘텐츠연구팀</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      구체적으로는—
+    </div>
+    <div class="script-line">
+      <span class="em">대표님</span>께는 마일스톤별 결과물 검수와 최종 방향 결정을 부탁드립니다.
+      교사 공지나 첫 기수 모집 준비도요.
+    </div>
+    <div class="script-line">
+      <span class="em">콘텐츠연구팀</span>에서는 인터뷰 대상자 선정, 촬영 장소 확보, 교재 검수—
+      그리고 베타 테스트 지사 선정을 부탁드립니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>자세·태도:</strong> 요청을 할 때 "부탁드립니다"를 자연스럽게. 강요가 아닌 협업 요청으로 느껴지도록. 약간 앞으로 기울기.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      어렵지 않습니다. 이미 갖고 계신 네트워크와 현장 지식이면 충분해요.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 26</span>
+    <span class="slide-title">현장의 목소리부터 듣겠습니다 — 디스커버리</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      계약 직후 저희가 제일 먼저 하는 일이 <span class="em">디스커버리</span>입니다.
+    </div>
+    <div class="script-line">
+      본사 경영진, 지사장 3인, 가맹점주 5인을 인터뷰합니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      현장에서 교사들이 실제로 뭘 힘들어하는지—그걸 먼저 들어야 커리큘럼도, 시스템도 제대로 만들 수 있어요.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>강조:</strong> "들어야"를 강조. 우리가 일방적으로 만드는 게 아니라 듣는다는 메시지.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      인터뷰 결과가 커리큘럼 설계와 시스템 설계에 <span class="em">직접 반영</span>됩니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 27</span>
+    <span class="slide-title">5월 계약 → 6월 착수 → 12월 1기 개강</span>
+    <span class="slide-subtitle">마일스톤 간트</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box nonverbal">
+      <strong>자세:</strong> 이 슬라이드는 타임라인 전달이 핵심. 화면을 보면서 왼쪽에서 오른쪽으로 손을 움직이며 시간 흐름을 시각화.
+    </div>
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      타임라인 보시면—
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      이번 달 계약 체결, 6월 착수, 디스커버리 2주, 명세 확정.
+    </div>
+    <div class="script-line">
+      7월부터 4개월 동안 <span class="em">LMS 시스템 구축</span>과 <span class="em">영상 콘텐츠 제작</span>이 동시에 진행됩니다.
+    </div>
+    <div class="script-line">
+      교재는 8월부터 3개월, 협회·자격 등록은 6개월 과정입니다.
+    </div>
+    <div class="script-line">
+      11월에 <span class="em">지사장 베타테스트</span>,
+      <span class="tag t-pause">잠시 멈춤</span>
+      그리고 12월에 <span class="em">1기 개강</span>입니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>12월 개강:</strong> 마지막 "12월에 1기 개강입니다"를 또렷하고 확신 있게. 여기서 속도 줄이기.
+    </div>
+    <div class="script-line">
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      올해 안에 첫 기수를 열 수 있습니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 28</span>
+    <span class="slide-title">계약 후 첫 4주 실행 계획</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      첫 4주가 어떻게 돌아가는지 구체적으로 보시면—
+    </div>
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      1주차, 계약 직후: 저희가 TF팀 킥오프 미팅 일정을 잡습니다.
+    </div>
+    <div class="script-line">
+      2주차: 저희가 직접 본사를 방문해서 교사·운영진 인터뷰를 진행합니다.
+    </div>
+    <div class="script-line">
+      3~4주차: 인터뷰 결과를 반영해서 커리큘럼 구조와 시스템 아키텍처를 확정합니다.
+      <span class="em">1과정 샘플 교안 초안</span>도 이 시점에 납품합니다.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>표정·태도:</strong> "납품합니다"라고 말할 때 자신감 있게. 우리가 먼저 준다는 능동성을 드러냄.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      계약 체결 기준 4주 이내에 디스커버리가 완료됩니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 29</span>
+    <span class="slide-title">견적 요약 — 8,630만원</span>
+    <span class="slide-subtitle">견적서 라이브 오픈 포함</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box pause-box">
+      슬라이드 전환 후 2초 침묵. 숫자가 먼저 들어오도록.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      견적입니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-loud">또렷하게</span>
+      Base Package 기준 <span class="em">8,630만원</span>입니다. VAT 별도예요.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      세 가지로 구성되어 있습니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      <span class="em">대표과정 제작</span> 5,000만원—이은경 대표가 단독으로 설계하는 60차시, 교수설계와 교재, 평가까지 전부입니다.
+    </div>
+    <div class="script-line">
+      <span class="em">LMS 플랫폼과 결제·수료 자동화</span> 2,500만원—책나무 전용 도메인, PG 연동, 수료증·자격증 자동 발급.
+    </div>
+    <div class="script-line">
+      <span class="em">자격체계 설계와 민간자격 등록</span> 1,130만원—5단계 프레임워크 설계와 한국직업능력연구원 등록 대행, 공납비 포함입니다.
+    </div>
+    <div class="memo-box demo">
+      <strong>견적서 라이브 오픈 — 2곳만 멈추기 (총 45~60초)</strong><br><br>
+      "상세 내역은 따로 견적서를 준비했습니다." → <strong>책나무_견적서.html</strong> 클릭해서 열기<br><br>
+      <strong>멈춤 1 — 첫 화면 (스크롤 없이)</strong><br>
+      → Base Package 요약 카드 가리키며<br>
+      → "전체 구성이 여기 다 나와 있습니다. 8,630만원 안에 대표과정, LMS, 자격체계 세 가지입니다."<br>
+      → 유지보수 1년 무료 라인 짚으며 "이것도 포함입니다." 한 마디<br><br>
+      <strong>멈춤 2 — 대표과정 5,000만원 섹션으로 스크롤</strong><br>
+      → 이은경 대표 출연료 항목 짚으며<br>
+      → "5,000만원이 왜 이 금액인지—이은경 대표 출연료와 저작권이 여기 있고요,"<br>
+      → 교재 편집 항목 짚으며<br>
+      → "교재 2권 편집·제작이 여기 있습니다. 외부 발주하면 이것만 1.5억 넘습니다."<br><br>
+      <strong>나머지 섹션 (LMS, 자격체계, 연수과정, 계약 조건) — 건드리지 않음</strong><br>
+      → 납부 조건(30/40/30)은 PT에서 별도 슬라이드로 설명<br>
+      → 질문 나오면 그때 해당 섹션으로 이동<br>
+      → "LMS 세부 내역 궁금하시면 여기서 바로 보여드릴 수 있습니다."
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>견적서 워크스루 중:</strong> 스크롤 속도는 상대가 따라오는지 확인하며 조절. 화면만 보지 말고 중간중간 눈 맞춤. 2곳 멈춤 외에는 멈추지 않기.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      AWS 인프라 1년, <span class="em">기술 유지보수 1년 무료</span>, 운영 코칭 2개월—이 세 가지가 금액에 포함되어 있습니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span><span class="tag t-eyes">청중 눈 맞춤</span>
+      2년차부터는 월정액 유지보수 계약으로 전환합니다. 기본형 월 50만원부터 시작하고, 범위는 그때 같이 맞추면 됩니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 30</span>
+    <span class="slide-title">마일스톤 기반 분할 납부 — 30/40/30</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      납부 방식은 <span class="em">마일스톤 기반 분할</span>입니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      계약 체결 시 <span class="em">30%</span>, 착수 3개월차에 <span class="em">40%</span>, 플랫폼 납품 완료 시 <span class="em">30%</span>예요.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      <span class="tag t-slow">천천히</span>
+      성과가 나와야 돈을 내는 구조입니다.
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      중도금은 3개월 후—그 시점에 진행 상황을 직접 확인하신 다음에 납부하시면 됩니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>강조:</strong> "성과가 나와야 돈을 내는 구조" — 리스크가 없다는 메시지. 확신 있게, 천천히.
+    </div>
+    <div class="script-line">
+      교재 인쇄 실비는 별도고요, 견적 유효기간은 발행일로부터 30일입니다.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 31</span>
+    <span class="slide-title">후속 일정 — Next Steps</span>
+  </div>
+  <div class="script-body">
+    <div class="script-line">
+      <span class="tag t-hand">화면 가리키며</span>
+      마지막으로 다음 단계입니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-slow">천천히</span>
+      1번—추가 연수과정 선택과 최종 구성 확정. 책나무 대표님께서 5월 넷째 주까지 결정해 주시면 됩니다.
+    </div>
+    <div class="script-line">
+      2번—계약 조건 협의와 체결. 5월 말.
+    </div>
+    <div class="script-line">
+      3번—킥오프 미팅 일정. 계약 직후 바로 잡겠습니다.
+    </div>
+    <div class="script-line">
+      4번—기능 명세 확정과 양측 서명. 착수 2주 이내.
+    </div>
+    <div class="script-line">
+      그리고 5번—<span class="em">12월, 1기 개강.</span>
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>마지막 항목:</strong> "12월, 1기 개강"을 말할 때 잠깐 상대를 바라보며 미소. 이게 우리가 함께 만들어가는 목표임을 표정으로 전달.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      <span class="tag t-eyes">청중 눈 맞춤</span>
+      어떠세요. 오늘 제안—
+    </div>
+    <div class="script-line">
+      궁금한 부분, 더 보고 싶은 부분 말씀해 주시면 바로 답변드리겠습니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>클로징 전 분위기:</strong> 어둡거나 긴장된 분위기면 안 됨. 제안을 마친 후의 여유 있는 톤.
+    </div>
+  </div>
+</div>
+
+<div class="slide-block dk-slide" style="border-radius:12px; margin-top:12px; margin-bottom:40px;">
+  <div class="slide-meta">
+    <span class="slide-num dk">S 32</span>
+    <span class="slide-title">감사합니다 — PENTA LAB × 책나무</span>
+    <span class="slide-subtitle">클로징</span>
+  </div>
+  <div class="script-body">
+    <div class="memo-box pause-box">
+      Q&A가 끝난 후 자연스럽게 이 슬라이드로 넘어오거나, 처음부터 이 화면에서 마무리.
+    </div>
+    <div class="memo-box nonverbal">
+      <strong>이은경 대표 + 이동길 CTO 함께:</strong> 발표 마무리는 두 사람 모두 상대를 바라보며. 미소.
+    </div>
+    <div class="script-line">
+      <span class="tag t-warm">따뜻하게</span><span class="tag t-slow">천천히</span>
+      오늘 귀한 시간 내주셔서 진심으로 감사합니다.
+    </div>
+    <div class="script-line">
+      저희가 제안드린 것들—커리큘럼이든 시스템이든—
+      <span class="em">책나무가 가진 것 위에 더하는</span> 것들입니다.
+    </div>
+    <div class="script-line">
+      <span class="tag t-pause">잠시 멈춤</span>
+      앞으로 좋은 협업 기대하겠습니다.
+    </div>
+    <div class="memo-box paralinguistic">
+      <strong>마지막 문장:</strong> 짧고 담백하게. 길게 끌지 않기. 말을 마치고 자연스럽게 인사로 마무리.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
