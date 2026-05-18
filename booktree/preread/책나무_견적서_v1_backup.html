@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>책나무 원격연수원 · 견적서</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --gold: #C9A84C;
+    --gold-soft: #F8F2E4;
+    --ink: #1a1a1a;
+    --mute: #666;
+    --line: #e2e2e2;
+    --bg: #fff;
+    --include: #1a5c2e;
+    --include-bg: #f0f9f3;
+    --exclude: #8b1a1a;
+    --exclude-bg: #fdf2f2;
+    --market: #3a3a3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── HEADER ── */
+  .doc-header { border-bottom: 3px solid var(--black); padding: 48px 0 32px; }
+  .doc-header .label { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .doc-header h1 { font-size: 32px; font-weight: 900; color: var(--black); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 12px; }
+  .doc-header .sub { font-size: 14px; color: var(--mute); }
+  .doc-meta { display: flex; gap: 32px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--mute); }
+  .doc-meta strong { color: var(--black); font-weight: 700; }
+
+  /* ── SECTION ── */
+  .section { padding: 48px 0; border-bottom: 1px solid var(--line); }
+  .section:last-of-type { border-bottom: none; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .section h2 { font-size: 22px; font-weight: 800; color: var(--black); letter-spacing: -0.02em; margin-bottom: 6px; }
+  .section .desc { font-size: 14px; color: var(--mute); margin-bottom: 28px; }
+
+  /* ── OPTION CARDS ── */
+  .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ── TIER CARDS (과정 유형 3단계) ── */
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+  .tier-card { border: 1.5px solid var(--line); border-radius: 8px; padding: 24px 20px; }
+  .tier-card.highlight { border-color: var(--black); background: var(--black); }
+  .tier-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .tier-price { font-size: 36px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--gold); margin-bottom: 4px; }
+  .tier-unit { font-size: 13px; color: var(--mute); margin-bottom: 16px; }
+  .tier-card.highlight .tier-unit { color: rgba(255,255,255,0.5); }
+  .tier-bullets { list-style: none; font-size: 13px; }
+  .tier-bullets li { padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; color: var(--mute); }
+  .tier-card.highlight .tier-bullets li { color: rgba(255,255,255,0.7); }
+  .tier-bullets li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+  .platform-row { border: 1.5px solid var(--line); border-radius: 8px; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
+  .platform-label { font-size: 15px; font-weight: 700; color: var(--black); }
+  .platform-price-wrap { display: flex; align-items: baseline; gap: 8px; }
+  .platform-price { font-size: 28px; font-weight: 900; color: var(--gold); letter-spacing: -0.02em; }
+  .platform-unit { font-size: 13px; color: var(--mute); }
+  .option-card { border: 1.5px solid var(--line); border-radius: 8px; padding: 28px 24px 24px; }
+  .option-card.primary { border-color: var(--black); background: var(--black); }
+  .option-num { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .option-name { font-size: 16px; font-weight: 800; margin-bottom: 16px; line-height: 1.3; }
+  .option-card.primary .option-name { color: #fff; }
+  .option-card:not(.primary) .option-name { color: var(--black); }
+  .option-price { font-size: 42px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--gold); margin-bottom: 4px; }
+  .option-unit { font-size: 13px; color: var(--mute); margin-bottom: 16px; }
+  .option-card.primary .option-unit { color: rgba(255,255,255,0.5); }
+  .option-bullets { list-style: none; font-size: 13px; }
+  .option-bullets li { padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; color: var(--mute); }
+  .option-card.primary .option-bullets li { color: rgba(255,255,255,0.7); }
+  .option-bullets li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+
+  /* ── MARKET COMPARE ── */
+  .market-box {
+    background: var(--black);
+    border-radius: 10px;
+    padding: 36px 32px;
+    color: #fff;
+    margin-bottom: 0;
+  }
+  .market-box .market-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .market-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .market-box .market-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 28px; }
+  .market-table { width: 100%; border-collapse: collapse; }
+  .market-table th {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4); padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.12);
+    text-align: left;
+  }
+  .market-table th:not(:first-child) { text-align: right; }
+  .market-table td { padding: 11px 12px; font-size: 13px; color: rgba(255,255,255,0.75); border-bottom: 1px solid rgba(255,255,255,0.07); vertical-align: middle; }
+  .market-table td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+  .market-table .market-val { color: rgba(255,255,255,0.45); }
+  .market-table .penta-val { color: var(--gold); font-weight: 700; }
+  .market-table .save-val { color: #6ee7a0; font-weight: 700; font-size: 12px; }
+  .market-table .total-row td {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: none;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 14px 12px;
+    color: #fff;
+  }
+  .market-table .total-row .penta-val { font-size: 18px; }
+  .market-table .total-row .save-val { font-size: 13px; }
+  .market-note { margin-top: 16px; font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.7; }
+  .market-highlight {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── DETAIL TABLE ── */
+  .detail-wrap { margin-top: 0; }
+  .detail-group { margin-bottom: 12px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .detail-group:last-child { margin-bottom: 0; }
+  .detail-group-head {
+    background: #f5f5f5;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+  }
+  .detail-group-head .gh-title { font-size: 13px; font-weight: 800; color: var(--black); }
+  .detail-group-head .gh-amt { font-size: 14px; font-weight: 900; color: var(--gold); }
+  .detail-group-head .gh-orig { font-size: 12px; font-weight: 600; color: #bbb; text-decoration: line-through; margin-right: 4px; }
+  .detail-group-head .gh-arrow { font-size: 12px; color: #bbb; margin: 0 4px; }
+  .sow-table { width: 100%; border-collapse: collapse; }
+  .sow-table tr { border-bottom: 1px solid var(--line); }
+  .sow-table tr:last-child { border-bottom: none; }
+  .sow-table td { padding: 10px 16px; font-size: 13px; color: var(--ink); vertical-align: top; line-height: 1.55; }
+  .sow-table .col-item { width: 36%; font-weight: 600; color: var(--black); }
+  .sow-table .col-spec { width: 40%; color: var(--mute); font-size: 12.5px; }
+  .sow-table .col-mkt { width: 12%; text-align: right; color: var(--mute); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .sow-table .col-inc { width: 12%; text-align: center; font-weight: 700; color: var(--include); font-size: 13px; }
+  .sow-table th { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); padding: 8px 16px; background: #fafafa; border-bottom: 1px solid var(--line); text-align: left; }
+  .sow-table th:not(:first-child):not(:nth-child(2)) { text-align: right; }
+  .sow-table th:last-child { text-align: center; }
+  .mkt-tag { font-size: 11px; color: var(--mute); }
+  .sub-note { font-size: 11.5px; color: var(--mute); margin-top: 1px; display: block; font-weight: 400; }
+
+  /* ── IN/OUT ── */
+  .inout-wrap { margin-top: 20px; border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .inout-title { padding: 13px 20px; background: #fafafa; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 800; color: var(--black); display: flex; justify-content: space-between; align-items: center; }
+  .inout-title .price-tag { font-size: 18px; font-weight: 900; color: var(--gold); }
+  .inout-cols { display: grid; grid-template-columns: 1fr 1fr; }
+  .inout-col { padding: 18px 20px; }
+  .inout-col:first-child { border-right: 1px solid var(--line); background: var(--include-bg); }
+  .inout-col:last-child { background: var(--exclude-bg); }
+  .inout-col-label { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 10px; }
+  .inout-col:first-child .inout-col-label { color: var(--include); }
+  .inout-col:last-child .inout-col-label { color: var(--exclude); }
+  .inout-col ul { list-style: none; font-size: 13px; }
+  .inout-col ul li { padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; border-bottom: 1px solid rgba(0,0,0,0.05); line-height: 1.5; }
+  .inout-col ul li:last-child { border-bottom: none; }
+  .inout-col:first-child ul li::before { content: "✓"; font-weight: 700; color: var(--include); flex-shrink: 0; margin-top: 1px; }
+  .inout-col:last-child ul li::before { content: "✗"; font-weight: 700; color: var(--exclude); flex-shrink: 0; margin-top: 1px; }
+  .note { font-size: 11.5px; color: var(--mute); margin-top: 1px; display: block; }
+
+  /* ── OPTION 2 ── */
+  .ext-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ext-card { border: 1.5px solid var(--line); border-radius: 8px; padding: 24px; }
+  .ext-type { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .ext-price { font-size: 32px; font-weight: 900; color: var(--black); letter-spacing: -0.03em; margin-bottom: 4px; }
+  .ext-unit { font-size: 13px; color: var(--mute); margin-bottom: 14px; }
+  .ext-note { font-size: 13px; color: var(--mute); line-height: 1.65; border-top: 1px solid var(--line); padding-top: 12px; }
+
+  /* ── TERMS ── */
+  .terms-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .terms-box { border: 1px solid var(--line); border-radius: 6px; padding: 20px; }
+  .terms-box h3 { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute); margin-bottom: 12px; }
+  .terms-box ul { list-style: none; font-size: 13px; }
+  .terms-box ul li { padding: 5px 0; border-bottom: 1px solid #f0f0f0; display: flex; gap: 10px; line-height: 1.55; }
+  .terms-box ul li:last-child { border-bottom: none; }
+  .lk { font-weight: 700; color: var(--black); white-space: nowrap; min-width: 68px; font-size: 12px; }
+  .full-note { background: #fafafa; border: 1px solid var(--line); border-radius: 6px; padding: 20px; margin-top: 16px; font-size: 13px; color: var(--mute); line-height: 1.8; }
+  .full-note strong { color: var(--black); }
+  .std-note { background: #fffdf5; border-left: 3px solid var(--gold); border-radius: 0 6px 6px 0; padding: 16px 20px; margin-bottom: 24px; font-size: 13px; color: #555; line-height: 1.75; }
+  .std-note .std-title { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .std-note ul { list-style: none; padding: 0; }
+  .std-note ul li { padding: 2px 0; padding-left: 14px; position: relative; }
+  .std-note ul li::before { content: "—"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+  /* ── FOOTER ── */
+  footer { background: var(--black); color: rgba(255,255,255,0.55); font-size: 13px; margin-top: 0; }
+  .footer-main { padding: 48px 0 40px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 40px; }
+  .footer-col-title { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 14px; letter-spacing: -0.01em; }
+  .footer-brand-sub { font-size: 12px; color: rgba(255,255,255,0.45); line-height: 1.7; margin-bottom: 4px; }
+  .footer-links { list-style: none; }
+  .footer-links li { padding: 4px 0; }
+  .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bar { border-top: 1px solid rgba(255,255,255,0.1); padding: 16px 0; display: flex; align-items: center; gap: 24px; font-size: 11px; color: rgba(255,255,255,0.3); }
+  .footer-bar a { color: rgba(255,255,255,0.3); text-decoration: none; }
+  .footer-bar a:hover { color: rgba(255,255,255,0.6); }
+  @media print { footer { display: none; } }
+
+  /* ── COMMENT SYSTEM ── */
+  .comment-toggle {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 24px; padding: 7px 14px;
+    border: 1.5px solid var(--line); border-radius: 20px;
+    background: #fff; cursor: pointer;
+    font-size: 12px; font-weight: 600; color: var(--mute);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .comment-toggle:hover { border-color: var(--gold); color: var(--black); }
+  .comment-toggle.has-comments { border-color: var(--gold); color: var(--black); }
+  .comment-toggle .ct-icon { font-size: 13px; }
+  .comment-toggle .ct-count {
+    background: var(--gold); color: #000;
+    font-size: 10px; font-weight: 800;
+    padding: 1px 6px; border-radius: 10px;
+    display: none;
+  }
+  .comment-toggle.has-comments .ct-count { display: inline; }
+
+  .comment-panel {
+    display: none; margin-top: 12px;
+    border: 1.5px solid var(--line); border-radius: 10px;
+    overflow: hidden;
+  }
+  .comment-panel.open { display: block; }
+
+  .comment-list { padding: 0; }
+  .comment-item {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .comment-item:last-child { border-bottom: none; }
+  .comment-item-header {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .comment-author { font-size: 12px; font-weight: 700; color: var(--black); }
+  .comment-time { font-size: 11px; color: var(--mute); }
+  .comment-text { font-size: 13px; color: var(--ink); line-height: 1.6; white-space: pre-wrap; }
+  .comment-del {
+    background: none; border: none; cursor: pointer;
+    font-size: 11px; color: #ccc; padding: 2px 6px;
+    border-radius: 4px; transition: color 0.15s, background 0.15s;
+  }
+  .comment-del:hover { color: var(--exclude); background: var(--exclude-bg); }
+  .comment-empty { padding: 20px 18px; font-size: 13px; color: var(--mute); text-align: center; }
+
+  .comment-input-area {
+    padding: 14px 18px; background: #fafafa;
+    border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .comment-text-input {
+    flex: 1; padding: 7px 10px;
+    border: 1.5px solid var(--line); border-radius: 6px;
+    font-size: 13px; font-family: inherit; color: var(--ink);
+    resize: none; outline: none; transition: border-color 0.15s;
+    min-height: 60px;
+  }
+  .comment-text-input:focus { border-color: var(--gold); }
+  .comment-actions { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .comment-submit {
+    padding: 7px 18px; background: var(--black); color: #fff;
+    border: none; border-radius: 6px; font-size: 12px; font-weight: 700;
+    cursor: pointer; font-family: inherit; transition: background 0.15s;
+  }
+  .comment-submit:hover { background: #333; }
+  .comment-copy {
+    padding: 6px 14px; background: none; color: var(--mute);
+    border: 1.5px solid var(--line); border-radius: 6px;
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    font-family: inherit; transition: border-color 0.15s, color 0.15s;
+  }
+  .comment-copy:hover { border-color: var(--gold); color: var(--black); }
+
+  /* ── BASE PACKAGE ── */
+  .base-pkg { background: var(--black); border-radius: 10px; padding: 32px; display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; margin-bottom: 16px; }
+  .base-pkg-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .base-pkg-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 16px; line-height: 1.4; }
+  .base-pkg-list { list-style: none; font-size: 13px; }
+  .base-pkg-list li { padding: 4px 0; display: flex; gap: 8px; align-items: flex-start; color: rgba(255,255,255,0.65); }
+  .base-pkg-list li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+  .base-pkg-right { text-align: right; flex-shrink: 0; }
+  .base-pkg-price { font-size: 52px; font-weight: 900; color: var(--gold); letter-spacing: -0.03em; line-height: 1; white-space: nowrap; }
+  .base-pkg-unit { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 6px; }
+
+  /* ── ADD-ON ── */
+  .addon-head { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute); margin-bottom: 12px; margin-top: 4px; }
+  .addon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .addon-card { border: 1.5px solid var(--line); border-radius: 8px; padding: 20px; }
+  .addon-label { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .addon-price { font-size: 32px; font-weight: 900; color: var(--black); letter-spacing: -0.03em; margin-bottom: 4px; }
+  .addon-unit { font-size: 13px; color: var(--mute); margin-bottom: 12px; }
+  .addon-bullets { list-style: none; font-size: 13px; border-top: 1px solid var(--line); padding-top: 12px; }
+  .addon-bullets li { padding: 3px 0; display: flex; gap: 8px; align-items: flex-start; color: var(--mute); }
+  .addon-bullets li::before { content: "—"; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+
+  @media print {
+    .comment-toggle, .comment-panel { display: none !important; }
+    .section { page-break-inside: avoid; }
+  }
+  @media (max-width: 700px) {
+    .option-grid, .inout-cols, .ext-grid, .terms-grid, .tier-grid, .addon-grid { grid-template-columns: 1fr; }
+    .base-pkg { flex-direction: column; gap: 20px; }
+    .base-pkg-right { text-align: left; }
+    .base-pkg-price { font-size: 38px; }
+    .ext-grid { grid-template-columns: 1fr; }
+    .inout-col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
+    .wrap { padding: 0 18px; }
+    .doc-meta { flex-wrap: wrap; gap: 12px; }
+    .option-price { font-size: 30px; }
+    .sow-table .col-mkt { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="label">Quotation · 2026</div>
+    <h1>책나무미래교육캠퍼스<span style="font-size:16px; font-weight:600; color:var(--mute); margin-left:6px;">(가칭)</span><br>구축 견적서</h1>
+    <p class="sub">Base Package 8,630만 + 과정 추가 단가 · VAT 별도 · 구축 기간 약 6개월</p>
+    <div class="doc-meta">
+      <div><strong>수신</strong> 책나무 대표</div>
+      <div><strong>발신</strong> PENTA LAB</div>
+      <div><strong>일자</strong> 2026년 &nbsp;&nbsp;월 &nbsp;&nbsp;일</div>
+      <div><strong>유효기간</strong> 발행일로부터 30일</div>
+    </div>
+  </div>
+
+
+  <!-- OPTION SUMMARY -->
+  <div class="section" id="sec-pricing" data-sec-name="견적 구성">
+    <div class="section-label">Pricing Summary</div>
+    <h2>견적 구성</h2>
+    <p class="desc">대표과정 1과정 + LMS 플랫폼 + 자격체계를 기본 패키지로 제공합니다. 이후 자격증과정 수에 따라 필수·선택 과정을 추가합니다. 모든 금액은 VAT 별도입니다.</p>
+
+
+    <!-- 기본 패키지 -->
+    <div class="base-pkg">
+      <div>
+        <div class="base-pkg-eyebrow">Base Package · 턴키 기본</div>
+        <div class="base-pkg-title">대표과정 1과정 + LMS 플랫폼 + 자격체계</div>
+        <ul class="base-pkg-list">
+          <li>대표과정 1과정 완전 제작 — 이은경 대표 단독·공동·내부 강사 단독 혼용, 60차시, 교수설계·교재·평가 일체 포함 <span style="color:var(--gold);font-weight:800;white-space:nowrap;margin-left:6px;">5,000만원</span></li>
+          <li>책나무 전용 LMS 플랫폼 — PG 결제 게이트웨이·수료 자동화·학습 분석(Learning Analytics) 대시보드 일체 <span style="color:var(--gold);font-weight:800;white-space:nowrap;margin-left:6px;">2,500만원</span></li>
+          <li>자격 프레임워크(Qualification Framework) 설계 + 민간자격 등록 대행 (한국직업능력연구원 기준) + 관할 기관 공납비 330만 포함 <span style="color:var(--gold);font-weight:800;white-space:nowrap;margin-left:6px;">1,130만원</span></li>
+          <li>클라우드 인프라(AWS) 1년 · 운영 코칭 2개월 <span style="color:rgba(255,255,255,0.35);font-size:12px;margin-left:6px;">포함</span></li>
+          <li>기술 유지보수 1년 무료 포함 — 버그 수정·보안 패치·AWS 인프라 관리·월 1회 운영 리포트 <span style="color:rgba(255,255,255,0.35);font-size:12px;margin-left:6px;">포함</span></li>
+        </ul>
+      </div>
+      <div class="base-pkg-right">
+        <div class="base-pkg-price">8,630만원</div>
+        <div class="base-pkg-unit">VAT 별도 · 구축 기간 약 6개월</div>
+      </div>
+    </div>
+
+    <!-- 과정 추가 단가 -->
+    <div class="addon-head">+ 세부 과정 추가 단가 — 기본 패키지 완료 후 자격증과정 수에 따라 추가</div>
+    <div class="addon-card" style="border-color:var(--line);">
+      <div class="addon-label">세부 과정 (과정당)</div>
+      <div class="addon-price">2,000만원</div>
+      <div class="addon-unit">/ 과정 · VAT 별도</div>
+      <ul class="addon-bullets">
+        <li>이은경 대표 기획·감수, 전문 강사 기획·출연</li>
+        <li>10차시 내외 · 차시당 25분 내외</li>
+        <li>교수설계 명세서·교재·평가 포함</li>
+        <li>LMS 추가 구축·서버비 없음 · 교재 인쇄 실비 별도</li>
+      </ul>
+    </div>
+  </div>
+
+
+
+
+  <!-- 대표과정 세목 -->
+  <div class="section" id="sec-course" data-sec-name="대표과정 세목">
+    <div class="section-label">Scope · 대표과정 제작</div>
+    <h2>대표과정 5,000만원 세부 내역</h2>
+    <p class="desc">차시별 출연 방식은 ① 이은경 대표 단독 ② 이은경 대표 + 내부 강사 공동 ③ 내부 강사 단독 중 역량·내용에 따라 혼용 적용합니다. 60차시, 교수설계·교재·평가 일체 포함. 교재 인쇄는 실비 별도입니다.</p>
+
+    <div class="std-note">
+      <div class="std-title">단가 근거 — 전문 연수기관 콘텐츠 제작 기준</div>
+      <ul>
+        <li><strong>원격연수원 인정 요건 준수</strong> — 교육부 원격연수 인정 기준(차시당 25분·진도율 자동 집계·평가 연계 수료)을 충족하는 콘텐츠는 일반 강의 영상 대비 제작 공수 2~3배입니다. 단순 촬영·편집 외주 단가와 직접 비교할 수 없습니다.</li>
+        <li><strong>IDS 기반 교수설계 의무</strong> — 학습목표·내용·형성평가·수료 기준이 차시 단위로 연계된 Instructional Design Specification 작성은 원격연수원 심사 통과의 핵심 요건입니다.</li>
+        <li><strong>저작권·초상권 법적 처리 일체 포함</strong> — 상업적 연수 판매를 위한 강사 초상권·저작인접권 계약, CMYK 인쇄 원고 저작권 귀속 등 법적 요건 전체 처리 비용이 반영됩니다.</li>
+        <li><strong>수료 이력 장기 보관 의무 대응</strong> — 원격연수 기록 의무 보존(5년 이상) 요건을 충족하는 시스템 설계가 포함되어 있습니다.</li>
+      </ul>
+    </div>
+
+    <div class="detail-wrap">
+
+      <!-- 기획 -->
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">① 기획 · 설계 (60차시 전체)</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">1,320만원</span><span class="gh-arrow">→</span><span class="gh-amt">500만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">러닝 아키텍처 기획</td>
+              <td class="col-spec">과정명·학습 대상(Target Audience)·학습 목표(Learning Objectives) 정의, 60차시 전체 커리큘럼 맵 작성, 킥오프·중간 검토 미팅 포함</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">교수설계 명세서</td>
+              <td class="col-spec">Instructional Design Specification — 60차시 전체 학습 시퀀스(Sequence) 설계, 차시별 학습목표·핵심 내용·학습 활동(Learning Activity) 정의</td>
+              <td class="col-mkt">600만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">강의 스크립트 및 스토리보드</td>
+              <td class="col-spec">60차시 전 차시 강의 스크립트 + 촬영 콘티(Storyboard) 작성 — 이은경 대표·책나무 대표강사 공동 출연 분리 설계</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">LMS 코스웨어 등록·구성</td>
+              <td class="col-spec">플랫폼 내 코스웨어(Courseware) 등록, 학습 경로(Learning Path) 구성, 수료 조건 및 수강 흐름 사전 검수</td>
+              <td class="col-mkt">120만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 영상 제작 -->
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">② 영상 제작 (60차시 · 차시당 25분 내외)</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">4,590만원</span><span class="gh-arrow">→</span><span class="gh-amt">2,500만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">이은경 대표 출연료 및 저작인접권</td>
+              <td class="col-spec">이은경 대표 공동 출연 — 초상권·저작인접권 사용 동의 일체 포함, 촬영 10~15일 기준</td>
+              <td class="col-mkt">2,400만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">책나무 지정 내부 강사 섭외 · 일정 조율</td>
+              <td class="col-spec">책나무 내부 강사(원장·지사장) 출연 — 대상 강사 컨택·계약·촬영 일정 조율 전체 대행. 출연료 및 저작인접권 처리는 책나무 측 직접 협의</td>
+              <td class="col-mkt">150만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">촬영 스튜디오 대관 (총 15~20일)</td>
+              <td class="col-spec">스튜디오 예약·대관 — 키라이트·백라이트·필라이트 3점 조명 세팅 포함</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">촬영 장비 일체</td>
+              <td class="col-spec">4K 카메라 · 3점 조명 · 라발리에 마이크 · 프롬프터(Teleprompter) 등 촬영 장비 전체</td>
+              <td class="col-mkt">200만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">멀티트랙 편집 및 후처리 (60차시)</td>
+              <td class="col-spec">컷 편집 · 색보정(Color Grading) · 음향 후처리(Sound Mastering) · 화면 전환 · 강조 텍스트 삽입 · CC 자막 및 타임코드 동기화 · 차시 썸네일 디자인 포함 — 차시당 25만원 외주 기준</td>
+              <td class="col-mkt">1,500만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">브랜드 모션그래픽 인트로·아웃트로</td>
+              <td class="col-spec">책나무 브랜드 CI 적용 오프닝·엔딩 모션그래픽 (과정당 1세트, 전 차시 공통 사용)</td>
+              <td class="col-mkt">40만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 교재 -->
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">③ 교재 제작 (PDF 납품 기준 · 60차시)</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">1,700만원</span><span class="gh-arrow">→</span><span class="gh-amt">1,200만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">교수학습 자료 개발 (60차시)</td>
+              <td class="col-spec">Teaching &amp; Learning Materials — 차시별 학습자료 원고 작성, A4 기준 4~6p/차시, 총 240~360p</td>
+              <td class="col-mkt">1,000만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">편집 디자인 및 인쇄 원고 제작</td>
+              <td class="col-spec">InDesign 기준 편집 디자인 — 책나무 브랜드 CI 적용, 표·인포그래픽·도식 포함, CMYK 4도 인쇄용 원고 완성</td>
+              <td class="col-mkt">700만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">PDF 최종 파일 납품</td>
+              <td class="col-spec">인쇄용 고해상도 PDF(300dpi) + 웹 배포용 최적화 PDF 2종 납품</td>
+              <td class="col-mkt">포함</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item" style="color:var(--exclude)">교재 인쇄 (실물)</td>
+              <td class="col-spec" style="color:var(--exclude)">인쇄 수량·규격 확정 후 실비 별도 청구</td>
+              <td class="col-mkt" style="color:var(--exclude)">실비</td>
+              <td class="col-inc" style="color:var(--exclude)">✗</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 평가 -->
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">④ 평가 · 수료</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">1,263만원</span><span class="gh-arrow">→</span><span class="gh-amt">800만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">형성평가 문항 개발 (60차시)</td>
+              <td class="col-spec">Formative Assessment — 차시당 3~5문항, 객관식·OX 혼합, 총 180~300문항, LMS 자동채점 로직 연동</td>
+              <td class="col-mkt">600만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">총괄평가 설계</td>
+              <td class="col-spec">Summative Assessment — 과정 이수 후 최종 평가 30문항 이상, 합격 기준(Cut Score) 설정</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">이수 기준 및 자동 판정 로직</td>
+              <td class="col-spec">Completion Criteria — 진도율 기준 + 평가 합격 조건 정의, LMS 자동 이수 판정 로직 구현</td>
+              <td class="col-mkt">150만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">수료증 디자인</td>
+              <td class="col-spec">책나무 브랜드 적용 수료증 템플릿, 고유번호 자동 삽입</td>
+              <td class="col-mkt">13만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">Adaptive Bitrate Streaming 최적화</td>
+              <td class="col-spec">60차시 전 영상 HLS 스트리밍 변환 — 수강 환경별 화질 자동 조정, CDN 배포 준비</td>
+              <td class="col-mkt">200만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /detail-wrap -->
+
+    <!-- 소계 -->
+    <div style="margin-top:12px; background:var(--black); border-radius:6px; padding:16px 20px; display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-size:13px; color:rgba(255,255,255,0.55);">기획 500만 + 영상 2,500만 + 교재 1,200만 + 평가 800만 · 이은경 대표 + 대표강사 공동 출연 60차시</div>
+      <div style="font-size:20px; font-weight:900; color:var(--gold);">대표과정 합계 5,000만원</div>
+    </div>
+  </div>
+
+
+  <!-- LMS 세목 -->
+  <div class="section" id="sec-platform" data-sec-name="LMS 플랫폼 구축">
+    <div class="section-label">Scope · 플랫폼 구축</div>
+    <h2>LMS 플랫폼 + 결제·수료 자동화 = 2,500만원</h2>
+    <p class="desc">책나무 전용 플랫폼 구축 세부 내역입니다. 서버·도메인 1년치 포함입니다.</p>
+    </div>
+
+    <div class="std-note">
+      <div class="std-title">단가 근거 — 원격평생교육시설 신고 기술 요건</div>
+      <ul>
+        <li><strong>SCORM 2004 / xAPI 표준 호환 필수</strong> — 원격평생교육시설 신고 시 학습 이력 추적 표준 준수가 심사 요건입니다. 일반 영상 스트리밍 플랫폼과 아키텍처가 근본적으로 다릅니다.</li>
+        <li><strong>진도율·평가·수료 자동 연동</strong> — 교육 당국 감사 시 제출 가능한 차시별 학습 이력·수료 기록 자동 생성 로직 구현이 포함됩니다.</li>
+        <li><strong>멀티테넌트 구조 — 500+ 가맹점 대응</strong> — 책나무 본사·지사·개별 교사 계정을 계층 구조로 관리하는 Role-Based Access Control 설계는 일반 소규모 플랫폼 단가보다 공수가 큽니다.</li>
+      </ul>
+    </div>
+
+    <div class="detail-wrap">
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">플랫폼 · 시스템 전체</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">2,880만원</span><span class="gh-arrow">→</span><span class="gh-amt">2,500만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">브랜드 CI 적용 및 도메인 구성</td>
+              <td class="col-spec">책나무 로고·컬러시스템 적용, 전용 도메인 구매 및 DNS 연동, SSL/TLS 인증서 설치</td>
+              <td class="col-mkt">200만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">역할 기반 접근 제어(RBAC)</td>
+              <td class="col-spec">사용자 계정 관리 및 역할 기반 접근 제어(Role-Based Access Control) — 교사 계정 일괄 등록·발급, 지사별 코호트(Cohort) 구성</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">적응형 스트리밍 환경 구축</td>
+              <td class="col-spec">Adaptive Bitrate Streaming — 영상 업로드·스트리밍 환경, 배속 재생·이어보기·모바일 대응</td>
+              <td class="col-mkt">400만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">학습 이력 자동 추적</td>
+              <td class="col-spec">차시별 진도율 실시간 집계, 수료 조건 자동 판정, 이수 완료 기록 영구 보존</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">평가 자동채점 엔진 및 과제 워크플로우</td>
+              <td class="col-spec">형성평가 자동채점 엔진 + 과제 제출·관리자 검토 워크플로우, 결과 자동 기록</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">학습 분석(Learning Analytics) 대시보드</td>
+              <td class="col-spec">전체 수강 현황·지사별 이수율·교사별 학습 이력·수료 통계 BI 리포트, CSV 익스포트</td>
+              <td class="col-mkt">500만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">PG사 연동 결제 게이트웨이</td>
+              <td class="col-spec">카드·계좌이체·간편결제 멀티채널 PG 연동, 결제 내역 자동 원장 기록, 환불 처리 기능</td>
+              <td class="col-mkt">100만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">수료 인증서 자동 발급</td>
+              <td class="col-spec">수료 조건 충족 시 인증서(Certificate of Completion) 자동 생성·발급, 위·변조 방지 고유번호 부여, PDF 다운로드</td>
+              <td class="col-mkt">200만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">반응형 웹(RWD) 전 디바이스 대응</td>
+              <td class="col-spec">PC·태블릿·스마트폰 전 디바이스, 크로스브라우저(Chrome·Safari·Edge) 정상 작동 보장</td>
+              <td class="col-mkt">포함</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">서버·호스팅 1년</td>
+              <td class="col-spec">클라우드 서버(AWS) 1년치 선납 — 월 25~40만원 상당</td>
+              <td class="col-mkt">360만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">도메인 1년</td>
+              <td class="col-spec">도메인 구매 및 1년 유지비 포함</td>
+              <td class="col-mkt">10만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">트랜잭셔널 이메일 발송 서비스 1년</td>
+              <td class="col-spec">Transactional Email — 수강 안내·수료 알림·자격 갱신 알림 자동 발송 서비스 1년치</td>
+              <td class="col-mkt">60만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">운영 매뉴얼 납품</td>
+              <td class="col-spec">본사 관리자용 어드민 매뉴얼 + 교사용 UX 가이드 PDF 각 1종 납품</td>
+              <td class="col-mkt">150만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item" style="color:var(--exclude)">결제 수수료</td>
+              <td class="col-spec" style="color:var(--exclude)">카드사·PG사 수수료 거래액의 약 2~3% — 거래 발생 시 실비</td>
+              <td class="col-mkt" style="color:var(--exclude)">실비</td>
+              <td class="col-inc" style="color:var(--exclude)">✗</td>
+            </tr>
+            <tr>
+              <td class="col-item" style="color:var(--exclude)">서버비 2년차 이후</td>
+              <td class="col-spec" style="color:var(--exclude)">1년 이후 서버·도메인·이메일 비용 책나무 직접 부담 전환 (예상 월 30~45만)</td>
+              <td class="col-mkt" style="color:var(--exclude)">실비</td>
+              <td class="col-inc" style="color:var(--exclude)">✗</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 자격 체계 세목 -->
+  <div class="section" id="sec-qual" data-sec-name="자격 체계">
+    <div class="section-label">Scope · 자격 체계</div>
+    <h2>자격 체계 설계·시스템 + 민간자격 등록 + 공납비 포함 = 1,130만원</h2>
+    </div>
+
+    <div class="std-note">
+      <div class="std-title">단가 근거 — 한국직업능력연구원 민간자격 등록 기준</div>
+      <ul>
+        <li><strong>민간자격 등록 = 법적 근거 확보</strong> — 한국직업능력연구원에 자격을 등록해야 자격증의 법적 효력이 발생합니다. 등록 없이 발급하는 자격증은 사설 수료증과 법적 지위가 동일합니다.</li>
+        <li><strong>협회 법인 설립 — 자격 발급 주체 확보</strong> — 민간자격은 법인 또는 단체만 등록 가능합니다. 책나무 사명 그대로 발급하려면 별도 법인(교육전문가협회) 설립이 선행 조건입니다.</li>
+        <li><strong>5단계 등급 체계 — 한우리 독서지도사 모델 벤치마크</strong> — 35년간 6.5만 명을 배출한 한우리 자격 체계와 동일한 구조 설계. 업계 최고 공신력 자격 체계와의 동등성 확보가 목표입니다.</li>
+      </ul>
+    </div>
+
+    <div class="detail-wrap">
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">자격 체계 전체</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">1,380만원</span><span class="gh-arrow">→</span><span class="gh-amt">1,130만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">협회(법인) 설립</td>
+              <td class="col-spec">교육전문가협회 법인 설립 — 정관 작성·법인 등기·조직 설계 전체 대행. 자격증 발급 주체 확보 및 교사 전문가 정체성 부여</td>
+              <td class="col-mkt">250만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">자격 프레임워크 설계</td>
+              <td class="col-spec">Qualification Framework — 5단계 등급 체계 설계, 등급별 역량 기술서(Competency Descriptor) 및 취득·유지·갱신 요건 전체 정의</td>
+              <td class="col-mkt">500만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">유효기간 만료 알림 자동화</td>
+              <td class="col-spec">D-30·D-7 트리거 기반 이메일 자동 발송 — LMS 플랫폼 내 스케줄 처리</td>
+              <td class="col-mkt">100만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">자격 진위 확인 공개 조회 시스템</td>
+              <td class="col-spec">고유번호 입력 시 실시간 유효성 검증 — 위·변조 방지 공개 조회 페이지</td>
+              <td class="col-mkt">200만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+
+            <tr>
+              <td class="col-item">관할 기관 공납비</td>
+              <td class="col-spec">원격평생교육시설 신고 150만 + 협회 설립 80만 + 기타 공납비 100만 — 합계 330만원 포함</td>
+              <td class="col-mkt">330만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- 연수과정 세목 -->
+  <div class="section" id="sec-addon" data-sec-name="연수과정 세목">
+    <div class="section-label">Scope · 연수과정 제작</div>
+    <h2>연수과정 2,000만원 세부 내역</h2>
+    <p class="desc">계약 이후 추가 제작하는 과정 1개당 단가입니다. 이은경 강사를 비롯한 소속 전문 강사 출연, 차시당 25분 12차시 기준입니다. 교재 인쇄 및 물류 비용 불포함입니다.</p>
+    </div>
+
+    <div class="detail-wrap">
+
+      <!-- 기획 -->
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">① 기획 · 설계</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">480만원</span><span class="gh-arrow">→</span><span class="gh-amt">250만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">러닝 아키텍처 기획</td>
+              <td class="col-spec">과정명·학습 대상(Target Audience)·학습 목표(Learning Objectives) 정의, 책나무 브랜드 방향성 반영, 킥오프 미팅 최대 2회</td>
+              <td class="col-mkt">150만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">교수설계 명세서</td>
+              <td class="col-spec">Instructional Design Specification — 10~15차시 전체 학습 시퀀스(Sequence) 설계, 차시별 학습목표·핵심 내용·학습 활동(Learning Activity) 정의</td>
+              <td class="col-mkt">200만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">강의 스크립트 및 스토리보드</td>
+              <td class="col-spec">차시별 강의 스크립트 + 촬영 콘티(Storyboard) 작성 — 강사 촬영 전 전달용</td>
+              <td class="col-mkt">100만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">LMS 코스웨어 등록·구성</td>
+              <td class="col-spec">플랫폼 내 코스웨어(Courseware) 등록, 학습 경로(Learning Path) 구성, 수료 조건 및 수강 흐름 사전 검수</td>
+              <td class="col-mkt">30만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 영상 제작 -->
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">② 영상 제작 (10~15차시 · 차시당 25분 내외)</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">1,155만원</span><span class="gh-arrow">→</span><span class="gh-amt">1,050만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">강사 섭외 및 일정 조율</td>
+              <td class="col-spec">PENTA 네트워크 전문 강사 섭외·계약, 촬영 일정 조율·준비 일체</td>
+              <td class="col-mkt">포함</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">출연료 및 저작인접권 처리</td>
+              <td class="col-spec">촬영 4~5일 기준 출연료 + 초상권·저작인접권 사용 동의 일체 포함</td>
+              <td class="col-mkt">500만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">촬영 스튜디오 대관</td>
+              <td class="col-spec">스튜디오 예약·대관 — 키라이트·백라이트·필라이트 3점 조명 세팅 포함</td>
+              <td class="col-mkt">75만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">촬영 장비 일체</td>
+              <td class="col-spec">4K 카메라 · 3점 조명 · 라발리에 마이크 · 프롬프터(Teleprompter) 등 촬영 장비 전체</td>
+              <td class="col-mkt">50만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">멀티트랙 편집 및 후처리</td>
+              <td class="col-spec">컷 편집 · 색보정(Color Grading) · 음향 후처리(Sound Mastering) · 화면 전환 · 강조 텍스트 삽입 — 차시당 20만원 외주 기준</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">CC 자막 및 타임코드 동기화</td>
+              <td class="col-spec">전 차시 한국어 CC(Closed Caption) 제작 및 타임코드(Timecode) 동기화 — 차시당 8만원 외주 기준</td>
+              <td class="col-mkt">120만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">브랜드 모션그래픽 인트로·아웃트로</td>
+              <td class="col-spec">책나무 브랜드 CI 적용 오프닝·엔딩 모션그래픽 (과정당 1세트, 전 차시 공통 사용)</td>
+              <td class="col-mkt">80만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">차시 썸네일 디자인</td>
+              <td class="col-spec">LMS 내 차시 썸네일 이미지 — 차시별 1장, 브랜드 가이드라인 준수</td>
+              <td class="col-mkt">30만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 교재 -->
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">③ 교재 제작 (PDF 납품 기준)</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">550만원</span><span class="gh-arrow">→</span><span class="gh-amt">400만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">교수학습 자료 개발</td>
+              <td class="col-spec">Teaching &amp; Learning Materials — 차시별 학습자료 원고 작성, A4 기준 4~8p/차시, 총 40~120p</td>
+              <td class="col-mkt">300만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">편집 디자인 및 인쇄 원고 제작</td>
+              <td class="col-spec">InDesign 기준 편집 디자인 — 책나무 브랜드 CI 적용, 표·인포그래픽·도식 포함, CMYK 4도 인쇄용 원고 완성</td>
+              <td class="col-mkt">250만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">PDF 최종 파일 납품</td>
+              <td class="col-spec">인쇄용 고해상도 PDF(300dpi) + 웹 배포용 최적화 PDF 2종 납품</td>
+              <td class="col-mkt">포함</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item" style="color:var(--exclude)">교재 인쇄 (실물)</td>
+              <td class="col-spec" style="color:var(--exclude)">인쇄 수량·규격 확정 후 실비 별도 청구</td>
+              <td class="col-mkt" style="color:var(--exclude)">실비</td>
+              <td class="col-inc" style="color:var(--exclude)">✗</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 평가 -->
+      <div class="detail-group">
+        <div class="detail-group-head">
+          <span class="gh-title">④ 평가 · 수료</span>
+          <div style="display:flex; align-items:center; gap:2px;"><span class="gh-orig">510만원</span><span class="gh-arrow">→</span><span class="gh-amt">300만원</span></div>
+        </div>
+        <table class="sow-table">
+          <thead>
+            <tr>
+              <th class="col-item">항목</th>
+              <th class="col-spec">세부 내용</th>
+              <th class="col-mkt">단가</th>
+              <th class="col-inc">포함</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-item">형성평가 문항 개발</td>
+              <td class="col-spec">Formative Assessment — 차시당 3~5문항, 객관식·OX 혼합, 총 30~75문항, LMS 자동채점 로직 연동</td>
+              <td class="col-mkt">200만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">총괄평가 설계</td>
+              <td class="col-spec">Summative Assessment — 과정 이수 후 최종 평가 20문항 이상, 합격 기준(Cut Score) 설정</td>
+              <td class="col-mkt">150만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">이수 기준 및 자동 판정 로직</td>
+              <td class="col-spec">Completion Criteria — 진도율 기준 + 평가 합격 조건 정의, LMS 자동 이수 판정 로직 구현</td>
+              <td class="col-mkt">80만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+            <tr>
+              <td class="col-item">수료증 디자인</td>
+              <td class="col-spec">책나무 브랜드 적용 수료증 템플릿, 고유번호 자동 삽입</td>
+              <td class="col-mkt">80만</td>
+              <td class="col-inc">✓</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div><!-- /detail-wrap -->
+
+    <!-- 소계 -->
+    <div style="margin-top:12px; background:#fafafa; border:1px solid var(--line); border-radius:6px; padding:16px 20px; display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-size:13px; color:var(--mute);">기획 250만 + 영상 1,050만 + 교재 400만 + 평가 300만 · 10~15차시 · 과정 1개당 단가</div>
+      <div style="font-size:20px; font-weight:900; color:var(--gold);">연수과정 합계 2,000만원</div>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="section" id="sec-terms" data-sec-name="계약 조건">
+    <div class="section-label">Terms</div>
+    <h2>계약 조건</h2>
+    </div>
+    <div class="terms-grid">
+      <div class="terms-box">
+        <h3>결제 일정</h3>
+        <ul>
+          <li><span class="lk">계약금 30%</span> 계약 체결 시</li>
+          <li><span class="lk">중도금 40%</span> 착수 3개월차</li>
+          <li><span class="lk">잔금 30%</span> 플랫폼 납품 완료 시</li>
+        </ul>
+      </div>
+      <div class="terms-box">
+        <h3>일정</h3>
+        <ul>
+          <li><span class="lk">구축 기간</span> 계약일로부터 약 6개월</li>
+          <li><span class="lk">디스커버리</span> 착수 후 2주 이내 — 킥오프 미팅 + 현장 방문 1회</li>
+          <li><span class="lk">명세 확정</span> 디스커버리 완료 후 세부 기능 명세서 작성 → 양측 서명 후 구축 착수</li>
+          <li><span class="lk">운영 코칭</span> 납품 후 2개월</li>
+          <li><span class="lk">자격 등록</span> 착수 후 병행 (3~5개월 소요)</li>
+          <li><span class="lk">견적 유효</span> 발행일로부터 30일</li>
+        </ul>
+      </div>
+    </div>
+    <div class="full-note">
+      <strong>부가세</strong> — 모든 금액은 VAT 10% 별도입니다.<br>
+      <strong>교재 인쇄</strong> — 인쇄 수량·판형·컬러 여부 확정 후 실비 별도 청구합니다.<br>
+      <strong>강사</strong> — PENTA 네트워크 기준 섭외입니다. 특정 강사 지정 시 별도 협의합니다.<br>
+      <strong>결제 수수료</strong> — PG사·카드사 수수료(거래액 약 2~3%)는 거래 발생 시 책나무 직접 부담입니다.<br>
+      <strong>서버 2년차</strong> — 서버·도메인·이메일 서비스는 1년 이후 책나무 직접 부담 전환, 인수인계 포함입니다.<br>
+      <strong>유지보수 2년차</strong> — 구축 완료 후 1년 무료 유지보수 종료 시점에 월정액 유지보수 계약으로 전환합니다. 기본형(버그 수정·보안 패치·인프라 관리) 월 50만원 / 스탠다드형(기본 + 기능 개선 월 2회·운영 리포트) 월 100만원 기준이며 세부 범위는 계약 시 협의합니다.<br>
+      <strong>지식재산권</strong> — 잔금 수령 완료 후 플랫폼·콘텐츠 저작권은 책나무에 귀속됩니다.<br>
+      <strong>범위 변경</strong> — 본 견적서에 명시된 범위 외 추가 기능·콘텐츠·시스템 요구사항은 별도 견적 후 변경 계약으로 처리합니다. 각 마일스톤 검수 시 양측 서명으로 해당 단계 범위를 확정하며, 서명 이후 소급 변경은 적용되지 않습니다.
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-main">
+      <!-- 좌: 브랜드 -->
+      <div>
+        <div class="footer-col-title">펜타랩</div>
+        <p class="footer-brand-sub">교육 콘텐츠 &middot; 이러닝 플랫폼 &middot; 에듀테크 전문 스튜디오</p>
+        <p class="footer-brand-sub">PENTA LAB Co., Ltd.</p>
+        <p class="footer-brand-sub" style="margin-top:10px;">이메일 문의 · contact@openpenta.com</p>
+        <p class="footer-brand-sub">이 견적서는 수신인 전용이며 외부 유출을 삼가 주십시오.</p>
+      </div>
+      <!-- 중: 빠른 링크 -->
+      <div>
+        <div class="footer-col-title">빠른 링크</div>
+        <ul class="footer-links">
+          <li><a href="#sec-pricing">견적 구성</a></li>
+          <li><a href="#sec-course">대표과정 세목</a></li>
+          <li><a href="#sec-platform">LMS 플랫폼</a></li>
+          <li><a href="#sec-qual">자격 체계</a></li>
+          <li><a href="#sec-addon">연수과정 세목</a></li>
+          <li><a href="#sec-terms">계약 조건</a></li>
+        </ul>
+      </div>
+      <!-- 우: 발신처 -->
+      <div>
+        <div class="footer-col-title">발신처</div>
+        <p class="footer-brand-sub">펜타랩 (PENTA LAB)</p>
+        <p class="footer-brand-sub">이은경 대표 &middot; 이동길 CTO</p>
+        <p class="footer-brand-sub" style="margin-top:10px;">유효기간 발행일로부터 30일</p>
+        <p class="footer-brand-sub">VAT 별도 · 구축 기간 약 6개월</p>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <a href="#">개인정보처리방침</a>
+      <span>&copy; 2026 펜타랩 (PENTA LAB). All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  const STORAGE_PREFIX = 'penta_quote_';
+
+  function loadComments(secId) {
+    try { return JSON.parse(localStorage.getItem(STORAGE_PREFIX + secId) || '[]'); }
+    catch(e) { return []; }
+  }
+  function saveComments(secId, list) {
+    localStorage.setItem(STORAGE_PREFIX + secId, JSON.stringify(list));
+  }
+
+  function fmt(ts) {
+    const d = new Date(ts);
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mi = String(d.getMinutes()).padStart(2,'0');
+    return `${mm}/${dd} ${hh}:${mi}`;
+  }
+
+  function renderList(listEl, emptyEl, secId, toggleBtn) {
+    const comments = loadComments(secId);
+    listEl.innerHTML = '';
+    if (comments.length === 0) {
+      emptyEl.style.display = 'block';
+    } else {
+      emptyEl.style.display = 'none';
+      comments.forEach((c, i) => {
+        const item = document.createElement('div');
+        item.className = 'comment-item';
+        item.innerHTML =
+          `<div class="comment-item-header">
+            <span class="comment-time">${fmt(c.ts)}</span>
+            <button class="comment-del" data-idx="${i}" title="삭제">✕</button>
+          </div>
+          <div class="comment-text">${escHtml(c.text)}</div>`;
+        listEl.appendChild(item);
+      });
+    }
+    // update toggle badge
+    toggleBtn.classList.toggle('has-comments', comments.length > 0);
+    const countEl = toggleBtn.querySelector('.ct-count');
+    if (countEl) countEl.textContent = comments.length;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function buildCommentUI(section) {
+    const secId   = section.id;
+    const secName = section.dataset.secName || secId;
+
+    // Toggle button
+    const toggle = document.createElement('button');
+    toggle.className = 'comment-toggle';
+    toggle.innerHTML = `<span class="ct-icon">💬</span><span class="ct-label">댓글</span><span class="ct-count">0</span>`;
+
+    // Panel
+    const panel = document.createElement('div');
+    panel.className = 'comment-panel';
+
+    const listEl  = document.createElement('div');
+    listEl.className = 'comment-list';
+    const emptyEl = document.createElement('div');
+    emptyEl.className = 'comment-empty';
+    emptyEl.textContent = '아직 댓글이 없습니다.';
+
+    const inputArea = document.createElement('div');
+    inputArea.className = 'comment-input-area';
+
+    const textInput = document.createElement('textarea');
+    textInput.className = 'comment-text-input';
+    textInput.placeholder = '의견을 입력하세요…';
+    textInput.rows = 2;
+
+    const actionsRow = document.createElement('div');
+    actionsRow.className = 'comment-actions';
+
+    const submitBtn = document.createElement('button');
+    submitBtn.className = 'comment-submit';
+    submitBtn.textContent = '등록';
+
+    const copyBtn = document.createElement('button');
+    copyBtn.className = 'comment-copy';
+    copyBtn.textContent = '전체 복사';
+
+    actionsRow.appendChild(copyBtn);
+    actionsRow.appendChild(submitBtn);
+
+    inputArea.appendChild(textInput);
+    inputArea.appendChild(actionsRow);
+
+    panel.appendChild(listEl);
+    panel.appendChild(emptyEl);
+    panel.appendChild(inputArea);
+
+    section.appendChild(toggle);
+    section.appendChild(panel);
+
+    // Initial render
+    renderList(listEl, emptyEl, secId, toggle);
+
+    // Toggle panel
+    toggle.addEventListener('click', () => {
+      panel.classList.toggle('open');
+    });
+
+    // Delete
+    listEl.addEventListener('click', e => {
+      const btn = e.target.closest('.comment-del');
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.idx);
+      const list = loadComments(secId);
+      list.splice(idx, 1);
+      saveComments(secId, list);
+      renderList(listEl, emptyEl, secId, toggle);
+    });
+
+    // Submit
+    submitBtn.addEventListener('click', () => {
+      const text = textInput.value.trim();
+      if (!text) { textInput.focus(); return; }
+      const list = loadComments(secId);
+      list.push({ text, ts: Date.now() });
+      saveComments(secId, list);
+      textInput.value = '';
+      renderList(listEl, emptyEl, secId, toggle);
+      panel.classList.add('open');
+    });
+
+    // Enter to submit (Shift+Enter = newline)
+    textInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        submitBtn.click();
+      }
+    });
+
+    // Copy all
+    copyBtn.addEventListener('click', () => {
+      const list = loadComments(secId);
+      if (list.length === 0) { copyBtn.textContent = '댓글 없음'; setTimeout(() => copyBtn.textContent = '전체 복사', 1500); return; }
+      const text = `[${secName}] 섹션 댓글\n` + list.map(c => `(${fmt(c.ts)})\n${c.text}`).join('\n\n');
+      navigator.clipboard.writeText(text).then(() => {
+        copyBtn.textContent = '복사됨 ✓';
+        setTimeout(() => copyBtn.textContent = '전체 복사', 1800);
+      });
+    });
+  }
+
+  document.querySelectorAll('.section[id][data-sec-name]').forEach(buildCommentUI);
+})();
+</script>
+</body>
+</html>
