@@ -30,6 +30,8 @@
     .nav-links a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 1.5px; background: var(--gold); transition: width 0.25s ease; }
     .nav-links a:hover { color: var(--white); text-shadow: 0 0 12px rgba(201,168,76,0.6); }
     .nav-links a:hover::after { width: 100%; }
+    .nav-login { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: none; padding: 8px 18px; border-radius: 4px; transition: all 0.2s; letter-spacing: 0.3px; }
+    .nav-login:hover { color: var(--white); }
     .nav-cta { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.45); padding: 8px 22px; border-radius: 4px; transition: all 0.2s; }
     .nav-cta:hover { background: var(--gold); color: var(--black); }
     .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; }
@@ -168,7 +170,10 @@
     <li><a href="instructors.html">강사진</a></li>
     
   </ul>
-  <a href="index.html#cta" class="nav-cta">수강 신청</a>
+  <div style="display:flex; align-items:center; gap:6px;">
+    <a href="https://campus-lms-delta.vercel.app/login" target="_blank" class="nav-login">로그인</a>
+    <a href="https://campus-lms-delta.vercel.app/signup" target="_blank" class="nav-cta">수강 신청</a>
+  </div>
   <button class="nav-burger" id="nav-burger" aria-label="메뉴">
     <span></span><span></span><span></span>
   </button>
@@ -176,8 +181,8 @@
 <div class="nav-mobile" id="nav-mobile">
   <a href="courses.html" class="mobile-link">커리큘럼</a>
   <a href="instructors.html" class="mobile-link">강사진</a>
-  
-  <a href="index.html#cta" class="mobile-cta">수강 신청 →</a>
+  <a href="https://campus-lms-delta.vercel.app/login" target="_blank" class="mobile-link">로그인</a>
+  <a href="https://campus-lms-delta.vercel.app/signup" target="_blank" class="mobile-cta">수강 신청 →</a>
 </div>
 
 <!-- PAGE HERO -->
@@ -395,7 +400,7 @@
         <a href="index.html">홈</a>
         <a href="index.html#courses">전체 과정</a>
         <a href="instructors.html">강사진 소개</a>
-        <a href="index.html#cta">수강 신청</a>
+        <a href="https://campus-lms-delta.vercel.app/login" target="_blank">수강 신청</a>
       </div>
     </div>
     <div class="footer-col">
