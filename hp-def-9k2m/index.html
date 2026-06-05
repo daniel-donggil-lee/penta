@@ -53,6 +53,7 @@
   .stat .n1 { color:#7fe0a3; } .stat .n2 { color:#ffd27f; } .stat .n0 { color:#ff9b9b; }
   .bar .grow { flex:1; }
   .bar button { border:none; border-radius:8px; padding:8px 16px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .bsend { background:#2f9e5d; color:#fff; font-size:13px; padding:9px 22px; }
   .bcopy { background:#2E75B6; color:#fff; }
   .bdown { background:#fff; color:#142d47; }
   .breset { background:transparent; color:#9fb0c4; text-decoration:underline; padding:8px 6px; }
@@ -87,7 +88,7 @@
   </header>
 
   <div class="lead">
-    정의를 잠그지 않고 개발에 들어가면 <b>만들다 갈아엎는 게 가장 큰 비용</b>입니다. 각 항목을 보시고 <b>동의</b> 또는 <b>수정</b>을 눌러 주세요. <b>수정</b>은 어떻게 바꿀지 메모를 남기면 됩니다. 다 누르시면 아래 <b>결과 복사·내려받기</b>로 보내 주세요 — 그대로 반영합니다.
+    정의를 잠그지 않고 개발에 들어가면 <b>만들다 갈아엎는 게 가장 큰 비용</b>입니다. 각 항목을 보시고 <b>동의</b> 또는 <b>수정</b>을 눌러 주세요. <b>수정</b>은 어떻게 바꿀지 메모를 남기면 됩니다. 다 정하시면 아래 <b>발송</b> 버튼을 눌러 주세요 — 자동으로 이사에게 전달돼 그대로 반영됩니다. (발송이 안 되면 '결과 복사'로 보내셔도 됩니다.)
   </div>
 
   <div class="story">
@@ -142,6 +143,7 @@
   <div class="inner">
     <div class="stat">동의 <span class="n1" id="cA">0</span> · 수정 <span class="n2" id="cE">0</span> · 미선택 <span class="n0" id="cN">0</span></div>
     <div class="grow"></div>
+    <button class="bsend" id="sendBtn">발송</button>
     <button class="bcopy" id="copyBtn">결과 복사</button>
     <button class="bdown" id="downBtn">결과 내려받기</button>
     <button class="breset" id="resetBtn">초기화</button>
@@ -175,6 +177,7 @@ const DATA = [
 ];
 
 const KEY = "hipenta-agreement-v1";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbxBNsLjOdsmPJnfEuxhcT2aAeVI4gJalBXwaUS2fcz2-7lJo-qBK0qR87oE45BiRNrI/exec";
 let state = {};
 try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ state = {}; }
 
@@ -274,6 +277,22 @@ document.getElementById("downBtn").addEventListener("click", ()=>{
   const url=URL.createObjectURL(blob); const a=document.createElement("a");
   a.href=url; a.download="하이펜타_합의결과.txt"; a.click(); URL.revokeObjectURL(url);
   toast("결과 파일 내려받음");
+});
+function buildPayload(){
+  let a=0,e=0,n=0; const edits=[]; const all=[];
+  flat.forEach(it=>{ const st=state[it.id]||{}; const c=st.choice;
+    if(c==="agree"){a++; all.push(it.q+" → 동의");}
+    else if(c==="edit"){e++; all.push(it.q+" → 수정: "+(st.memo||"(메모없음)")); edits.push(it.q+": "+(st.memo||"(메모없음)"));}
+    else {n++; all.push(it.q+" → 미선택");}
+  });
+  return { agree:a, edit:e, none:n, editsText:(edits.join(" | ")||"(없음)"), free:((state.__free||"").trim()), allText:all.join(" | ") };
+}
+document.getElementById("sendBtn").addEventListener("click", ()=>{
+  const p=buildPayload();
+  if(p.none>0 && !confirm("아직 "+p.none+"개 항목을 안 정하셨어요. 그대로 발송할까요?")) return;
+  fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)})
+    .then(()=>toast("발송 완료! 이사에게 전달됐습니다."))
+    .catch(()=>toast("발송 실패 — '결과 복사'로 보내주세요"));
 });
 document.getElementById("resetBtn").addEventListener("click", ()=>{
   if(!confirm("모든 선택을 지울까요?")) return;
