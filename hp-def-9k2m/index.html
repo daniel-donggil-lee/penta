@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>하이펜타 정의 합의표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=block" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Pretendard","Noto Sans KR",sans-serif; color:#1c2530; line-height:1.55; font-size:14px; background:#eef1f5; padding:24px 14px 120px; }
+  .sheet { max-width:760px; margin:0 auto; background:#fff; border-radius:12px; box-shadow:0 8px 30px rgba(20,45,71,.10); padding:30px 30px 34px; }
+
+  header { border-bottom:3px solid #142d47; padding-bottom:14px; margin-bottom:18px; }
+  .kicker { font-size:11px; letter-spacing:2px; color:#2E75B6; font-weight:700; }
+  h1 { font-size:27px; font-weight:900; color:#142d47; margin:4px 0 6px; letter-spacing:-0.5px; }
+  .badge { display:inline-block; background:#fff3e0; color:#b06800; border:1px solid #e0b878; border-radius:11px; padding:2px 10px; font-size:11px; font-weight:700; margin-left:8px; vertical-align:middle; }
+  .sub { font-size:12.5px; color:#5a6573; }
+
+  .lead { background:#f5f8fc; border-left:4px solid #2E75B6; padding:11px 14px; font-size:13px; color:#33414f; margin-bottom:20px; border-radius:0 5px 5px 0; }
+  .lead b { color:#142d47; }
+
+  section { margin-bottom:18px; }
+  h2 { font-size:15px; font-weight:900; color:#142d47; margin-bottom:9px; padding-left:9px; border-left:4px solid #2E75B6; }
+
+  .row { border:1px solid #e3e8ee; border-radius:9px; padding:12px 14px; margin-bottom:9px; transition:border-color .15s, background .15s; }
+  .row.agree { border-color:#bcd9c4; background:#f4faf6; }
+  .row.edit  { border-color:#e6c98e; background:#fffaf0; }
+  .row .q { font-weight:700; color:#142d47; font-size:13.5px; margin-bottom:3px; }
+  .row .a { font-size:12.5px; color:#41505f; }
+  .row .a b { color:#2E75B6; }
+
+  .ctrl { display:flex; gap:8px; margin-top:10px; align-items:center; }
+  .btn { border:1.5px solid #c4ccd6; background:#fff; color:#5a6573; border-radius:7px; padding:6px 16px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; transition:all .12s; }
+  .btn:hover { border-color:#9aa6b2; }
+  .btn.sel-agree { background:#2f9e5d; border-color:#2f9e5d; color:#fff; }
+  .btn.sel-edit  { background:#d99a2b; border-color:#d99a2b; color:#fff; }
+  .memo { display:none; margin-top:9px; }
+  .memo.show { display:block; }
+  .memo textarea { width:100%; border:1px solid #e0b878; border-radius:7px; padding:8px 10px; font-family:inherit; font-size:12.5px; color:#33414f; resize:vertical; min-height:46px; background:#fffdf8; }
+  .memo label { font-size:11px; color:#b06800; font-weight:700; display:block; margin-bottom:3px; }
+
+  .defer { background:#f7f8fa; border:1px dashed #c4ccd6; border-radius:8px; padding:12px 14px; margin-top:6px; }
+  .defer h3 { font-size:12.5px; color:#5a6573; margin-bottom:5px; }
+  .defer p { font-size:12px; color:#6a7480; margin:3px 0; }
+  .defer b { color:#142d47; }
+
+  /* 하단 고정 결과바 */
+  .bar { position:fixed; left:0; right:0; bottom:0; background:#142d47; color:#fff; padding:11px 18px; box-shadow:0 -4px 18px rgba(0,0,0,.18); z-index:50; }
+  .bar .inner { max-width:760px; margin:0 auto; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .stat { font-size:13px; font-weight:700; }
+  .stat .n1 { color:#7fe0a3; } .stat .n2 { color:#ffd27f; } .stat .n0 { color:#ff9b9b; }
+  .bar .grow { flex:1; }
+  .bar button { border:none; border-radius:8px; padding:8px 16px; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit; }
+  .bcopy { background:#2E75B6; color:#fff; }
+  .bdown { background:#fff; color:#142d47; }
+  .breset { background:transparent; color:#9fb0c4; text-decoration:underline; padding:8px 6px; }
+  .toast { position:fixed; bottom:70px; left:50%; transform:translateX(-50%); background:#2f9e5d; color:#fff; padding:9px 18px; border-radius:20px; font-size:12.5px; font-weight:700; opacity:0; transition:opacity .25s; z-index:60; pointer-events:none; }
+  .toast.show { opacity:1; }
+
+  .sign { margin-top:20px; display:flex; gap:24px; }
+  .sign div { flex:1; border-top:1px solid #2a3645; padding-top:5px; font-size:11px; color:#5a6573; }
+
+  /* 서사 */
+  .story { border:1px solid #d9e2ec; border-radius:11px; padding:19px 21px 17px; margin-bottom:22px; background:linear-gradient(180deg,#fbfcfe,#f5f9fc); }
+  .story .sh { font-size:15px; font-weight:900; color:#142d47; margin-bottom:3px; }
+  .story .ssub { font-size:12px; color:#7a8693; margin-bottom:15px; }
+  .story .open { font-size:13px; color:#33414f; margin-bottom:16px; padding:11px 13px; background:#fff; border-left:3px solid #2E75B6; border-radius:0 5px 5px 0; line-height:1.6; }
+  .story .open i { color:#2E75B6; font-style:normal; font-weight:700; }
+  .beat { display:flex; gap:12px; margin-bottom:13px; }
+  .beat .num { flex:none; width:23px; height:23px; border-radius:50%; background:#142d47; color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .beat .bd { flex:1; }
+  .beat .qz { font-size:13.5px; font-weight:700; color:#142d47; }
+  .beat .res { font-size:12.5px; color:#41505f; margin-top:2px; line-height:1.55; }
+  .beat .res b { color:#2E75B6; }
+  .story .close { margin-top:8px; padding:12px 14px; background:#142d47; color:#fff; border-radius:8px; font-size:13px; line-height:1.55; }
+  .story .close b { color:#ffd27f; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div class="kicker">PENTA · 하이펜타 (Hi-Penta)</div>
+    <h1>하이펜타 정의 합의표 <span class="badge">잠정 · 대표 승인 전</span></h1>
+    <div class="sub">매일 15분 초등 문해력 디지털 도구 — 만들기 전 정의 잠그기 · 2026-06-05 이사(이동길) 정리 → 대표(이은경) 확인</div>
+  </header>
+
+  <div class="lead">
+    정의를 잠그지 않고 개발에 들어가면 <b>만들다 갈아엎는 게 가장 큰 비용</b>입니다. 각 항목을 보시고 <b>동의</b> 또는 <b>수정</b>을 눌러 주세요. <b>수정</b>은 어떻게 바꿀지 메모를 남기면 됩니다. 다 누르시면 아래 <b>결과 복사·내려받기</b>로 보내 주세요 — 그대로 반영합니다.
+  </div>
+
+  <div class="story">
+    <div class="sh">이 결정들이 어디서 왔는지 — 먼저 읽어 주세요</div>
+    <div class="ssub">아래 항목들은 갑자기 튀어나온 게 아니라, 대표님 기획에서 한 걸음씩 따라 나온 흐름입니다.</div>
+    <div class="open">출발점은 대표님 기획 그대로였습니다 — <i>"매일 15분, 종이책과 함께 가는 디지털 도구. 아이의 문해력이 어디서 새는지 찾아 메운다."</i> 그리고 아이가 거치는 12단계(읽기 → 문제 → 어휘 → 배경지식 → 쓰기 → 첨삭). 여기서 질문이 하나씩 따라 나왔고, 그 답이 아래 결정들입니다.</div>
+
+    <div class="beat"><div class="num">1</div><div class="bd"><div class="qz">"어디서 새는지" 짚으려면, 새는 자리의 목록이 있어야 한다.</div><div class="res">그 목록은 이미 우리에게 있었습니다 — 펜타 5영역(독해·어휘·사고·표현·소통). 새로 만들 필요 없이, <b>하이펜타 = 펜타지수를 매일 자동으로 재는 도구</b>가 되면 됐습니다. 우리 그룹 IP와 그대로 맞물리고요.</div></div></div>
+
+    <div class="beat"><div class="num">2</div><div class="bd"><div class="qz">그런데 5영역 중 '사고·소통'은 화면 혼자선 못 잰다.</div><div class="res">읽기·어휘·쓰기는 디지털로 되는데 토론·말하기는 안 되니까요. 여기서 길이 열렸습니다 — <b>AI가 아이의 토론 상대</b>가 되면, 사고·소통까지 디지털 안에서 끌어내고 잴 수 있다.</div></div></div>
+
+    <div class="beat"><div class="num">3</div><div class="bd"><div class="qz">막상 12단계를 다 해보니 매일 15분에 안 들어간다.</div><div class="res">다 더하면 30~50분이에요. 그래서 "매일 12단계"가 아니라 — <b>하루는 한 조각, 한 주에 작품 하나를 깊게.</b> "매일 15분"은 그대로 지키되, 완결은 주 단위로.</div></div></div>
+
+    <div class="beat"><div class="num">4</div><div class="bd"><div class="qz">한 작품에 5영역을 다 담는 건 무리다.</div><div class="res">얇은 우화에서 배경지식을 억지로 뽑는 건 부자연스럽죠. 그래서 <b>작품마다 잘하는 영역만</b> 하고(여우와두루미=토론, 홍길동전=어휘), 5영역은 여러 작품에 걸쳐 채웁니다.</div></div></div>
+
+    <div class="beat"><div class="num">5</div><div class="bd"><div class="qz">그러면 12단계는 '순서'가 아니라 '메뉴'가 된다.</div><div class="res">아이마다·작품마다 필요한 활동만 골라 매일 15분치를 조립합니다. 그 조립을 하는 게 <b>처방 엔진</b> — "이 아이는 사고가 약하니 토론 강한 작품을" 식으로요.</div></div></div>
+
+    <div class="beat"><div class="num">6</div><div class="bd"><div class="qz">이 많은 콘텐츠를 사람이 다 만들 순 없다.</div><div class="res">작품마다 수준별로 쪼개고 영역 태그 붙이고 활동까지 — <b>AI가 자동으로</b>, 사람은 검수만. 그리고 즉석에서 만들지 않고 <b>미리 만들어 검수한 보관고</b>에서 꺼내 줍니다(점수 비교·안전·비용 때문에).</div></div></div>
+
+    <div class="beat"><div class="num">7</div><div class="bd"><div class="qz">가장 비싼 AI 토론은 매일 하지 않는다.</div><div class="res">주 1회로 몰아 비용을 잡고, 그 빈도가 곧 요금제 손잡이가 됩니다.</div></div></div>
+
+    <div class="beat"><div class="num">8</div><div class="bd"><div class="qz">다 만들기 전에, 1편으로 끝까지 한 번 굴려본다.</div><div class="res">여우와 두루미 한 편으로 [콘텐츠 자동생성 → 학습 → 토론 → 첨삭 → 점수 → 부모 화면]을 관통시켜, 가장 위험한 부분을 제일 싸게 확인합니다. 첫 대상은 중학년(초3~4).</div></div></div>
+
+    <div class="close">한 줄로 — <b>위 결정 어느 것도 새로 튀어나온 게 아니라, 대표님 기획을 진지하게 따라가면 도착하는 자리들입니다.</b> 그래서 아래에서 하나씩 확인만 해 주시면 됩니다.</div>
+  </div>
+
+  <div id="app"></div>
+
+  <section id="freeSec">
+    <h2>6. 추가 의견 · 빠진 것 · 새 아이디어 (자유 입력)</h2>
+    <div class="row">
+      <div class="a" style="margin-bottom:9px;">위 항목 외에 더 넣고 싶은 것, 빠졌다고 느끼는 것, 떠오른 아이디어를 자유롭게 적어 주세요. 그대로 반영합니다.</div>
+      <textarea id="freeText" placeholder="예: 부모가 아이 진도를 매주 카톡으로 받았으면 / 토론에 친구랑 같이 하는 모드도 / OO 작품 꼭 넣자 ..." style="width:100%;border:1px solid #c4ccd6;border-radius:7px;padding:10px 12px;font-family:inherit;font-size:13px;color:#33414f;line-height:1.55;resize:vertical;min-height:96px;background:#fbfcfe;"></textarea>
+    </div>
+  </section>
+
+  <div class="defer">
+    <h3>지금 정하지 않고 미뤄 둔 것 (참고 · 선택 불필요)</h3>
+    <p><b>판매 단위</b> — 통합 회원권만 vs 영역별 단품 vs 요금 티어. 지금 결정 불필요, 추후.</p>
+    <p><b>펜타지수 산출식</b> — 누적 데이터를 점수·전국 비교로 만드는 법. 별도 설계 세션(권보경 박사 합류 포인트).</p>
+  </div>
+
+  <div class="sign">
+    <div>이사 (이동길) — 작성 2026-06-05</div>
+    <div id="signdate">대표 (이은경) — 확인 ______</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="bar">
+  <div class="inner">
+    <div class="stat">동의 <span class="n1" id="cA">0</span> · 수정 <span class="n2" id="cE">0</span> · 미선택 <span class="n0" id="cN">0</span></div>
+    <div class="grow"></div>
+    <button class="bcopy" id="copyBtn">결과 복사</button>
+    <button class="bdown" id="downBtn">결과 내려받기</button>
+    <button class="breset" id="resetBtn">초기화</button>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  { t:"1. 제품 정체성 · 리듬", items:[
+    { id:"d1", q:"하루·한 주 리듬", a:"매일 15분 = 활동 2~3개, 한 주 = 작품 1편. 완결은 작품 단위(매일 다 끝낼 필요 없음)+매일 작은 성취. 종이책·연필과 병행." },
+    { id:"d2", q:"대상 학년", a:"중학년(초3~4) 완전체를 첫 코어로. 저학년(초1~2)은 2차 단순판(토론·심화 제외)." },
+  ]},
+  { t:"2. 콘텐츠 — 무엇을 어떻게 채우나", items:[
+    { id:"d3", q:"작품 활용 방식", a:"작품마다 <b>잘하는 영역만</b> 한다(여우와두루미=토론, 홍길동전=어휘·배경지식). 5영역은 여러 작품에 걸쳐 누적." },
+    { id:"d4", q:"콘텐츠 단위", a:"하루 = 지문 1개, 한 주 = 그 지문들을 묶는 작품 1편." },
+    { id:"d5", q:"제작 방식", a:"<b>완전 자동</b> — 고전을 수준별 각색·영역 태깅·활동 생성까지 AI가. 사람은 검수만(초기 샘플만 직접 감수)." },
+    { id:"d6", q:"공급 방식", a:"미리 만들어 검수한 보관고에서 꺼내 제시(즉석 생성 아님) → 점수 비교가능·안전·비용 확보. 보관고는 계속 늘어남." },
+  ]},
+  { t:"3. 측정 — 펜타지수(심장)", items:[
+    { id:"d7", q:"측정 범위", a:"하이펜타 = 펜타지수 <b>5영역 전부를 매일 자동 측정</b>하는 엔진. 그룹 IP와 직결, 가장 큰 차별점." },
+    { id:"d8", q:"개인 맞춤(처방)", a:"약한 영역 × 작품 강점으로 매일 학습을 조립하고, 약한 영역에 강한 작품으로 갈아끼움." },
+  ]},
+  { t:"4. 사고·소통(N·A)과 비용", items:[
+    { id:"d9", q:"사고·소통은 어떻게", a:"혼자 못 재는 사고(N)·소통(A)은 <b>AI 토론 대화</b>로. AI가 토론 상대가 되어 끌어내고 채점." },
+    { id:"d10", q:"토론 빈도", a:"<b>매일 아님 — 주 1회</b>(중고학년·토론 강점 작품에서만). 가장 비싼 기능이라 빈도로 비용·요금제 조절." },
+  ]},
+  { t:"5. 첫 출시 범위", items:[
+    { id:"d11", q:"첫 프로토타입", a:"여우와 두루미 1편으로 [콘텐츠 자동생성 → 학습활동 → AI토론 → 쓰기·첨삭 → 펜타지수 → 부모 화면]까지 끝까지 한 번 관통." },
+    { id:"d12", q:"시선추적", a:"첫 버전에서는 제외(핵심 흐름 아님·기술 리스크). 단 차별화 훅으로 로드맵에 남겨 둠." },
+  ]},
+];
+
+const KEY = "hipenta-agreement-v1";
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ state = {}; }
+
+const app = document.getElementById("app");
+const flat = [];
+DATA.forEach(sec => {
+  const s = document.createElement("section");
+  s.innerHTML = `<h2>${sec.t}</h2>`;
+  sec.items.forEach(it => {
+    flat.push(it);
+    const st = state[it.id] || { choice:null, memo:"" };
+    const row = document.createElement("div");
+    row.className = "row" + (st.choice==="agree"?" agree":st.choice==="edit"?" edit":"");
+    row.id = "row-"+it.id;
+    row.innerHTML = `
+      <div class="q">${it.q}</div>
+      <div class="a">${it.a}</div>
+      <div class="ctrl">
+        <button class="btn bA ${st.choice==="agree"?"sel-agree":""}" data-id="${it.id}" data-c="agree">동의</button>
+        <button class="btn bE ${st.choice==="edit"?"sel-edit":""}" data-id="${it.id}" data-c="edit">수정</button>
+      </div>
+      <div class="memo ${st.choice==="edit"?"show":""}" id="memo-${it.id}">
+        <label>어떻게 바꿀까요? (수정 메모)</label>
+        <textarea data-id="${it.id}" placeholder="예: 대상 학년을 초3~4가 아니라 초4~5로...">${st.memo||""}</textarea>
+      </div>`;
+    s.appendChild(row);
+  });
+  app.appendChild(s);
+});
+
+function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
+function refresh(){
+  let a=0,e=0;
+  flat.forEach(it=>{ const c=(state[it.id]||{}).choice; if(c==="agree")a++; else if(c==="edit")e++; });
+  document.getElementById("cA").textContent=a;
+  document.getElementById("cE").textContent=e;
+  document.getElementById("cN").textContent=flat.length-a-e;
+}
+
+app.addEventListener("click", ev=>{
+  const b = ev.target.closest("button[data-c]");
+  if(!b) return;
+  const id=b.dataset.id, c=b.dataset.c;
+  state[id] = state[id]||{choice:null,memo:""};
+  state[id].choice = c;
+  const row=document.getElementById("row-"+id);
+  row.classList.toggle("agree", c==="agree");
+  row.classList.toggle("edit",  c==="edit");
+  row.querySelector(".bA").classList.toggle("sel-agree", c==="agree");
+  row.querySelector(".bE").classList.toggle("sel-edit",  c==="edit");
+  document.getElementById("memo-"+id).classList.toggle("show", c==="edit");
+  save(); refresh();
+});
+app.addEventListener("input", ev=>{
+  const t=ev.target.closest("textarea[data-id]");
+  if(!t) return;
+  const id=t.dataset.id;
+  state[id]=state[id]||{choice:"edit",memo:""};
+  state[id].memo=t.value;
+  save();
+});
+
+const freeEl=document.getElementById("freeText");
+if(freeEl){ freeEl.value=state.__free||""; freeEl.addEventListener("input",()=>{ state.__free=freeEl.value; save(); }); }
+
+function resultText(){
+  const d=new Date();
+  const ymd=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  let a=0,e=0,n=0; const edits=[]; const all=[];
+  flat.forEach(it=>{
+    const st=state[it.id]||{}; const c=st.choice;
+    if(c==="agree"){a++; all.push(`- ${it.q} → 동의`);}
+    else if(c==="edit"){e++; all.push(`- ${it.q} → 수정: ${st.memo||"(메모 없음)"}`); edits.push(`- ${it.q}: ${st.memo||"(메모 없음)"}`);}
+    else {n++; all.push(`- ${it.q} → 미선택`);}
+  });
+  let out=`하이펜타 정의 합의표 — 대표(이은경) 확인 결과\n확인일: ${ymd}\n동의 ${a} · 수정 ${e} · 미선택 ${n}\n`;
+  out+=`\n[수정 요청]\n`+(edits.length?edits.join("\n"):"(없음)");
+  out+=`\n\n[전체]\n`+all.join("\n");
+  out+=`\n\n[대표 추가 의견]\n`+((state.__free&&state.__free.trim())?state.__free.trim():"(없음)");
+  return out;
+}
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1600); }
+
+document.getElementById("copyBtn").addEventListener("click", ()=>{
+  const txt=resultText();
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(()=>toast("결과 복사됨 — 이사에게 붙여넣기")).catch(()=>fallbackCopy(txt));
+  } else fallbackCopy(txt);
+});
+function fallbackCopy(txt){
+  const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); toast("결과 복사됨"); }catch(e){ toast("복사 실패 — 내려받기 이용"); }
+  document.body.removeChild(ta);
+}
+document.getElementById("downBtn").addEventListener("click", ()=>{
+  const blob=new Blob([resultText()],{type:"text/plain;charset=utf-8"});
+  const url=URL.createObjectURL(blob); const a=document.createElement("a");
+  a.href=url; a.download="하이펜타_합의결과.txt"; a.click(); URL.revokeObjectURL(url);
+  toast("결과 파일 내려받음");
+});
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  if(!confirm("모든 선택을 지울까요?")) return;
+  state={}; localStorage.removeItem(KEY);
+  document.querySelectorAll(".row").forEach(r=>r.classList.remove("agree","edit"));
+  document.querySelectorAll(".btn").forEach(b=>b.classList.remove("sel-agree","sel-edit"));
+  document.querySelectorAll(".memo").forEach(m=>m.classList.remove("show"));
+  document.querySelectorAll("textarea").forEach(t=>t.value="");
+  refresh();
+});
+
+refresh();
+</script>
+</body>
+</html>
