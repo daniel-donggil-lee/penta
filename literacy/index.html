@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>문해력 진단 글쓰기 · 초4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=block" rel="stylesheet">
+<style>
+  :root{
+    --navy:#142d47;
+    --blue:#2E75B6;
+    --line:#cdd6e0;
+    --boxbg:#f5f8fc;
+    --gray:#5b6675;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{
+    font-family:"Pretendard","Noto Sans KR",-apple-system,sans-serif;
+    color:#1c2531;background:#e9edf2;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .toolbar{position:fixed;top:16px;right:16px;z-index:50;}
+  .toolbar button{
+    font-family:inherit;font-size:14px;font-weight:600;
+    background:var(--navy);color:#fff;border:none;border-radius:999px;
+    padding:10px 20px;cursor:pointer;box-shadow:0 4px 14px rgba(20,45,71,.25);
+  }
+  .sheet{
+    width:210mm;min-height:297mm;margin:18px auto;background:#fff;
+    padding:18mm 16mm;box-shadow:0 6px 24px rgba(0,0,0,.12);
+    display:flex;flex-direction:column;page-break-after:always;
+  }
+  .sheet:last-child{page-break-after:auto;}
+
+  /* 표지 */
+  .cover-top{border-bottom:3px solid var(--navy);padding-bottom:14px;margin-bottom:22px;}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.18em;color:var(--blue);margin-bottom:8px;}
+  .cover-title{font-size:34px;font-weight:700;color:var(--navy);line-height:1.2;}
+  .cover-sub{font-size:15px;color:var(--gray);margin-top:10px;line-height:1.6;}
+  .info{display:flex;margin:8px 0 24px;border:1.5px solid var(--navy);border-radius:8px;overflow:hidden;}
+  .info .cell{flex:1;padding:14px 16px;border-right:1px solid #dfe5ec;}
+  .info .cell:last-child{border-right:none;}
+  .info .lab{font-size:12px;font-weight:700;color:var(--blue);margin-bottom:14px;letter-spacing:.05em;}
+  .info .blank{border-bottom:1.5px solid #aeb8c4;height:1px;}
+  .guide-box{background:var(--boxbg);border-left:5px solid var(--blue);border-radius:0 8px 8px 0;padding:20px 22px;}
+  .guide-box h2{font-size:17px;color:var(--navy);margin-bottom:14px;}
+  .guide-box ol{margin-left:18px;}
+  .guide-box li{font-size:15px;line-height:1.9;color:#2a3340;padding-left:4px;}
+  .guide-box b{color:var(--navy);}
+  .cover-foot{margin-top:auto;padding-top:18px;border-top:1px solid #e3e8ee;font-size:12px;color:#8a94a1;text-align:center;}
+
+  /* 과제 */
+  .task{display:flex;flex-direction:column;flex:1;min-height:0;}
+  .task-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:10px;margin-bottom:14px;}
+  .badge{font-size:12.5px;font-weight:700;color:#fff;background:var(--navy);border-radius:6px;padding:5px 11px;white-space:nowrap;}
+  .task-title{font-size:23px;font-weight:700;color:var(--navy);line-height:1.25;}
+
+  .read-box{background:var(--boxbg);border:1px solid #d6e0ec;border-radius:10px;padding:16px 20px;margin-bottom:13px;}
+  .read-box .rtag{display:inline-block;font-size:12px;font-weight:700;color:var(--blue);background:#e4eefa;border-radius:5px;padding:3px 10px;margin-bottom:9px;}
+  .read-box h3{font-size:17px;color:var(--navy);margin-bottom:9px;}
+  .read-box p{font-size:14.5px;line-height:1.8;color:#27313d;margin-bottom:8px;text-align:justify;}
+  .read-box p:last-child{margin-bottom:0;}
+
+  .prompt{font-size:15.5px;line-height:1.7;color:#1c2531;background:#fff;border:1.5px dashed var(--blue);border-radius:8px;padding:13px 16px;margin-bottom:12px;}
+  .prompt b{color:var(--navy);}
+  .prompt .ex{display:block;font-size:14px;color:#41506a;margin-top:7px;line-height:1.75;}
+
+  .methods{margin-bottom:10px;}
+  .m{font-size:14.5px;line-height:1.55;background:var(--boxbg);border-radius:7px;padding:9px 13px;margin-bottom:7px;}
+  .m .mn{display:inline-block;min-width:18px;height:18px;line-height:18px;text-align:center;
+    background:var(--blue);color:#fff;border-radius:50%;font-size:12px;font-weight:700;margin-right:7px;}
+  .m b{color:var(--navy);}
+  .m .eg{color:#5b6675;}
+  .selfcheck{font-size:13.5px;line-height:1.7;color:#34405a;background:#fff;border:1.5px dashed var(--blue);
+    border-radius:8px;padding:10px 14px;margin-bottom:12px;}
+  .selfcheck .cbx{display:inline-block;width:12px;height:12px;border:1.6px solid #41506a;border-radius:3px;
+    vertical-align:-1px;margin:0 5px 0 2px;}
+  .selfcheck b{color:var(--navy);}
+
+  .timebar{display:flex;justify-content:flex-end;gap:24px;font-size:12.5px;color:var(--gray);margin-bottom:8px;}
+  .timebar span{border-bottom:1px solid #b9c2cd;padding:0 26px 2px;}
+
+  .qbox{margin-bottom:5mm;}
+  .q{font-size:15px;color:#1c2531;margin-bottom:2.5mm;line-height:1.55;}
+  .q .qn{font-weight:700;color:var(--blue);margin-right:6px;}
+
+  .ln{height:11.5mm;border-bottom:1.3px solid var(--line);}
+
+  @page{size:A4;margin:0;}
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none;}
+    .sheet{margin:0;box-shadow:none;width:auto;min-height:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar"><button onclick="window.print()">인쇄 / PDF 저장</button></div>
+
+<!-- 표지 -->
+<section class="sheet">
+  <div class="cover-top">
+    <div class="kicker">문해력 진단 프로그램</div>
+    <div class="cover-title">나의 글쓰기 진단</div>
+    <div class="cover-sub">다섯 가지 글로 나의 문해력을 살펴봅니다. 어디가 단단하고 어디를 더 키우면 좋을지 알아보는 시간이에요.<br>점수를 매기는 시험이 아니에요. 솔직하게 쓰는 것이 가장 중요합니다.</div>
+  </div>
+
+  <div class="info">
+    <div class="cell"><div class="lab">이름</div><div class="blank"></div></div>
+    <div class="cell"><div class="lab">학년 / 반</div><div class="blank"></div></div>
+    <div class="cell"><div class="lab">쓴 날짜</div><div class="blank"></div></div>
+  </div>
+
+  <div class="guide-box">
+    <h2>시작하기 전에 읽어 주세요</h2>
+    <ol>
+      <li><b>혼자 힘으로</b> 써 보세요. 어른이나 친구의 도움 없이 쓰는 것이 중요해요.</li>
+      <li><b>맞춤법이 틀려도 괜찮아요.</b> 지우고 고치느라 멈추지 말고, 떠오르는 대로 끝까지 써 보세요.</li>
+      <li>내 글에는 <b>맞고 틀린 답이 없습니다.</b> 내 생각과 마음을 솔직하게 담으면 됩니다.</li>
+      <li>한 가지를 다 하면 다음 장으로 넘어가요. <b>천천히, 한 자리에서</b> 해 보세요.</li>
+    </ol>
+  </div>
+
+  <div class="cover-foot">문해력 진단 글쓰기 · 초등 4학년용 · 다섯 영역(독해 · 어휘 · 배경지식 · 표현 · 논리)</div>
+</section>
+
+<!-- 1. 독해 -->
+<section class="sheet">
+  <div class="task">
+    <div class="task-head">
+      <span class="badge">첫 번째 · 읽고 답하기</span>
+      <span class="task-title">사막여우의 큰 귀</span>
+    </div>
+
+    <div class="read-box">
+      <span class="rtag">먼저 읽어요</span>
+      <h3>사막여우의 큰 귀</h3>
+      <p>사막여우는 몸집이 작지만 귀가 아주 큽니다. 얼굴보다 귀가 더 커 보일 정도입니다. 사막여우의 귀가 이렇게 큰 데에는 까닭이 있습니다.</p>
+      <p>첫째, 큰 귀는 더위를 식혀 줍니다. 사막은 낮에 무척 뜨겁습니다. 몸속의 더운 피가 큰 귀를 지나가는 동안, 귀의 넓은 표면으로 열이 빠져나갑니다. 그래서 사막여우는 큰 귀 덕분에 뜨거운 사막에서도 몸의 열을 낮출 수 있습니다.</p>
+      <p>둘째, 큰 귀는 작은 소리도 잘 듣게 해 줍니다. 사막여우는 주로 밤에 먹이를 찾습니다. 모래 속이나 땅 밑에서 움직이는 벌레와 작은 동물의 소리를, 큰 귀로 멀리서도 알아챕니다.</p>
+      <p>이처럼 사막여우의 큰 귀는 단순한 생김새가 아니라, 뜨겁고 먹이가 적은 사막에서 살아남기 위한 중요한 도구입니다.</p>
+    </div>
+
+    <div class="prompt">윗글을 잘 읽고, 아래 물음에 <b>한 문장으로</b> 답해 봅니다.</div>
+
+    <div class="timebar"><span>시작 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span><span>끝난 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span></div>
+
+    <div class="qbox">
+      <div class="q"><span class="qn">1.</span>사막여우의 귀가 큰 까닭 두 가지는 무엇인가요?</div>
+      <div class="ln"></div><div class="ln"></div>
+    </div>
+    <div class="qbox">
+      <div class="q"><span class="qn">2.</span>사막여우에게 큰 귀가 없었다면, 사막에서 살기 어려웠을 까닭은 무엇일까요?</div>
+      <div class="ln"></div><div class="ln"></div>
+    </div>
+    <div class="qbox">
+      <div class="q"><span class="qn">3.</span>이 글에서 글쓴이가 가장 하고 싶은 말은 무엇인가요? 한 문장으로 쓰세요.</div>
+      <div class="ln"></div><div class="ln"></div>
+    </div>
+    <div class="selfcheck">
+      다 쓴 다음 스스로 확인해요.&nbsp;&nbsp;<span class="cbx"></span>세 물음에 <b>모두</b> 답했나요?&nbsp;&nbsp;<span class="cbx"></span>글에서 <b>찾아 한 문장</b>으로 썼나요?
+    </div>
+  </div>
+</section>
+
+<!-- 2. 어휘 -->
+<section class="sheet">
+  <div class="task">
+    <div class="task-head">
+      <span class="badge">두 번째 · 낱말의 힘</span>
+      <span class="task-title">이 말은 빼고 써 봐요</span>
+    </div>
+
+    <div class="prompt">
+      지난 주말에 있었던 일 중에서 <b>가장 기억에 남는 일</b>을 글로 써 봅니다. 단, <b>‘좋다 · 나쁘다 · 많다 · 크다 · 재미있다’ 이 다섯 낱말은 한 번도 쓰지 않고</b> 써 보세요. 같은 뜻을 다른 낱말로 바꾸어 표현하면 됩니다.
+    </div>
+
+    <div class="timebar"><span>시작 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span><span>끝난 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span></div>
+
+    <div class="writing"><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+    <div class="selfcheck">
+      다 쓴 다음 스스로 확인해요.&nbsp;&nbsp;<span class="cbx"></span><b>‘좋다·나쁘다·많다·크다·재미있다’</b>를 쓰지 않았나요?&nbsp;&nbsp;<span class="cbx"></span>기억에 남는 일을 <b>자세히</b> 썼나요?
+    </div>
+  </div>
+</section>
+
+<!-- 3. 배경지식 -->
+<section class="sheet">
+  <div class="task">
+    <div class="task-head">
+      <span class="badge">세 번째 · 내가 아는 것</span>
+      <span class="task-title">가장 신기한 사실 알려주기</span>
+    </div>
+
+    <div class="prompt">
+      내가 알고 있는 것 중에서 <b>가장 신기한 사실 한 가지</b>를 골라 보세요. 과학, 역사, 자연, 우주, 동물 무엇이든 좋아요. 그것을 <b>잘 모르는 친구에게 알려주듯이</b>, 무엇이 어떻게 신기한지 자세히 써 봅니다.
+    </div>
+
+    <div class="timebar"><span>시작 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span><span>끝난 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span></div>
+
+    <div class="writing"><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+    <div class="selfcheck">
+      다 쓴 다음 스스로 확인해요.&nbsp;&nbsp;<span class="cbx"></span>신기한 사실을 <b>한 가지</b> 골랐나요?&nbsp;&nbsp;<span class="cbx"></span>모르는 친구도 알게 <b>자세히</b> 설명했나요?
+    </div>
+  </div>
+</section>
+
+<!-- 4. 표현 -->
+<section class="sheet">
+  <div class="task">
+    <div class="task-head">
+      <span class="badge">네 번째 · 표현의 기술</span>
+      <span class="task-title">오늘 아침을 생생하게 써 봐요</span>
+    </div>
+
+    <div class="prompt">
+      오늘 아침에 일어나서 학교에 오기까지 있었던 일을 <b>처음부터 차례대로</b> 써 봅니다. 글을 더 생생하게 만들어 주는 <b>아래 세 가지 표현 방법 중 두 가지 이상</b>을 골라 넣어 보세요. 예시는 ‘이런 거예요’ 하고 보여 주는 것일 뿐이에요. <b>예시를 그대로 베끼지 말고, 내가 직접 만든 표현</b>을 넣어야 해요.
+    </div>
+
+    <div class="methods">
+      <div class="m"><span class="mn">1</span><b>빗대어 말하기(비유)</b> — 어떤 것을 다른 것에 빗대어 표현해요. <span class="eg">예) 솜사탕 같은 구름 · 쏜살같이 달렸다</span></div>
+      <div class="m"><span class="mn">2</span><b>흉내 내는 말</b> — 소리나 모양을 흉내 내는 낱말이에요. <span class="eg">예) 드르렁드르렁 · 깡충깡충</span></div>
+      <div class="m"><span class="mn">3</span><b>문장 끝 바꾸기</b> — 끝맺음을 똑같이 하지 말고 여러 가지로 써요. <span class="eg">예) ~했다 / ~했지 뭐야 / ~하는 거야</span></div>
+    </div>
+
+    <div class="timebar"><span>시작 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span><span>끝난 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span></div>
+
+    <div class="writing"><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+    <div class="selfcheck">
+      다 쓴 다음 스스로 확인해요.&nbsp;&nbsp;<span class="cbx"></span><b>표현 방법을 두 가지 이상</b> 넣었나요?&nbsp;&nbsp;<span class="cbx"></span>예시를 베끼지 않고 <b>내가 만든 표현</b>인가요?
+    </div>
+  </div>
+</section>
+
+<!-- 5. 논리 -->
+<section class="sheet">
+  <div class="task">
+    <div class="task-head">
+      <span class="badge">다섯 번째 · 생각과 까닭</span>
+      <span class="task-title">내 생각을 펼쳐 봐요</span>
+    </div>
+
+    <div class="prompt">
+      ‘초등학생에게 스마트폰이 필요할까?’ 이 질문에 대해 나는 어떻게 생각하나요? <b>필요하다 / 필요하지 않다 중 하나를 정하고,</b> 왜 그렇게 생각하는지 <b>까닭을 두 가지 이상</b> 들어 글을 씁니다. 나와 생각이 다른 친구는 뭐라고 말할지도 한번 떠올려 봅니다.
+    </div>
+
+    <div class="timebar"><span>시작 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span><span>끝난 시각&nbsp;&nbsp;&nbsp;&nbsp;시&nbsp;&nbsp;&nbsp;&nbsp;분</span></div>
+
+    <div class="writing"><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div></div>
+    <div class="selfcheck">
+      다 쓴 다음 스스로 확인해요.&nbsp;&nbsp;<span class="cbx"></span><b>내 입장</b>(필요하다 / 필요하지 않다)을 정했나요?&nbsp;&nbsp;<span class="cbx"></span><b>까닭을 두 가지 이상</b> 들었나요?
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
