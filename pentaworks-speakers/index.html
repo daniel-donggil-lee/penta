@@ -212,11 +212,14 @@ body {
 
 /* Photo */
 .card-photo {
-  aspect-ratio:1/1;
+  aspect-ratio:4/3;
   background:var(--g100);
   overflow:hidden; position:relative;
 }
-.card.featured .card-photo { aspect-ratio:1/1; }
+.card.featured .card-photo { aspect-ratio:4/3; }
+/* 얼굴 클로즈업 컷은 정사각 틀로 세워 어깨까지 노출 → 얼굴 축소 */
+.card[data-no="08"] .card-photo,
+.card[data-no="10"] .card-photo { aspect-ratio:1/1; }
 
 .card-photo img {
   width:100%; height:100%; object-fit:cover; object-position:center top; display:block;
@@ -249,27 +252,27 @@ body {
 .card:hover .card-body { border-top-color:var(--gold); }
 
 .card-name {
-  font-size:21px; font-weight:900; letter-spacing:-.03em;
+  font-size:25px; font-weight:900; letter-spacing:-.03em;
   color:var(--black); line-height:1.1; margin-bottom:4px;
 }
 
 .card-affil {
-  font-size:12.5px; font-weight:600; color:var(--g500);
+  font-size:15px; font-weight:600; color:var(--g500);
   margin-bottom:12px;
 }
 .card-career {
-  font-size:12.5px; color:var(--g500); line-height:1.65;
+  font-size:15px; color:var(--g500); line-height:1.65;
   padding-bottom:14px; margin-bottom:14px;
   border-bottom:1px solid var(--blight);
 }
 
 .topics-head {
-  font-size:10px; font-weight:800; letter-spacing:.14em;
+  font-size:11px; font-weight:800; letter-spacing:.14em;
   color:var(--gold-d); text-transform:uppercase; margin-bottom:8px;
 }
 .topic-item {
   display:flex; align-items:baseline; gap:8px;
-  font-size:13px; color:var(--g700,#2a2a2a);
+  font-size:15.5px; color:var(--g700,#2a2a2a);
   line-height:1.55; padding:5px 0;
   border-bottom:1px solid var(--g100);
   word-break:keep-all;
@@ -284,7 +287,7 @@ body {
   display:flex; flex-wrap:wrap; gap:5px; margin-top:14px;
 }
 .tag {
-  font-size:11px; font-weight:600; letter-spacing:.01em;
+  font-size:13px; font-weight:600; letter-spacing:.01em;
   color:var(--g500); background:var(--g50);
   border:1px solid var(--blight);
   padding:3px 10px; border-radius:4px;
@@ -295,7 +298,7 @@ body {
   margin-top:18px; padding:11px;
   background:transparent; border:1px solid var(--blight);
   border-radius:6px; cursor:pointer; font-family:inherit;
-  font-size:12px; font-weight:700; letter-spacing:.06em;
+  font-size:14px; font-weight:700; letter-spacing:.06em;
   color:var(--g500); text-transform:uppercase;
   transition:all .15s;
 }
@@ -618,7 +621,7 @@ footer {
   },
   {
     "no":"08","category":"teacher","categoryLabel":"현직교사",
-    "imgStyle":"object-position:center top;",
+    "imgStyle":"object-position:center;",
     "name":"류지현","photo":"photos/08_ryu-jihyun.jpg",
     "affiliation":"특수학교",
     "career":"17년차 현직 특수학교 교사",
@@ -638,7 +641,7 @@ footer {
   },
   {
     "no":"10","category":"self","categoryLabel":"자기계발",
-    "imgStyle":"object-position:center 10%;transform:scale(1.2);transform-origin:top center;",
+    "imgStyle":"object-position:center 18%;",
     "name":"조미연","photo":"photos/10_cho-miyeon.jpg",
     "affiliation":"리온브랜딩 대표",
     "career":"글쓰기 강의 / 브런치 작가 과정 운영",
@@ -668,7 +671,7 @@ function buildCard(s) {
   const dataAttr = esc(JSON.stringify(s));
 
   return `
-    <article class="card${s.featured?' featured':''}" data-category="${esc(s.category)}" onclick='openModal(${JSON.stringify(s).replace(/'/g,"&#39;")})'>
+    <article class="card${s.featured?' featured':''}" data-category="${esc(s.category)}" data-no="${esc(s.no)}" onclick='openModal(${JSON.stringify(s).replace(/'/g,"&#39;")})'>
       <div class="card-photo">
         <img src="${esc(s.photo)}" alt="${esc(s.name)}" loading="lazy" ${s.imgStyle ? `style="${esc(s.imgStyle)}"` : ''} onerror="this.parentElement.style.minHeight='160px'">
         <div class="cat-pill">${esc(s.categoryLabel)}</div>
