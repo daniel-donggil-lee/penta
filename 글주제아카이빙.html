@@ -96,6 +96,14 @@
   .d-body{font-size:13px;color:#3c414c;line-height:1.72;}
   .voca-li{margin-bottom:5px;}
   .voca-li b{color:var(--navy);}
+  .std{display:flex;gap:8px;margin-bottom:7px;align-items:baseline;}
+  .std .code{flex:0 0 auto;font-size:10px;font-weight:800;color:#fff;background:var(--navy);border-radius:6px;padding:2px 7px;white-space:nowrap;}
+  .std .code.link{background:#c9c3b6;}
+  .std .stx{font-size:12.5px;color:#3c414c;line-height:1.55;}
+  .std .ssub{display:inline-block;font-size:10.5px;font-weight:800;color:var(--orange);margin-left:6px;}
+  .gsp{display:flex;gap:9px;margin-bottom:7px;align-items:baseline;}
+  .gsp .band{flex:0 0 42px;font-size:11px;font-weight:800;color:var(--navy);background:var(--navy-soft);border-radius:6px;padding:3px 0;text-align:center;white-space:nowrap;}
+  .gsp .gdir{font-size:12.5px;color:#3c414c;line-height:1.6;}
   .cond-li{margin-bottom:4px;padding-left:15px;position:relative;}
   .cond-li::before{content:"·";position:absolute;left:3px;color:var(--orange);font-weight:900;}
   .mat{display:flex;gap:8px;flex-wrap:wrap;}
@@ -180,6 +188,15 @@ const TOPICS = [
     theme:'경제·금융',
     grade:'초5~6', subject:'사회 · 실과',
     unit:'초등 사회 6-2 · 우리나라의 경제 발전  /  초등 사회 5-1 · 인권 존중과 정의로운 사회',
+    standards:[
+      {code:'6국03-04', text:'적절한 근거와 알맞은 표현을 사용하여 주장하는 글을 쓴다.', subj:'국어 5~6'},
+      {code:'', text:'경제 활동과 합리적 선택, 저축·투자의 의미 (경제 영역 연계)', subj:'사회·실과 5~6'},
+    ],
+    gradeSplit:[
+      {band:'초3~4', dir:'주제를 낮춰 “용돈을 저금할까, 쓸까?”로. 내 생각 + 까닭 1~2개, 경험 중심 짧은 글. [4국03-03]'},
+      {band:'초5~6', dir:'주식 투자 찬반 그대로. 위험·손익 같은 경제 개념을 근거로 쓰고 반대 입장까지 짚기. [6국03-04]'},
+      {band:'중1+', dir:'투자와 투기 구분, 조기 금융교육의 사회적 영향까지 확장해 논증.'},
+    ],
     prompt:'요즘 초등학생 자녀를 위한 경제 교육의 일환으로 자녀 이름의 주식계좌를 만들고 용돈으로 주식 투자를 하도록 가르치는 부모님들이 있습니다. 초등학생 시기부터 자녀에게 주식 투자를 하도록 하는 것이 성인이 되어 부자가 될 가능성을 높여 주는 현명한 방법이라는 주장에 대해 어떻게 생각하나요?',
     conditions:[],
     voca:[['주식 투자','이익을 얻기 위해 주식회사의 증권을 사고파는 행위.'],['일환','큰 틀 안에서 서로 이어져 있는 것들 가운데 하나.']],
@@ -195,6 +212,15 @@ const TOPICS = [
     theme:'생활·미디어',
     grade:'초3~6', subject:'도덕 · 실과',
     unit:'초등 도덕 · 절제하는 생활  /  초등 실과 · 정보와 미디어',
+    standards:[
+      {code:'6국03-04', text:'적절한 근거와 알맞은 표현을 사용하여 주장하는 글을 쓴다.', subj:'국어 5~6'},
+      {code:'4국03-03', text:'대상이나 문제에 대해 자신의 의견이 드러나게 글을 쓴다.', subj:'국어 3~4'},
+      {code:'6도01-02', text:'생활 습관을 성찰하고 올바른 계획을 세워 실천한다 (절제).', subj:'도덕 5~6'},
+    ],
+    gradeSplit:[
+      {band:'초3~4', dir:'“스마트폰이 필요할까?” 내 경험 중심. 좋은 점·나쁜 점 하나씩 들고 내 생각 밝히기. [4국03-03]'},
+      {band:'초5~6', dir:'사용 시간·집중력·눈 건강 등 근거(간단한 통계)로 뒷받침 + 스스로 지킬 사용 규칙 제안까지. [6국03-04]'},
+    ],
     prompt:'요즘은 스마트폰을 가지고 다니는 초등학생 친구가 많아요. 게임이나 영상도 보고, 친구와 연락도 하지요. 하지만 스마트폰 때문에 공부에 집중하지 못하거나 눈이 나빠진다는 걱정도 있어요. 초등학생에게 스마트폰이 정말 필요할까요? 내 생각을 정하고, 그렇게 생각하는 까닭을 두 가지 이상 들어 글을 써 봅시다.',
     conditions:[],
     voca:[['중독','어떤 것을 지나치게 좋아해서 스스로 끊기 어려운 상태.'],['집중력','한 가지 일에 정신을 모으는 힘.'],['절제','하고 싶은 것을 알맞게 스스로 조절하는 것.']],
@@ -210,6 +236,15 @@ const TOPICS = [
     theme:'환경·생명',
     grade:'초4~6', subject:'과학 · 도덕',
     unit:'초등 과학 · 생물과 환경  /  초등 도덕 · 생명을 존중하는 마음',
+    standards:[
+      {code:'6국03-04', text:'적절한 근거와 알맞은 표현을 사용하여 주장하는 글을 쓴다.', subj:'국어 5~6'},
+      {code:'4도04-01', text:'생명 경시 사례를 탐구하며 생명의 소중함을 이해한다.', subj:'도덕 3~4'},
+      {code:'', text:'생물 요소와 비생물 요소, 생태계의 구조와 기능 (생물과 환경 연계)', subj:'과학 5~6'},
+    ],
+    gradeSplit:[
+      {band:'초3~4', dir:'“동물원, 좋아? 왜?” 감정·경험 중심 찬반 + 까닭 2개. 생명을 아끼는 마음 담기.'},
+      {band:'초5~6', dir:'동물 복지 vs 종(種) 보전으로 쟁점을 세우고 생태계 개념(과학 연계)을 근거로. 반대 입장 반박 포함. [6국03-04]'},
+    ],
     prompt:'요즘 동물원을 두고 사람마다 생각이 다릅니다. 동물원은 멸종 위기에 놓인 동물을 보호하고, 평소 보기 힘든 동물을 가까이에서 볼 기회를 줍니다. 하지만 한편으로는 동물을 본래 살던 곳이 아닌 좁은 공간에 가둔다는 걱정도 있습니다. 동물원은 꼭 있어야 할까요?',
     conditions:[],
     voca:[['멸종 위기','어떤 동물이나 식물의 수가 매우 줄어 곧 사라질 수 있는 상태.'],['서식지','동물이나 식물이 본래 살아가는 곳.'],['생태계','생물과 그 주변 환경이 서로 영향을 주고받으며 이루는 자연의 짜임.']],
@@ -226,6 +261,15 @@ const TOPICS = [
     theme:'언어·인성',
     grade:'초3~6', subject:'국어 · 도덕',
     unit:'초등 국어 · 제안하는 글쓰기  /  초등 도덕 · 서로 존중하는 언어 예절  ·  [8주 커리 5주차]',
+    standards:[
+      {code:'6국03-04', text:'적절한 근거와 알맞은 표현을 사용하여 주장하는 글을 쓴다.', subj:'국어 5~6'},
+      {code:'4국03-03', text:'대상이나 문제에 대해 자신의 의견이 드러나게 글을 쓴다.', subj:'국어 3~4'},
+      {code:'6도02-02', text:'다양성 존중을 바탕으로 바른 관계를 맺는 실천 방안을 탐구한다.', subj:'도덕 5~6'},
+    ],
+    gradeSplit:[
+      {band:'초3~4', dir:'“왜 고운 말을 써야 할까?” 내 경험 + 고운 말·거친 말의 느낌. 실천 규칙 1~2개 제안. [4국03-03]'},
+      {band:'초5~6', dir:'언어폭력의 영향을 분석하고 실천 가능한 교실 규칙 3가지를 “규칙 → 방법 → 기대효과”로. (의견제시 완성형) [6국03-04]'},
+    ],
     prompt:'비속어와 욕 사용을 줄일 수 있는 우리 반 교실 규칙을 3가지 제안하는 글을 써 봅시다.',
     conditions:[
       '제목을 붙여 쓰세요.',
@@ -293,6 +337,8 @@ function cardHTML(t,i){
 
   let detail = '';
   if(t.unit) detail += `<div class="d-sec"><div class="d-h">관련 교과·단원</div><div class="d-body">${esc(t.unit)}</div></div>`;
+  if(t.standards&&t.standards.length) detail += `<div class="d-sec"><div class="d-h">교육과정 성취기준 (2022 개정)</div><div class="d-body">${t.standards.map(s=>`<div class="std"><span class="code${s.code?'':' link'}">${s.code?('['+esc(s.code)+']'):'연계'}</span><span class="stx">${esc(s.text)}<b class="ssub">${esc(s.subj)}</b></span></div>`).join('')}</div></div>`;
+  if(t.gradeSplit&&t.gradeSplit.length) detail += `<div class="d-sec"><div class="d-h">학년별 세분화 방향</div><div class="d-body">${t.gradeSplit.map(g=>`<div class="gsp"><span class="band">${esc(g.band)}</span><span class="gdir">${esc(g.dir)}</span></div>`).join('')}</div></div>`;
   if(t.prompt) detail += `<div class="d-sec"><div class="d-h">논제</div><div class="d-body">${esc(t.prompt)}</div></div>`;
   if(t.conditions && t.conditions.length) detail += `<div class="d-sec"><div class="d-h">작성 조건</div><div class="d-body">${t.conditions.map(c=>`<div class="cond-li">${esc(c)}</div>`).join('')}</div></div>`;
   if(t.voca && t.voca.length) detail += `<div class="d-sec"><div class="d-h">관련 어휘</div><div class="d-body">${t.voca.map(v=>`<div class="voca-li"><b>${esc(v[0])}</b> &nbsp;${esc(v[1])}</div>`).join('')}</div></div>`;
