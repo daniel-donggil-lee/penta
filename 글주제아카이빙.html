@@ -73,6 +73,9 @@
   .c-title{font-size:18.5px;font-weight:800;color:var(--navy);line-height:1.35;letter-spacing:-.01em;margin-bottom:9px;}
   .c-unit{font-size:12px;color:var(--muted);font-weight:600;line-height:1.5;margin-bottom:14px;}
   .c-unit .u-lab{color:var(--navy);font-weight:800;}
+  .c-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px;}
+  .c-meta .m{font-size:11.5px;font-weight:700;color:#3c414c;background:var(--navy-soft);border-radius:9px;padding:5px 11px;}
+  .c-meta .m b{color:var(--navy);font-weight:800;margin-right:6px;}
   .c-prompt{font-size:13px;color:#3c414c;line-height:1.72;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
   .c-foot{margin-top:auto;padding:14px 20px 16px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--line2);}
@@ -175,6 +178,7 @@ const TOPICS = [
     area:'논술', type:'찬반', no:25,
     title:'초등학생 때부터 주식 투자를 해야 할까요?',
     theme:'경제·금융',
+    grade:'초5~6', subject:'사회 · 실과',
     unit:'초등 사회 6-2 · 우리나라의 경제 발전  /  초등 사회 5-1 · 인권 존중과 정의로운 사회',
     prompt:'요즘 초등학생 자녀를 위한 경제 교육의 일환으로 자녀 이름의 주식계좌를 만들고 용돈으로 주식 투자를 하도록 가르치는 부모님들이 있습니다. 초등학생 시기부터 자녀에게 주식 투자를 하도록 하는 것이 성인이 되어 부자가 될 가능성을 높여 주는 현명한 방법이라는 주장에 대해 어떻게 생각하나요?',
     conditions:[],
@@ -189,7 +193,8 @@ const TOPICS = [
     area:'논술', type:'찬반', no:5,
     title:'초등학생에게 스마트폰이 필요할까요?',
     theme:'생활·미디어',
-    unit:'',
+    grade:'초3~6', subject:'도덕 · 실과',
+    unit:'초등 도덕 · 절제하는 생활  /  초등 실과 · 정보와 미디어',
     prompt:'요즘은 스마트폰을 가지고 다니는 초등학생 친구가 많아요. 게임이나 영상도 보고, 친구와 연락도 하지요. 하지만 스마트폰 때문에 공부에 집중하지 못하거나 눈이 나빠진다는 걱정도 있어요. 초등학생에게 스마트폰이 정말 필요할까요? 내 생각을 정하고, 그렇게 생각하는 까닭을 두 가지 이상 들어 글을 써 봅시다.',
     conditions:[],
     voca:[['중독','어떤 것을 지나치게 좋아해서 스스로 끊기 어려운 상태.'],['집중력','한 가지 일에 정신을 모으는 힘.'],['절제','하고 싶은 것을 알맞게 스스로 조절하는 것.']],
@@ -203,6 +208,7 @@ const TOPICS = [
     area:'논술', type:'찬반', no:27,
     title:'동물원은 꼭 있어야 할까요?',
     theme:'환경·생명',
+    grade:'초4~6', subject:'과학 · 도덕',
     unit:'초등 과학 · 생물과 환경  /  초등 도덕 · 생명을 존중하는 마음',
     prompt:'요즘 동물원을 두고 사람마다 생각이 다릅니다. 동물원은 멸종 위기에 놓인 동물을 보호하고, 평소 보기 힘든 동물을 가까이에서 볼 기회를 줍니다. 하지만 한편으로는 동물을 본래 살던 곳이 아닌 좁은 공간에 가둔다는 걱정도 있습니다. 동물원은 꼭 있어야 할까요?',
     conditions:[],
@@ -218,7 +224,8 @@ const TOPICS = [
     area:'논술', type:'의견제시', no:null,
     title:'욕은 왜 할까? — 욕 대신 좋은 말이 가득한 우리 반 만들기',
     theme:'언어·인성',
-    unit:'8주 커리큘럼 5주차 · 문제 해결·대안 논증(의견제시 논술)',
+    grade:'초3~6', subject:'국어 · 도덕',
+    unit:'초등 국어 · 제안하는 글쓰기  /  초등 도덕 · 서로 존중하는 언어 예절  ·  [8주 커리 5주차]',
     prompt:'비속어와 욕 사용을 줄일 수 있는 우리 반 교실 규칙을 3가지 제안하는 글을 써 봅시다.',
     conditions:[
       '제목을 붙여 쓰세요.',
@@ -282,9 +289,10 @@ function cardHTML(t,i){
   const stat = STATUS_LABEL[t.status]||['',''];
   const typeCls = t.type==='의견제시'?'uigyeon':'chanban';
   const noB = t.no!=null ? `<span class="b-no">주제 ${t.no}</span>`:'';
-  const unit = t.unit ? `<div class="c-unit"><span class="u-lab">관련 단원</span> &nbsp;${esc(t.unit)}</div>`:'';
+  const meta = (t.grade||t.subject) ? `<div class="c-meta">${t.grade?`<span class="m"><b>추천 학년</b>${esc(t.grade)}</span>`:''}${t.subject?`<span class="m"><b>관련 교과</b>${esc(t.subject)}</span>`:''}</div>` : '';
 
   let detail = '';
+  if(t.unit) detail += `<div class="d-sec"><div class="d-h">관련 교과·단원</div><div class="d-body">${esc(t.unit)}</div></div>`;
   if(t.prompt) detail += `<div class="d-sec"><div class="d-h">논제</div><div class="d-body">${esc(t.prompt)}</div></div>`;
   if(t.conditions && t.conditions.length) detail += `<div class="d-sec"><div class="d-h">작성 조건</div><div class="d-body">${t.conditions.map(c=>`<div class="cond-li">${esc(c)}</div>`).join('')}</div></div>`;
   if(t.voca && t.voca.length) detail += `<div class="d-sec"><div class="d-h">관련 어휘</div><div class="d-body">${t.voca.map(v=>`<div class="voca-li"><b>${esc(v[0])}</b> &nbsp;${esc(v[1])}</div>`).join('')}</div></div>`;
@@ -302,7 +310,7 @@ function cardHTML(t,i){
         <span class="b-theme">${esc(t.theme)}</span>
       </div>
       <div class="c-title">${esc(t.title)}</div>
-      ${unit}
+      ${meta}
       <div class="c-prompt">${esc(t.prompt)}</div>
     </div>
     <div class="detail">${detail}</div>
@@ -318,7 +326,7 @@ function render(){
   renderAreas(); renderTypeChips();
   const list = TOPICS.filter(t=>t.area===curArea)
     .filter(t=>curType==='all'||t.type===curType)
-    .filter(t=>{if(!curQ)return true;const s=(t.title+' '+t.prompt+' '+t.theme+' '+t.unit).toLowerCase();return s.includes(curQ);});
+    .filter(t=>{if(!curQ)return true;const s=(t.title+' '+t.prompt+' '+t.theme+' '+t.unit+' '+(t.grade||'')+' '+(t.subject||'')).toLowerCase();return s.includes(curQ);});
   const grid = document.getElementById('grid');
   document.getElementById('stTotal').textContent = TOPICS.length;
   document.getElementById('stArea').textContent = TOPICS.filter(t=>t.area===curArea).length;
