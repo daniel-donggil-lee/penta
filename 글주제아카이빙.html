@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>글주제 아카이빙 · 펜타스쿨 커리큘럼</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root{
+    --ink:#16181d; --muted:#7b8494; --line:#e9e5dc; --line2:#f2efe8;
+    --navy:#142d47; --navy-soft:#eef2f7; --orange:#FF6A1A; --orange-soft:#fff3ec;
+    --paper:#fffdf8; --bg:#f7f6f2; --card:#ffffff;
+    --pro:#FF6A1A; --con:#142d47;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo',system-ui,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+
+  /* ===== 헤더 ===== */
+  header{background:var(--card);border-bottom:1px solid var(--line);}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .crumb{font-size:12.5px;font-weight:700;color:var(--muted);padding:22px 0 0;letter-spacing:.01em;}
+  .crumb b{color:var(--orange);}
+  .head-main{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:10px 0 22px;}
+  h1{font-size:30px;font-weight:800;color:var(--navy);letter-spacing:-.02em;}
+  .sub{font-size:14px;color:var(--muted);font-weight:500;margin-bottom:3px;}
+  .stats{display:flex;gap:8px;margin-left:auto;}
+  .stat{background:var(--navy-soft);border-radius:12px;padding:9px 16px;text-align:center;line-height:1.15;}
+  .stat .n{font-size:22px;font-weight:800;color:var(--navy);}
+  .stat .l{font-size:11px;font-weight:700;color:var(--muted);}
+
+  /* ===== 영역 탭 ===== */
+  .areas{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;}
+  .area-row{display:flex;gap:4px;overflow-x:auto;padding:0 24px;max-width:1120px;margin:0 auto;}
+  .area{flex:0 0 auto;padding:15px 16px 13px;font-size:14px;font-weight:700;color:var(--muted);
+    border-bottom:2.5px solid transparent;cursor:pointer;white-space:nowrap;transition:.15s;}
+  .area:hover{color:var(--navy);}
+  .area.on{color:var(--navy);border-bottom-color:var(--orange);}
+  .area .cnt{font-size:11px;font-weight:800;color:#fff;background:#c9c3b6;border-radius:999px;
+    padding:1px 7px;margin-left:5px;vertical-align:1px;}
+  .area.on .cnt{background:var(--orange);}
+  .area.soon{opacity:.55;}
+
+  /* ===== 툴바 ===== */
+  .toolbar{max-width:1120px;margin:0 auto;padding:22px 24px 6px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+  .search{flex:1;min-width:220px;position:relative;}
+  .search input{width:100%;border:1.5px solid var(--line);background:var(--card);border-radius:999px;
+    padding:11px 18px 11px 42px;font-size:14px;font-family:inherit;color:var(--ink);outline:none;transition:.15s;}
+  .search input:focus{border-color:var(--orange);}
+  .search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--muted);}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{font-size:12.5px;font-weight:700;color:var(--muted);background:var(--card);border:1.5px solid var(--line);
+    border-radius:999px;padding:8px 15px;cursor:pointer;transition:.15s;}
+  .chip:hover{border-color:#d8d2c6;}
+  .chip.on{color:#fff;background:var(--navy);border-color:var(--navy);}
+
+  /* ===== 카드 그리드 ===== */
+  main{max-width:1120px;margin:0 auto;padding:16px 24px 80px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    display:flex;flex-direction:column;transition:.18s;}
+  .card:hover{border-color:#e0d9cb;box-shadow:0 8px 26px -14px rgba(20,45,71,.22);transform:translateY(-2px);}
+  .c-top{padding:18px 20px 0;}
+  .c-badges{display:flex;align-items:center;gap:7px;margin-bottom:11px;flex-wrap:wrap;}
+  .b-type{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;}
+  .b-type.chanban{color:#fff;background:var(--orange);}
+  .b-type.uigyeon{color:#fff;background:var(--navy);}
+  .b-no{font-size:11px;font-weight:800;color:var(--muted);background:var(--line2);border-radius:7px;padding:3px 8px;}
+  .b-theme{font-size:11px;font-weight:700;color:var(--orange);background:var(--orange-soft);border-radius:999px;padding:3px 10px;}
+  .c-title{font-size:18.5px;font-weight:800;color:var(--navy);line-height:1.35;letter-spacing:-.01em;margin-bottom:9px;}
+  .c-unit{font-size:12px;color:var(--muted);font-weight:600;line-height:1.5;margin-bottom:14px;}
+  .c-unit .u-lab{color:var(--navy);font-weight:800;}
+  .c-prompt{font-size:13px;color:#3c414c;line-height:1.72;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+  .c-foot{margin-top:auto;padding:14px 20px 16px;display:flex;align-items:center;gap:10px;border-top:1px solid var(--line2);}
+  .c-status{font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:999px;}
+  .st-verified{color:#177245;background:#e7f6ec;}
+  .st-used{color:#8a5a00;background:#fdf1dd;}
+  .st-origin{color:#4a4f5a;background:#eef0f3;}
+  .c-date{font-size:12px;color:var(--muted);font-weight:600;}
+  .c-open{margin-left:auto;font-size:12.5px;font-weight:800;color:var(--orange);cursor:pointer;user-select:none;}
+  .c-open:hover{text-decoration:underline;}
+
+  /* ===== 상세 (더보기) ===== */
+  .detail{display:none;padding:2px 20px 20px;border-top:1px solid var(--line2);}
+  .card.expanded .detail{display:block;}
+  .card.expanded .c-prompt{-webkit-line-clamp:unset;}
+  .d-sec{margin-top:16px;}
+  .d-h{font-size:11.5px;font-weight:800;color:var(--orange);letter-spacing:.03em;margin-bottom:7px;text-transform:uppercase;}
+  .d-body{font-size:13px;color:#3c414c;line-height:1.72;}
+  .voca-li{margin-bottom:5px;}
+  .voca-li b{color:var(--navy);}
+  .cond-li{margin-bottom:4px;padding-left:15px;position:relative;}
+  .cond-li::before{content:"·";position:absolute;left:3px;color:var(--orange);font-weight:900;}
+  .mat{display:flex;gap:8px;flex-wrap:wrap;}
+  .mat span{font-size:11.5px;font-weight:700;border-radius:999px;padding:5px 12px;}
+  .mat .pro{color:var(--orange);background:var(--orange-soft);border:1px solid #ffd9c2;}
+  .mat .con{color:var(--navy);background:var(--navy-soft);border:1px solid #d5deea;}
+  .books{font-size:12.5px;color:#4a4f5a;line-height:1.7;}
+  .example{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+    font-size:12.5px;color:#3c414c;line-height:1.75;white-space:pre-wrap;}
+  .note{font-size:11.5px;color:#b06a2e;background:#fff6ec;border-radius:8px;padding:8px 12px;margin-top:8px;font-weight:600;}
+
+  .empty{text-align:center;padding:80px 20px;color:var(--muted);}
+  .empty .big{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:6px;}
+
+  footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:26px 0;text-align:center;}
+  @media(max-width:560px){
+    h1{font-size:24px;} .stats{margin-left:0;width:100%;}
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="crumb">펜타스쿨 · 커리큘럼 · <b>글주제 아카이빙</b></div>
+    <div class="head-main">
+      <div>
+        <div class="sub">영역별 글쓰기 주제 문제은행 — 나간 주제를 쌓고, 다시 꺼내 씁니다</div>
+        <h1>글주제 아카이빙</h1>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n" id="stTotal">0</div><div class="l">전체 주제</div></div>
+        <div class="stat"><div class="n" id="stArea">0</div><div class="l">현재 영역</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="areas">
+  <div class="area-row" id="areaRow"></div>
+</nav>
+
+<div class="toolbar">
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="q" type="text" placeholder="주제·논제·키워드 검색">
+  </div>
+  <div class="chips" id="typeChips"></div>
+</div>
+
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer class="wrap">펜타스쿨 커리큘럼 · 글주제 아카이빙 &nbsp;|&nbsp; 새 주제가 나오면 이 은행에 계속 쌓입니다</footer>
+
+<script>
+/* =========================================================================
+   글주제 데이터 — 새 주제가 나올 때마다 아래 배열에 객체 하나만 추가하면 됩니다.
+   area  : 영역 (논술 / 탐구·조사 보고서 / 설명·소개문 / 자기성찰 에세이 / 기사문 / 감상·비평문)
+   type  : 논술 세부유형 (찬반 / 의견제시)
+   no    : 주제 번호 (없으면 null)
+   title : 논제(제목)
+   theme : 소재 태그
+   unit  : 관련 교과단원 (없으면 '')
+   prompt: 논제 제시 전문
+   conditions: 작성 조건 배열 (없으면 [])
+   voca  : [[단어, 뜻], ...] (없으면 [])
+   materials: {pro:[...], con:[...]} 참고자료 라벨 (없으면 null)
+   tips  : 글쓰기 팁 배열 (없으면 [])
+   books : 관련 도서 배열 (없으면 [])
+   example: 예시 원고(모범답안) 전문 (없으면 '')
+   date  : 제작일
+   status: verified(검증완료) / used(사용) / origin(원형)
+   note  : 특이사항 메모 (없으면 '')
+   ========================================================================= */
+const TOPICS = [
+  {
+    area:'논술', type:'찬반', no:25,
+    title:'초등학생 때부터 주식 투자를 해야 할까요?',
+    theme:'경제·금융',
+    unit:'초등 사회 6-2 · 우리나라의 경제 발전  /  초등 사회 5-1 · 인권 존중과 정의로운 사회',
+    prompt:'요즘 초등학생 자녀를 위한 경제 교육의 일환으로 자녀 이름의 주식계좌를 만들고 용돈으로 주식 투자를 하도록 가르치는 부모님들이 있습니다. 초등학생 시기부터 자녀에게 주식 투자를 하도록 하는 것이 성인이 되어 부자가 될 가능성을 높여 주는 현명한 방법이라는 주장에 대해 어떻게 생각하나요?',
+    conditions:[],
+    voca:[['주식 투자','이익을 얻기 위해 주식회사의 증권을 사고파는 행위.'],['일환','큰 틀 안에서 서로 이어져 있는 것들 가운데 하나.']],
+    materials:null, tips:[],
+    books:['『책마을로 가는 열린어린이 독서교실: 초등 5』 김원숙 외 8인 · 열린어린이','『열두 살 경제학교』 권오상 · 카시오페아'],
+    example:'',
+    date:'2026-06-25', status:'origin',
+    note:'이은경 참고 워크북(8주 중 1주) 원형 주제.'
+  },
+  {
+    area:'논술', type:'찬반', no:5,
+    title:'초등학생에게 스마트폰이 필요할까요?',
+    theme:'생활·미디어',
+    unit:'',
+    prompt:'요즘은 스마트폰을 가지고 다니는 초등학생 친구가 많아요. 게임이나 영상도 보고, 친구와 연락도 하지요. 하지만 스마트폰 때문에 공부에 집중하지 못하거나 눈이 나빠진다는 걱정도 있어요. 초등학생에게 스마트폰이 정말 필요할까요? 내 생각을 정하고, 그렇게 생각하는 까닭을 두 가지 이상 들어 글을 써 봅시다.',
+    conditions:[],
+    voca:[['중독','어떤 것을 지나치게 좋아해서 스스로 끊기 어려운 상태.'],['집중력','한 가지 일에 정신을 모으는 힘.'],['절제','하고 싶은 것을 알맞게 스스로 조절하는 것.']],
+    materials:null, tips:[],
+    books:['『열두 살 경제학교』 권오상 · 카시오페아','『용돈 처음 받는 날』 (초등 경제 그림책)'],
+    example:'',
+    date:'2026-06-25', status:'used',
+    note:'관련 도서가 경제 주제로 잘못 배치된 템플릿 잔재 — 미디어·습관 관련 도서로 교체 필요.'
+  },
+  {
+    area:'논술', type:'찬반', no:27,
+    title:'동물원은 꼭 있어야 할까요?',
+    theme:'환경·생명',
+    unit:'초등 과학 · 생물과 환경  /  초등 도덕 · 생명을 존중하는 마음',
+    prompt:'요즘 동물원을 두고 사람마다 생각이 다릅니다. 동물원은 멸종 위기에 놓인 동물을 보호하고, 평소 보기 힘든 동물을 가까이에서 볼 기회를 줍니다. 하지만 한편으로는 동물을 본래 살던 곳이 아닌 좁은 공간에 가둔다는 걱정도 있습니다. 동물원은 꼭 있어야 할까요?',
+    conditions:[],
+    voca:[['멸종 위기','어떤 동물이나 식물의 수가 매우 줄어 곧 사라질 수 있는 상태.'],['서식지','동물이나 식물이 본래 살아가는 곳.'],['생태계','생물과 그 주변 환경이 서로 영향을 주고받으며 이루는 자연의 짜임.']],
+    materials:{pro:['찬성 측 · 기사','찬성 측 · 영상'], con:['반대 측 · 기사','반대 측 · 영상(EBS 다큐)']},
+    tips:[],
+    books:['도서관에서 ‘동물원’·‘멸종 위기 동물’·‘동물 보호’ 주제 어린이 책'],
+    example:'',
+    date:'2026-07-06', status:'verified',
+    note:'v1~v5 판올림(주제 1개). 학생 실제 작성·판독 검증 완료. 찬반 기사·영상 QR 4종 탑재.'
+  },
+  {
+    area:'논술', type:'의견제시', no:null,
+    title:'욕은 왜 할까? — 욕 대신 좋은 말이 가득한 우리 반 만들기',
+    theme:'언어·인성',
+    unit:'8주 커리큘럼 5주차 · 문제 해결·대안 논증(의견제시 논술)',
+    prompt:'비속어와 욕 사용을 줄일 수 있는 우리 반 교실 규칙을 3가지 제안하는 글을 써 봅시다.',
+    conditions:[
+      '제목을 붙여 쓰세요.',
+      '서론-본론-결론의 구조로 작성하세요.',
+      '서론에서는 비속어와 욕을 줄여야 하는 이유를 간단히 설명하세요.',
+      "본론에서는 '첫째, 둘째, 셋째'로 나누어 서로 다른 교실 규칙을 제안하세요.",
+      '친구들과 함께 실천할 수 있는 구체적인 방법을 제시하세요. (언제·어떻게·누가 실천하는지까지 자세히)',
+      '결론에서는 규칙을 실천했을 때 기대되는 변화를 자신의 생각과 함께 정리하세요.'
+    ],
+    voca:[],
+    materials:null,
+    tips:[
+      '자신의 경험을 근거로 쓰면 설득력이 높아집니다.',
+      '“예쁜 말을 쓰자.”처럼 추상적으로 쓰지 말고, 실제로 교실에서 할 수 있는 활동을 제안하세요.',
+      "제안마다 '규칙 → 구체적인 실천 방법 → 기대 효과'의 순서로 쓰면 논리적인 글이 됩니다."
+    ],
+    books:[],
+    example:'제목 : 욕 대신 좋은 말이 가득한 우리 반을 만들자\n\n[서론] 비속어와 욕은 장난처럼 사용할 수도 있지만, 듣는 사람에게는 큰 상처를 줄 수 있다. 또한 교실 분위기를 어둡게 만들고 친구 사이의 믿음도 깨뜨릴 수 있다. 모두가 서로를 존중하며 생활하기 위해 우리 반에서 실천할 수 있는 규칙을 제안하고자 한다.\n\n[본론] 첫째, 욕이나 비속어를 사용했을 때는 반드시 바른 말로 다시 말하는 규칙을 만들자. … 둘째, 하루에 한 번 이상 친구에게 칭찬이나 고마운 말을 하는 시간을 갖자(‘오늘의 따뜻한 말’). … 셋째, 모둠별로 ‘욕 없는 하루’ 챌린지를 실시하자(스티커·칭찬 상장).\n\n[결론] 욕은 한순간에 내뱉을 수 있지만, 상처는 오래 남는다. 작은 규칙부터 함께 실천한다면 욕 대신 좋은 말이 먼저 떠오르는 행복한 교실이 될 것이다.',
+    date:'2026-07-12', status:'used',
+    note:'학생 실제 작성(7/12). 예시 원고(모범답안) 제공형 — 주제+작성조건+글쓰기팁 구조.'
+  }
+];
+
+/* 영역 정의 — 8주 커리큘럼 장르 기준. 논술이 첫 영역, 나머지는 순차 개방 */
+const AREAS = ['논술','탐구·조사 보고서','설명·소개문','자기성찰 에세이','기사문','감상·비평문'];
+const TYPE_LABEL = {'찬반':'찬반 논술','의견제시':'의견제시 논술'};
+const STATUS_LABEL = {verified:['검증완료','st-verified'], used:['사용','st-used'], origin:['원형','st-origin']};
+
+let curArea = '논술';
+let curType = 'all';
+let curQ = '';
+
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function renderAreas(){
+  const row = document.getElementById('areaRow');
+  row.innerHTML = AREAS.map(a=>{
+    const n = TOPICS.filter(t=>t.area===a).length;
+    const soon = n===0 ? ' soon':'';
+    const on = a===curArea ? ' on':'';
+    return `<div class="area${on}${soon}" data-a="${esc(a)}">${esc(a)}<span class="cnt">${n||'준비'}</span></div>`;
+  }).join('');
+  row.querySelectorAll('.area').forEach(el=>el.onclick=()=>{
+    const a = el.dataset.a;
+    if(TOPICS.filter(t=>t.area===a).length===0){return;}
+    curArea=a; curType='all'; render();
+  });
+}
+
+function renderTypeChips(){
+  const box = document.getElementById('typeChips');
+  const inArea = TOPICS.filter(t=>t.area===curArea);
+  const types = [...new Set(inArea.map(t=>t.type))];
+  if(types.length<=1){box.innerHTML=''; return;}
+  box.innerHTML = `<div class="chip${curType==='all'?' on':''}" data-t="all">전체</div>` +
+    types.map(t=>`<div class="chip${curType===t?' on':''}" data-t="${t}">${TYPE_LABEL[t]||t}</div>`).join('');
+  box.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{curType=c.dataset.t; render();});
+}
+
+function cardHTML(t,i){
+  const stat = STATUS_LABEL[t.status]||['',''];
+  const typeCls = t.type==='의견제시'?'uigyeon':'chanban';
+  const noB = t.no!=null ? `<span class="b-no">주제 ${t.no}</span>`:'';
+  const unit = t.unit ? `<div class="c-unit"><span class="u-lab">관련 단원</span> &nbsp;${esc(t.unit)}</div>`:'';
+
+  let detail = '';
+  if(t.prompt) detail += `<div class="d-sec"><div class="d-h">논제</div><div class="d-body">${esc(t.prompt)}</div></div>`;
+  if(t.conditions && t.conditions.length) detail += `<div class="d-sec"><div class="d-h">작성 조건</div><div class="d-body">${t.conditions.map(c=>`<div class="cond-li">${esc(c)}</div>`).join('')}</div></div>`;
+  if(t.voca && t.voca.length) detail += `<div class="d-sec"><div class="d-h">관련 어휘</div><div class="d-body">${t.voca.map(v=>`<div class="voca-li"><b>${esc(v[0])}</b> &nbsp;${esc(v[1])}</div>`).join('')}</div></div>`;
+  if(t.materials){const m=[];(t.materials.pro||[]).forEach(x=>m.push(`<span class="pro">${esc(x)}</span>`));(t.materials.con||[]).forEach(x=>m.push(`<span class="con">${esc(x)}</span>`));detail += `<div class="d-sec"><div class="d-h">관련 지식 자료</div><div class="d-body"><div class="mat">${m.join('')}</div></div></div>`;}
+  if(t.tips && t.tips.length) detail += `<div class="d-sec"><div class="d-h">글쓰기 팁</div><div class="d-body">${t.tips.map(c=>`<div class="cond-li">${esc(c)}</div>`).join('')}</div></div>`;
+  if(t.books && t.books.length) detail += `<div class="d-sec"><div class="d-h">관련 도서</div><div class="d-body books">${t.books.map(esc).join('<br>')}</div></div>`;
+  if(t.example) detail += `<div class="d-sec"><div class="d-h">예시 원고</div><div class="example">${esc(t.example)}</div></div>`;
+  if(t.note) detail += `<div class="note">${esc(t.note)}</div>`;
+
+  return `<article class="card" data-i="${i}">
+    <div class="c-top">
+      <div class="c-badges">
+        <span class="b-type ${typeCls}">${TYPE_LABEL[t.type]||t.type}</span>
+        ${noB}
+        <span class="b-theme">${esc(t.theme)}</span>
+      </div>
+      <div class="c-title">${esc(t.title)}</div>
+      ${unit}
+      <div class="c-prompt">${esc(t.prompt)}</div>
+    </div>
+    <div class="detail">${detail}</div>
+    <div class="c-foot">
+      <span class="c-status ${stat[1]}">${stat[0]}</span>
+      <span class="c-date">${esc(t.date)}</span>
+      <span class="c-open">자세히 +</span>
+    </div>
+  </article>`;
+}
+
+function render(){
+  renderAreas(); renderTypeChips();
+  const list = TOPICS.filter(t=>t.area===curArea)
+    .filter(t=>curType==='all'||t.type===curType)
+    .filter(t=>{if(!curQ)return true;const s=(t.title+' '+t.prompt+' '+t.theme+' '+t.unit).toLowerCase();return s.includes(curQ);});
+  const grid = document.getElementById('grid');
+  document.getElementById('stTotal').textContent = TOPICS.length;
+  document.getElementById('stArea').textContent = TOPICS.filter(t=>t.area===curArea).length;
+  if(list.length===0){grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="big">아직 없어요</div>검색어나 필터를 바꿔 보세요.</div>`;return;}
+  grid.innerHTML = list.map((t)=>cardHTML(t, TOPICS.indexOf(t))).join('');
+  grid.querySelectorAll('.card').forEach(card=>{
+    const open=card.querySelector('.c-open');
+    const toggle=()=>{const ex=card.classList.toggle('expanded');open.textContent=ex?'접기 −':'자세히 +';};
+    open.onclick=toggle;
+    card.querySelector('.c-title').onclick=toggle;
+  });
+}
+
+document.getElementById('q').addEventListener('input',e=>{curQ=e.target.value.trim().toLowerCase();render();});
+render();
+</script>
+</body>
+</html>
