@@ -243,6 +243,25 @@
   .catchips{display:flex;flex-wrap:wrap;gap:6px;}
   .catchips span{font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
 
+
+  /* v2 */
+  .area-row{flex-wrap:wrap;gap:6px 2px;padding-top:8px;padding-bottom:2px;}
+  .tabgroup{display:inline-flex;align-items:center;gap:1px;margin:0 12px 4px 0;padding:2px 0;}
+  .tglabel{font-size:10px;font-weight:800;color:#aeb4c0;margin-right:5px;letter-spacing:.02em;white-space:nowrap;}
+  .b-level{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;}
+  .b-level.기본{background:#1f9a52;} .b-level.심화{background:#e5484d;}
+  .b-mid{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;background:#7c3aed;}
+  .b-su{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;background:#0e7490;}
+  .b-num{font-size:11px;font-weight:800;color:#fff;background:#c9a227;border-radius:7px;padding:3px 9px;}
+  .b-type.genre{color:#fff;background:#5b6472;}
+  .c-stars{display:flex;flex-wrap:wrap;gap:5px 16px;margin:0 0 12px;}
+  .c-stars .sl{font-size:11.5px;font-weight:700;color:var(--muted);}
+  .c-stars .sv{color:#f5a623;letter-spacing:1px;font-size:12px;}
+  .chip.lv.기본.on{background:#1f9a52;border-color:#1f9a52;}
+  .chip.lv.심화.on{background:#e5484d;border-color:#e5444d;}
+  .catchips{display:flex;flex-wrap:wrap;gap:6px;}
+  .catchips span{font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
+
 </style>
 </head>
 <body>
@@ -309,8 +328,10 @@ const TOPICS = [
 
 
 
+
   {
     area:'논술', type:'찬반', no:25,
+    cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
@@ -347,6 +368,7 @@ const TOPICS = [
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
+    cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     title:'초등학생에게 스마트폰이 필요할까요?',
     theme:'생활·미디어',
     grade:'초3~6', subject:'도덕 · 실과',
@@ -371,6 +393,7 @@ const TOPICS = [
   },
   {
     area:'논술', type:'찬반', no:27,
+    cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
@@ -402,6 +425,7 @@ const TOPICS = [
   },
   {
     area:'논술', type:'의견제시', no:null,
+    cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
@@ -647,7 +671,23 @@ const TOPICS = [
   {"area": "논술", "type": "찬반", "subject": "사회 · 국어", "grade": "중2~3", "source": "수능 독서 화제 · 고3 모평/수능", "title": "애매한 법의 말, 어떻게 정해야 할까?", "prompt": "‘지나치게 많은’처럼 딱 잘라 정하기 어려운 법의 표현을 어떻게 해석해야 할지 내 생각을 논해 보자.", "unit": "중등 사회 · 법의 이해", "origin": "법조문의 불확정 개념 · 2023 수능", "su": true, "mid": true, "cats": ["논술", "국어", "사회", "중등연계", "수능연계"], "curr": 3, "link": 3},
   {"area": "논술", "type": "사고력", "subject": "도덕 · 과학", "grade": "중2~3", "source": "수능 독서 화제 · 고3 모평/수능", "title": "‘추워서 물이 얼었다’를 정말 눈으로 본 걸까?", "prompt": "원인과 결과를 우리가 어떻게 알 수 있는지, 흄의 물음을 빌려 내 생각을 논해 보자.", "unit": "중등 도덕 · 앎과 판단", "origin": "인과 관계(흄) · 2022 6월모평", "su": true, "mid": true, "cats": ["논술", "도덕", "과학", "중등연계", "수능연계"], "curr": 3, "link": 3},
   {"area": "논술", "type": "찬반", "subject": "사회 · 도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고3 모평/수능", "title": "물려줄 재산, 마음대로 다 줄 수 있을까?", "prompt": "기부·상속에서 가족이 최소한을 돌려받는 유류분 제도를 살펴, 재산 처분의 자유에 대해 논해 보자.", "unit": "중등 사회 · 법과 가족", "origin": "유류분권·무상 처분 · 2023 9월모평", "su": true, "mid": true, "cats": ["논술", "사회", "도덕", "중등연계", "수능연계"], "curr": 5, "link": 3},
-  {"area": "논술", "type": "사고력", "subject": "도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고3 모평/수능", "title": "서로 반대되는 생각이 부딪치면 더 나아질까?", "prompt": "정(正)–반(反)–합(合)으로 나아가는 변증법의 생각을 빌려, 논쟁이 우리를 발전시키는지 논해 보자.", "unit": "중등 도덕 · 토론과 사고", "origin": "헤겔 변증법 · 2022 수능", "su": true, "mid": true, "cats": ["논술", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3}
+  {"area": "논술", "type": "사고력", "subject": "도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고3 모평/수능", "title": "서로 반대되는 생각이 부딪치면 더 나아질까?", "prompt": "정(正)–반(反)–합(合)으로 나아가는 변증법의 생각을 빌려, 논쟁이 우리를 발전시키는지 논해 보자.", "unit": "중등 도덕 · 토론과 사고", "origin": "헤겔 변증법 · 2022 수능", "su": true, "mid": true, "cats": ["논술", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "찬반", "subject": "미술 · 도덕", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "예술은 현실을 그대로 따라 그리는 걸까?", "prompt": "예술이 현실을 모방한다는 아리스토텔레스의 생각을 두고, 예술의 역할에 대해 내 주장을 펼쳐 보자.", "unit": "중등 미술 · 미술의 이해", "origin": "아리스토텔레스 모방론 · 2024 10월 고2 학평", "su": true, "mid": true, "cats": ["논술", "도덕", "미술", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "과학 · 정보", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "만지지 않고 물기를 어떻게 감지할까?", "prompt": "접촉 없이 습도를 재는 센서의 원리를 조사해, 생활 속 쓰임과 함께 보고서로 정리해 보자.", "unit": "중등 과학 · 전기 / 정보 · 센서", "origin": "정전용량형 습도 센서 · 2024 10월 고2 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "과학", "정보", "중등연계", "수능연계"], "freq": 3},
+  {"area": "논술", "type": "찬반", "subject": "미술", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "불쾌하거나 이상한 것도 예술일까?", "prompt": "아름다움이 아니라 추함·불쾌함을 다루는 현대 예술(아방가르드)을 두고 예술의 경계를 논해 보자.", "unit": "중등 미술 · 현대 미술", "origin": "아방가르드 · 2024 6월 고1 학평", "su": true, "mid": true, "cats": ["논술", "미술", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "과학 · 사회", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "바닷물을 마실 물로 바꿀 수 있을까?", "prompt": "물 부족 문제와 해수 담수화 기술을 조사해, 물을 아끼고 얻는 방법을 보고서로 제안해 보자.", "unit": "중등 과학 · 물의 순환 / 사회 · 환경", "origin": "해수 담수화·물 부족 · 2024 6월 고1 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "사회", "과학", "중등연계", "수능연계"], "freq": 3},
+  {"area": "논술", "type": "찬반", "subject": "사회 · 도덕", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "지키지 않는 법도 법일까?", "prompt": "법이 힘을 가지려면 정당함(타당성)과 실제 지켜짐(실효성)이 필요하다는 점을 두고 내 생각을 논해 보자.", "unit": "중등 사회 · 법의 이해", "origin": "법의 효력(타당성·실효성) · 2024 6월 고1 학평", "su": true, "mid": true, "cats": ["논술", "사회", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "의견제시", "subject": "사회 · 실과", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "세금은 왜 꼭 내야 할까?", "prompt": "대가 없이 걷는 세금이 왜 필요하고 어디에 쓰이는지 살펴, 세금에 대한 내 의견을 제시해 보자.", "unit": "중등 사회 · 조세와 공공 서비스", "origin": "세금·조세 채권 · 2024 6월 고2 학평", "su": true, "mid": true, "cats": ["논술", "사회", "실과", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "찬반", "subject": "사회 · 도덕", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "여럿이 함께 가진 물건, 마음대로 팔 수 있을까?", "prompt": "공동 소유물과 지분의 개념을 살펴, 함께 가진 것을 처분하는 기준에 대해 논해 보자.", "unit": "중등 사회 · 법과 재산", "origin": "공동 소유·지분 · 2024 9월 고2 학평", "su": true, "mid": true, "cats": ["논술", "사회", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "정보 · 과학", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "화면 속 물건을 만지는 느낌, 어떻게 만들까?", "prompt": "가상의 물체를 만질 때 촉감을 전해 주는 햅틱 장치의 원리를 조사해 보고서로 정리해 보자.", "unit": "중등 정보 · 가상·증강 현실", "origin": "햅틱 장치·포스 피드백 · 2024 9월 고2 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "과학", "정보", "중등연계", "수능연계"], "freq": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "미술 · 과학", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "화가들은 왜 사물을 조각내 그렸을까?", "prompt": "과학 문명의 변화가 낳은 큐비즘 미술이 사물을 어떻게 새롭게 표현했는지 설명해 보자.", "unit": "중등 미술 · 서양 근현대 미술", "origin": "큐비즘과 과학 문명 · 2024 3월 고1 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "미술", "중등연계", "수능연계"], "freq": 5},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "사회 · 실과", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "우리는 무엇을 기준으로 ‘비싸다’고 느낄까?", "prompt": "값이 비싼지 싼지를 판단하는 기준(준거가격)을 조사해, 현명한 소비 방법을 보고서로 정리해 보자.", "unit": "중등 사회 · 합리적 소비", "origin": "준거가격 · 2025 10월 고1 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "사회", "실과", "중등연계", "수능연계"], "freq": 3},
+  {"area": "논술", "type": "사고력", "subject": "도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "사람은 정해진 대로 태어날까, 스스로 만들까?", "prompt": "‘실존은 본질에 앞선다’는 사르트르의 생각을 빌려, 나를 만드는 것이 무엇인지 논해 보자.", "unit": "중등 도덕 · 자아 형성", "origin": "사르트르 실존주의 · 2025 10월 고1 학평", "su": true, "mid": true, "cats": ["논술", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "눈에 안 보이는 기체를 어떻게 알아낼까?", "prompt": "특정 기체를 적외선으로 감지하는 분석기의 원리를 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 빛과 파동", "origin": "비분산형 적외선 분석기 · 2025 10월 고1 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "찬반", "subject": "사회 · 도덕", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "좋은 시민이란 어떤 사람일까?", "prompt": "자유주의와 공화주의가 말하는 시민의 자유·권리·의무를 견주어, 좋은 시민상을 논해 보자.", "unit": "중등 사회 · 시민의 권리와 의무", "origin": "시민(자유주의·공화주의) · 2025 6월 고1 학평", "su": true, "mid": true, "cats": ["논술", "사회", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "의견제시", "subject": "사회 · 실과", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "미성년자가 산 물건, 무를 수 있을까?", "prompt": "부모 동의 없이 한 미성년자의 계약이 취소될 수 있는지 살펴, 소비자 보호에 대한 의견을 제시해 보자.", "unit": "중등 사회 · 소비자의 권리", "origin": "미성년자 계약 취소 · 2025 6월 고1 학평", "su": true, "mid": true, "cats": ["논술", "사회", "실과", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "지진의 흔들림은 어떻게 전달될까?", "prompt": "지진파 P파와 S파가 어떻게 다르게 전달되는지 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 지권의 변화(지진)", "origin": "지진파 P파·S파 · 2025 6월 고1 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "사고력", "subject": "국어 · 도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "‘사과’라는 말의 뜻은 내 머릿속에 있을까?", "prompt": "말의 의미가 사람의 생각 속에 있는지, 바깥 세상에 있는지 견주어 내 생각을 논해 보자.", "unit": "중등 국어 · 언어와 사고", "origin": "의미 내재주의 · 2024 9월 고2 학평", "su": true, "mid": true, "cats": ["논술", "국어", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3}
 ];
 
 
