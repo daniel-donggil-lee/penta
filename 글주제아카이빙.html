@@ -147,6 +147,24 @@
   .catchips{display:flex;flex-wrap:wrap;gap:6px;}
   .catchips span{font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
 
+
+  /* v2 */
+  .area-row{flex-wrap:wrap;gap:6px 2px;padding-top:8px;padding-bottom:2px;}
+  .tabgroup{display:inline-flex;align-items:center;gap:1px;margin:0 12px 4px 0;padding:2px 0;}
+  .tglabel{font-size:10px;font-weight:800;color:#aeb4c0;margin-right:5px;letter-spacing:.02em;white-space:nowrap;}
+  .b-level{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;}
+  .b-level.기본{background:#1f9a52;} .b-level.심화{background:#e5484d;}
+  .b-mid{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;background:#7c3aed;}
+  .b-num{font-size:11px;font-weight:800;color:#fff;background:#c9a227;border-radius:7px;padding:3px 9px;}
+  .b-type.genre{color:#fff;background:#5b6472;}
+  .c-stars{display:flex;flex-wrap:wrap;gap:5px 16px;margin:0 0 12px;}
+  .c-stars .sl{font-size:11.5px;font-weight:700;color:var(--muted);}
+  .c-stars .sv{color:#f5a623;letter-spacing:1px;font-size:12px;}
+  .chip.lv.기본.on{background:#1f9a52;border-color:#1f9a52;}
+  .chip.lv.심화.on{background:#e5484d;border-color:#e5444d;}
+  .catchips{display:flex;flex-wrap:wrap;gap:6px;}
+  .catchips span{font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
+
 </style>
 </head>
 <body>
@@ -208,8 +226,10 @@
    ========================================================================= */
 const TOPICS = [
 
+
   {
     area:'논술', type:'찬반', no:25,
+    cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     title:'초등학생 때부터 주식 투자를 해야 할까요?',
     theme:'경제·금융',
@@ -236,6 +256,7 @@ const TOPICS = [
   {
     area:'논술', type:'찬반', no:5,
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
+    cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     title:'초등학생에게 스마트폰이 필요할까요?',
     theme:'생활·미디어',
     grade:'초3~6', subject:'도덕 · 실과',
@@ -260,6 +281,7 @@ const TOPICS = [
   },
   {
     area:'논술', type:'찬반', no:27,
+    cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     title:'동물원은 꼭 있어야 할까요?',
     theme:'환경·생명',
@@ -286,6 +308,7 @@ const TOPICS = [
   },
   {
     area:'논술', type:'의견제시', no:null,
+    cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     title:'욕은 왜 할까? — 욕 대신 좋은 말이 가득한 우리 반 만들기',
     theme:'언어·인성',
@@ -356,10 +379,10 @@ const TOPICS = [
   {"area": "기타유형", "type": "기획", "subject": "도덕", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "다문화 축제 기획하기", "prompt": "다문화 축제를 기획해 다양한 문화를 이해하고 존중할 수 있는 축제 코너 3가지를 만들 어 보세요. 축제의 이름을 정하고 각 코너에서는 어떤 활동을 할지, 그 코너를 통해 어떤 가치를 배울 수 있을지 구체적으로 설명하세요.", "mid": true, "cats": ["기타유형", "도덕", "중등연계"], "freq": 2},
   {"area": "설명·소개문", "type": "설명문", "subject": "도덕", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "사회적 약자를 돕는 방법", "prompt": "사회적 약자가 누구인지, 사회적 약자를 돕는 것이 왜 중요한지 설명하고, 우리가 일상생 활에서 사회적 약자를 도울 수 있는 구체적인 방법을 제시하세요.", "mid": true, "cats": ["설명·소개문", "도덕", "중등연계"], "freq": 5},
   {"area": "자기성찰 에세이", "type": "성찰문", "subject": "도덕", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "경험으로 말하는 책임감의 중요성", "prompt": "자기 경험을 바탕으로 책임감이 왜 중요한지 구체적으로 설명하세요. 학급 내에서 책임 감을 갖고 해야 하는 일을 예시로 들어 서술하세요.", "mid": true, "cats": ["자기성찰 에세이", "도덕", "중등연계"], "freq": 4},
-  {"area": "기타유형", "type": "구상", "subject": "기술·가정", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "생활 속 불편을 해결하는 발명품 구상", "prompt": "일상생활에서 불편한 점을 찾아보고, 이를 개선할 수 있는 창의적인 발명품을 구상해 보 세요. 발명품의 이름과 기능, 문제를 해결하는 방법을 구체적으로 설명하고, 이 발명품이 일상생활에 어떤 이점을 가져올지 작성하세요.", "mid": true, "cats": ["기타유형", "중등연계"], "freq": 2},
-  {"area": "설명·소개문", "type": "설명문", "subject": "기술·가정", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "에너지 자원 절약 방법", "prompt": "우리가 사용하는 전기, 가스, 물 등의 에너지 자원을 일상에서 절약하는 방법을 구체적인 사례를 들어 설명하세요.", "mid": true, "cats": ["설명·소개문", "중등연계"], "freq": 5},
-  {"area": "기타유형", "type": "계획서", "subject": "기술·가정", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "청소년 균형 급식 식단 짜기", "prompt": "균형 잡힌 식단이 청소년기 성장과 건강에 왜 중요한지 조사하고, 청소년기에 꼭 필요한 영양소를 포함한 점심 급식 식단을 계획하여 글로 작성하세요. 식단에는 어떤 음식을 포 함할지 구체적으로 설명하고, 각 음식이 어떤 영양소를 제공하는지 서술하세요.", "mid": true, "cats": ["기타유형", "중등연계"], "freq": 2},
-  {"area": "기타유형", "type": "진로 탐구", "subject": "기술·가정", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "미래 직업 탐구와 나의 계획", "prompt": "미래에 존재할 다양한 직업 중 관심 있는 직업을 선택한 후, 그 직업에 필요한 기술, 학습 과정, 경험 등을 구체적으로 설명하고, 자신의 목표를 이루기 위한 계획을 포함해 서술하 세요.", "mid": true, "cats": ["기타유형", "중등연계"], "freq": 2},
+  {"area": "기타유형", "type": "구상", "subject": "기술·가정", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "생활 속 불편을 해결하는 발명품 구상", "prompt": "일상생활에서 불편한 점을 찾아보고, 이를 개선할 수 있는 창의적인 발명품을 구상해 보 세요. 발명품의 이름과 기능, 문제를 해결하는 방법을 구체적으로 설명하고, 이 발명품이 일상생활에 어떤 이점을 가져올지 작성하세요.", "mid": true, "cats": ["기타유형", "기술·가정", "중등연계"], "freq": 2},
+  {"area": "설명·소개문", "type": "설명문", "subject": "기술·가정", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "에너지 자원 절약 방법", "prompt": "우리가 사용하는 전기, 가스, 물 등의 에너지 자원을 일상에서 절약하는 방법을 구체적인 사례를 들어 설명하세요.", "mid": true, "cats": ["설명·소개문", "기술·가정", "중등연계"], "freq": 5},
+  {"area": "기타유형", "type": "계획서", "subject": "기술·가정", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "청소년 균형 급식 식단 짜기", "prompt": "균형 잡힌 식단이 청소년기 성장과 건강에 왜 중요한지 조사하고, 청소년기에 꼭 필요한 영양소를 포함한 점심 급식 식단을 계획하여 글로 작성하세요. 식단에는 어떤 음식을 포 함할지 구체적으로 설명하고, 각 음식이 어떤 영양소를 제공하는지 서술하세요.", "mid": true, "cats": ["기타유형", "기술·가정", "중등연계"], "freq": 2},
+  {"area": "기타유형", "type": "진로 탐구", "subject": "기술·가정", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "미래 직업 탐구와 나의 계획", "prompt": "미래에 존재할 다양한 직업 중 관심 있는 직업을 선택한 후, 그 직업에 필요한 기술, 학습 과정, 경험 등을 구체적으로 설명하고, 자신의 목표를 이루기 위한 계획을 포함해 서술하 세요.", "mid": true, "cats": ["기타유형", "기술·가정", "중등연계"], "freq": 2},
   {"area": "감상·비평문", "type": "감상문", "subject": "음악", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "클래식 음악 감상문", "prompt": "클래식 음악 한 곡을 선택하여 감상하고, 그 곡의 특징과 자신이 느낀 감정을 바탕으로 감상문을 작성하세요. 곡의 배경, 주요 악기, 리듬과 멜로디 등 음악적 특징을 설명하고, 이 곡이 어떤 감정을 불러일으켰는지 구체적으로 서술하세요.", "mid": true, "cats": ["감상·비평문", "음악", "중등연계"], "freq": 5},
   {"area": "탐구·조사 보고서", "type": "조사·비교", "subject": "음악", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "전통 음악과 대중음악 비교", "prompt": "우리나라 전통 음악과 현대 대중음악의 차이점을 조사하고, 각 음악의 특징을 비교하여 글을 작성하세요. 두 음악의 리듬, 멜로디, 가사, 사용되는 악기 등의 차이를 설명하고, 각 음악이 가지는 문화적 의미와 역할도 서술하세요.", "mid": true, "cats": ["탐구·조사 보고서", "음악", "중등연계"], "freq": 3},
   {"area": "탐구·조사 보고서", "type": "조사", "subject": "음악", "grade": "초5~중1", "source": "수행평가 글쓰기", "title": "좋아하는 음악가 탐구", "prompt": "좋아하는 음악가 한 명을 선택하여, 그의 생애와 대표곡, 음악적 특징을 조사하고, 음악 가를 좋아하는 이유를 포함해 글을 작성하세요.", "mid": true, "cats": ["탐구·조사 보고서", "음악", "중등연계"], "freq": 3},
@@ -454,13 +477,31 @@ const TOPICS = [
   {"area": "논술", "type": "찬반", "subject": "", "grade": "초3~4", "level": "기본", "source": "슬초 논술 기본", "title": "주인을 알 수 없는 100원짜리 동전은 가져도 됩니다", "prompt": "주인을 알 수 없는 100원짜리 동전은 가져도 됩니다", "mid": false, "cats": ["논술"], "curr": 3, "link": 3},
   {"area": "논술", "type": "찬반", "subject": "", "grade": "초5~6", "level": "심화", "source": "슬초 논술 심화", "title": "국제 시상식 수상 소감을 영어로 해야 할까, 한국어로 해야 할까?", "prompt": "사용해야 할까요, 한국어를 사용해야 할까요?", "mid": false, "cats": ["논술"], "curr": 5, "link": 3},
   {"area": "논술", "type": "문제해결", "subject": "", "grade": "초5~6", "level": "심화", "source": "슬초 논술 심화", "title": "기후 위기를 줄이기 위해 지구인이 실천해야 할 세 가지 노력을 찾아 써보세요", "prompt": "기후 위기를 줄이기 위해 지구인이 실천해야 할 세 가지 노력을 찾아 써보세요", "mid": false, "cats": ["논술"], "curr": 5, "link": 3},
-  {"area": "논술", "type": "찬반", "subject": "", "grade": "초5~6", "level": "심화", "source": "슬초 논술 심화", "title": "공정무역 제품을 사용해야 할까?", "prompt": "공정무역 제품을 사용해야 할까?", "mid": false, "cats": ["논술"], "curr": 5, "link": 3}
+  {"area": "논술", "type": "찬반", "subject": "", "grade": "초5~6", "level": "심화", "source": "슬초 논술 심화", "title": "공정무역 제품을 사용해야 할까?", "prompt": "공정무역 제품을 사용해야 할까?", "mid": false, "cats": ["논술"], "curr": 5, "link": 3},
+  {"area": "탐구·조사 보고서", "type": "보고서", "subject": "과학", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "거울·렌즈에 의한 상 탐구보고서", "prompt": "거울·렌즈에 의한 상 탐구보고서  (출처: 웅촌중 · 실제 공시 평가계획)", "school": "웅촌중", "mid": true, "cats": ["탐구·조사 보고서", "과학", "중등연계"], "freq": 4},
+  {"area": "자기성찰 에세이", "type": "에세이", "subject": "과학", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "화학 반응 에세이 쓰기", "prompt": "화학 반응 에세이 쓰기  (출처: 광주중 · 실제 공시 평가계획)", "school": "광주중", "mid": true, "cats": ["자기성찰 에세이", "과학", "중등연계"], "freq": 4},
+  {"area": "탐구·조사 보고서", "type": "보고서", "subject": "과학", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "물질의 질량·부피 측정 보고서", "prompt": "물질의 질량·부피 측정 보고서  (출처: 언북중 · 실제 공시 평가계획)", "school": "언북중", "mid": true, "cats": ["탐구·조사 보고서", "과학", "중등연계"], "freq": 4},
+  {"area": "논술", "type": "제안서", "subject": "사회", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "학생이 만드는 정책 제안서", "prompt": "학생이 만드는 정책 제안서  (출처: 동덕여중 · 실제 공시 평가계획)", "school": "동덕여중", "mid": true, "cats": ["논술", "사회", "중등연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "찬반", "subject": "사회", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "촉법소년 연령 하향 찬반 논술", "prompt": "촉법소년 연령 하향 찬반 논술  (출처: 능곡중 · 실제 공시 평가계획)", "school": "능곡중", "mid": true, "cats": ["논술", "사회", "중등연계"], "curr": 5, "link": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "사회", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "인권 침해 분석·입법 제안 탐구", "prompt": "인권 침해 분석·입법 제안 탐구  (출처: 내곡중 · 실제 공시 평가계획)", "school": "내곡중", "mid": true, "cats": ["탐구·조사 보고서", "사회", "중등연계"], "freq": 3},
+  {"area": "자기성찰 에세이", "type": "자서전", "subject": "도덕", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "14살 자서전 만들기", "prompt": "14살 자서전 만들기  (출처: 화명중 · 실제 공시 평가계획)", "school": "화명중", "mid": true, "cats": ["자기성찰 에세이", "도덕", "중등연계"], "freq": 3},
+  {"area": "자기성찰 에세이", "type": "에세이", "subject": "도덕", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "삶의 유한함·생명의 소중함 에세이", "prompt": "삶의 유한함·생명의 소중함 에세이  (출처: 화도중 · 실제 공시 평가계획)", "school": "화도중", "mid": true, "cats": ["자기성찰 에세이", "도덕", "중등연계"], "freq": 4},
+  {"area": "논술", "type": "논설", "subject": "도덕", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "주제탐구 도덕적 글쓰기(폭력의 비도덕성)", "prompt": "주제탐구 도덕적 글쓰기(폭력의 비도덕성)  (출처: 경원중 · 실제 공시 평가계획)", "school": "경원중", "mid": true, "cats": ["논술", "도덕", "중등연계"], "curr": 3, "link": 3},
+  {"area": "기사문", "type": "기사문", "subject": "역사", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "역사 인물 가상 인터뷰 기사문", "prompt": "역사 인물 가상 인터뷰 기사문  (출처: 언남중 · 실제 공시 평가계획)", "school": "언남중", "mid": true, "cats": ["기사문", "역사", "중등연계"], "freq": 4},
+  {"area": "실용·생활문", "type": "상소문", "subject": "역사", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "삼정 문란 상소문 제작", "prompt": "삼정 문란 상소문 제작  (출처: 정각중 · 실제 공시 평가계획)", "school": "정각중", "mid": true, "cats": ["실용·생활문", "역사", "중등연계"], "freq": 3},
+  {"area": "감상·비평문", "type": "비평문", "subject": "역사", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "역사 인물 비평글 쓰기", "prompt": "역사 인물 비평글 쓰기  (출처: 언남중 · 실제 공시 평가계획)", "school": "언남중", "mid": true, "cats": ["감상·비평문", "역사", "중등연계"], "freq": 3},
+  {"area": "감상·비평문", "type": "감상문", "subject": "음악", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "고전파 음악 감상문(논술 30점)", "prompt": "고전파 음악 감상문(논술 30점)  (출처: 광주중 · 실제 공시 평가계획)", "school": "광주중", "mid": true, "cats": ["감상·비평문", "음악", "중등연계"], "freq": 5},
+  {"area": "감상·비평문", "type": "감상문", "subject": "수학", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "수학도서 감상문 쓰기", "prompt": "수학도서 감상문 쓰기  (출처: 휘문중 · 실제 공시 평가계획)", "school": "휘문중", "mid": true, "cats": ["감상·비평문", "수학", "중등연계"], "freq": 5},
+  {"area": "감상·비평문", "type": "감상문", "subject": "미술", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "작품 감상문 작성", "prompt": "작품 감상문 작성  (출처: 대치중 · 실제 공시 평가계획)", "school": "대치중", "mid": true, "cats": ["감상·비평문", "미술", "중등연계"], "freq": 5},
+  {"area": "탐구·조사 보고서", "type": "보고서", "subject": "기술·가정", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "윤리적 소비 홍보물+보고서", "prompt": "윤리적 소비 홍보물+보고서  (출처: 하남중 · 실제 공시 평가계획)", "school": "하남중", "mid": true, "cats": ["탐구·조사 보고서", "기술·가정", "중등연계"], "freq": 4},
+  {"area": "탐구·조사 보고서", "type": "보고서", "subject": "진로", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "자기소개서 작성 및 진로 탐색 보고서", "prompt": "자기소개서 작성 및 진로 탐색 보고서  (출처: 서일중 · 실제 공시 평가계획)", "school": "서일중", "mid": true, "cats": ["탐구·조사 보고서", "중등연계"], "freq": 4},
+  {"area": "탐구·조사 보고서", "type": "보고서", "subject": "기술·가정", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "한식 연구 보고서", "prompt": "한식 연구 보고서  (출처: 선덕여중 · 실제 공시 평가계획)", "school": "선덕여중", "mid": true, "cats": ["탐구·조사 보고서", "기술·가정", "중등연계"], "freq": 4}
 ];
 
 
 const TABS = {
   '유형별': ['논술','설명·소개문','탐구·조사 보고서','감상·비평문','기사문','실용·생활문','자기성찰 에세이','영어글쓰기','기타유형'],
-  '과목별': ['국어','사회','도덕','과학','실과','수학','음악','미술','정보','영어'],
+  '과목별': ['국어','사회','도덕','과학','역사','실과','기술·가정','수학','음악','미술','정보','영어'],
   '특수': ['중등연계'],
 };
 const TYPE_LABEL={'찬반':'찬반 논술','의견제시':'의견제시 논술','문제해결':'문제해결 논술','논설문':'논설문'};
