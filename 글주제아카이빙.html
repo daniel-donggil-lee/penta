@@ -167,6 +167,25 @@
   .catchips{display:flex;flex-wrap:wrap;gap:6px;}
   .catchips span{font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
 
+
+  /* v2 */
+  .area-row{flex-wrap:wrap;gap:6px 2px;padding-top:8px;padding-bottom:2px;}
+  .tabgroup{display:inline-flex;align-items:center;gap:1px;margin:0 12px 4px 0;padding:2px 0;}
+  .tglabel{font-size:10px;font-weight:800;color:#aeb4c0;margin-right:5px;letter-spacing:.02em;white-space:nowrap;}
+  .b-level{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;}
+  .b-level.기본{background:#1f9a52;} .b-level.심화{background:#e5484d;}
+  .b-mid{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;background:#7c3aed;}
+  .b-su{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;background:#0e7490;}
+  .b-num{font-size:11px;font-weight:800;color:#fff;background:#c9a227;border-radius:7px;padding:3px 9px;}
+  .b-type.genre{color:#fff;background:#5b6472;}
+  .c-stars{display:flex;flex-wrap:wrap;gap:5px 16px;margin:0 0 12px;}
+  .c-stars .sl{font-size:11.5px;font-weight:700;color:var(--muted);}
+  .c-stars .sv{color:#f5a623;letter-spacing:1px;font-size:12px;}
+  .chip.lv.기본.on{background:#1f9a52;border-color:#1f9a52;}
+  .chip.lv.심화.on{background:#e5484d;border-color:#e5444d;}
+  .catchips{display:flex;flex-wrap:wrap;gap:6px;}
+  .catchips span{font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
+
 </style>
 </head>
 <body>
@@ -229,8 +248,10 @@
 const TOPICS = [
 
 
+
   {
     area:'논술', type:'찬반', no:25,
+    cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     title:'초등학생 때부터 주식 투자를 해야 할까요?',
@@ -259,6 +280,7 @@ const TOPICS = [
     area:'논술', type:'찬반', no:5,
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
+    cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     title:'초등학생에게 스마트폰이 필요할까요?',
     theme:'생활·미디어',
     grade:'초3~6', subject:'도덕 · 실과',
@@ -283,6 +305,7 @@ const TOPICS = [
   },
   {
     area:'논술', type:'찬반', no:27,
+    cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     title:'동물원은 꼭 있어야 할까요?',
@@ -310,6 +333,7 @@ const TOPICS = [
   },
   {
     area:'논술', type:'의견제시', no:null,
+    cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     title:'욕은 왜 할까? — 욕 대신 좋은 말이 가득한 우리 반 만들기',
@@ -497,14 +521,22 @@ const TOPICS = [
   {"area": "감상·비평문", "type": "감상문", "subject": "미술", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "작품 감상문 작성", "prompt": "작품 감상문 작성  (출처: 대치중 · 실제 공시 평가계획)", "school": "대치중", "mid": true, "cats": ["감상·비평문", "미술", "중등연계"], "freq": 5},
   {"area": "탐구·조사 보고서", "type": "보고서", "subject": "기술·가정", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "윤리적 소비 홍보물+보고서", "prompt": "윤리적 소비 홍보물+보고서  (출처: 하남중 · 실제 공시 평가계획)", "school": "하남중", "mid": true, "cats": ["탐구·조사 보고서", "기술·가정", "중등연계"], "freq": 4},
   {"area": "탐구·조사 보고서", "type": "보고서", "subject": "진로", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "자기소개서 작성 및 진로 탐색 보고서", "prompt": "자기소개서 작성 및 진로 탐색 보고서  (출처: 서일중 · 실제 공시 평가계획)", "school": "서일중", "mid": true, "cats": ["탐구·조사 보고서", "중등연계"], "freq": 4},
-  {"area": "탐구·조사 보고서", "type": "보고서", "subject": "기술·가정", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "한식 연구 보고서", "prompt": "한식 연구 보고서  (출처: 선덕여중 · 실제 공시 평가계획)", "school": "선덕여중", "mid": true, "cats": ["탐구·조사 보고서", "기술·가정", "중등연계"], "freq": 4}
+  {"area": "탐구·조사 보고서", "type": "보고서", "subject": "기술·가정", "grade": "중1~3", "source": "중등 수행평가 전수조사(96개교)", "title": "한식 연구 보고서", "prompt": "한식 연구 보고서  (출처: 선덕여중 · 실제 공시 평가계획)", "school": "선덕여중", "mid": true, "cats": ["탐구·조사 보고서", "기술·가정", "중등연계"], "freq": 4},
+  {"area": "논술", "type": "찬반", "subject": "국어 · 사회", "grade": "초6~중2", "source": "수능·모평 독서 화제", "title": "사라져 가는 지역 방언, 지켜야 할까?", "prompt": "표준어가 편한데도 지역 방언을 보존해야 할까? 방언의 가치와 불편함을 견주어 내 주장을 펼쳐 보자.", "unit": "중등 국어 · 언어의 다양성과 매체", "origin": "지역 방언 보존 (2026 학평 독서)", "su": true, "mid": true, "cats": ["논술", "국어", "사회", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "찬반", "subject": "미술 · 사회", "grade": "초5~중1", "source": "수능·모평 독서 화제", "title": "그라피티는 예술일까, 낙서일까?", "prompt": "거리 벽의 그라피티를 두고 예술이라는 사람과 낙서·훼손이라는 사람이 있다. 나는 어느 쪽일까?", "unit": "중등 미술 · 미술과 사회 / 중등 사회 · 공공성", "origin": "그라피티 (수능 독서)", "su": true, "mid": true, "cats": ["논술", "사회", "미술", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "의견제시", "subject": "사회", "grade": "중1~3", "source": "수능·모평 독서 화제", "title": "나라가 돈을 더 풀면 살림살이는 나아질까?", "prompt": "정부가 돈을 더 풀거나 이자를 낮추면 경제가 좋아질까? 좋은 점과 부작용을 들어 내 의견을 제시해 보자.", "unit": "중등 사회 · 시장경제와 정부의 역할", "origin": "케인스 IS-LM/IS-MP 경제 (수능 독서)", "su": true, "mid": true, "cats": ["논술", "사회", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "초6~중2", "source": "수능·모평 독서 화제", "title": "우리는 소리의 높낮이를 어떻게 구별할까?", "prompt": "귀 속 달팽이관이 높은 소리와 낮은 소리를 어떻게 나눠 듣는지, 그 원리를 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 자극과 반응(감각 기관)", "origin": "달팽이관 소리 지각 원리 (2024 고2 학평 독서)", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "정보 · 과학", "grade": "중1~3", "source": "수능·모평 독서 화제", "title": "컴퓨터는 ‘사과’라는 낱말을 어떻게 이해할까?", "prompt": "사람의 말을 컴퓨터가 숫자로 바꿔 이해하는 방법(임베딩)을 조사해, 인공지능이 말을 다루는 원리를 보고서로 정리해 보자.", "unit": "중등 정보 · 인공지능과 데이터 표현", "origin": "원-핫 인코딩·임베딩(Word2Vec) (수능 독서)", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "과학", "정보", "중등연계", "수능연계"], "freq": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "과학 · 사회", "grade": "초6~중2", "source": "수능·모평 독서 화제", "title": "밤에도 환한 도시의 불빛, 괜찮을까? (빛 공해)", "prompt": "인공의 빛이 밤 생태계와 사람 몸에 미치는 영향을 조사하고, 빛 공해를 줄일 방법을 보고서로 제안해 보자.", "unit": "중등 과학 · 생태계 / 중등 사회 · 환경 문제", "origin": "인공의 빛과 자연 질서 교란 (학평 독서)", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "사회", "과학", "중등연계", "수능연계"], "freq": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "중1~3", "source": "수능·모평 독서 화제", "title": "우리 몸은 어떻게 무거운 것을 들까? (근육과 지레)", "prompt": "뼈와 근육이 지레의 원리로 힘을 내는 과정을 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 운동과 에너지 / 자극과 반응", "origin": "골격근 수축·지레 작용·ATP (수능 독서)", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "찬반", "subject": "사회 · 도덕", "grade": "중1~3", "source": "수능·모평 독서 화제", "title": "문화에는 더 좋고 나쁜 게 있을까?", "prompt": "서로 다른 문화를 두고 우열을 가릴 수 있을까? ‘문화 발전’과 ‘문화의 다름’ 사이에서 내 생각을 논증해 보자.", "unit": "중등 사회 · 문화의 다양성과 문화 상대주의", "origin": "화이트·반 퍼슨 문화론 (수능 독서)", "su": true, "mid": true, "cats": ["논술", "사회", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3}
 ];
 
 
 const TABS = {
   '유형별': ['논술','설명·소개문','탐구·조사 보고서','감상·비평문','기사문','실용·생활문','자기성찰 에세이','영어글쓰기','기타유형'],
   '과목별': ['국어','사회','도덕','과학','역사','실과','기술·가정','수학','음악','미술','정보','영어'],
-  '특수': ['중등연계'],
+  '특수': ['중등연계','수능연계'],
 };
 const TYPE_LABEL={'찬반':'찬반 논술','의견제시':'의견제시 논술','문제해결':'문제해결 논술','논설문':'논설문'};
 const STATUS_LABEL={verified:['검증완료','st-verified'],used:['사용','st-used'],origin:['원형','st-origin']};
@@ -542,12 +574,14 @@ function cardHTML(t,no){
   const typeCls=t.area==='논술'?(t.type==='의견제시'?'uigyeon':'chanban'):'genre';
   const lv=t.level?`<span class="b-level ${t.level}">${esc(t.level)}</span>`:'';
   const mid=t.mid?`<span class="b-mid">중등연계</span>`:'';
+  const su=t.su?`<span class="b-su">수능연계</span>`:'';
   const stat=STATUS_LABEL[t.status]||['',''];
   const meta=(t.grade||t.subject)?`<div class="c-meta">${t.grade?`<span class="m"><b>추천 학년</b>${esc(t.grade)}</span>`:''}${t.subject?`<span class="m"><b>관련 교과</b>${esc(t.subject)}</span>`:''}</div>`:'';
   let starsLine='';
   if(t.area==='논술') starsLine=`<div class="c-stars"><span class="sl">교과연계 <span class="sv">${starStr(t.link)}</span></span><span class="sl">시사연계 <span class="sv">${starStr(t.curr)}</span></span></div>`;
   else if(t.freq) starsLine=`<div class="c-stars"><span class="sl">출제 빈도 <span class="sv">${starStr(t.freq)}</span></span></div>`;
   let detail='';
+  if(t.origin) detail+=`<div class="d-sec"><div class="d-h">수능·모평 지문 화제 (연계 출처)</div><div class="d-body" style="font-weight:700;color:#0e7490">${esc(t.origin)}</div></div>`;
   const others=catsOf(t).filter(c=>c!==curCat);
   if(others.length) detail+=`<div class="d-sec"><div class="d-h">이 주제가 속한 분류</div><div class="d-body"><div class="catchips"><span style="background:#fff3ec;color:#c2521a">${esc(curCat)}</span>${others.map(c=>`<span>${esc(c)}</span>`).join('')}</div></div></div>`;
   if(t.unit) detail+=`<div class="d-sec"><div class="d-h">관련 교과·단원</div><div class="d-body">${esc(t.unit)}</div></div>`;
@@ -563,7 +597,7 @@ function cardHTML(t,no){
   if(t.note) detail+=`<div class="note">${esc(t.note)}</div>`;
   return `<article class="card">
     <div class="c-top">
-      <div class="c-badges"><span class="b-num">${curCat} ${no}</span><span class="b-type ${typeCls}">${TYPE_LABEL[t.type]||esc(t.type)}</span>${lv}${mid}</div>
+      <div class="c-badges"><span class="b-num">${curCat} ${no}</span><span class="b-type ${typeCls}">${TYPE_LABEL[t.type]||esc(t.type)}</span>${lv}${mid}${su}</div>
       <div class="c-title">${esc(t.title)}</div>
       ${meta}${starsLine}
       <div class="c-prompt">${esc(t.prompt)}</div>
