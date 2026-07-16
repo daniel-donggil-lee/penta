@@ -19,6 +19,9 @@
   .back:hover{text-decoration:underline;}
   .nav .brand{font-size:12.5px;font-weight:800;color:var(--navy);margin-left:auto;}
   .nav .brand b{color:var(--orange);}
+  .switch{display:flex;gap:6px;padding:0 0 12px;}
+  .switch a{font-size:12.5px;font-weight:800;color:var(--muted);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:7px 16px;}
+  .switch a.on{color:#fff;background:var(--orange);border-color:var(--orange);}
   .hero{background:linear-gradient(135deg,#152d47,#1e3f63);color:#fff;}
   .hero-in{padding:38px 0 40px;}
   .tag{display:inline-block;font-size:13px;font-weight:800;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:5px 15px;border-radius:999px;margin-bottom:12px;}
@@ -51,9 +54,12 @@
 </head>
 <body>
 <header>
-  <div class="wrap nav">
-    <a class="back" href="글주제아카이빙.html">← 글주제 아카이빙</a>
-    <div class="brand">펜타스쿨 · 커리큘럼 지도 &nbsp;|&nbsp; 하이펜타 <b>W</b></div>
+  <div class="wrap">
+    <div class="nav">
+      <a class="back" href="글주제아카이빙.html">← 글주제 아카이빙</a>
+      <div class="brand">펜타스쿨 · 커리큘럼 지도 &nbsp;|&nbsp; 하이펜타 <b>W</b></div>
+    </div>
+    <div class="switch"><a class="on" href="커리큘럼_지도.html">가치 덕목 36</a><a href="커리큘럼_지도_빅퀘스천.html">철학 빅퀘스천 36</a></div>
   </div>
 </header>
 
