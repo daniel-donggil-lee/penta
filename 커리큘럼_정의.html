@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8주 글쓰기 커리큘럼 · 정의 | 펜타스쿨</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root{--ink:#16181d;--muted:#7b8494;--line:#e9e5dc;--line2:#f2efe8;--navy:#142d47;--blue:#2E75B6;
+    --navy-soft:#eef2f7;--orange:#FF6A1A;--orange-soft:#fff3ec;--bg:#f7f6f2;--card:#fff;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;}
+  .nav{display:flex;align-items:center;gap:14px;padding:14px 0;}
+  .back{font-size:13px;font-weight:800;color:var(--orange);}
+  .back:hover{text-decoration:underline;}
+  .nav .brand{font-size:12.5px;font-weight:800;color:var(--navy);margin-left:auto;}
+  .nav .brand b{color:var(--orange);}
+
+  .hero{background:linear-gradient(135deg,#152d47,#1e3f63);color:#fff;}
+  .hero-in{padding:40px 0 44px;}
+  .kw{display:inline-block;font-size:13px;font-weight:800;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:5px 15px;border-radius:999px;margin-bottom:12px;}
+  .kw b{color:#ffcf9e;}
+  .hero h1{font-size:34px;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:10px;}
+  .hero p{font-size:14.5px;color:#cdd8e6;max-width:640px;}
+  .cond{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;}
+  .cond span{font-size:12px;font-weight:700;background:rgba(255,255,255,.1);border-radius:999px;padding:7px 15px;}
+  .cond span b{color:#ffcf9e;font-weight:800;}
+
+  main{padding:34px 0 70px;}
+  .sec{margin-bottom:34px;}
+  .sec-h{font-size:19px;font-weight:900;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .sec-h::before{content:"";width:16px;height:16px;border-radius:5px;background:var(--orange);}
+  .sec-h small{font-size:12px;font-weight:600;color:var(--muted);}
+
+  .concept{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:16px;padding:22px 26px;}
+  .concept p{font-size:14.5px;line-height:1.95;color:#33373f;}
+  .concept p b{color:#c2521a;}
+
+  .voca{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;}
+  .vw{display:flex;gap:14px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 17px;}
+  .vw .han{font-size:22px;font-weight:900;color:var(--navy);letter-spacing:2px;flex:0 0 auto;}
+  .vw .kr{font-size:13px;font-weight:800;color:var(--orange);margin-right:7px;}
+  .vw .df{font-size:12.5px;color:#454b56;line-height:1.5;}
+
+  .books{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;}
+  .book{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;}
+  .book .tag{font-size:11px;font-weight:800;color:var(--blue);background:#eaf2fb;padding:3px 11px;border-radius:999px;}
+  .book h3{font-size:19px;font-weight:900;color:var(--navy);margin:11px 0 3px;}
+  .book .au{font-size:12px;color:var(--muted);margin-bottom:9px;}
+  .book .why{font-size:13px;color:#3c414c;line-height:1.65;}
+  .book .alt{font-size:11px;color:var(--muted);margin-top:10px;border-top:1px dashed var(--line);padding-top:8px;}
+
+  .weeks{display:grid;gap:14px;}
+  .wk{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+  .wk-h{display:flex;align-items:center;gap:11px;padding:13px 20px;background:var(--navy);color:#fff;flex-wrap:wrap;}
+  .wk-h .n{font-size:13px;font-weight:900;background:var(--orange);border-radius:8px;padding:3px 11px;}
+  .wk-h .g{font-size:16px;font-weight:800;}
+  .wk-h .link{margin-left:auto;font-size:11.5px;font-weight:700;color:#cfe0f2;}
+  .wk-b{padding:6px 20px 14px;}
+  .tp{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line2);align-items:flex-start;}
+  .tp:last-child{border-bottom:0;}
+  .tp .num{flex:0 0 20px;font-size:14px;font-weight:800;color:var(--orange);margin-top:1px;}
+  .tp .body{flex:1;}
+  .tp .t{font-size:14.5px;font-weight:700;color:#22262e;line-height:1.45;}
+  .tp .tags{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+  .tp .sub{font-size:11px;font-weight:800;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
+  .tp .src{font-size:10.5px;font-weight:800;border-radius:7px;padding:3px 9px;}
+  .src.bank{color:#177245;background:#e7f6ec;}
+  .src.new{color:#8a5a00;background:#fdf1dd;}
+  .src.mid{color:#fff;background:#7c3aed;}
+
+  .cov{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 24px;}
+  .cov table{width:100%;border-collapse:collapse;font-size:13px;}
+  .cov th,.cov td{border:1px solid var(--line);padding:8px 10px;text-align:center;}
+  .cov th{background:var(--navy);color:#fff;font-weight:800;}
+  .cov td.subj{font-weight:800;color:var(--navy);background:var(--navy-soft);}
+  .summary{font-size:13.5px;color:#3c414c;line-height:1.8;margin-top:14px;background:var(--orange-soft);border-radius:12px;padding:15px 20px;}
+  .summary b{color:#c2521a;}
+  footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:26px 0;text-align:center;}
+  @media(max-width:560px){.hero h1{font-size:26px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="back" href="커리큘럼_지도.html">← 커리큘럼 지도</a>
+    <div class="brand">펜타스쿨 · 커리큘럼 &nbsp;|&nbsp; 하이펜타 <b>W</b></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-in">
+    <span class="kw">8주 커리큘럼 · 키워드 <b>정의(正義)</b></span>
+    <h1>정의로운 세상을 읽고 쓰다</h1>
+    <p>서양·동양·한국 고전이 던지는 ‘무엇이 옳은가’라는 질문을, 8가지 글쓰기 갈래로 8주간 풀어냅니다. 주제은행에서 고르고, 없으면 새로 지어 채운 커리큘럼입니다.</p>
+    <div class="cond">
+      <span>대상 <b>초등 6학년</b></span>
+      <span>도서 <b>3권</b> (서·동·한)</span>
+      <span><b>8주</b> × 주제 <b>3개</b></span>
+      <span>전과목 골고루</span>
+      <span><b>중등 수행평가</b> 대비</span>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+  <div class="sec">
+    <div class="sec-h">‘정의(正義)’란 무엇이고, 왜 우리가 생각해야 할까?</div>
+    <div class="concept"><p>정의란 무엇이 옳고 그른지를 가려 <b>모두가 공정하게 대우받도록 하는 사회의 약속</b>입니다. 힘센 사람이 마음대로 하는 세상이 아니라, 약한 사람도 억울하지 않게 지켜 주는 기준이 바로 정의입니다. 정의가 흔들리면 차별과 부정이 자라고, 정의가 살아 있으면 사람들은 서로 믿고 함께 살아갈 수 있습니다. 그래서 우리는 ‘무엇이 진짜 옳은가’, ‘이 규칙은 누구에게나 공평한가’를 끊임없이 물어야 합니다. 교실과 사회에서 마주치는 크고 작은 불공정을 그냥 지나치지 않고 <b>스스로 판단하는 힘</b>을 기르는 것 — 그것이 8주 동안 우리가 정의를 읽고 쓰는 이유입니다.</p></div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h">‘정의’와 함께 익히는 한자 어휘 10 <small>중등 수준 · 수행평가 논술에 바로 쓰는 개념어</small></div>
+    <div class="voca">
+      <div class="vw"><span class="han">正義</span><div><span class="kr">정의</span><span class="df">무엇이 옳은지 가려 모두를 공정하게 대하는 도리</span></div></div>
+      <div class="vw"><span class="han">公正</span><div><span class="kr">공정</span><span class="df">어느 한쪽에 치우치지 않고 올바름</span></div></div>
+      <div class="vw"><span class="han">平等</span><div><span class="kr">평등</span><span class="df">권리·자격이 차별 없이 고르고 같음</span></div></div>
+      <div class="vw"><span class="han">人權</span><div><span class="kr">인권</span><span class="df">사람이라면 누구나 갖는 기본 권리</span></div></div>
+      <div class="vw"><span class="han">良心</span><div><span class="kr">양심</span><span class="df">옳고 그름을 가리는 마음의 소리</span></div></div>
+      <div class="vw"><span class="han">責任</span><div><span class="kr">책임</span><span class="df">맡은 일과 행동에 대해 지는 의무</span></div></div>
+      <div class="vw"><span class="han">差別</span><div><span class="kr">차별</span><span class="df">정당한 이유 없이 등급을 두어 구별함</span></div></div>
+      <div class="vw"><span class="han">不義</span><div><span class="kr">불의</span><span class="df">정의롭지 못하고 의리에 어긋남</span></div></div>
+      <div class="vw"><span class="han">抵抗</span><div><span class="kr">저항</span><span class="df">부당한 힘·권력에 맞서 버팀</span></div></div>
+      <div class="vw"><span class="han">權力</span><div><span class="kr">권력</span><span class="df">남을 복종시키거나 지배하는 힘</span></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h">함께 읽는 책 3권 <small>모두 ‘정의’를 묻는다</small></div>
+    <div class="books">
+      <div class="book"><span class="tag">서양 고전</span><h3>동물농장</h3><div class="au">조지 오웰</div><div class="why">평등을 외치던 혁명이 권력의 부패로 무너지는 이야기. “왜 어떤 돼지는 더 평등한가?” — 공정과 정의의 배신을 6학년 눈높이로 묻습니다.</div><div class="alt">대안 후보 · 『레 미제라블(어린이판)』 · 『올리버 트위스트』</div></div>
+      <div class="book"><span class="tag">동양 고전</span><h3>홍길동전</h3><div class="au">허균</div><div class="why">서얼 차별에 맞서 의적이 된 홍길동. 신분과 제도의 불공정, 그리고 ‘옳은 저항’이란 무엇인지 토론거리를 줍니다.</div><div class="alt">대안 후보 · 『춘향전』(부당한 권력) · 『심청전』</div></div>
+      <div class="book"><span class="tag">한국 현대단편</span><h3>우리들의 일그러진 영웅</h3><div class="au">이문열</div><div class="why">한 교실의 작은 독재와 그에 굴복·저항하는 아이들. 권력·부정·정의를 ‘우리 반’ 이야기로 끌어와 6학년이 자기 문제로 느낍니다.</div><div class="alt">대안 후보 · 『자전거 도둑』(박완서) · 『몽실 언니』</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h">8주 주차별 글쓰기 <small>갈래 8종 × 주제 3개 = 24개 &nbsp;·&nbsp; <span style="color:#177245;font-weight:800;">■ 은행</span> <span style="color:#8a5a00;font-weight:800;">■ 신규</span> <span style="color:#7c3aed;font-weight:800;">■ 중등연계</span></small></div>
+    <div class="weeks">
+
+      <div class="wk"><div class="wk-h"><span class="n">1주</span><span class="g">찬반토론형 논술</span><span class="link">쟁점 : 공정한 처벌·구조인가</span></div><div class="wk-b">
+        <div class="tp"><span class="num">①</span><div class="body"><div class="t">촉법소년의 연령을 하향해야 할까요?</div><div class="tags"><span class="sub">사회·법</span><span class="src bank">은행</span><span class="src mid">중등연계</span></div></div></div>
+        <div class="tp"><span class="num">②</span><div class="body"><div class="t">‘착한 사마리아인의 법’이 필요할까요?</div><div class="tags"><span class="sub">도덕·사회</span><span class="src bank">은행</span></div></div></div>
+        <div class="tp"><span class="num">③</span><div class="body"><div class="t">복권 판매업은 사회적 약자에게만 자격을 줘야 할까요?</div><div class="tags"><span class="sub">사회·공정</span><span class="src bank">은행</span></div></div></div>
+      </div></div>
+
+      <div class="wk"><div class="wk-h"><span class="n">2주</span><span class="g">탐구보고서</span><span class="link">불공정의 실태를 자료로 캐다</span></div><div class="wk-b">
+        <div class="tp"><span class="num">①</span><div class="body"><div class="t">인권 침해 사례 분석과 입법 제안 탐구보고서</div><div class="tags"><span class="sub">사회</span><span class="src bank">은행</span><span class="src mid">중등연계</span></div></div></div>
+        <div class="tp"><span class="num">②</span><div class="body"><div class="t">세계 아동 노동 실태와 공정무역 탐구보고서</div><div class="tags"><span class="sub">사회·도덕</span><span class="src new">신규</span></div></div></div>
+        <div class="tp"><span class="num">③</span><div class="body"><div class="t">우리 학교 시설·급식의 ‘공정한 이용’ 실태 탐구보고서</div><div class="tags"><span class="sub">실과·사회</span><span class="src new">신규</span></div></div></div>
+      </div></div>
+
+      <div class="wk"><div class="wk-h"><span class="n">3주</span><span class="g">기사문</span><span class="link">정의의 사건을 취재하다</span></div><div class="wk-b">
+        <div class="tp"><span class="num">①</span><div class="body"><div class="t">정의를 실현한 역사 인물 가상 인터뷰 기사문 (예: 전봉준·유관순)</div><div class="tags"><span class="sub">역사</span><span class="src bank">은행</span><span class="src mid">중등연계</span></div></div></div>
+        <div class="tp"><span class="num">②</span><div class="body"><div class="t">우리 동네 쓰레기 무단투기 고발 — 환경 정의 취재 기사</div><div class="tags"><span class="sub">과학·사회</span><span class="src new">신규</span></div></div></div>
+        <div class="tp"><span class="num">③</span><div class="body"><div class="t">‘공정 규칙’을 도입한 우리 반 소식 학급 신문 기사</div><div class="tags"><span class="sub">국어·도덕</span><span class="src new">신규</span></div></div></div>
+      </div></div>
+
+      <div class="wk"><div class="wk-h"><span class="n">4주</span><span class="g">자기성찰 에세이</span><span class="link">내 삶 속의 정의</span></div><div class="wk-b">
+        <div class="tp"><span class="num">①</span><div class="body"><div class="t">‘나는 공정했는가’ — 내가 차별하거나 차별받은 경험 성찰</div><div class="tags"><span class="sub">도덕</span><span class="src new">신규</span></div></div></div>
+        <div class="tp"><span class="num">②</span><div class="body"><div class="t">정의를 지키려다 손해를 본 경험, 그때 나의 선택</div><div class="tags"><span class="sub">도덕·국어</span><span class="src new">신규</span></div></div></div>
+        <div class="tp"><span class="num">③</span><div class="body"><div class="t">삶의 유한함과 생명의 소중함 에세이 (약자를 향한 시선)</div><div class="tags"><span class="sub">도덕</span><span class="src bank">은행</span><span class="src mid">중등연계</span></div></div></div>
+      </div></div>
+
+      <div class="wk"><div class="wk-h"><span class="n">5주</span><span class="g">의견제시형 논술</span><span class="link">더 정의로운 대안을 제안하다</span></div><div class="wk-b">
+        <div class="tp"><span class="num">①</span><div class="body"><div class="t">더 공정한 학교를 위한 ‘학생이 만드는 정책 제안서’</div><div class="tags"><span class="sub">사회</span><span class="src bank">은행</span><span class="src mid">중등연계</span></div></div></div>
+        <div class="tp"><span class="num">②</span><div class="body"><div class="t">장애 친구와 함께하는 학급을 위한 3가지 규칙 제안</div><div class="tags"><span class="sub">도덕·사회</span><span class="src bank">은행</span></div></div></div>
+        <div class="tp"><span class="num">③</span><div class="body"><div class="t">모두가 존중받는 교실 — 고운 말 실천 규칙 제안</div><div class="tags"><span class="sub">국어·도덕</span><span class="src bank">은행</span></div></div></div>
+      </div></div>
+
+      <div class="wk"><div class="wk-h"><span class="n">6주</span><span class="g">조사보고서</span><span class="link">정의를 숫자로 증명하다</span></div><div class="wk-b">
+        <div class="tp"><span class="num">①</span><div class="body"><div class="t">우리 반 ‘불공정 경험’ 설문 조사보고서</div><div class="tags"><span class="sub">국어·사회</span><span class="src bank">은행</span></div></div></div>
+        <div class="tp"><span class="num">②</span><div class="body"><div class="t">남녀·연령 임금 격차 통계 조사보고서</div><div class="tags"><span class="sub">사회·수학</span><span class="src new">신규</span></div></div></div>
+        <div class="tp"><span class="num">③</span><div class="body"><div class="t">우리나라 복지 제도, 누구를 어떻게 돕나 조사보고서</div><div class="tags"><span class="sub">사회</span><span class="src new">신규</span></div></div></div>
+      </div></div>
+
+      <div class="wk"><div class="wk-h"><span class="n">7주</span><span class="g">소개하는 글</span><span class="link">정의의 개념·인물을 알리다</span></div><div class="wk-b">
+        <div class="tp"><span class="num">①</span><div class="body"><div class="t">‘세계 인권 선언’을 6학년 눈높이로 쉽게 소개하기</div><div class="tags"><span class="sub">사회·도덕</span><span class="src new">신규</span></div></div></div>
+        <div class="tp"><span class="num">②</span><div class="body"><div class="t">정의를 실현한 우리 역사 인물 소개하는 글</div><div class="tags"><span class="sub">역사</span><span class="src bank">은행</span></div></div></div>
+        <div class="tp"><span class="num">③</span><div class="body"><div class="t">공정무역 마크와 그 의미 소개하기</div><div class="tags"><span class="sub">실과·사회</span><span class="src new">신규</span></div></div></div>
+      </div></div>
+
+      <div class="wk"><div class="wk-h"><span class="n">8주</span><span class="g">감상문</span><span class="link">세 고전으로 정의를 매듭짓다</span></div><div class="wk-b">
+        <div class="tp"><span class="num">①</span><div class="body"><div class="t">『동물농장』을 읽고 — 권력의 부패와 평등의 배신 감상</div><div class="tags"><span class="sub">국어·문학</span><span class="src bank">은행</span></div></div></div>
+        <div class="tp"><span class="num">②</span><div class="body"><div class="t">『홍길동전』을 읽고 — 신분 차별과 ‘옳은 저항’ 감상</div><div class="tags"><span class="sub">국어·문학</span><span class="src new">신규</span></div></div></div>
+        <div class="tp"><span class="num">③</span><div class="body"><div class="t">『우리들의 일그러진 영웅』을 읽고 — 우리 반 속의 정의 감상</div><div class="tags"><span class="sub">국어·문학</span><span class="src new">신규</span></div></div></div>
+      </div></div>
+
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h">전과목 커버리지 &amp; 은행 활용</div>
+    <div class="cov">
+      <table>
+        <tr><th>과목</th><th>국어·문학</th><th>사회</th><th>도덕</th><th>역사</th><th>과학</th><th>실과</th><th>수학</th></tr>
+        <tr><td class="subj">등장 주차</td><td>3·5·6·8</td><td>1·2·5·6·7</td><td>1·4·5</td><td>3·7</td><td>3</td><td>2·7</td><td>6</td></tr>
+      </table>
+      <div class="summary"><b>요약</b> — 총 24개 주제 = <b>은행 12 + 신규 12</b>. 7개 과목을 고르게 순환하고, 8개 중 <b>중등연계 4주제</b>(실제 중학교 공시 평가계획 과제)로 수행평가 실전성을 확보했습니다. 신규 주제는 모두 주제은행에 편입 가능 → 다음 키워드(자유·환경·생명 등)로 <b>무한 확장</b>됩니다.</div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="wrap">펜타스쿨 커리큘럼 · 8주 글쓰기 [정의] &nbsp;|&nbsp; 주제은행에서 설계 · 2026.07.16</footer>
+</body>
+</html>
