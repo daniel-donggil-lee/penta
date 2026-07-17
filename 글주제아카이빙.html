@@ -281,6 +281,25 @@
   .catchips{display:flex;flex-wrap:wrap;gap:6px;}
   .catchips span{font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
 
+
+  /* v2 */
+  .area-row{flex-wrap:wrap;gap:6px 2px;padding-top:8px;padding-bottom:2px;}
+  .tabgroup{display:inline-flex;align-items:center;gap:1px;margin:0 12px 4px 0;padding:2px 0;}
+  .tglabel{font-size:10px;font-weight:800;color:#aeb4c0;margin-right:5px;letter-spacing:.02em;white-space:nowrap;}
+  .b-level{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;}
+  .b-level.기본{background:#1f9a52;} .b-level.심화{background:#e5484d;}
+  .b-mid{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;background:#7c3aed;}
+  .b-su{font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;color:#fff;background:#0e7490;}
+  .b-num{font-size:11px;font-weight:800;color:#fff;background:#c9a227;border-radius:7px;padding:3px 9px;}
+  .b-type.genre{color:#fff;background:#5b6472;}
+  .c-stars{display:flex;flex-wrap:wrap;gap:5px 16px;margin:0 0 12px;}
+  .c-stars .sl{font-size:11.5px;font-weight:700;color:var(--muted);}
+  .c-stars .sv{color:#f5a623;letter-spacing:1px;font-size:12px;}
+  .chip.lv.기본.on{background:#1f9a52;border-color:#1f9a52;}
+  .chip.lv.심화.on{background:#e5484d;border-color:#e5444d;}
+  .catchips{display:flex;flex-wrap:wrap;gap:6px;}
+  .catchips span{font-size:11px;font-weight:700;color:var(--navy);background:var(--navy-soft);border-radius:7px;padding:3px 9px;}
+
 </style>
 </head>
 <body>
@@ -349,8 +368,10 @@ const TOPICS = [
 
 
 
+
   {
     area:'논술', type:'찬반', no:25,
+    cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
     cats:['논술','사회','실과'],curr:5,link:5,mid:false,
@@ -391,6 +412,7 @@ const TOPICS = [
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
+    cats:['논술','도덕','실과'],curr:4,link:4,mid:false,
     title:'초등학생에게 스마트폰이 필요할까요?',
     theme:'생활·미디어',
     grade:'초3~6', subject:'도덕 · 실과',
@@ -415,6 +437,7 @@ const TOPICS = [
   },
   {
     area:'논술', type:'찬반', no:27,
+    cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
     cats:['논술','과학','도덕'],curr:3,link:4,mid:false,
@@ -448,6 +471,7 @@ const TOPICS = [
   },
   {
     area:'논술', type:'의견제시', no:null,
+    cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
     cats:['논술','국어','도덕'],curr:3,link:4,mid:false,
@@ -746,7 +770,42 @@ const TOPICS = [
   {"area": "논술", "type": "찬반", "subject": "과학 · 도덕", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "동물은 왜 남을 돕는 ‘이타적 행동’을 할까?", "prompt": "생존 경쟁 속에서도 나타나는 이타적 행동을 진화의 관점에서 살펴 내 생각을 논해 보자.", "unit": "중등 과학 · 진화 / 도덕", "origin": "이타적 행동의 진화(다윈) · 학평", "su": true, "mid": true, "cats": ["논술", "도덕", "과학", "중등연계", "수능연계"], "curr": 3, "link": 3},
   {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "우리 몸은 병균을 어떻게 물리칠까?", "prompt": "외부 침입에 맞서는 몸의 면역 반응 과정을 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 면역", "origin": "면역 반응 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
   {"area": "논술", "type": "찬반", "subject": "사회", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "일반 시민이 재판에 참여해도 될까?", "prompt": "국민참여재판(배심원 제도)의 좋은 점과 걱정을 들어, 도입에 대한 내 주장을 세워 보자.", "unit": "중등 사회 · 사법과 재판", "origin": "국민참여재판 · 학평", "su": true, "mid": true, "cats": ["논술", "사회", "중등연계", "수능연계"], "curr": 3, "link": 3},
-  {"area": "설명·소개문", "type": "설명문", "subject": "음악", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "국악의 장단은 어떻게 이루어질까?", "prompt": "박과 소박으로 이루어지는 국악 장단의 구조를 예를 들어 설명해 보자.", "unit": "중등 음악 · 국악의 이해", "origin": "국악의 장단 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "음악", "중등연계", "수능연계"], "freq": 5}
+  {"area": "설명·소개문", "type": "설명문", "subject": "음악", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "국악의 장단은 어떻게 이루어질까?", "prompt": "박과 소박으로 이루어지는 국악 장단의 구조를 예를 들어 설명해 보자.", "unit": "중등 음악 · 국악의 이해", "origin": "국악의 장단 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "음악", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "찬반", "subject": "정보 · 국어", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "무엇이든 만들면 다 ‘내 것(저작물)’이 될까?", "prompt": "새롭게 표현한 창작물이 저작권으로 보호받는 조건을 살펴, 창작과 모방의 경계를 논해 보자.", "unit": "중등 정보 · 저작권과 정보 윤리", "origin": "저작물의 창작성 · 학평", "su": true, "mid": true, "cats": ["논술", "국어", "정보", "중등연계", "수능연계"], "curr": 5, "link": 3},
+  {"area": "자기성찰 에세이", "type": "성찰문", "subject": "도덕", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "풍요로운데 왜 행복하지 않을까?", "prompt": "물질의 풍요와 행복의 관계를 프롬의 생각을 빌려 나의 삶으로 성찰해 보자.", "unit": "중등 도덕 · 행복한 삶", "origin": "에리히 프롬의 행복론 · 학평", "su": true, "mid": true, "cats": ["자기성찰 에세이", "도덕", "중등연계", "수능연계"], "freq": 4},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학 · 역사", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "냉장고 없이 얼음을 어떻게 여름까지 보관했을까?", "prompt": "겨울 얼음을 다음 해까지 보관한 석빙고의 원리를 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 열의 이동 / 역사", "origin": "석빙고 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "역사", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "찬반", "subject": "역사 · 사회", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "왜 조선은 중국의 문화를 따랐을까?", "prompt": "중화사상을 살펴, 다른 나라 문화를 대하는 바른 태도에 대해 논해 보자.", "unit": "중등 역사 · 조선의 대외 관계", "origin": "중화사상 · 학평", "su": true, "mid": true, "cats": ["논술", "사회", "역사", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "사고력", "subject": "도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "진짜 세계는 눈에 보이는 것 너머에 있을까?", "prompt": "이데아와 현상을 나눈 플라톤의 생각을 빌려, 진짜와 겉모습에 대해 논해 보자.", "unit": "중등 도덕 · 앎과 진리", "origin": "플라톤 이데아론 · 학평", "su": true, "mid": true, "cats": ["논술", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "나무의 나이테로 무엇을 알 수 있을까?", "prompt": "나이테에 담긴 나무의 나이와 기후 정보를 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 생물과 환경", "origin": "나이테 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "찬반", "subject": "사회 · 도덕", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "실수로 남에게 피해를 줘도 책임져야 할까?", "prompt": "고의와 과실의 차이를 살펴, 잘못에 대한 책임의 기준을 논해 보자.", "unit": "중등 사회 · 법과 책임", "origin": "불법행위(고의·과실) · 학평", "su": true, "mid": true, "cats": ["논술", "사회", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "정보", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "정보를 숨긴 채로 계산할 수 있을까?", "prompt": "암호화된 데이터를 그대로 처리하는 방법을 조사해 보고서로 정리해 보자.", "unit": "중등 정보 · 정보 보안", "origin": "암호화와 데이터 처리 · 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "정보", "중등연계", "수능연계"], "freq": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "물을 빼면 왜 소용돌이가 생길까?", "prompt": "배수구로 물이 빠질 때 생기는 소용돌이의 원리를 조사해 보고서로 정리해 보자.", "unit": "중등 과학 · 힘과 운동", "origin": "소용돌이(각운동량) · 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "과학", "중등연계", "수능연계"], "freq": 3},
+  {"area": "논술", "type": "찬반", "subject": "과학 · 도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "마음도 실험으로 연구할 수 있을까?", "prompt": "마음을 실험으로 다룬 실험심리학을 살펴, 마음 연구의 가능성을 논해 보자.", "unit": "중등 도덕 · 마음 / 과학 · 탐구", "origin": "분트 실험심리학 · 학평", "su": true, "mid": true, "cats": ["논술", "도덕", "과학", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "사회 · 실과", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "물건 값에는 어떤 비용이 숨어 있을까?", "prompt": "제품 하나를 만드는 데 드는 여러 비용(원가)을 조사해 보고서로 정리해 보자.", "unit": "중등 사회 · 기업과 시장 / 실과", "origin": "원가회계 · 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "사회", "실과", "중등연계", "수능연계"], "freq": 3},
+  {"area": "논술", "type": "의견제시", "subject": "사회", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "선거를 누가 공정하게 관리해야 할까?", "prompt": "선거관리기관의 여러 형태를 살펴, 공정한 선거를 위한 방법을 제안해 보자.", "unit": "중등 사회 · 선거와 민주주의", "origin": "선거관리기관 · 학평", "su": true, "mid": true, "cats": ["논술", "사회", "중등연계", "수능연계"], "curr": 5, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "사회 · 실과", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "예상 못한 사고에 어떻게 미리 대비할까?", "prompt": "손해를 여럿이 나눠 대비하는 보험의 원리를 알기 쉽게 설명해 보자.", "unit": "중등 사회 · 경제생활 / 실과", "origin": "손해보험 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "사회", "실과", "중등연계", "수능연계"], "freq": 5},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "사회 · 수학", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "값이 오르면 사람들은 얼마나 덜 살까?", "prompt": "가격이 변할 때 수요량이 달라지는 정도(가격탄력성)를 조사해 보고서로 정리해 보자.", "unit": "중등 사회 · 시장과 가격 / 수학", "origin": "수요의 가격탄력성 · 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "사회", "수학", "중등연계", "수능연계"], "freq": 3},
+  {"area": "논술", "type": "의견제시", "subject": "사회", "grade": "중2~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "뒤늦게 시작한 기업이 어떻게 앞선 기업을 따라잡을까?", "prompt": "후발 기업이 선발 기업을 추격하는 전략을 살펴 내 의견을 제시해 보자.", "unit": "중등 사회 · 국제 경제", "origin": "후발 기업의 추격 · 학평", "su": true, "mid": true, "cats": ["논술", "사회", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "사회 · 역사", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "은행은 어떻게 생겨났을까?", "prompt": "금세공업자의 보관증에서 시작된 은행의 유래를 알기 쉽게 설명해 보자.", "unit": "중등 사회 · 화폐와 금융 / 역사", "origin": "은행의 기원 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "사회", "역사", "중등연계", "수능연계"], "freq": 5},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "정보", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "빠른 CPU와 느린 메모리를 어떻게 맞출까?", "prompt": "속도 차이를 메우는 캐시 기억장치의 원리를 조사해 보고서로 정리해 보자.", "unit": "중등 정보 · 컴퓨터의 구조", "origin": "CPU와 캐시 · 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "정보", "중등연계", "수능연계"], "freq": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "초6~중3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "‘쥐라기’처럼 지구의 시간은 어떻게 나눌까?", "prompt": "지층의 순서로 지구의 역사를 나눈 지질 시간 척도를 설명해 보자.", "unit": "중등 과학 · 지권의 변화 / 지질 시대", "origin": "지질 시간 척도 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "찬반", "subject": "사회 · 실과", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "짝퉁(모조품)은 왜 문제일까?", "prompt": "상표와 모조품 문제를 살펴, 상표권을 지켜야 하는 이유를 논해 보자.", "unit": "중등 사회 · 시장 질서 / 실과", "origin": "상표권과 모조품 · 학평", "su": true, "mid": true, "cats": ["논술", "사회", "실과", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학 · 사회", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "더러운 물을 어떻게 깨끗한 물로 만들까?", "prompt": "침전 등 정수 처리 과정을 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 물질의 분리 / 사회 · 환경", "origin": "정수 처리 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "사회", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "우리 눈은 어떻게 사물을 볼까?", "prompt": "안구의 구조와 보는 과정을 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 감각 기관(눈)", "origin": "눈의 구조 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "사고력", "subject": "도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "올바로 생각하려면 무엇을 버려야 할까?", "prompt": "선입견을 넘어 이성으로 판단하라는 데카르트의 생각을 빌려 논해 보자.", "unit": "중등 도덕 · 비판적 사고", "origin": "데카르트의 방법적 회의 · 학평", "su": true, "mid": true, "cats": ["논술", "도덕", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "먹는 약과 주사약은 어떻게 다를까?", "prompt": "약물이 몸에 들어가는 여러 형태(약제)를 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 인체와 건강", "origin": "약물과 약제 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "찬반", "subject": "역사 · 도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "역사는 있는 그대로 쓸 수 있을까?", "prompt": "객관적 사실과 역사가의 해석 사이에서 역사 서술의 본질을 논해 보자.", "unit": "중등 역사 · 역사의 이해", "origin": "역사학의 객관성(랑케) · 학평", "su": true, "mid": true, "cats": ["논술", "도덕", "역사", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "찬반", "subject": "사회 · 국어", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "누구나 방송·신문에 자기 의견을 낼 수 있어야 할까?", "prompt": "언론 매체 접근·이용권을 살펴, 표현의 자유와 언론의 역할을 논해 보자.", "unit": "중등 사회 · 표현의 자유 / 국어 · 매체", "origin": "언론 매체 접근·이용권 · 학평", "su": true, "mid": true, "cats": ["논술", "국어", "사회", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "논술", "type": "사고력", "subject": "정보 · 도덕", "grade": "중2~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "기술은 우리를 자유롭게 할까, 지배할까?", "prompt": "기술을 비판적으로 본 기술철학을 실마리로, 기술과 인간의 관계를 논해 보자.", "unit": "중등 정보 · 정보사회 / 도덕", "origin": "고전적 기술철학(엘륄) · 학평", "su": true, "mid": true, "cats": ["논술", "도덕", "정보", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "DNA로 어떻게 범인을 찾을까?", "prompt": "혈흔·모발의 DNA로 사람을 확인하는 과학수사 방법을 설명해 보자.", "unit": "중등 과학 · 유전과 DNA", "origin": "DNA 분석(과학수사) · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "식물은 어떻게 빛을 향해 굽을까?", "prompt": "식물의 성장을 조절하는 호르몬(옥신)의 작용을 조사해 보고서로 정리해 보자.", "unit": "중등 과학 · 식물과 자극", "origin": "식물 호르몬(옥신) · 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "과학", "중등연계", "수능연계"], "freq": 3},
+  {"area": "탐구·조사 보고서", "type": "탐구보고서", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "겨울에 왜 ‘찌릿’ 정전기가 생길까?", "prompt": "물질마다 다른 전자 친화도로 정전기가 생기는 까닭을 조사해 보고서로 정리해 보자.", "unit": "중등 과학 · 전기", "origin": "전자 친화도·정전기 · 학평", "su": true, "mid": true, "cats": ["탐구·조사 보고서", "과학", "중등연계", "수능연계"], "freq": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학 · 정보", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "손가락 터치를 화면은 어떻게 알아챌까?", "prompt": "정전용량 방식 터치스크린이 위치를 인식하는 원리를 설명해 보자.", "unit": "중등 정보 · 기기의 원리 / 과학 · 전기", "origin": "터치스크린 패널 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "정보", "중등연계", "수능연계"], "freq": 5},
+  {"area": "논술", "type": "찬반", "subject": "사회", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "바다를 두고 나라들이 다투면 어떻게 해결할까?", "prompt": "유엔해양법협약이 국가 간 바다 분쟁을 조정하는 방식을 살펴 내 생각을 논해 보자.", "unit": "중등 사회 · 국제 사회와 국제법", "origin": "유엔해양법협약 · 학평", "su": true, "mid": true, "cats": ["논술", "사회", "중등연계", "수능연계"], "curr": 3, "link": 3},
+  {"area": "설명·소개문", "type": "설명문", "subject": "사회", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "헌법은 왜 가장 높은 법일까?", "prompt": "헌법이 다른 법의 근거가 되는 최고 규범인 까닭을 설명해 보자.", "unit": "중등 사회 · 헌법과 기본권", "origin": "헌법의 최고규범성 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "사회", "중등연계", "수능연계"], "freq": 5},
+  {"area": "설명·소개문", "type": "설명문", "subject": "과학", "grade": "초6~중2", "source": "수능 독서 화제 · 고1·고2 학평", "title": "바이러스는 왜 혼자서는 못 살까?", "prompt": "숙주 세포에 기생해 증식하는 바이러스의 특징을 알기 쉽게 설명해 보자.", "unit": "중등 과학 · 생물의 특성", "origin": "바이러스의 기생 · 학평", "su": true, "mid": true, "cats": ["설명·소개문", "과학", "중등연계", "수능연계"], "freq": 5},
+  {"area": "자기성찰 에세이", "type": "성찰문", "subject": "도덕 · 사회", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "일(노동)은 힘든 것일까, 나를 키우는 것일까?", "prompt": "노동에 대한 부정적 생각을 돌아보고, 일의 의미를 나의 경험으로 성찰해 보자.", "unit": "중등 도덕 · 일과 보람 / 사회", "origin": "노동의 의미 · 학평", "su": true, "mid": true, "cats": ["자기성찰 에세이", "사회", "도덕", "중등연계", "수능연계"], "freq": 4},
+  {"area": "논술", "type": "의견제시", "subject": "사회", "grade": "중1~3", "source": "수능 독서 화제 · 고1·고2 학평", "title": "다른 나라로 도망친 범죄자를 어떻게 처벌할까?", "prompt": "국가 간 범죄인 인도 제도를 살펴, 국제 협력의 필요성에 대해 의견을 제시해 보자.", "unit": "중등 사회 · 국제 사회", "origin": "범죄인 인도제도 · 학평", "su": true, "mid": true, "cats": ["논술", "사회", "중등연계", "수능연계"], "curr": 5, "link": 3}
 ];
 
 
