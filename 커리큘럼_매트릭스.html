@@ -1,111 +1,178 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>가치 × 영역 커리큘럼 매트릭스 | 펜타스쿨</title>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
 <style>
-  :root{--ink:#16181d;--muted:#7b8494;--line:#e9e5dc;--navy:#142d47;--blue:#2E75B6;--navy-soft:#eef2f7;
-    --orange:#FF6A1A;--orange-soft:#fff3ec;--bg:#f7f6f2;--card:#fff;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;}
-  a{color:inherit;text-decoration:none;}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 20px;}
-  header{background:var(--card);border-bottom:1px solid var(--line);}
-  .nav{display:flex;align-items:center;gap:14px;padding:14px 0;}
-  .back{font-size:13px;font-weight:800;color:var(--orange);}
-  .back:hover{text-decoration:underline;}
-  .nav .brand{font-size:12.5px;font-weight:800;color:var(--navy);margin-left:auto;}
-  .nav .brand b{color:var(--orange);}
-  .hero{background:linear-gradient(135deg,#142d47,#26406a);color:#fff;}
-  .hero-in{padding:34px 0 36px;}
-  .tag{display:inline-block;font-size:12.5px;font-weight:800;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);padding:5px 14px;border-radius:999px;margin-bottom:11px;}
-  .hero h1{font-size:30px;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:9px;}
-  .hero p{font-size:13.5px;color:#cdd8e6;max-width:760px;}
-  .hero .k{color:#ffcf9e;font-weight:800;}
-  main{padding:22px 0 70px;}
-  .legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:14px;font-size:12px;font-weight:700;color:var(--muted);}
-  .legend .d{display:inline-flex;align-items:center;gap:5px;}
-  .dot{width:11px;height:11px;border-radius:3px;display:inline-block;}
-  .r3{background:var(--orange);} .r2{background:#ffc196;} .r1{background:#dcd7cc;}
-  .done-b{font-size:10px;font-weight:800;color:#fff;background:#1f9a52;border-radius:5px;padding:1px 6px;}
-  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card);}
-  table{border-collapse:collapse;width:100%;min-width:1040px;}
-  th,td{border:1px solid #efeae0;padding:0;vertical-align:top;}
-  thead th{position:sticky;top:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:800;padding:10px 8px;text-align:center;z-index:2;}
-  thead th:first-child{left:0;z-index:3;width:96px;}
-  tbody th{position:sticky;left:0;background:var(--navy-soft);color:var(--navy);font-size:14px;font-weight:900;text-align:center;width:96px;padding:8px;z-index:1;}
-  td .cell{padding:8px 9px;min-height:56px;display:flex;flex-direction:column;gap:4px;height:100%;}
-  td.r3 .cell{background:var(--orange-soft);}
-  td.r2 .cell{background:#fffaf5;}
-  td.r1 .cell{background:#fafafa;}
-  .theme{font-size:11.5px;font-weight:700;color:#22262e;line-height:1.35;}
-  .cmeta{display:flex;align-items:center;gap:6px;margin-top:auto;}
-  .cmeta .dots{letter-spacing:1px;font-size:9px;}
-  .cmeta a{font-size:9.5px;font-weight:800;color:var(--orange);}
-  .note{margin-top:16px;font-size:12.5px;color:#454b56;line-height:1.8;background:var(--orange-soft);border-radius:12px;padding:14px 18px;}
-  .note b{color:#c2521a;}
-  footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:24px 0;text-align:center;}
-</style>
-</head>
-<body>
-<header>
-  <div class="wrap nav">
-    <a class="back" href="커리큘럼_지도.html">← 커리큘럼 지도</a>
-    <div class="brand">펜타스쿨 · 커리큘럼 &nbsp;|&nbsp; 하이펜타 <b>W</b></div>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap hero-in">
-    <span class="tag">가치 × 비문학영역 매트릭스</span>
-    <h1>커리 1개 = 가치 1개 × 영역 1개</h1>
-    <p>같은 <span class="k">가치</span>도 어느 <span class="k">영역</span>의 눈으로 보느냐에 따라 다른 8주 커리가 됩니다. 아래는 <b class="k">가치 7</b> × <b class="k">영역 7 = 49가지</b> 조합 지도. 칸의 색은 <span class="k">주제은행이 받쳐 주는 정도</span>(재료 풍부함)입니다.</p>
-  </div>
-</section>
-
+:root{--ink:#16181d;--muted:#7b8494;--line:#e9e5dc;--navy:#142d47;--blue:#2E75B6;--navy-soft:#eef2f7;--orange:#FF6A1A;--orange-soft:#fff3ec;--bg:#f7f6f2;--card:#fff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1240px;margin:0 auto;padding:0 20px;}
+header{background:var(--card);border-bottom:1px solid var(--line);}
+.nav{display:flex;align-items:center;gap:14px;padding:14px 0;}
+.back{font-size:13px;font-weight:800;color:var(--orange);}.back:hover{text-decoration:underline;}
+.nav .brand{font-size:12.5px;font-weight:800;color:var(--navy);margin-left:auto;}.nav .brand b{color:var(--orange);}
+.hero{background:linear-gradient(135deg,#142d47,#26406a);color:#fff;}
+.hero-in{padding:32px 0 34px;}
+.tag{display:inline-block;font-size:12.5px;font-weight:800;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);padding:5px 14px;border-radius:999px;margin-bottom:11px;}
+.hero h1{font-size:29px;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:8px;}
+.hero p{font-size:13.5px;color:#cdd8e6;max-width:770px;}.hero .k{color:#ffcf9e;font-weight:800;}
+main{padding:20px 0 70px;}
+.legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:12px;font-size:12px;font-weight:700;color:var(--muted);}
+.legend .d{display:inline-flex;align-items:center;gap:5px;}
+.dot{width:11px;height:11px;border-radius:3px;display:inline-block;}
+.r3{background:var(--orange);}.r2{background:#ffc196;}.r1{background:#dcd7cc;}
+.hint{font-size:12px;font-weight:800;color:var(--orange);}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card);}
+table{border-collapse:collapse;width:100%;min-width:1040px;}
+th,td{border:1px solid #efeae0;padding:0;vertical-align:top;}
+thead th{position:sticky;top:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:800;padding:10px 8px;text-align:center;z-index:2;}
+thead th:first-child{left:0;z-index:3;width:92px;}
+tbody th{position:sticky;left:0;background:var(--navy-soft);color:var(--navy);font-size:14px;font-weight:900;text-align:center;width:92px;padding:8px;z-index:1;}
+td .cell{padding:8px 9px;min-height:58px;display:flex;flex-direction:column;gap:4px;height:100%;cursor:pointer;transition:.12s;}
+td .cell:hover{outline:2px solid var(--orange);outline-offset:-2px;}
+td.r3 .cell{background:var(--orange-soft);}td.r2 .cell{background:#fffaf5;}td.r1 .cell{background:#fafafa;}
+.theme{font-size:11.5px;font-weight:700;color:#22262e;line-height:1.35;}
+.cmeta{display:flex;align-items:center;gap:6px;margin-top:auto;}
+.cmeta .dots{letter-spacing:1px;font-size:9px;}
+.mk{font-size:9px;font-weight:800;color:var(--orange);}
+/* 생성 패널 */
+#panel{margin-top:20px;display:none;}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+.phead{background:linear-gradient(135deg,#142d47,#26406a);color:#fff;padding:20px 24px;}
+.pair{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;}
+.pair .v{font-size:14px;font-weight:900;color:#fff;background:var(--orange);border-radius:8px;padding:4px 13px;}
+.pair .plus{font-size:15px;font-weight:900;color:#9fb0c8;}
+.pair .d{font-size:14px;font-weight:900;color:#fff;background:var(--blue);border-radius:8px;padding:4px 13px;}
+.phead h2{font-size:22px;font-weight:900;}
+.phead p{font-size:13px;color:#cdd8e6;margin-top:5px;}
+.pbody{padding:20px 24px;}
+.psec{font-size:14px;font-weight:900;color:var(--navy);margin:0 0 10px;display:flex;align-items:center;gap:7px;}
+.psec::before{content:"";width:13px;height:13px;border-radius:4px;background:var(--orange);}
+.books{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:22px;}
+.book{border:1px solid var(--line);border-radius:12px;padding:13px 15px;background:#fff;}
+.book .tg{font-size:10px;font-weight:800;color:var(--blue);background:#eaf2fb;padding:2px 9px;border-radius:999px;}
+.book h3{font-size:15px;font-weight:900;color:var(--navy);margin:7px 0 2px;}
+.book .w{font-size:11px;color:#4a4f5a;}
+.voca{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-bottom:22px;}
+.vw{display:flex;gap:10px;align-items:baseline;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 13px;}
+.vw .h{font-size:16px;font-weight:900;color:var(--navy);letter-spacing:1px;}
+.vw .k{font-size:12px;font-weight:800;color:var(--orange);margin-right:5px;}
+.vw .df{font-size:11px;color:#555;}
+.weeks{display:grid;gap:9px;}
+.wk{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:12px 15px;}
+.wk .n{flex:0 0 auto;font-size:11px;font-weight:900;color:#fff;background:var(--navy);border-radius:7px;padding:3px 10px;}
+.wk .g{font-size:10.5px;font-weight:800;color:var(--orange);}
+.wk .t{font-size:13.5px;font-weight:700;color:#22262e;line-height:1.4;margin-top:2px;}
+.wk .src{font-size:9.5px;font-weight:800;border-radius:6px;padding:2px 8px;margin-left:6px;}
+.src.bank{color:#177245;background:#e7f6ec;}.src.new{color:#8a5a00;background:#fdf1dd;}
+.summ{margin-top:16px;font-size:12.5px;color:#454b56;background:var(--orange-soft);border-radius:12px;padding:13px 17px;line-height:1.7;}
+.summ b{color:#c2521a;}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:24px 0;text-align:center;}
+</style></head><body>
+<header><div class="wrap nav"><a class="back" href="커리큘럼_지도.html">← 커리큘럼 지도</a>
+<div class="brand">펜타스쿨 · 커리큘럼 &nbsp;|&nbsp; 하이펜타 <b>W</b></div></div></header>
+<section class="hero"><div class="wrap hero-in">
+<span class="tag">가치 × 영역 커리 생성기</span>
+<h1>칸을 누르면 8주 커리가 바로 만들어집니다</h1>
+<p>가치 7 × 영역 7 = 49조합. 칸을 클릭하면 <span class="k">주제은행 296개</span>에서 갈래별로 주제를 자동 조립해 <span class="k">8주 커리큘럼</span>을 즉석에서 뽑아냅니다. 은행에 없는 갈래는 신규 주제로 자동 제안합니다.</p>
+</div></section>
 <main class="wrap">
-  <div class="legend">
-    <span class="d"><span class="dot r3"></span>재료 풍부(바로 제작)</span>
-    <span class="d"><span class="dot r2"></span>보통(일부 신규)</span>
-    <span class="d"><span class="dot r1"></span>약함(신규 위주)</span>
-    <span class="d"><span class="done-b">샘플</span> 제작 완료</span>
+<div class="legend"><span class="d"><span class="dot r3"></span>재료 풍부</span><span class="d"><span class="dot r2"></span>보통</span><span class="d"><span class="dot r1"></span>약함</span><span class="hint">▶ 아무 칸이나 눌러 보세요</span></div>
+<div class="scroll"><table id="mx"></table></div>
+<div id="panel"><div class="pcard">
+  <div class="phead"><div class="pair"><span class="v" id="pv"></span><span class="plus">×</span><span class="d" id="pd"></span></div><h2 id="ptitle"></h2><p id="pframe"></p></div>
+  <div class="pbody">
+    <div class="psec">함께 읽는 책 3권</div><div class="books" id="pbooks"></div>
+    <div class="psec">개념어 10 <span style="font-size:10px;font-weight:600;color:var(--muted)">— 영역의 눈으로</span></div><div class="voca" id="pvoca"></div>
+    <div class="psec">8주 글쓰기 <span style="font-size:10px;font-weight:600;color:var(--muted)">— <span style="color:#177245">은행</span>/<span style="color:#8a5a00">신규 제안</span></span></div><div class="weeks" id="pweeks"></div>
+    <div class="summ" id="psumm"></div>
   </div>
-  <div class="scroll"><table id="mx"></table></div>
-  <div class="note"><b>읽는 법</b> — 세로축 <b>가치</b>, 가로축 <b>영역</b>. 각 칸 = 그 조합으로 만들 8주 커리의 주제 방향. 예: <b>정의×경제</b> = 분배·공정, <b>자유×역사</b> = 민주화·독립. 오렌지가 진할수록 은행에서 8주 중 다수를 바로 채웁니다. <b>정의×경제·정의×역사</b>는 샘플 제작 완료, <b>정의</b> 기본 커리는 완성본이 있습니다.</div>
+</div></div>
 </main>
-<footer class="wrap">펜타스쿨 커리큘럼 · 가치×영역 매트릭스 &nbsp;|&nbsp; 49조합 로드맵 · 2026.07.17</footer>
-
+<footer class="wrap">펜타스쿨 커리큘럼 · 가치×영역 생성기 &nbsp;|&nbsp; 은행 296개 기반 즉석 조립 · 2026.07.17</footer>
 <script>
+const DATA=[{"t": "고전 소설 속 인상 깊은 장면 감상문", "a": "감상·비평문", "s": "국어", "ty": "감상문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "기후 변화의 영향과 해결 방안", "a": "설명·소개문", "s": "국어", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "스마트폰 사용 제한, 나의 주장", "a": "논술", "s": "국어", "ty": "논설문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "외국인에게 우리 전통문화 소개하기", "a": "설명·소개문", "s": "국어", "ty": "소개문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "청소년 스트레스 원인 조사 보고서", "a": "탐구·조사 보고서", "s": "국어", "ty": "보고서", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "10년 후 나에게 쓰는 편지", "a": "실용·생활문", "s": "국어", "ty": "편지글", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "박물관·미술관 방문 기행문", "a": "실용·생활문", "s": "국어", "ty": "기행문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "학교 행사 취재 학급 신문 기사", "a": "기사문", "s": "국어", "ty": "기사문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "일상에서 느낀 작은 행복 수필", "a": "자기성찰 에세이", "s": "국어", "ty": "수필", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "‘꿈’을 주제로 시 쓰기", "a": "기타유형", "s": "국어", "ty": "시", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "영어 자기소개문 쓰기", "a": "설명·소개문", "s": "영어", "ty": "소개문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "영어 일기 쓰기", "a": "실용·생활문", "s": "영어", "ty": "일기", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "영어 편지 쓰기", "a": "실용·생활문", "s": "영어", "ty": "편지글", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "내가 존경하는 사람 (영어 수필)", "a": "자기성찰 에세이", "s": "영어", "ty": "수필", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "세상을 바꾼 발명품 (영어 보고서)", "a": "탐구·조사 보고서", "s": "영어", "ty": "보고서", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "나의 꿈 (영어 에세이)", "a": "자기성찰 에세이", "s": "영어", "ty": "에세이", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "재미있게 읽은 책 홍보문 (영어)", "a": "기타유형", "s": "영어", "ty": "홍보문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "우리 반 사건 학급 신문 기사 (영어)", "a": "기사문", "s": "영어", "ty": "기사문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "생활 속 도형의 성질 설명하기", "a": "기타유형", "s": "수학", "ty": "서술", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "수학 잡지 창간 기획하기", "a": "기타유형", "s": "수학", "ty": "기획", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "생활 속 방정식 서술형 문제 만들기", "a": "기타유형", "s": "수학", "ty": "문제 만들기", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "과학적 방법으로 문제 해결 과정 서술", "a": "탐구·조사 보고서", "s": "과학", "ty": "실험 보고서", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "최신 과학 이슈 뉴스 기사", "a": "기사문", "s": "과학", "ty": "기사문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "인공지능의 명과 암, 나의 의견", "a": "논술", "s": "과학", "ty": "논설문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "지구 온난화와 생태계 변화 보고서", "a": "탐구·조사 보고서", "s": "과학", "ty": "보고서", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "음식의 소화와 에너지 전환 과정", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "살고 싶은 도시 소개하기", "a": "설명·소개문", "s": "사회", "ty": "소개문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "최신 사회 이슈 뉴스 기사", "a": "기사문", "s": "사회", "ty": "기사문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "역사 속 인물의 업적과 영향", "a": "설명·소개문", "s": "사회", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "일상 속 민주주의 사례 설명", "a": "설명·소개문", "s": "사회", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "인권 문제 사건과 나의 의견", "a": "논술", "s": "사회", "ty": "논설문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "공동체 규칙과 그 이점", "a": "설명·소개문", "s": "도덕", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "다문화 축제 기획하기", "a": "기타유형", "s": "도덕", "ty": "기획", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "사회적 약자를 돕는 방법", "a": "설명·소개문", "s": "도덕", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "경험으로 말하는 책임감의 중요성", "a": "자기성찰 에세이", "s": "도덕", "ty": "성찰문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "생활 속 불편을 해결하는 발명품 구상", "a": "기타유형", "s": "기술·가정", "ty": "구상", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "에너지 자원 절약 방법", "a": "설명·소개문", "s": "기술·가정", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "청소년 균형 급식 식단 짜기", "a": "기타유형", "s": "기술·가정", "ty": "계획서", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "미래 직업 탐구와 나의 계획", "a": "기타유형", "s": "기술·가정", "ty": "진로 탐구", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "클래식 음악 감상문", "a": "감상·비평문", "s": "음악", "ty": "감상문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "전통 음악과 대중음악 비교", "a": "탐구·조사 보고서", "s": "음악", "ty": "조사·비교", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "좋아하는 음악가 탐구", "a": "탐구·조사 보고서", "s": "음악", "ty": "조사", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "악기 연주 경험 돌아보기", "a": "자기성찰 에세이", "s": "음악", "ty": "성찰문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "미술 작품 감상문", "a": "감상·비평문", "s": "미술", "ty": "감상문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "미술 재료와 표현 기법 비교", "a": "탐구·조사 보고서", "s": "미술", "ty": "조사·비교", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "일상 속 미술의 의미와 역할", "a": "설명·소개문", "s": "미술", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "미술 분야 유망 직업 조사", "a": "탐구·조사 보고서", "s": "미술", "ty": "조사", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "개인 정보 보호의 중요성과 방법", "a": "설명·소개문", "s": "정보", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "AI로 사라질 직업과 인간의 협력", "a": "설명·소개문", "s": "정보", "ty": "설명문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "디지털 기기 사용 문제와 해결 방안", "a": "논술", "s": "정보", "ty": "논설문", "g": "초5~중1", "su": 0, "mid": 1}, {"t": "감시 카메라를 설치해야 할까요?", "a": "논술", "s": "사회 · 국어", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "친구의 거짓말을 선생님께 말씀드려야 할까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "쉬는 시간에 만화책을 봐도 될까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "외래어를 순우리말로 바꿔 사용해야 할까요?", "a": "논술", "s": "국어 · 사회", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "김치를 꼭 먹어야 할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "집에 두고 온 실내화를 가져와야 할까요?", "a": "논술", "s": "도덕 · 국어", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "초등학생은 규칙적으로 용돈을 받아야 할까요?", "a": "논술", "s": "국어 · 사회", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "길에서 주운 돈을 주인에게 돌려줘야 할까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "북한에 어려움이 생기면 도와야 할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "아픈 날에도 꾹 참고 공부해야 할까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "도시에서 사는 것이 더 좋을까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "적은 용돈으로 어려운 이웃을 도와야 할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "세뱃돈은 내가 모두 가져야 할까요?", "a": "논술", "s": "국어 · 사회", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "장애 친구에게 급식 우선권을 주어야 할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "신조어와 줄임말 사용을 금지해야 할까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "친구의 이름 대신 별명을 불러도 될까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "어른께는 반드시 존댓말을 써야 할까요?", "a": "논술", "s": "도덕 · 국어", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "내면의 아름다움이 더 중요할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "학생도 집안일을 해야 할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "품질이 떨어지지만, 더 저렴한 것을 사야 할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "학교에서 식판 검사가 필요할까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "책은 반드시 끝까지 읽어야 할까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "초등학생은 꼭 연필을 사용해야 할까요?", "a": "논술", "s": "도덕 · 국어", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "결혼은 꼭 해야 할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "초등학생이 스마트폰 게임을 해도 괜찮을까요?", "a": "논술", "s": "도덕 · 국어", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "댓글을 자동 숨김으로 처리해도 될까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "민식이법은 유지되어야 할까요?", "a": "논술", "s": "사회 · 과학", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "일상생활에서 줄임말을 사용해도 될까요?", "a": "논술", "s": "국어 · 사회", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "아침밥을 매일 먹어야 할까요?", "a": "논술", "s": "실과 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "공정 무역 제품을 사용해야 할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "수상 소감을 영어로 해야 할까요?", "a": "논술", "s": "도덕 · 국어", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "복제 인간을 만드는 것은 옳은 일일까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "‘싸이 흠뻑쇼’와 같은 공연을 하는 것이 옳을까요?", "a": "논술", "s": "사회 · 국어", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "촉법소년의 연령을 하향해야 할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "교내 휴대전화 사용 금지는 인권 침해일까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "영화의 일부 장면을 활용하는 것은 저작권 침해일까요?", "a": "논술", "s": "국어 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "'착한 사마리아인의 법'이 필요할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "층간 소음에 벌금을 부과해야 할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "어떤 대학 전공을 선택해야 할까요?", "a": "논술", "s": "도덕 · 실과", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "자숙 기간 이후에 연예계에 복귀해도 괜찮을까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "돈을 많이 벌려고 의사가 되어도 괜찮을까요?", "a": "논술", "s": "실과 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "모둠별 과제를 할 때, 어떻게 점수를 주어야 할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "나라의 문을 반드시 열어야 할까요?", "a": "논술", "s": "사회", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "직지심체요절을 돌려받아야 할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "우리나라는 난민을 받아주어야 할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "초등학생에게도 시험이 필요할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "어떤 간식을 먹어야 할까요?", "a": "논술", "s": "실과", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "초등학생 때부터 주식 투자를 해야 할까요?", "a": "논술", "s": "사회", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "초등학생이 12세, 15세 관람가 영화를 봐도 될까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "돈이 많으면 기부를 꼭 해야 할까요?", "a": "논술", "s": "사회 · 국어", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "배달 음식의 배달료는 누가 내야 할까요?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "복권 판매업은 사회적 약자에게만 자격을 줘야 할까요?", "a": "논술", "s": "도덕 · 사회", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "우리나라의 수도를 옮겨야 할까요?", "a": "논술", "s": "사회 · 국어", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "한국 가요에 영어 가사를 붙여도 될까요?", "a": "논술", "s": "사회 · 국어", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "‘노쇼’를 방지하기 위한 방법으로 무엇이 더 있을까요?", "a": "논술", "s": "도덕 · 사회", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "한창 성장기에 있는 어린이의 편식을 방지할 좋은 방법에는 무엇이 있을까요?", "a": "논술", "s": "실과 · 도덕", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "개를 안락사시키지 않으면서도 다시는 사람을 물지 않도록 할 방법에는 무엇이 있을까요?", "a": "논술", "s": "사회 · 실과", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "자연에 피해를 주지 않으 면서도 인간이 생활할 수 있는 공간을 넓힐 만한 방법으로는 무엇이 있을까요?", "a": "논술", "s": "사회 · 과학", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "이런 패스트푸드 섭취를 줄일 수 있는 좋은 방법이 있을까요?", "a": "논술", "s": "실과 · 도덕", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "장애가 있는 사람들을 어떻게 도울 수 있을까요?", "a": "논술", "s": "사회 · 도덕", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "자연재해의 피해를 줄일 수 있는 방법에는 무엇이 있을까요?", "a": "논술", "s": "사회 · 과학", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "인구가 늘어나는 대도시와 인구가 줄어드는 촌락의 문제를 해결할 방법에는 무엇이 있을까요?", "a": "논술", "s": "사회 · 국어", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "이와 같은 문제를 해결하려면 어떻게 해야 할까요?", "a": "논술", "s": "사회 · 국어", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "운영에 어려움을 겪고 있는 음식점이 다시 활성화되기 위해 우리가 사회적으로 도울 수 있는 방법은 무엇이 있을까요?", "a": "논술", "s": "도덕 · 사회", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "골고루 잘 먹는 습관을 위해 식판 검사가 필요합니다", "a": "논술", "s": "", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "층간 소음을 방지하기 위해 벌금을 내게 합시다", "a": "논술", "s": "", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "공부하기 싫은 날에도 변함없이 공부해야 합니다", "a": "논술", "s": "", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "매장 내 1회용품 사용을 금지해야 합니다", "a": "논술", "s": "", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "친구의 거짓말을 알았다면 선생님께 말씀드려야 합니다", "a": "논술", "s": "", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "BTS도 당연히 군대에 가야 합니다", "a": "논술", "s": "", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "범죄자 신상 공개는 바람직한가?", "a": "논술", "s": "", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "유튜브에 중독된 초등학생 문제를 어떻게 해결할까?", "a": "논술", "s": "", "ty": "문제해결", "g": "초3~4", "su": 0, "mid": 0}, {"t": "지금처럼 남자만 군대에 갑시다", "a": "논술", "s": "", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "주 4일제를 도입합시다", "a": "논술", "s": "", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "나이 많은 분들께는 반드시 존댓말을 사용해야 한다", "a": "논술", "s": "", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "우리 가족이 개선해야 할 문제점을 찾아보고, 문제 해결을 위한 방법을 제시해봅시다", "a": "논술", "s": "", "ty": "문제해결", "g": "초3~4", "su": 0, "mid": 0}, {"t": "읽기 시작한 책은 마지막까지 다 읽어야 한다", "a": "논술", "s": "", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "신체적·정신적 장애를 가진 사람들을 어떻게 도울 수 있을까?", "a": "논술", "s": "", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "청와대는 일반 시민에게 계속 개방되어야 한다", "a": "논술", "s": "", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "한국인이니까 김치를 자주 챙겨 먹어야 한다", "a": "논술", "s": "", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "주인을 알 수 없는 100원짜리 동전은 가져도 됩니다", "a": "논술", "s": "", "ty": "찬반", "g": "초3~4", "su": 0, "mid": 0}, {"t": "국제 시상식 수상 소감을 영어로 해야 할까, 한국어로 해야 할까?", "a": "논술", "s": "", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "기후 위기를 줄이기 위해 지구인이 실천해야 할 세 가지 노력을 찾아 써보세요", "a": "논술", "s": "", "ty": "문제해결", "g": "초5~6", "su": 0, "mid": 0}, {"t": "공정무역 제품을 사용해야 할까?", "a": "논술", "s": "", "ty": "찬반", "g": "초5~6", "su": 0, "mid": 0}, {"t": "거울·렌즈에 의한 상 탐구보고서", "a": "탐구·조사 보고서", "s": "과학", "ty": "보고서", "g": "중1~3", "su": 0, "mid": 1}, {"t": "화학 반응 에세이 쓰기", "a": "자기성찰 에세이", "s": "과학", "ty": "에세이", "g": "중1~3", "su": 0, "mid": 1}, {"t": "물질의 질량·부피 측정 보고서", "a": "탐구·조사 보고서", "s": "과학", "ty": "보고서", "g": "중1~3", "su": 0, "mid": 1}, {"t": "학생이 만드는 정책 제안서", "a": "논술", "s": "사회", "ty": "제안서", "g": "중1~3", "su": 0, "mid": 1}, {"t": "촉법소년 연령 하향 찬반 논술", "a": "논술", "s": "사회", "ty": "찬반", "g": "중1~3", "su": 0, "mid": 1}, {"t": "인권 침해 분석·입법 제안 탐구", "a": "탐구·조사 보고서", "s": "사회", "ty": "탐구보고서", "g": "중1~3", "su": 0, "mid": 1}, {"t": "14살 자서전 만들기", "a": "자기성찰 에세이", "s": "도덕", "ty": "자서전", "g": "중1~3", "su": 0, "mid": 1}, {"t": "삶의 유한함·생명의 소중함 에세이", "a": "자기성찰 에세이", "s": "도덕", "ty": "에세이", "g": "중1~3", "su": 0, "mid": 1}, {"t": "주제탐구 도덕적 글쓰기(폭력의 비도덕성)", "a": "논술", "s": "도덕", "ty": "논설", "g": "중1~3", "su": 0, "mid": 1}, {"t": "역사 인물 가상 인터뷰 기사문", "a": "기사문", "s": "역사", "ty": "기사문", "g": "중1~3", "su": 0, "mid": 1}, {"t": "삼정 문란 상소문 제작", "a": "실용·생활문", "s": "역사", "ty": "상소문", "g": "중1~3", "su": 0, "mid": 1}, {"t": "역사 인물 비평글 쓰기", "a": "감상·비평문", "s": "역사", "ty": "비평문", "g": "중1~3", "su": 0, "mid": 1}, {"t": "고전파 음악 감상문(논술 30점)", "a": "감상·비평문", "s": "음악", "ty": "감상문", "g": "중1~3", "su": 0, "mid": 1}, {"t": "수학도서 감상문 쓰기", "a": "감상·비평문", "s": "수학", "ty": "감상문", "g": "중1~3", "su": 0, "mid": 1}, {"t": "작품 감상문 작성", "a": "감상·비평문", "s": "미술", "ty": "감상문", "g": "중1~3", "su": 0, "mid": 1}, {"t": "윤리적 소비 홍보물+보고서", "a": "탐구·조사 보고서", "s": "기술·가정", "ty": "보고서", "g": "중1~3", "su": 0, "mid": 1}, {"t": "자기소개서 작성 및 진로 탐색 보고서", "a": "탐구·조사 보고서", "s": "진로", "ty": "보고서", "g": "중1~3", "su": 0, "mid": 1}, {"t": "한식 연구 보고서", "a": "탐구·조사 보고서", "s": "기술·가정", "ty": "보고서", "g": "중1~3", "su": 0, "mid": 1}, {"t": "사라져 가는 지역 방언, 지켜야 할까?", "a": "논술", "s": "국어 · 사회", "ty": "찬반", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "그라피티는 예술일까, 낙서일까?", "a": "논술", "s": "미술 · 사회", "ty": "찬반", "g": "초5~중1", "su": 1, "mid": 1}, {"t": "나라가 돈을 더 풀면 살림살이는 나아질까?", "a": "논술", "s": "사회", "ty": "의견제시", "g": "중1~3", "su": 1, "mid": 1}, {"t": "우리는 소리의 높낮이를 어떻게 구별할까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "컴퓨터는 ‘사과’라는 낱말을 어떻게 이해할까?", "a": "탐구·조사 보고서", "s": "정보 · 과학", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "밤에도 환한 도시의 불빛, 괜찮을까? (빛 공해)", "a": "탐구·조사 보고서", "s": "과학 · 사회", "ty": "탐구보고서", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "우리 몸은 어떻게 무거운 것을 들까? (근육과 지레)", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "문화에는 더 좋고 나쁜 게 있을까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "아주 차가워지면 물질은 어떻게 달라질까?", "a": "탐구·조사 보고서", "s": "과학", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "공공 자원(전파·주파수)은 누구에게 어떻게 나눠야 할까?", "a": "논술", "s": "사회", "ty": "의견제시", "g": "중1~3", "su": 1, "mid": 1}, {"t": "무섭게 겁주는 광고, 효과가 있을까?", "a": "논술", "s": "국어 · 사회", "ty": "의견제시", "g": "중1~3", "su": 1, "mid": 1}, {"t": "요리와 몸속 반응을 빠르게 하는 ‘촉매’란?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "로봇도 마음을 가질 수 있을까?", "a": "논술", "s": "정보 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "내 정보(데이터)의 주인은 누구일까?", "a": "논술", "s": "정보 · 사회", "ty": "의견제시", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "아주 작은 것의 무게는 어떻게 잴까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "옛날의 신분 제도는 공정했을까?", "a": "논술", "s": "역사 · 사회", "ty": "찬반", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "선거를 ‘경마 중계’처럼 보도해도 될까?", "a": "논술", "s": "사회 · 국어", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "빠지거나 튀는 자료, 어떻게 다뤄야 할까?", "a": "탐구·조사 보고서", "s": "수학 · 정보", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "엄한 법과 따뜻한 마음, 무엇으로 다스릴까?", "a": "논술", "s": "역사 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "민주적인 모둠에서도 왜 몇 명이 다 정할까?", "a": "논술", "s": "사회", "ty": "의견제시", "g": "중1~3", "su": 1, "mid": 1}, {"t": "플라스틱은 어떻게 만들어지고 왜 문제일까?", "a": "탐구·조사 보고서", "s": "과학 · 사회", "ty": "탐구보고서", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "‘착하다’는 말은 참·거짓을 가릴 수 있을까?", "a": "논술", "s": "도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "가게가 물건 값을 마음대로 정해도 될까?", "a": "논술", "s": "사회 · 실과", "ty": "의견제시", "g": "중1~3", "su": 1, "mid": 1}, {"t": "블록체인은 어떻게 위조를 막을까?", "a": "탐구·조사 보고서", "s": "정보 · 과학", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "영화는 현실을 있는 그대로 보여줘야 할까?", "a": "논술", "s": "미술 · 국어", "ty": "찬반", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "새 문물을 받아들일까, 우리 것을 지킬까?", "a": "논술", "s": "역사 · 사회", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "인공지능은 어떻게 그림을 만들어낼까?", "a": "탐구·조사 보고서", "s": "정보 · 미술", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "SNS 속 내 모습은 진짜 나일까?", "a": "자기성찰 에세이", "s": "도덕 · 정보", "ty": "성찰문", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "법은 자유를 지켜 줄까, 제한할까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "미래 에너지 ‘수소’, 정말 깨끗할까?", "a": "탐구·조사 보고서", "s": "과학 · 사회", "ty": "탐구보고서", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "영화에는 만든 시대의 생각이 담길까?", "a": "논술", "s": "미술 · 사회", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "좋은 뉴스란 무엇일까?", "a": "논술", "s": "사회 · 국어", "ty": "의견제시", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "소리를 어떻게 기록하고 다시 들을까?", "a": "설명·소개문", "s": "과학 · 음악", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "여름에 철로와 다리가 휘는 이유는?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "어제의 나와 오늘의 나는 같은 사람일까?", "a": "논술", "s": "도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "궁금하면 AI에게 물어봐도 될까?", "a": "논술", "s": "정보 · 국어", "ty": "의견제시", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "벌은 무거울수록 좋을까? (죄와 벌)", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "DNA 한 조각으로 어떻게 범인을 찾을까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "내 마음은 뇌일까, 아니면 다른 무엇일까?", "a": "논술", "s": "도덕 · 과학", "ty": "찬반", "g": "중2~3", "su": 1, "mid": 1}, {"t": "왜 비슷한 물건도 광고를 할까?", "a": "설명·소개문", "s": "사회 · 실과", "ty": "설명문", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "가상 세계(메타버스) 속 나도 진짜 경험일까?", "a": "탐구·조사 보고서", "s": "정보 · 도덕", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "왜 온 세계가 ‘달러’로 거래할까?", "a": "논술", "s": "사회", "ty": "의견제시", "g": "중2~3", "su": 1, "mid": 1}, {"t": "자동차가 위에서 내려다본 듯한 화면, 어떻게 만들까?", "a": "탐구·조사 보고서", "s": "과학 · 정보", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "생각과 책을 나라가 통제해도 될까?", "a": "논술", "s": "역사 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "다치면 왜 피가 저절로 멎을까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "어떤 정책이 ‘효과 있다’를 어떻게 증명할까?", "a": "탐구·조사 보고서", "s": "수학 · 사회", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "똑같이 찍어내는 대중문화, 예술일까?", "a": "논술", "s": "미술 · 사회", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "검색하면 왜 그 순서로 결과가 나올까?", "a": "탐구·조사 보고서", "s": "정보", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "옛사람들은 지식을 어떻게 모아 정리했을까?", "a": "설명·소개문", "s": "역사 · 국어", "ty": "설명문", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "가만히 있어도 왜 에너지를 쓸까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "애매한 법의 말, 어떻게 정해야 할까?", "a": "논술", "s": "사회 · 국어", "ty": "찬반", "g": "중2~3", "su": 1, "mid": 1}, {"t": "‘추워서 물이 얼었다’를 정말 눈으로 본 걸까?", "a": "논술", "s": "도덕 · 과학", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "물려줄 재산, 마음대로 다 줄 수 있을까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중2~3", "su": 1, "mid": 1}, {"t": "서로 반대되는 생각이 부딪치면 더 나아질까?", "a": "논술", "s": "도덕", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "예술은 현실을 그대로 따라 그리는 걸까?", "a": "논술", "s": "미술 · 도덕", "ty": "찬반", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "만지지 않고 물기를 어떻게 감지할까?", "a": "탐구·조사 보고서", "s": "과학 · 정보", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "불쾌하거나 이상한 것도 예술일까?", "a": "논술", "s": "미술", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "바닷물을 마실 물로 바꿀 수 있을까?", "a": "탐구·조사 보고서", "s": "과학 · 사회", "ty": "탐구보고서", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "지키지 않는 법도 법일까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "세금은 왜 꼭 내야 할까?", "a": "논술", "s": "사회 · 실과", "ty": "의견제시", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "여럿이 함께 가진 물건, 마음대로 팔 수 있을까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "화면 속 물건을 만지는 느낌, 어떻게 만들까?", "a": "탐구·조사 보고서", "s": "정보 · 과학", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "화가들은 왜 사물을 조각내 그렸을까?", "a": "설명·소개문", "s": "미술 · 과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "우리는 무엇을 기준으로 ‘비싸다’고 느낄까?", "a": "탐구·조사 보고서", "s": "사회 · 실과", "ty": "탐구보고서", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "사람은 정해진 대로 태어날까, 스스로 만들까?", "a": "논술", "s": "도덕", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "눈에 안 보이는 기체를 어떻게 알아낼까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "좋은 시민이란 어떤 사람일까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "미성년자가 산 물건, 무를 수 있을까?", "a": "논술", "s": "사회 · 실과", "ty": "의견제시", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "지진의 흔들림은 어떻게 전달될까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "‘사과’라는 말의 뜻은 내 머릿속에 있을까?", "a": "논술", "s": "국어 · 도덕", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "말은 왜 시간이 지나면 바뀔까?", "a": "설명·소개문", "s": "국어", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "녹음된 내 목소리는 왜 어색하게 들릴까?", "a": "설명·소개문", "s": "과학 · 음악", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "새 약이 ‘효과 있다’를 어떻게 증명할까?", "a": "탐구·조사 보고서", "s": "과학 · 수학", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "컴퓨터는 ‘생각’을 할 수 있을까?", "a": "논술", "s": "정보 · 도덕", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "배달앱·중고장터 같은 ‘플랫폼’은 어떻게 돈을 벌까?", "a": "탐구·조사 보고서", "s": "사회 · 실과", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "물건의 ‘진짜 값’은 쓸모일까, 가격일까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "인터넷에서 자료가 안 깨지게 어떻게 전할까?", "a": "탐구·조사 보고서", "s": "정보", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "복잡한 눈도 우연으로 생겨났을까?", "a": "논술", "s": "과학 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "사람의 본성은 착할까, 악할까?", "a": "논술", "s": "도덕", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "옳은 걸 ‘알면’ 옳게 행동할까?", "a": "논술", "s": "도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "다리와 건물은 얼마나 무게를 견딜까?", "a": "설명·소개문", "s": "과학 · 실과", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "여러 사람의 생각을 하나로 어떻게 모을까?", "a": "논술", "s": "사회", "ty": "의견제시", "g": "중1~3", "su": 1, "mid": 1}, {"t": "경제가 나빠지면 왜 더 나빠질까?", "a": "설명·소개문", "s": "사회", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "바닷물 온도 차이로 전기를 만든다고?", "a": "탐구·조사 보고서", "s": "과학 · 사회", "ty": "탐구보고서", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "사막 딱정벌레는 안개에서 어떻게 물을 얻을까?", "a": "탐구·조사 보고서", "s": "과학", "ty": "탐구보고서", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "몸속을 어떻게 사진 찍을까? (PET)", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "재물을 나눠 주거나 부수는 축제가 있다고?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "전기차·수소차는 정말 친환경일까?", "a": "탐구·조사 보고서", "s": "과학 · 사회", "ty": "탐구보고서", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "말은 뇌의 어디서 만들어질까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "요리할 때 열은 어떻게 전해질까?", "a": "설명·소개문", "s": "과학 · 실과", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "딸기에도 여러 품종이 있다고?", "a": "탐구·조사 보고서", "s": "과학 · 실과", "ty": "탐구보고서", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "고통에도 의미가 있을까?", "a": "자기성찰 에세이", "s": "도덕", "ty": "성찰문", "g": "중2~3", "su": 1, "mid": 1}, {"t": "인공지능은 사람 말을 어떻게 알아들을까?", "a": "탐구·조사 보고서", "s": "정보 · 과학", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "사람은 늘 가장 이득인 선택을 할까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중2~3", "su": 1, "mid": 1}, {"t": "태양빛으로 어떻게 전기를 만들까?", "a": "탐구·조사 보고서", "s": "과학", "ty": "탐구보고서", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "우리는 냄새를 어떻게 맡을까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "로켓은 왜 폭발 위험이 있을까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "‘출퇴근’은 언제부터 생겼을까?", "a": "논술", "s": "사회 · 역사", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "동물과 식물은 왜 독을 가질까?", "a": "탐구·조사 보고서", "s": "과학", "ty": "탐구보고서", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "타워크레인은 어떻게 무거운 걸 들까?", "a": "설명·소개문", "s": "과학 · 실과", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "아름다움에 ‘수학’이 숨어 있을까?", "a": "논술", "s": "미술 · 수학", "ty": "사고력", "g": "중1~3", "su": 1, "mid": 1}, {"t": "동물은 왜 남을 돕는 ‘이타적 행동’을 할까?", "a": "논술", "s": "과학 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "우리 몸은 병균을 어떻게 물리칠까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "일반 시민이 재판에 참여해도 될까?", "a": "논술", "s": "사회", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "국악의 장단은 어떻게 이루어질까?", "a": "설명·소개문", "s": "음악", "ty": "설명문", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "무엇이든 만들면 다 ‘내 것(저작물)’이 될까?", "a": "논술", "s": "정보 · 국어", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "풍요로운데 왜 행복하지 않을까?", "a": "자기성찰 에세이", "s": "도덕", "ty": "성찰문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "냉장고 없이 얼음을 어떻게 여름까지 보관했을까?", "a": "설명·소개문", "s": "과학 · 역사", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "왜 조선은 중국의 문화를 따랐을까?", "a": "논술", "s": "역사 · 사회", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "진짜 세계는 눈에 보이는 것 너머에 있을까?", "a": "논술", "s": "도덕", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "나무의 나이테로 무엇을 알 수 있을까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "실수로 남에게 피해를 줘도 책임져야 할까?", "a": "논술", "s": "사회 · 도덕", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "정보를 숨긴 채로 계산할 수 있을까?", "a": "탐구·조사 보고서", "s": "정보", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "물을 빼면 왜 소용돌이가 생길까?", "a": "탐구·조사 보고서", "s": "과학", "ty": "탐구보고서", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "마음도 실험으로 연구할 수 있을까?", "a": "논술", "s": "과학 · 도덕", "ty": "찬반", "g": "중2~3", "su": 1, "mid": 1}, {"t": "물건 값에는 어떤 비용이 숨어 있을까?", "a": "탐구·조사 보고서", "s": "사회 · 실과", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "선거를 누가 공정하게 관리해야 할까?", "a": "논술", "s": "사회", "ty": "의견제시", "g": "중1~3", "su": 1, "mid": 1}, {"t": "예상 못한 사고에 어떻게 미리 대비할까?", "a": "설명·소개문", "s": "사회 · 실과", "ty": "설명문", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "값이 오르면 사람들은 얼마나 덜 살까?", "a": "탐구·조사 보고서", "s": "사회 · 수학", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "뒤늦게 시작한 기업이 어떻게 앞선 기업을 따라잡을까?", "a": "논술", "s": "사회", "ty": "의견제시", "g": "중2~3", "su": 1, "mid": 1}, {"t": "은행은 어떻게 생겨났을까?", "a": "설명·소개문", "s": "사회 · 역사", "ty": "설명문", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "빠른 CPU와 느린 메모리를 어떻게 맞출까?", "a": "탐구·조사 보고서", "s": "정보", "ty": "탐구보고서", "g": "중1~3", "su": 1, "mid": 1}, {"t": "‘쥐라기’처럼 지구의 시간은 어떻게 나눌까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중3", "su": 1, "mid": 1}, {"t": "짝퉁(모조품)은 왜 문제일까?", "a": "논술", "s": "사회 · 실과", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "더러운 물을 어떻게 깨끗한 물로 만들까?", "a": "설명·소개문", "s": "과학 · 사회", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "우리 눈은 어떻게 사물을 볼까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "올바로 생각하려면 무엇을 버려야 할까?", "a": "논술", "s": "도덕", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "먹는 약과 주사약은 어떻게 다를까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "역사는 있는 그대로 쓸 수 있을까?", "a": "논술", "s": "역사 · 도덕", "ty": "찬반", "g": "중2~3", "su": 1, "mid": 1}, {"t": "누구나 방송·신문에 자기 의견을 낼 수 있어야 할까?", "a": "논술", "s": "사회 · 국어", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "기술은 우리를 자유롭게 할까, 지배할까?", "a": "논술", "s": "정보 · 도덕", "ty": "사고력", "g": "중2~3", "su": 1, "mid": 1}, {"t": "DNA로 어떻게 범인을 찾을까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "식물은 어떻게 빛을 향해 굽을까?", "a": "탐구·조사 보고서", "s": "과학", "ty": "탐구보고서", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "겨울에 왜 ‘찌릿’ 정전기가 생길까?", "a": "탐구·조사 보고서", "s": "과학", "ty": "탐구보고서", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "손가락 터치를 화면은 어떻게 알아챌까?", "a": "설명·소개문", "s": "과학 · 정보", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "바다를 두고 나라들이 다투면 어떻게 해결할까?", "a": "논술", "s": "사회", "ty": "찬반", "g": "중1~3", "su": 1, "mid": 1}, {"t": "헌법은 왜 가장 높은 법일까?", "a": "설명·소개문", "s": "사회", "ty": "설명문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "바이러스는 왜 혼자서는 못 살까?", "a": "설명·소개문", "s": "과학", "ty": "설명문", "g": "초6~중2", "su": 1, "mid": 1}, {"t": "일(노동)은 힘든 것일까, 나를 키우는 것일까?", "a": "자기성찰 에세이", "s": "도덕 · 사회", "ty": "성찰문", "g": "중1~3", "su": 1, "mid": 1}, {"t": "다른 나라로 도망친 범죄자를 어떻게 처벌할까?", "a": "논술", "s": "사회", "ty": "의견제시", "g": "중1~3", "su": 1, "mid": 1}, {"t": "초등학생 때부터 주식 투자를 해야 할까요?", "a": "논술", "s": "사회 · 실과", "ty": "찬반", "g": "초3~6", "su": 0, "mid": 0}, {"t": "초등학생에게 스마트폰이 필요할까요?", "a": "논술", "s": "도덕 · 실과", "ty": "찬반", "g": "초3~6", "su": 0, "mid": 0}, {"t": "동물원은 꼭 있어야 할까요?", "a": "논술", "s": "과학 · 도덕", "ty": "찬반", "g": "초3~6", "su": 0, "mid": 0}, {"t": "욕은 왜 할까? — 욕 대신 좋은 말이 가득한 우리 반 만들기", "a": "논술", "s": "국어 · 도덕", "ty": "의견제시", "g": "초3~6", "su": 0, "mid": 0}];
 const VALUES=['정의','평등','자유','인권','생명','책임','정직'];
 const DOMAINS=['경제','역사','과학','기술','법','예술','환경'];
-// [theme, richness(3/2/1), done?]
-const M={
-'정의':{'경제':['분배와 공정한 시장',3,'sample'],'역사':['불의에 맞선 저항',3,'sample'],'과학':['과학의 혜택은 공정한가',2],'기술':['AI·데이터의 공정성',2],'법':['죄와 벌, 정당한 처벌',3],'예술':['예술의 자유 vs 공공성',2],'환경':['환경 정의(오염 피해)',2]},
-'평등':{'경제':['빈부 격차와 기회의 평등',3],'역사':['신분제와 차별의 역사',3],'과학':['타고난 차이는 운명일까',2],'기술':['디지털 격차',2],'법':['법 앞의 평등',3],'예술':['누구나 예술가?(대중예술)',2],'환경':['환경 피해의 불평등',2]},
-'자유':{'경제':['시장의 자유 vs 규제',3],'역사':['자유를 향한 투쟁(민주화·독립)',3],'과학':['탐구의 자유와 한계',1],'기술':['표현의 자유와 인터넷',2],'법':['자유와 법의 경계',3],'예술':['창작의 자유',2],'환경':['개발의 자유 vs 보전',2]},
-'인권':{'경제':['노동과 인간다운 삶',2],'역사':['인권 신장의 역사',3],'과학':['생명과학과 인간 존엄',2],'기술':['개인정보와 감시 사회',3],'법':['인권을 지키는 법',3],'예술':['예술과 검열',2],'환경':['환경권도 인권일까',2]},
-'생명':{'경제':['생명에 값을 매길 수 있나',1],'역사':['전쟁과 생명',2],'과학':['생명윤리(유전자·복제)',3],'기술':['의료기술과 생명',2],'법':['생명을 둘러싼 법',2],'예술':['생명을 그린 예술',1],'환경':['생물다양성과 공존',3]},
-'책임':{'경제':['기업의 사회적 책임',2],'역사':['역사에 대한 책임(기억)',2],'과학':['과학자의 책임',2],'기술':['AI의 잘못은 누구 책임',3],'법':['책임과 처벌(고의·과실)',3],'예술':['창작자의 책임',1],'환경':['미래 세대에 대한 책임',3]},
-'정직':{'경제':['정직한 거래(공정거래·모조품)',2],'역사':['역사 왜곡과 진실',2],'과학':['데이터 조작과 연구 윤리',2],'기술':['가짜뉴스·딥페이크',3],'법':['위증과 진실',1],'예술':['표절과 창작',2],'환경':['그린워싱(친환경 위장)',2]},
-};
+const VKEY={정의:['공정','정의','차별','불공정','약자','평등','옳','권리','인권'],평등:['평등','차별','격차','불평등','기회','약자','고르'],자유:['자유','규제','표현','선택','권리'],인권:['인권','권리','존중','차별','개인정보','약자','생명'],생명:['생명','동물','생물','건강','환경','존중'],책임:['책임','의무','환경','미래','안전','약속'],정직:['정직','거짓','진실','조작','가짜','모조','저작','속']};
+const THEME={
+정의:{경제:'분배와 공정한 시장',역사:'불의에 맞선 저항',과학:'과학의 혜택은 공정한가',기술:'AI·데이터의 공정성',법:'죄와 벌, 정당한 처벌',예술:'예술의 자유 vs 공공성',환경:'환경 정의(오염 피해)'},
+평등:{경제:'빈부 격차와 기회의 평등',역사:'신분제와 차별의 역사',과학:'타고난 차이는 운명일까',기술:'디지털 격차',법:'법 앞의 평등',예술:'누구나 예술가?',환경:'환경 피해의 불평등'},
+자유:{경제:'시장의 자유 vs 규제',역사:'자유를 향한 투쟁',과학:'탐구의 자유와 한계',기술:'표현의 자유와 인터넷',법:'자유와 법의 경계',예술:'창작의 자유',환경:'개발의 자유 vs 보전'},
+인권:{경제:'노동과 인간다운 삶',역사:'인권 신장의 역사',과학:'생명과학과 인간 존엄',기술:'개인정보와 감시',법:'인권을 지키는 법',예술:'예술과 검열',환경:'환경권도 인권일까'},
+생명:{경제:'생명에 값을 매길 수 있나',역사:'전쟁과 생명',과학:'생명윤리(유전자·복제)',기술:'의료기술과 생명',법:'생명을 둘러싼 법',예술:'생명을 그린 예술',환경:'생물다양성과 공존'},
+책임:{경제:'기업의 사회적 책임',역사:'역사에 대한 책임',과학:'과학자의 책임',기술:'AI의 잘못은 누구 책임',법:'책임과 처벌',예술:'창작자의 책임',환경:'미래 세대에 대한 책임'},
+정직:{경제:'정직한 거래',역사:'역사 왜곡과 진실',과학:'연구 윤리',기술:'가짜뉴스·딥페이크',법:'위증과 진실',예술:'표절과 창작',환경:'그린워싱'}};
+const RICH={정의:{경제:3,역사:3,과학:2,기술:2,법:3,예술:2,환경:2},평등:{경제:3,역사:3,과학:2,기술:2,법:3,예술:2,환경:2},자유:{경제:3,역사:3,과학:1,기술:2,법:3,예술:2,환경:2},인권:{경제:2,역사:3,과학:2,기술:3,법:3,예술:2,환경:2},생명:{경제:1,역사:2,과학:3,기술:2,법:2,예술:1,환경:3},책임:{경제:2,역사:2,과학:2,기술:3,법:3,예술:1,환경:3},정직:{경제:2,역사:2,과학:2,기술:3,법:1,예술:2,환경:2}};
+const DOM={
+경제:{sk:['사회','실과'],tk:['돈','값','시장','경제','세금','가격','기업','소비','임금','무역','이윤','투자','복권','공정무역','주식','배달','플랫폼','원가','은행','보험','수요','화폐','금융'],
+ books:[['서양','크리스마스 캐럴','부와 나눔, 가난한 이웃'],['동양','흥부전','부의 분배와 욕심'],['한국현대','자전거 도둑','물질 앞의 정직']],
+ voca:[['分配','분배','이익·몫을 나눔'],['公正','공정','치우침 없이 올바름'],['格差','격차','벌어진 차이(빈부)'],['租稅','조세','나라가 걷는 세금'],['福祉','복지','다 함께 잘사는 삶'],['獨占','독점','혼자 시장을 차지함'],['貧富','빈부','가난과 부유'],['利潤','이윤','장사로 남는 이익'],['需要','수요','사려는 양'],['共有','공유','함께 나눠 가짐']]},
+역사:{sk:['역사'],tk:[],
+ books:[['서양','안네의 일기','전쟁·차별 속 인권'],['동양','홍길동전','신분 차별과 저항'],['한국현대','몽실 언니','고난 속 존엄']],
+ voca:[['身分','신분','사회의 지위·계급'],['差別','차별','등급을 두어 구별'],['抵抗','저항','부당한 힘에 맞섬'],['改革','개혁','낡은 것을 바로잡음'],['民亂','민란','백성이 일으킨 저항'],['人權','인권','사람의 기본 권리'],['平民','평민','보통 백성'],['權力','권력','남을 지배하는 힘'],['獨立','독립','스스로 섬'],['義兵','의병','정의를 위한 병사']]},
+과학:{sk:['과학'],tk:[],
+ books:[['서양','코스모스(청소년판)','우주와 과학적 사고'],['동양','장영실','과학과 발명'],['한국현대','침묵의 봄(어린이판)','과학과 책임']],
+ voca:[['實驗','실험','조건을 바꿔 확인'],['觀察','관찰','자세히 살펴봄'],['假說','가설','미리 세운 설명'],['에너지','에너지','일을 하는 힘'],['細胞','세포','생물의 기본 단위'],['進化','진화','오랜 변화'],['反應','반응','물질이 바뀜'],['生態系','생태계','생물과 환경의 짜임'],['遺傳','유전','부모에게 물려받음'],['環境','환경','둘러싼 조건']]},
+기술:{sk:['정보'],tk:[],
+ books:[['서양','인공지능은 무엇일까','AI의 원리'],['동양','로봇 시대, 인간의 일','기술과 사람'],['한국현대','디지털 세상의 진짜 친구','현명한 사용']],
+ voca:[['情報','정보','뜻이 담긴 자료'],['人工知能','인공지능','스스로 학습하는 기계'],['暗號','암호','숨겨 지킴'],['通信','통신','멀리 주고받음'],['自動化','자동화','저절로 함'],['假想','가상','현실 같은 만듦'],['誤謬','오류','잘못·틀림'],['資料','자료(데이터)','처리되는 값'],['算法','알고리즘','문제 푸는 절차'],['連結','연결(네트워크)','서로 이음']]},
+법:{sk:['사회','도덕'],tk:['법','권리','재판','규정','범죄','처벌','계약','헌법','저작권','인권','과징','소유','책임','약자','민식','촉법','참여재판','불법','유엔','국제법','임대'],
+ books:[['서양','어린이를 위한 정의란 무엇인가','옳고 그름'],['동양','법 만드는 아이들','법의 탄생'],['한국현대','재미있는 법 이야기','생활 속 법']],
+ voca:[['法律','법률','지켜야 할 규칙'],['權利','권리','누릴 자격'],['義務','의무','해야 할 일'],['裁判','재판','옳고 그름을 가림'],['憲法','헌법','가장 높은 법'],['犯罪','범죄','법을 어긴 행위'],['處罰','처벌','벌을 줌'],['契約','계약','약속을 정함'],['責任','책임','져야 할 몫'],['公正','공정','치우침 없음']]},
+예술:{sk:['미술','음악'],tk:[],
+ books:[['서양','청소년을 위한 서양미술사','미술의 흐름'],['동양','우리 그림의 비밀','한국 미술'],['한국현대','음악은 왜 우리를 사로잡는가','음악의 힘']],
+ voca:[['藝術','예술','아름다움의 창조'],['表現','표현','드러내어 나타냄'],['創作','창작','새로 지음'],['美','미','아름다움'],['批評','비평','따져 평가함'],['樣式','양식','일정한 방식'],['象徵','상징','빗대어 나타냄'],['調和','조화','서로 잘 어울림'],['模倣','모방','본떠 흉내냄'],['鑑賞','감상','즐기며 음미함']]},
+환경:{sk:['과학','사회'],tk:['환경','기후','에너지','생태','오염','자원','탄소','수소','친환경','빛 공해','물 부족','재생','자연','온난화','정수','생물'],
+ books:[['서양','침묵의 봄(어린이판)','오염의 경고'],['동양','2도 오르면(어린이)','기후 위기'],['한국현대','쓰레기가 되고 싶은 사람은 없다','자원과 순환']],
+ voca:[['環境','환경','둘러싼 자연'],['生態','생태','생물의 삶'],['氣候','기후','오랜 날씨'],['汚染','오염','더러워짐'],['資源','자원','쓸모 있는 것'],['에너지','에너지','일을 하는 힘'],['炭素','탄소','온난화의 원인'],['保全','보전','온전히 지킴'],['循環','순환','돌고 돎'],['共存','공존','함께 삶']]}};
+const GEN=[
+ {n:'1주',g:'찬반 논술',m:t=>t.a==='논술'&&t.ty==='찬반'},
+ {n:'2주',g:'탐구보고서',m:t=>t.a==='탐구·조사 보고서'},
+ {n:'3주',g:'기사문',m:t=>t.a==='기사문'},
+ {n:'4주',g:'자기성찰 에세이',m:t=>t.a==='자기성찰 에세이'},
+ {n:'5주',g:'의견제시 논술',m:t=>t.a==='논술'&&['의견제시','문제해결','논설문'].includes(t.ty)},
+ {n:'6주',g:'조사보고서',m:t=>t.a==='탐구·조사 보고서'},
+ {n:'7주',g:'소개하는 글',m:t=>t.a==='설명·소개문'},
+ {n:'8주',g:'감상문',m:t=>t.a==='감상·비평문'}];
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function pool(dom){const D=DOM[dom];return DATA.filter(t=>{
+  const sok=D.sk.some(k=>(t.s||'').includes(k));
+  if(!sok)return false;
+  if(D.tk.length)return D.tk.some(k=>t.t.includes(k));
+  return true;});}
+function vscore(t,val){let s=0;for(const k of VKEY[val])if(t.t.includes(k))s++;return s;}
+function newTitle(val,dom,slot){
+  if(slot.g==='기사문')return `${dom} 속 ${val}를 보여 준 사건 취재 기사`;
+  if(slot.g==='감상문')return `${dom} 주제 책을 읽고 — ${val} 감상`;
+  if(slot.g==='자기성찰 에세이')return `${dom}에서 내가 겪은 ${val} 성찰`;
+  return `${val}×${dom}: ${slot.g} 주제 (신규 제안)`;}
+function generate(val,dom){
+  const P=pool(dom); const used=new Set(); const weeks=[];
+  for(const slot of GEN){
+    let c=P.filter(t=>slot.m(t)&&!used.has(t.t));
+    c.sort((a,b)=>vscore(b,val)-vscore(a,val));
+    if(c.length){used.add(c[0].t);weeks.push({slot,t:c[0].t,bank:true,mid:c[0].mid,su:c[0].su});}
+    else weeks.push({slot,t:newTitle(val,dom,slot),bank:false});}
+  const D=DOM[dom]; const bankN=weeks.filter(w=>w.bank).length;
+  document.getElementById('pv').textContent=val;
+  document.getElementById('pd').textContent=dom;
+  document.getElementById('ptitle').textContent=THEME[val][dom];
+  document.getElementById('pframe').textContent=`‘${val}’ 가치를 ${dom}의 눈으로 8주간 읽고 씁니다. 어휘는 ${dom} 개념어로 채워 배경지식과 가치를 함께 쌓습니다.`;
+  document.getElementById('pbooks').innerHTML=D.books.map(b=>`<div class="book"><span class="tg">${b[0]}</span><h3>${esc(b[1])}</h3><div class="w">${esc(b[2])}</div></div>`).join('');
+  document.getElementById('pvoca').innerHTML=D.voca.map(v=>`<div class="vw"><span class="h">${v[0]}</span><div><span class="k">${v[1]}</span><span class="df">${v[2]}</span></div></div>`).join('');
+  document.getElementById('pweeks').innerHTML=weeks.map(w=>`<div class="wk"><span class="n">${w.slot.n}</span><div><div class="g">${w.slot.g}</div><div class="t">${esc(w.t)}<span class="src ${w.bank?'bank':'new'}">${w.bank?'은행':'신규'}</span>${w.mid?'<span class="src bank" style="color:#7c3aed;background:#f2ecfd">중등연계</span>':''}${w.su?'<span class="src bank" style="color:#0e7490;background:#e6f6fa">수능연계</span>':''}</div></div></div>`).join('');
+  document.getElementById('psumm').innerHTML=`<b>자동 조립 결과</b> — 8주 중 <b>은행 ${bankN}주</b> + 신규 제안 ${8-bankN}주. 은행 재료가 그대로 8주 뼈대가 됩니다. 신규 칸은 이 조합에 맞춰 새로 뽑으면 완성됩니다.`;
+  const pn=document.getElementById('panel'); pn.style.display='block'; pn.scrollIntoView({behavior:'smooth',block:'start'});}
+// 매트릭스 렌더
 const t=document.getElementById('mx');
 let html='<thead><tr><th>가치＼영역</th>'+DOMAINS.map(d=>`<th>${d}</th>`).join('')+'</tr></thead><tbody>';
-for(const v of VALUES){
-  html+=`<tr><th>${v}</th>`;
-  for(const d of DOMAINS){
-    const c=M[v][d]; const rich=c[1]; const done=c[2];
-    const dots='●'.repeat(rich).replace(/●/g,`<span style="color:var(--orange)">●</span>`)+'○'.repeat(3-rich).replace(/○/g,'<span style="color:#d8d3c8">●</span>');
-    const link = v==='정의'&&d==='경제' ? '' : (v==='정의'&&d==='역사'?'':'');
-    const badge = done?`<span class="done-b">샘플</span>`:'';
-    html+=`<td class="r${rich}"><div class="cell"><div class="theme">${c[0]}</div><div class="cmeta"><span class="dots">${dots}</span>${badge}</div></div></td>`;
-  }
-  html+='</tr>';
-}
-html+='</tbody>';
-t.innerHTML=html;
-</script>
-</body>
-</html>
+for(const v of VALUES){html+=`<tr><th>${v}</th>`;
+ for(const d of DOMAINS){const rich=RICH[v][d];
+  const dots='<span style="color:var(--orange)">●</span>'.repeat(rich)+'<span style="color:#d8d3c8">●</span>'.repeat(3-rich);
+  html+=`<td class="r${rich}"><div class="cell" onclick="generate('${v}','${d}')"><div class="theme">${THEME[v][d]}</div><div class="cmeta"><span class="dots">${dots}</span><span class="mk">만들기 →</span></div></div></td>`;}
+ html+='</tr>';}
+html+='</tbody>'; t.innerHTML=html;
+</script></body></html>
