@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가치 × 영역 커리큘럼 매트릭스 | 펜타스쿨</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root{--ink:#16181d;--muted:#7b8494;--line:#e9e5dc;--navy:#142d47;--blue:#2E75B6;--navy-soft:#eef2f7;
+    --orange:#FF6A1A;--orange-soft:#fff3ec;--bg:#f7f6f2;--card:#fff;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px;}
+  header{background:var(--card);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;gap:14px;padding:14px 0;}
+  .back{font-size:13px;font-weight:800;color:var(--orange);}
+  .back:hover{text-decoration:underline;}
+  .nav .brand{font-size:12.5px;font-weight:800;color:var(--navy);margin-left:auto;}
+  .nav .brand b{color:var(--orange);}
+  .hero{background:linear-gradient(135deg,#142d47,#26406a);color:#fff;}
+  .hero-in{padding:34px 0 36px;}
+  .tag{display:inline-block;font-size:12.5px;font-weight:800;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);padding:5px 14px;border-radius:999px;margin-bottom:11px;}
+  .hero h1{font-size:30px;font-weight:900;letter-spacing:-.02em;line-height:1.2;margin-bottom:9px;}
+  .hero p{font-size:13.5px;color:#cdd8e6;max-width:760px;}
+  .hero .k{color:#ffcf9e;font-weight:800;}
+  main{padding:22px 0 70px;}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:14px;font-size:12px;font-weight:700;color:var(--muted);}
+  .legend .d{display:inline-flex;align-items:center;gap:5px;}
+  .dot{width:11px;height:11px;border-radius:3px;display:inline-block;}
+  .r3{background:var(--orange);} .r2{background:#ffc196;} .r1{background:#dcd7cc;}
+  .done-b{font-size:10px;font-weight:800;color:#fff;background:#1f9a52;border-radius:5px;padding:1px 6px;}
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card);}
+  table{border-collapse:collapse;width:100%;min-width:1040px;}
+  th,td{border:1px solid #efeae0;padding:0;vertical-align:top;}
+  thead th{position:sticky;top:0;background:var(--navy);color:#fff;font-size:12.5px;font-weight:800;padding:10px 8px;text-align:center;z-index:2;}
+  thead th:first-child{left:0;z-index:3;width:96px;}
+  tbody th{position:sticky;left:0;background:var(--navy-soft);color:var(--navy);font-size:14px;font-weight:900;text-align:center;width:96px;padding:8px;z-index:1;}
+  td .cell{padding:8px 9px;min-height:56px;display:flex;flex-direction:column;gap:4px;height:100%;}
+  td.r3 .cell{background:var(--orange-soft);}
+  td.r2 .cell{background:#fffaf5;}
+  td.r1 .cell{background:#fafafa;}
+  .theme{font-size:11.5px;font-weight:700;color:#22262e;line-height:1.35;}
+  .cmeta{display:flex;align-items:center;gap:6px;margin-top:auto;}
+  .cmeta .dots{letter-spacing:1px;font-size:9px;}
+  .cmeta a{font-size:9.5px;font-weight:800;color:var(--orange);}
+  .note{margin-top:16px;font-size:12.5px;color:#454b56;line-height:1.8;background:var(--orange-soft);border-radius:12px;padding:14px 18px;}
+  .note b{color:#c2521a;}
+  footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:24px 0;text-align:center;}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="back" href="커리큘럼_지도.html">← 커리큘럼 지도</a>
+    <div class="brand">펜타스쿨 · 커리큘럼 &nbsp;|&nbsp; 하이펜타 <b>W</b></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-in">
+    <span class="tag">가치 × 비문학영역 매트릭스</span>
+    <h1>커리 1개 = 가치 1개 × 영역 1개</h1>
+    <p>같은 <span class="k">가치</span>도 어느 <span class="k">영역</span>의 눈으로 보느냐에 따라 다른 8주 커리가 됩니다. 아래는 <b class="k">가치 7</b> × <b class="k">영역 7 = 49가지</b> 조합 지도. 칸의 색은 <span class="k">주제은행이 받쳐 주는 정도</span>(재료 풍부함)입니다.</p>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="legend">
+    <span class="d"><span class="dot r3"></span>재료 풍부(바로 제작)</span>
+    <span class="d"><span class="dot r2"></span>보통(일부 신규)</span>
+    <span class="d"><span class="dot r1"></span>약함(신규 위주)</span>
+    <span class="d"><span class="done-b">샘플</span> 제작 완료</span>
+  </div>
+  <div class="scroll"><table id="mx"></table></div>
+  <div class="note"><b>읽는 법</b> — 세로축 <b>가치</b>, 가로축 <b>영역</b>. 각 칸 = 그 조합으로 만들 8주 커리의 주제 방향. 예: <b>정의×경제</b> = 분배·공정, <b>자유×역사</b> = 민주화·독립. 오렌지가 진할수록 은행에서 8주 중 다수를 바로 채웁니다. <b>정의×경제·정의×역사</b>는 샘플 제작 완료, <b>정의</b> 기본 커리는 완성본이 있습니다.</div>
+</main>
+<footer class="wrap">펜타스쿨 커리큘럼 · 가치×영역 매트릭스 &nbsp;|&nbsp; 49조합 로드맵 · 2026.07.17</footer>
+
+<script>
+const VALUES=['정의','평등','자유','인권','생명','책임','정직'];
+const DOMAINS=['경제','역사','과학','기술','법','예술','환경'];
+// [theme, richness(3/2/1), done?]
+const M={
+'정의':{'경제':['분배와 공정한 시장',3,'sample'],'역사':['불의에 맞선 저항',3,'sample'],'과학':['과학의 혜택은 공정한가',2],'기술':['AI·데이터의 공정성',2],'법':['죄와 벌, 정당한 처벌',3],'예술':['예술의 자유 vs 공공성',2],'환경':['환경 정의(오염 피해)',2]},
+'평등':{'경제':['빈부 격차와 기회의 평등',3],'역사':['신분제와 차별의 역사',3],'과학':['타고난 차이는 운명일까',2],'기술':['디지털 격차',2],'법':['법 앞의 평등',3],'예술':['누구나 예술가?(대중예술)',2],'환경':['환경 피해의 불평등',2]},
+'자유':{'경제':['시장의 자유 vs 규제',3],'역사':['자유를 향한 투쟁(민주화·독립)',3],'과학':['탐구의 자유와 한계',1],'기술':['표현의 자유와 인터넷',2],'법':['자유와 법의 경계',3],'예술':['창작의 자유',2],'환경':['개발의 자유 vs 보전',2]},
+'인권':{'경제':['노동과 인간다운 삶',2],'역사':['인권 신장의 역사',3],'과학':['생명과학과 인간 존엄',2],'기술':['개인정보와 감시 사회',3],'법':['인권을 지키는 법',3],'예술':['예술과 검열',2],'환경':['환경권도 인권일까',2]},
+'생명':{'경제':['생명에 값을 매길 수 있나',1],'역사':['전쟁과 생명',2],'과학':['생명윤리(유전자·복제)',3],'기술':['의료기술과 생명',2],'법':['생명을 둘러싼 법',2],'예술':['생명을 그린 예술',1],'환경':['생물다양성과 공존',3]},
+'책임':{'경제':['기업의 사회적 책임',2],'역사':['역사에 대한 책임(기억)',2],'과학':['과학자의 책임',2],'기술':['AI의 잘못은 누구 책임',3],'법':['책임과 처벌(고의·과실)',3],'예술':['창작자의 책임',1],'환경':['미래 세대에 대한 책임',3]},
+'정직':{'경제':['정직한 거래(공정거래·모조품)',2],'역사':['역사 왜곡과 진실',2],'과학':['데이터 조작과 연구 윤리',2],'기술':['가짜뉴스·딥페이크',3],'법':['위증과 진실',1],'예술':['표절과 창작',2],'환경':['그린워싱(친환경 위장)',2]},
+};
+const t=document.getElementById('mx');
+let html='<thead><tr><th>가치＼영역</th>'+DOMAINS.map(d=>`<th>${d}</th>`).join('')+'</tr></thead><tbody>';
+for(const v of VALUES){
+  html+=`<tr><th>${v}</th>`;
+  for(const d of DOMAINS){
+    const c=M[v][d]; const rich=c[1]; const done=c[2];
+    const dots='●'.repeat(rich).replace(/●/g,`<span style="color:var(--orange)">●</span>`)+'○'.repeat(3-rich).replace(/○/g,'<span style="color:#d8d3c8">●</span>');
+    const link = v==='정의'&&d==='경제' ? '' : (v==='정의'&&d==='역사'?'':'');
+    const badge = done?`<span class="done-b">샘플</span>`:'';
+    html+=`<td class="r${rich}"><div class="cell"><div class="theme">${c[0]}</div><div class="cmeta"><span class="dots">${dots}</span>${badge}</div></div></td>`;
+  }
+  html+='</tr>';
+}
+html+='</tbody>';
+t.innerHTML=html;
+</script>
+</body>
+</html>
