@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>하이펜타 월간 리포트 채점 기준 · 대표님 검토</title>
+<style>
+  :root{
+    --ink:#1b1b1f; --sub:#6b6b76; --line:#ececf0; --bg:#fafafa;
+    --brand:#f97316; --brandsoft:#fff4ec; --ok:#0ea5e9; --card:#ffffff; --good:#16a34a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.62;-webkit-text-size-adjust:100%}
+  .wrap{max-width:740px;margin:0 auto;padding:28px 16px 150px}
+  header.top{padding:8px 0 22px;border-bottom:2px solid var(--ink);margin-bottom:22px}
+  .kicker{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--brand);letter-spacing:.02em}
+  .kicker .dot{width:9px;height:9px;border-radius:50%;background:var(--brand)}
+  h1{font-size:26px;line-height:1.28;margin:12px 0 8px;font-weight:800;letter-spacing:-.01em}
+  .lead{font-size:15px;color:var(--sub);margin:0}
+  .why{background:var(--brandsoft);border:1px solid #ffe0cc;border-radius:14px;padding:15px 17px;margin:20px 0 6px;font-size:14.5px}
+  .why b{color:#c2410c}
+  .sechead{font-size:13px;font-weight:800;color:var(--brand);letter-spacing:.06em;margin:30px 2px 8px}
+  .q{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;margin:14px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  .q .no{font-size:12px;font-weight:800;color:var(--brand);letter-spacing:.05em}
+  .q h2{font-size:17px;margin:5px 0 4px;font-weight:800;letter-spacing:-.01em}
+  .q .desc{font-size:13.5px;color:var(--sub);margin:2px 0 12px}
+  .q .desc code{background:#f3f3f6;padding:1px 6px;border-radius:6px;font-size:12.5px;color:#333}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 6px}
+  .opt{position:relative}
+  .opt input{position:absolute;opacity:0;width:0;height:0}
+  .opt label{display:inline-block;padding:8px 14px;border:1.5px solid var(--line);border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;background:#fff;transition:.13s;user-select:none;color:#333}
+  .opt input:checked + label{background:var(--brand);border-color:var(--brand);color:#fff}
+  .opt.ok input:checked + label{background:var(--ok);border-color:var(--ok)}
+  textarea,input.txt{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:13.5px;color:var(--ink);resize:vertical;background:#fff}
+  textarea{margin-top:9px;min-height:48px}
+  textarea:focus,input:focus,.opt label:focus{outline:2px solid var(--brand);outline-offset:1px}
+  .mini{font-size:12px;color:var(--sub);margin-top:8px}
+  details{margin:9px 0 2px;border:1px dashed var(--line);border-radius:10px;padding:0 12px}
+  details[open]{padding-bottom:10px}
+  summary{cursor:pointer;font-size:12.5px;font-weight:700;color:var(--brand);padding:9px 0;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▸ ";}
+  details[open] summary::before{content:"▾ ";}
+  .ev{background:#f7f7fa;border-left:3px solid var(--brand);border-radius:0 8px 8px 0;padding:8px 11px;font-size:12.5px;color:#444;margin:2px 0}
+  .ev b{color:#c2410c}
+  /* 지표 채점 카드 */
+  .metric{border:1px solid var(--line);border-radius:13px;padding:13px 14px;margin:11px 0;background:#fff}
+  .metric .mhead{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .badge{display:inline-flex;width:22px;height:22px;align-items:center;justify-content:center;border-radius:6px;background:var(--ink);color:#fff;font-size:12px;font-weight:800}
+  .metric .mname{font-size:15px;font-weight:800}
+  .metric .rec{font-size:12px;color:var(--sub);margin-left:auto}
+  .metric .rec b{color:var(--brand)}
+  .scoreRow{display:flex;gap:5px;flex-wrap:wrap;margin:11px 0 3px}
+  .sc{width:34px;height:34px;border:1.5px solid var(--line);border-radius:9px;background:#fff;font-size:14px;font-weight:700;cursor:pointer;color:#555;transition:.1s;padding:0}
+  .sc:hover{border-color:var(--brand)}
+  .sc.rec{border-color:var(--brand);border-style:dashed;color:var(--brand)}
+  .sc.sel{background:var(--good);border-color:var(--good);color:#fff}
+  .scHint{font-size:11.5px;color:var(--sub);margin-top:3px}
+  .bandEdit{display:grid;grid-template-columns:26px 1fr;gap:6px 8px;align-items:center;margin-top:8px}
+  .bandEdit .bn{font-size:12px;font-weight:800;color:var(--brand);text-align:center}
+  .bandEdit input{font-size:12.5px;padding:6px 9px}
+  table.ded{width:100%;border-collapse:collapse;font-size:13px}
+  table.ded td{padding:8px 4px;border-bottom:1px solid var(--line);vertical-align:middle}
+  table.ded .dname{font-weight:700}
+  table.ded .dev{font-size:11.5px;color:var(--sub);display:block;margin-top:2px}
+  table.ded input.num{width:52px;text-align:center;font-weight:700}
+  .numwrap{white-space:nowrap;font-size:13px;color:var(--sub)}
+  .actionbar{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:11px 16px;display:flex;justify-content:center;z-index:10}
+  .actionbar .inner{width:100%;max-width:740px;display:flex;gap:10px}
+  button.act{flex:1;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
+  button.primary{background:var(--brand);color:#fff}
+  button.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:var(--ink);color:#fff;padding:11px 18px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;transition:.25s;pointer-events:none;z-index:20}
+  .toast.show{opacity:1}
+  .foot{font-size:12px;color:#a0a0aa;text-align:center;margin-top:26px}
+  .prog{position:sticky;top:0;background:var(--bg);padding:8px 0 6px;z-index:5;font-size:12px;color:var(--sub)}
+  .progbar{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:4px}
+  .progbar span{display:block;height:100%;width:0;background:var(--brand);transition:.3s}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="kicker"><span class="dot"></span>하이펜타 W · 대표님 검토 요청</span>
+    <h1>월간 리포트 채점 기준<br>대표님이 직접 매겨 주세요</h1>
+    <p class="lead">이룬 7월 정본을 뜯어 만든 채점 규칙 초안입니다. 우리 제안값을 미리 채워 뒀으니 <b>고치실 것만</b> 만져 주시면 됩니다. 점수 버튼은 <span style="color:#16a34a;font-weight:700">초록</span>이 대표님 선택, <span style="color:#f97316;font-weight:700">주황 점선</span>이 우리 제안입니다.</p>
+  </header>
+
+  <div class="prog">진행 <span id="pct">0</span>%<div class="progbar"><span id="pbar"></span></div></div>
+
+  <div class="why">
+    정본은 문장·구성·톤이 완벽했는데 <b>숫자(점수·글자수·맞춤법%)엔 계산 규칙이 없었습니다.</b> 대표님 감으로 매기신 값이라, 규칙으로 굳히려면 대표님이 직접 매기고 고쳐 주셔야 합니다.
+  </div>
+
+  <!-- Q1 -->
+  <div class="sechead">1 · 큰 틀</div>
+  <div class="q" data-q="A영역 정의">
+    <div class="no">Q1 · 5영역의 A</div>
+    <h2>글쓰기 리포트에서 A는 "표현 정확성"으로</h2>
+    <p class="desc">진단에서 A는 <code>소통(말하기·토론)</code>이지만 글로는 말하기를 볼 수 없습니다. 글쓰기 리포트에서만 A를 <b>표현 정확성(문장 정확도·독서 연계)</b>으로 쓰자는 제안이고, 정본도 그렇게 쓰셨습니다.</p>
+    <div class="opts">
+      <span class="opt"><input type="radio" name="q1" id="q1a" value="동의"><label for="q1a">이대로 좋아요</label></span>
+      <span class="opt"><input type="radio" name="q1" id="q1b" value="수정"><label for="q1b">이렇게 바꿔요 ↓</label></span>
+    </div>
+    <textarea data-note="q1" placeholder="바꾸실 내용 (선택)"></textarea>
+  </div>
+
+  <!-- Q2 지표별 직접 채점 -->
+  <div class="sechead">2 · 10개 지표를 직접 채점 (핵심)</div>
+  <p class="mini" style="margin:0 2px 6px">각 지표마다 ① 이룬 글의 실제 근거를 보고 ② 대표님이 1~9점을 누르고 ③ 필요하면 잣대 설명을 고칩니다. 우리 제안 점수가 미리 눌려 있으니 동의하면 그냥 두세요.</p>
+  <div id="rubricHost"></div>
+
+  <!-- Q3 감점표 -->
+  <div class="sechead">3 · 주차 100점, 무엇을 몇 점 깎나</div>
+  <div class="q" data-q="주차 감점표">
+    <div class="no">Q3 · 주차 점수</div>
+    <h2>감점 항목별 폭을 숫자로 정해 주세요</h2>
+    <p class="desc">정본 주차 = 92·98·96·89. 100점에서 아래 항목을 깎는 방식으로 근사했습니다. 폭을 대표님 숫자로 바꿔 주세요. (0으로 두면 안 깎음)</p>
+    <table class="ded" id="dedHost"></table>
+    <div class="mini" style="margin-top:10px">이 방식이 아니라면?</div>
+    <div class="opts">
+      <span class="opt"><input type="radio" name="q3m" id="q3m1" value="감점식"><label for="q3m1">감점식 맞아요</label></span>
+      <span class="opt"><input type="radio" name="q3m" id="q3m2" value="5영역환산"><label for="q3m2">5영역 환산이에요</label></span>
+      <span class="opt"><input type="radio" name="q3m" id="q3m3" value="직관"><label for="q3m3">그냥 전체 느낌</label></span>
+    </div>
+    <textarea data-note="q3" placeholder="매기시는 방식을 편하게 적어 주세요 (선택)"></textarea>
+  </div>
+
+  <!-- Q4 분량 -->
+  <div class="sechead">4 · 정량 지표</div>
+  <div class="q" data-q="분량 단위">
+    <div class="no">Q4 · 분량</div>
+    <h2>"평균 688자"는 무엇을 세신 건가요?</h2>
+    <p class="desc">4편을 어떻게 세도 688이 안 나옵니다(순수 글자 330 · 원고지 칸 472 평균). 세는 단위와 방법을 정해 주세요.</p>
+    <div class="opts">
+      <span class="opt"><input type="radio" name="q4" id="q4a" value="글자수"><label for="q4a">글자 수</label></span>
+      <span class="opt"><input type="radio" name="q4" id="q4b" value="원고지칸"><label for="q4b">원고지 칸 수</label></span>
+      <span class="opt"><input type="radio" name="q4" id="q4c" value="줄수"><label for="q4c">줄 수</label></span>
+      <span class="opt"><input type="radio" name="q4" id="q4d" value="기타"><label for="q4d">그 외 ↓</label></span>
+    </div>
+    <p class="mini" style="margin-top:11px">한 편 목표 분량이 있다면 숫자로: <span class="numwrap">약 <input class="txt num" style="width:70px;display:inline-block" data-note="q4num" inputmode="numeric" placeholder="688"> 자/칸</span></p>
+    <textarea data-note="q4" placeholder="세시는 방법 (예: 원고지 마지막 칸까지, 어림값 등)"></textarea>
+  </div>
+
+  <!-- Q5 맞춤법 -->
+  <div class="q" data-q="맞춤법 계산">
+    <div class="no">Q5 · 맞춤법 %</div>
+    <h2>맞춤법 96% — 무엇을 오류로 세나요?</h2>
+    <p class="desc">띄어쓰기까지 다 세면 93%대라 96%가 안 됩니다. 띄어쓰기를 빼면 96%에 가까워집니다. 이룬 4편 표기 오류 예: <code>큰고</code> <code>다친나</code> <code>만들에서</code> <code>않된다</code> <code>그린제</code>.</p>
+    <div class="opts">
+      <span class="opt"><input type="radio" name="q5" id="q5a" value="띄어쓰기포함"><label for="q5a">띄어쓰기도 오류</label></span>
+      <span class="opt"><input type="radio" name="q5" id="q5b" value="표기만"><label for="q5b">표기 오류만(띄어쓰기 제외)</label></span>
+      <span class="opt"><input type="radio" name="q5" id="q5c" value="기타"><label for="q5c">그 외 ↓</label></span>
+    </div>
+    <p class="mini" style="margin-top:11px">한 편에 오류를 <span class="numwrap"><input class="txt num" style="width:56px;display:inline-block" data-note="q5num" inputmode="numeric" placeholder="예:3"> 개</span>까지는 이 학년에서 괜찮다고 보신다면 적어 주세요.</p>
+    <textarea data-note="q5" placeholder="계산 방식이 따로 있으면 (선택)"></textarea>
+  </div>
+
+  <!-- Q6 하이라이트 -->
+  <div class="sechead">5 · 펜토의 하이라이트</div>
+  <div class="q" data-q="하이라이트">
+    <div class="no">Q6 · 반한 문장·어휘</div>
+    <h2>정본에서 비워 두신 칸을 채워 주세요</h2>
+    <div class="mini"><b>최고의 문장</b> (하나)</div>
+    <div class="opts">
+      <span class="opt"><input type="radio" name="q6s" id="q6s1" value="AI-마음"><label for="q6s1">"기대서 부탁하면 사람의 깊은 마음을 알 수는 없다"(AI)</label></span>
+      <span class="opt"><input type="radio" name="q6s" id="q6s2" value="주식-돈소중"><label for="q6s2">"돈의 소중함을 알면 부모님이 돈 버는 게 어려운 걸 안다"(주식)</label></span>
+      <span class="opt"><input type="radio" name="q6s" id="q6s3" value="욕-잊어버림"><label for="q6s3">"약한 욕을 쓰다 힘들면 욕을 잊어버린다"(욕)</label></span>
+      <span class="opt"><input type="radio" name="q6s" id="q6s4" value="직접"><label for="q6s4">직접 고를게요 ↓</label></span>
+    </div>
+    <div class="mini" style="margin-top:10px"><b>최고의 어휘</b> (여러 개 가능)</div>
+    <div class="opts" id="vocab">
+      <span class="opt"><input type="checkbox" name="q6v" id="v1" value="티끌모아태산"><label for="v1">티끌 모아 태산</label></span>
+      <span class="opt"><input type="checkbox" name="q6v" id="v2" value="탄압"><label for="v2">탄압</label></span>
+      <span class="opt"><input type="checkbox" name="q6v" id="v3" value="강압적"><label for="v3">강압적</label></span>
+      <span class="opt"><input type="checkbox" name="q6v" id="v4" value="캠페인"><label for="v4">캠페인</label></span>
+      <span class="opt"><input type="checkbox" name="q6v" id="v5" value="멸종위기"><label for="v5">멸종위기</label></span>
+      <span class="opt"><input type="checkbox" name="q6v" id="v6" value="생태계"><label for="v6">생태계</label></span>
+      <span class="opt"><input type="checkbox" name="q6v" id="v7" value="저작권"><label for="v7">저작권</label></span>
+    </div>
+    <textarea data-note="q6" placeholder="직접 고르실 문장·어휘 (선택)"></textarea>
+  </div>
+
+  <!-- Q7 -->
+  <div class="sechead">6 · 마무리</div>
+  <div class="q" data-q="개수 규칙">
+    <div class="no">Q7 · 개수</div>
+    <h2>각 꼭지 개수, 이대로 고정할까요?</h2>
+    <p class="desc">정본 기준: 칭찬 <b>3</b> · 아쉬운 점 <b>3</b> · 다음달 노력 <b>3</b> · 가정 가이드 <b>4</b> · 반한 문장 <b>1</b> · 어휘 <b>1~2</b>.</p>
+    <div class="opts">
+      <span class="opt"><input type="radio" name="q7" id="q7a" value="동의"><label for="q7a">이대로 고정</label></span>
+      <span class="opt"><input type="radio" name="q7" id="q7b" value="수정"><label for="q7b">바꿔요 ↓</label></span>
+    </div>
+    <textarea data-note="q7" placeholder="개수를 바꾸실 꼭지 (선택)"></textarea>
+  </div>
+
+  <div class="q" data-q="자유 의견">
+    <div class="no">Q8 · 자유롭게</div>
+    <h2>그 밖에 하실 말씀</h2>
+    <textarea data-note="q8" placeholder="리포트 전체에 대해 떠오르는 것 (선택)" style="min-height:74px"></textarea>
+  </div>
+
+  <p class="foot">HI-PENTA W · 채점 기준 검토본 · 제작일 2026.07.21 · 대표님 검토용(비공개)</p>
+</div>
+
+<div class="toast" id="toast">저장됐어요</div>
+<div class="actionbar"><div class="inner">
+  <button class="act ghost" onclick="save()">임시 저장</button>
+  <button class="act primary" onclick="copySummary()">답변 복사해서 보내기</button>
+</div></div>
+
+<script>
+const KEY='hp_score_review_v2_260721';
+
+const RUBRIC=[
+ {area:'P',name:'주제 일관성',rec:9,
+  ev:'주식 <b>"나는 주식을 초딩 때부터 해야 한다"</b>(서론)가 결론 <b>"이런 3가지 이유를 대서…해야 한다"</b>까지 흔들림 없이 이어짐',
+  bands:{9:'주장을 처음부터 끝까지 흔들림 없이 관통',7:'대체로 유지, 한두 곳 이탈',5:'주장은 있으나 중간에 흐려짐',3:'주제가 오락가락',1:'주장 불명'}},
+ {area:'P',name:'개요 구성력',rec:9,
+  ev:'동물원 <b>"첫째!…둘째!…셋째!…이런 이유를 대서 저는…"</b> — 서론·근거3·결론 틀을 스스로 세움',
+  bands:{9:'서론–근거3–결론 틀을 스스로 완결',7:'틀은 있으나 한 부분 약함(예: 결론 빈약)',5:'문단 구분되나 순서 불안정',3:'문단 경계 흐림',1:'줄글 뭉텅이'}},
+ {area:'E',name:'어휘 정확도',rec:9,
+  ev:'<b>"저작권"</b>(AI) <b>"탄압"·"캠페인"</b>(욕) <b>"생태계"</b>(동물원) — 주제어를 정확히 사용',
+  bands:{9:'주제어를 정확·적절히 구사',7:'대체로 정확, 가끔 부정확',5:'쉬운 어휘 위주, 오용 간혹',3:'어휘 빈약·오용 잦음',1:'의미 전달 실패'}},
+ {area:'E',name:'배경지식 활용',rec:9,
+  ev:'<b>"티끌 모아 태산"</b>(주식), <b>"멸종위기 생물"</b>(동물원) — 속담·상식을 자연스럽게 연결',
+  bands:{9:'속담·상식·독서를 자연스럽게 연결',7:'1~2회 연결',5:'단편적 상식 언급',3:'거의 없음',1:'없음'}},
+ {area:'N',name:'논리적 사고력',rec:7,
+  ev:'동물원 <b>"자연에서는 사냥을 해야 하기 때문에 실패하면 굶어죽어…멸종위기"</b> — 인과를 시도하나 단순·비약',
+  bands:{9:'주장→이유→결과의 인과가 명료',7:'이유는 순서대로 대나 인과가 얕음',5:'이유 나열, 연결 약함',3:'주장과 이유 따로 놂',1:'이유 없음'}},
+ {area:'N',name:'근거 제시력',rec:8,
+  ev:'욕 <b>"반성문 100줄·5줄 등 욕의 강도에 따라"</b> — 이유에 구체 예시를 붙이려 시도',
+  bands:{9:'이유마다 구체 예시·설명',7:'이유+약한 예시, 구체성 부족',5:'이유만, 예시 없음',3:'근거 모호',1:'근거 부재'}},
+ {area:'T',name:'창의적 사고력',rec:6,
+  ev:'욕 <b>"욕 캠페인을 만듭니다"</b> · AI 제목 <b>"인공지능을 무시하면 큰코 다친다"</b> — 발상은 있으나 틀은 정형(첫째·둘째·셋째)',
+  bands:{9:'자기만의 시각·발상이 뚜렷',7:'자기 생각은 있으나 표현이 정형',5:'무난·평범',3:'베낀 듯한 일반론',1:'생각 없음'}},
+ {area:'T',name:'표현 다양성',rec:7,
+  ev:'4편 모두 <b>"첫째!·둘째!·셋째!"</b> 같은 문형이 반복됨',
+  bands:{9:'문장 길이·구조가 다채',7:'구조 반복이 보임',5:'단조로운 반복',3:'같은 문형만',1:'한 문형'}},
+ {area:'A',name:'문장 정확도',rec:7,
+  ev:'AI <b>"만들에서·않된다·그린제"</b>, 주식 <b>"알수·될수도"</b>(붙여쓰기) — 오류가 산재',
+  bands:{9:'표기·문장이 안정, 오류 드묾',7:'대체로 안정, 오류 산재',5:'오류가 눈에 띔',3:'오류 잦아 읽기 방해',1:'해독 곤란'}},
+ {area:'A',name:'독서 연계력',rec:9,
+  ev:'주식 <b>"돈의 소중함을 알면 엄마 아빠가 돈 버는 게 어려운 것을 안다"</b> — 경험·상식을 글에 연결',
+  bands:{9:'읽은 책·경험을 글에 밀착 연결',7:'연결 좋음, 일부',5:'언급 수준',3:'거의 없음',1:'없음'}},
+];
+
+const DEDUCT=[
+ {key:'d_concl',name:'결론 문단 누락',ev:'AI편: "…알 수는 없다"로 끝나고 결론 문단이 없음',def:5},
+ {key:'d_intro',name:'서론(주장 예고) 부실',ev:'서두에 무엇을 주장할지 흐릿할 때',def:2},
+ {key:'d_logic',name:'논리 비약',ev:'이유와 결과 사이를 건너뜀',def:2},
+ {key:'d_spell',name:'표기 오류 밀도(한 편 5개+)',ev:'AI편 큰고·다친나·만들에서·않된다·그린제',def:3},
+ {key:'d_creat',name:'창의 가점(+)',ev:'남다른 발상·제목이면 더해 줌',def:2,plus:true},
+];
+
+// ---- render rubric
+const rh=document.getElementById('rubricHost');
+RUBRIC.forEach((m,i)=>{
+  const bands=[9,7,5,3,1].map(n=>`<div class="bn">${n}</div><input class="txt" data-band="${i}_${n}" value="${m.bands[n]}">`).join('');
+  const scBtns=[1,2,3,4,5,6,7,8,9].map(n=>`<button class="sc${n===m.rec?' rec':''}" data-score="${i}" data-val="${n}" onclick="pick(${i},${n})">${n}</button>`).join('');
+  rh.insertAdjacentHTML('beforeend',`
+   <div class="metric" data-metric="${i}">
+     <div class="mhead"><span class="badge">${m.area}</span><span class="mname">${m.name}</span><span class="rec">우리 제안 <b>${m.rec}점</b></span></div>
+     <div class="ev">근거 · ${m.ev}</div>
+     <div class="scoreRow" data-scorerow="${i}">${scBtns}</div>
+     <div class="scHint">점선=우리 제안 · 눌러서 대표님 점수 선택</div>
+     <details><summary>이 점수의 잣대 설명 고치기</summary><div class="bandEdit">${bands}</div></details>
+   </div>`);
+});
+function pick(i,n){
+  document.querySelectorAll(`[data-scorerow="${i}"] .sc`).forEach(b=>b.classList.remove('sel'));
+  document.querySelector(`[data-scorerow="${i}"] .sc[data-val="${n}"]`).classList.add('sel');
+  saveSoft();updateProg();
+}
+// preset = rec
+RUBRIC.forEach((m,i)=>document.querySelector(`[data-scorerow="${i}"] .sc[data-val="${m.rec}"]`).classList.add('sel'));
+
+// ---- render deduct
+const dh=document.getElementById('dedHost');
+DEDUCT.forEach(d=>{
+  dh.insertAdjacentHTML('beforeend',`<tr>
+    <td class="dname">${d.name}<span class="dev">${d.ev}</span></td>
+    <td style="text-align:right;white-space:nowrap">${d.plus?'+':'−'}<input class="txt num" data-ded="${d.key}" inputmode="numeric" value="${d.def}"> 점</td>
+  </tr>`);
+});
+
+// ---- persistence
+function collect(){
+  const radio={};document.querySelectorAll('input[type=radio]:checked').forEach(el=>radio[el.name]=el.value);
+  const checks=[...document.querySelectorAll('#vocab input:checked')].map(el=>el.value);
+  const notes={};document.querySelectorAll('[data-note]').forEach(el=>{if(el.value.trim())notes[el.dataset.note]=el.value.trim();});
+  const scores={};document.querySelectorAll('.sc.sel').forEach(b=>scores[b.dataset.score]=b.dataset.val);
+  const bands={};document.querySelectorAll('[data-band]').forEach(el=>bands[el.dataset.band]=el.value);
+  const ded={};document.querySelectorAll('[data-ded]').forEach(el=>ded[el.dataset.ded]=el.value);
+  return {radio,checks,notes,scores,bands,ded};
+}
+function saveSoft(){localStorage.setItem(KEY,JSON.stringify(collect()));}
+function save(){saveSoft();toast('저장됐어요');}
+function restore(){
+  const d=JSON.parse(localStorage.getItem(KEY)||'{}');
+  for(const [k,v] of Object.entries(d.radio||{})){const el=document.querySelector(`input[name="${k}"][value="${v}"]`);if(el)el.checked=true;}
+  (d.checks||[]).forEach(v=>{const el=document.querySelector(`#vocab input[value="${v}"]`);if(el)el.checked=true;});
+  for(const [k,v] of Object.entries(d.notes||{})){const el=document.querySelector(`[data-note="${k}"]`);if(el)el.value=v;}
+  for(const [k,v] of Object.entries(d.scores||{})){pick(Number(k),Number(v));}
+  for(const [k,v] of Object.entries(d.bands||{})){const el=document.querySelector(`[data-band="${k}"]`);if(el)el.value=v;}
+  for(const [k,v] of Object.entries(d.ded||{})){const el=document.querySelector(`[data-ded="${k}"]`);if(el)el.value=v;}
+}
+document.addEventListener('input',()=>{saveSoft();updateProg();});
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1700);}
+
+function updateProg(){
+  let done=0,total=0;
+  ['q1','q3m','q4','q5','q6s','q7'].forEach(n=>{total++;if(document.querySelector(`input[name="${n}"]:checked`))done++;});
+  total++; if(document.querySelectorAll('.sc.sel').length>=10)done++; // 채점 완료
+  document.getElementById('pct').textContent=Math.round(done/total*100);
+  document.getElementById('pbar').style.width=(done/total*100)+'%';
+}
+
+function copySummary(){
+  const d=collect();const L=[];
+  L.push('하이펜타 채점 기준 검토 — 이은경 대표 답변');
+  L.push('════════════════════');
+  if(d.radio.q1)L.push(`Q1 A영역=표현정확성 : ${d.radio.q1}`);
+  L.push('');L.push('[Q2 10지표 대표님 점수] (제안→대표)');
+  RUBRIC.forEach((m,i)=>{
+    const s=d.scores[i]||m.rec; const diff=(Number(s)!==m.rec)?'  ★바뀜':'';
+    L.push(`· ${m.area} ${m.name}: ${m.rec}→${s}${diff}`);
+  });
+  const editedBands=Object.entries(d.bands).filter(([k,v])=>{const [i,n]=k.split('_');return v!==RUBRIC[+i].bands[+n];});
+  if(editedBands.length){L.push('');L.push('[잣대 설명 수정]');editedBands.forEach(([k,v])=>{const[i,n]=k.split('_');L.push(`· ${RUBRIC[+i].area} ${RUBRIC[+i].name} ${n}점: ${v}`);});}
+  L.push('');L.push('[Q3 주차 감점 폭]');
+  DEDUCT.forEach(x=>{L.push(`· ${x.name}: ${x.plus?'+':'−'}${d.ded[x.key]??x.def}점`);});
+  if(d.radio.q3m)L.push(`  (방식: ${d.radio.q3m})`);
+  L.push('');
+  if(d.radio.q4)L.push(`Q4 분량 단위: ${d.radio.q4}${d.notes.q4num?` / 목표 ${d.notes.q4num}`:''}`);
+  if(d.radio.q5)L.push(`Q5 맞춤법: ${d.radio.q5}${d.notes.q5num?` / 허용오류 ${d.notes.q5num}개`:''}`);
+  if(d.radio.q6s)L.push(`Q6 반한 문장: ${d.radio.q6s}`);
+  if(d.checks.length)L.push(`Q6 발견한 어휘: ${d.checks.join(', ')}`);
+  if(d.radio.q7)L.push(`Q7 개수: ${d.radio.q7}`);
+  L.push('');
+  const nlabel={q1:'A영역',q3:'주차점수',q4:'분량',q5:'맞춤법',q6:'하이라이트',q7:'개수',q8:'자유의견'};
+  for(const [k,v] of Object.entries(d.notes)){if(k.endsWith('num'))continue;L.push(`· [${nlabel[k]||k}] ${v}`);}
+  const text=L.join('\n');
+  navigator.clipboard.writeText(text).then(()=>toast('복사됐어요! 다니엘에게 붙여넣어 보내주세요')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('복사됐어요!');
+  });
+}
+restore();updateProg();
+</script>
+</body>
+</html>
