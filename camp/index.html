@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>서울대멘토와 함께하는 사장학교 리더십캠프 · 캠프 빌더</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        paper:  '#FDFBF7',
+        cream:  '#F5F0E6',
+        ink:    '#1b1a17',
+        navy:   '#122436',
+        navy2:  '#1d3a54',
+        gold:   '#b8894b',
+        gold2:  '#caa15c',
+        sage:   '#6f7d63',
+      },
+      fontFamily: {
+        sans: ['"Pretendard Variable"', 'Pretendard', 'system-ui', 'sans-serif'],
+        display: ['"Pretendard Variable"', 'Pretendard', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+<style>
+  :root { --ease: cubic-bezier(0.16, 1, 0.3, 1); }
+  html { scroll-behavior: smooth; }
+  body { background:#FDFBF7; color:#1b1a17; -webkit-font-smoothing:antialiased; letter-spacing:-.01em; }
+  .kr { word-break: keep-all; }
+  .anim { transition: all .5s var(--ease); }
+
+  /* premium korean type — heavy weight + tight tracking */
+  .font-display { font-weight:800; letter-spacing:-.035em; line-height:1.12; }
+  .hero-title   { font-weight:900; letter-spacing:-.045em; line-height:1.02; }
+  .num          { font-weight:800; letter-spacing:-.04em; font-variant-numeric:tabular-nums; }
+  h2.font-display, h3.font-display { letter-spacing:-.04em; }
+
+  /* paper noise */
+  .noise::before{
+    content:""; position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @keyframes fadeInUp { from{opacity:0; transform:translateY(2rem); filter:blur(4px);} to{opacity:1; transform:translateY(0); filter:blur(0);} }
+  .reveal { opacity:0; }
+  .reveal.in { animation: fadeInUp .8s var(--ease) forwards; }
+
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+  .float { animation: float 7s ease-in-out infinite; }
+
+  /* selectable card */
+  .pick { cursor:pointer; }
+  .pick .core { transition: all .5s var(--ease); }
+  .pick:hover .core { transform: translateY(-4px); }
+  .pick.on .core {
+    background:#122436; color:#F5F0E6;
+    box-shadow: 0 24px 60px -20px rgba(18,36,54,.55);
+  }
+  .pick.on .core .muted { color:#caa15c; }
+  .pick.on .core .tagpill { background:rgba(202,161,92,.18); color:#caa15c; }
+  .pick.on .core .idx { background:#caa15c; color:#122436; }
+  .pick.on .core .chk { opacity:1; transform:scale(1); }
+  .pick.on .core .detailBtn { color:rgba(202,161,92,.85); }
+  .pick.on .core .detailBtn:hover { color:#caa15c; }
+  .chk { opacity:0; transform:scale(.4); transition: all .4s var(--ease); }
+  .pick.dim { opacity:.4; filter:saturate(.4); pointer-events:none; }
+
+  .btn-cta { transition: all .5s var(--ease); }
+  .btn-cta:hover { transform: scale(1.02); box-shadow:0 20px 50px -18px rgba(184,137,75,.7); }
+  .btn-cta:active { transform: scale(.98); }
+  .btn-cta[disabled] { opacity:.35; pointer-events:none; filter:grayscale(.6); }
+
+  .hairline { border:1px solid rgba(18,36,54,.10); }
+  .eyebrow { letter-spacing:.22em; }
+
+  /* sticky progress bar */
+  #dock { transition: all .5s var(--ease); }
+  ::selection { background:#caa15c; color:#122436; }
+
+  /* modal */
+  #modal { transition: opacity .4s var(--ease), visibility .4s; }
+  #modal.hide { opacity:0; visibility:hidden; }
+  #modal .panel { transition: transform .55s var(--ease), opacity .55s var(--ease); }
+  #modal.hide .panel { transform: translateY(28px) scale(.98); opacity:0; }
+  #modal::-webkit-scrollbar{ width:0; }
+</style>
+</head>
+<body class="noise font-sans kr">
+
+<!-- ============ HERO ============ -->
+<header class="relative overflow-hidden bg-navy text-cream">
+  <div class="absolute -top-40 -right-32 w-[38rem] h-[38rem] rounded-full float"
+       style="background:radial-gradient(circle at center, rgba(202,161,92,.22), transparent 62%)"></div>
+  <div class="absolute -bottom-48 -left-40 w-[34rem] h-[34rem] rounded-full float" style="animation-delay:-3s;
+       background:radial-gradient(circle at center, rgba(111,125,99,.20), transparent 62%)"></div>
+
+  <div class="relative max-w-6xl mx-auto px-6 pt-16 pb-24 md:pt-24 md:pb-32">
+    <div class="reveal in flex items-center gap-3 mb-8">
+      <span class="text-[11px] eyebrow uppercase font-semibold text-gold2">PENTA · Leadership Camp Builder</span>
+      <span class="h-px flex-1 bg-cream/15"></span>
+    </div>
+
+    <p class="reveal in text-gold2 tracking-widest text-sm md:text-base mb-4" style="animation-delay:.05s">
+      서울대멘토와 함께하는
+    </p>
+    <h1 class="reveal in hero-title text-6xl md:text-8xl mb-6" style="animation-delay:.1s">
+      사장학교<br><span class="text-gold2">리더십 캠프</span>
+    </h1>
+    <p class="reveal in max-w-xl text-cream/70 text-lg leading-relaxed mb-10" style="animation-delay:.18s">
+      현직 경영자와 서울대 멘토의 특강, 그리고 깔끔하게 설계된 실전 활동을 직접 고르세요.
+      선택하는 순간, 주말 2일의 캠프가 <span class="text-cream font-medium">제목·일정표·추천 강사</span>까지 완성됩니다.
+    </p>
+
+    <div class="reveal in flex flex-wrap items-center gap-4" style="animation-delay:.26s">
+      <a href="#build" class="btn-cta group inline-flex items-center gap-3 bg-gold text-navy font-semibold pl-7 pr-2 py-2.5 rounded-full">
+        <span>캠프 조립 시작하기</span>
+        <span class="w-9 h-9 rounded-full bg-navy/15 grid place-items-center anim group-hover:translate-x-1">
+          <span class="iconify text-navy" data-icon="solar:arrow-right-linear" style="font-size:20px"></span>
+        </span>
+      </a>
+      <div class="flex items-center gap-6 text-cream/60 text-sm pl-2">
+        <span class="flex items-center gap-2"><span class="iconify text-gold2" data-icon="solar:calendar-mark-linear"></span> 토·일 2일</span>
+        <span class="flex items-center gap-2"><span class="iconify text-gold2" data-icon="solar:star-linear"></span> 특강 2 · 활동 6</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- how it works strip -->
+  <div class="relative border-t border-cream/10 bg-navy2/40 backdrop-blur-sm">
+    <div class="max-w-6xl mx-auto px-6 py-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+      <div class="flex items-center gap-3"><span class="idx w-7 h-7 rounded-full bg-gold text-navy grid place-items-center font-bold text-xs">1</span><span class="text-cream/80">특강 2개 선택<br><span class="text-cream/45 text-xs">경영자 1 + 서울대생 1</span></span></div>
+      <div class="flex items-center gap-3"><span class="idx w-7 h-7 rounded-full bg-gold text-navy grid place-items-center font-bold text-xs">2</span><span class="text-cream/80">활동 6개 선택<br><span class="text-cream/45 text-xs">15개 중에서</span></span></div>
+      <div class="flex items-center gap-3"><span class="idx w-7 h-7 rounded-full bg-gold text-navy grid place-items-center font-bold text-xs">3</span><span class="text-cream/80">캠프 자동 완성<br><span class="text-cream/45 text-xs">제목·일정·강사</span></span></div>
+    </div>
+  </div>
+</header>
+
+<main id="build" class="max-w-6xl mx-auto px-6">
+
+  <!-- ============ STEP 1 : 특강 ============ -->
+  <section class="pt-24 md:pt-32">
+    <div class="reveal flex items-end justify-between gap-6 mb-3">
+      <div>
+        <span class="tagpill inline-block rounded-full px-3 py-1 text-[11px] eyebrow uppercase font-semibold bg-gold/12 text-gold">STEP 01</span>
+        <h2 class="font-display text-4xl md:text-5xl mt-4">특강 고르기</h2>
+      </div>
+      <div class="text-right shrink-0">
+        <p class="text-4xl font-display text-navy"><span id="lecCount">0</span><span class="text-navy/30 text-2xl">/2</span></p>
+        <p class="text-xs text-navy/45 mt-1">선택됨</p>
+      </div>
+    </div>
+    <p class="reveal text-navy/55 max-w-2xl mb-12 leading-relaxed">
+      경영자이자 서울대 멘토는 존재 자체로 리더십의 상징입니다. <span class="text-navy font-medium">주제를 고르시면, 그 주제에 가장 잘 맞는 강사를 추천</span>해 드립니다.
+      두 그룹에서 각 <span class="text-navy font-medium">1개씩</span> 선택하세요.
+    </p>
+
+    <!-- 경영자 -->
+    <div class="reveal mb-4 flex items-center gap-3">
+      <span class="iconify text-gold" data-icon="solar:crown-line-duotone" style="font-size:22px"></span>
+      <h3 class="text-lg font-semibold text-navy">현직 경영자 특강 <span class="text-navy/40 font-normal text-sm">— 1개 선택</span></h3>
+    </div>
+    <div id="ceoGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-14"></div>
+
+    <!-- 서울대생 -->
+    <div class="reveal mb-4 flex items-center gap-3">
+      <span class="iconify text-sage" data-icon="solar:square-academic-cap-2-line-duotone" style="font-size:22px"></span>
+      <h3 class="text-lg font-semibold text-navy">서울대 멘토 특강 <span class="text-navy/40 font-normal text-sm">— 1개 선택</span></h3>
+    </div>
+    <div id="snuGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </section>
+
+  <!-- ============ STEP 2 : 활동 ============ -->
+  <section class="pt-24 md:pt-32">
+    <div class="reveal flex items-end justify-between gap-6 mb-3">
+      <div>
+        <span class="tagpill inline-block rounded-full px-3 py-1 text-[11px] eyebrow uppercase font-semibold bg-gold/12 text-gold">STEP 02</span>
+        <h2 class="font-display text-4xl md:text-5xl mt-4">활동 고르기</h2>
+      </div>
+      <div class="text-right shrink-0">
+        <p class="text-4xl font-display text-navy"><span id="actCount">0</span><span class="text-navy/30 text-2xl">/6</span></p>
+        <p class="text-xs text-navy/45 mt-1">선택됨</p>
+      </div>
+    </div>
+    <p class="reveal text-navy/55 max-w-2xl mb-12 leading-relaxed">
+      15개의 깔끔한 활동 중 <span class="text-navy font-medium">6개</span>를 고르세요. 활동의 성격을 분석해
+      <span class="text-navy font-medium">오전·오후 시간대에 자동 배치</span>합니다. (6개를 채우면 나머지는 잠깁니다)
+    </p>
+    <div id="actGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </section>
+
+  <!-- ============ GENERATE ============ -->
+  <section class="pt-20 pb-4 text-center">
+    <button id="genBtn" disabled class="btn-cta group inline-flex items-center gap-3 bg-navy text-cream font-semibold pl-8 pr-2.5 py-3 rounded-full text-lg">
+      <span id="genLabel">특강 2 · 활동 6을 채워주세요</span>
+      <span class="w-10 h-10 rounded-full bg-gold grid place-items-center anim group-hover:translate-x-1">
+        <span class="iconify text-navy" data-icon="solar:magic-stick-3-bold" style="font-size:22px"></span>
+      </span>
+    </button>
+    <p class="text-navy/40 text-sm mt-4">선택을 바꾸면 캠프도 즉시 다시 조립됩니다.</p>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section id="result" class="hidden pt-10 pb-32">
+    <div class="text-center mb-14 reveal">
+      <span class="tagpill inline-block rounded-full px-3 py-1 text-[11px] eyebrow uppercase font-semibold bg-gold/12 text-gold">YOUR CAMP</span>
+      <p id="rBrand" class="text-gold tracking-widest text-sm mt-5 mb-2">서울대멘토와 함께하는 사장학교 리더십캠프</p>
+      <h2 id="rTitle" class="font-display text-4xl md:text-6xl text-navy leading-tight"></h2>
+      <p id="rSub" class="text-navy/60 text-lg mt-5 max-w-2xl mx-auto leading-relaxed"></p>
+      <div id="rTags" class="flex flex-wrap justify-center gap-2 mt-7"></div>
+    </div>
+
+    <!-- 일정표 -->
+    <div class="mb-16">
+      <h3 class="font-display text-2xl md:text-3xl text-navy mb-6 flex items-center gap-3">
+        <span class="iconify text-gold" data-icon="solar:calendar-linear"></span> 2일 일정표
+      </h3>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div id="daySat"></div>
+        <div id="daySun"></div>
+      </div>
+    </div>
+
+    <!-- 추천 강사 -->
+    <div class="mb-16">
+      <h3 class="font-display text-2xl md:text-3xl text-navy mb-2 flex items-center gap-3">
+        <span class="iconify text-gold" data-icon="solar:users-group-rounded-linear"></span> 추천 강사 라인업
+      </h3>
+      <p class="text-navy/50 text-sm mb-6">선택하신 특강 주제에 최적화된 강사 프로필입니다. 확정 시 실제 인선으로 매칭됩니다.</p>
+      <div id="instructors" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </div>
+
+    <!-- 활동 구성 요약 -->
+    <div class="mb-16">
+      <h3 class="font-display text-2xl md:text-3xl text-navy mb-6 flex items-center gap-3">
+        <span class="iconify text-gold" data-icon="solar:widget-5-linear"></span> 활동 구성
+      </h3>
+      <div id="actSummary" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+
+    <div class="text-center">
+      <button onclick="window.print()" class="btn-cta inline-flex items-center gap-3 bg-cream hairline text-navy font-semibold px-7 py-3 rounded-full">
+        <span class="iconify" data-icon="solar:printer-linear" style="font-size:20px"></span> 이 구성 저장 · 인쇄
+      </button>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-navy text-cream/50 text-center text-sm py-10">
+  <p class="font-display text-cream text-lg mb-1">PENTA</p>
+  <p>서울대멘토와 함께하는 사장학교 리더십캠프 · 캠프 빌더</p>
+</footer>
+
+<!-- ============ FLOATING DOCK ============ -->
+<div id="dock" class="fixed bottom-0 inset-x-0 z-50 translate-y-full">
+  <div class="max-w-6xl mx-auto px-6 pb-4">
+    <div class="hairline bg-paper/90 backdrop-blur-xl rounded-full shadow-[0_20px_50px_-20px_rgba(18,36,54,.4)] px-5 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-5 text-sm">
+        <span class="flex items-center gap-2 text-navy/70"><span class="iconify text-gold" data-icon="solar:notebook-linear"></span> 특강 <b id="dLec" class="text-navy">0</b>/2</span>
+        <span class="flex items-center gap-2 text-navy/70"><span class="iconify text-gold" data-icon="solar:widget-5-linear"></span> 활동 <b id="dAct" class="text-navy">0</b>/6</span>
+      </div>
+      <button id="dockBtn" disabled class="btn-cta bg-navy text-cream font-semibold text-sm px-5 py-2 rounded-full">캠프 완성하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ACTIVITY DETAIL MODAL ============ -->
+<div id="modal" class="hide fixed inset-0 z-[70] overflow-y-auto" style="background:rgba(18,36,54,.55); backdrop-filter:blur(6px)" onclick="if(event.target===this)closeAct()">
+  <div class="min-h-full flex items-start md:items-center justify-center p-4 md:p-8">
+    <div class="panel relative w-full max-w-2xl bg-paper rounded-[2rem] overflow-hidden shadow-[0_40px_100px_-30px_rgba(0,0,0,.6)]">
+      <!-- header -->
+      <div class="relative bg-navy text-cream px-7 pt-8 pb-9 overflow-hidden">
+        <div class="absolute -top-16 -right-10 w-56 h-56 rounded-full" style="background:radial-gradient(circle,rgba(202,161,92,.25),transparent 65%)"></div>
+        <button onclick="closeAct()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-cream/10 hover:bg-cream/20 grid place-items-center anim">
+          <span class="iconify text-cream" data-icon="solar:close-circle-linear" style="font-size:22px"></span>
+        </button>
+        <div class="relative flex items-center gap-4">
+          <span class="w-14 h-14 rounded-2xl bg-cream/10 grid place-items-center shrink-0">
+            <span id="mIcon" class="iconify text-gold2" data-icon="solar:star-linear" style="font-size:32px"></span>
+          </span>
+          <div>
+            <span id="mAxis" class="text-[11px] eyebrow uppercase text-gold2 font-semibold"></span>
+            <h3 id="mTitle" class="font-display text-2xl md:text-3xl leading-tight mt-1"></h3>
+          </div>
+        </div>
+        <p id="mHook" class="relative mt-5 text-gold2 text-lg font-medium leading-snug"></p>
+      </div>
+      <!-- body -->
+      <div class="px-7 py-8">
+        <p id="mStory" class="text-navy/75 text-[15px] leading-[1.9] mb-8"></p>
+
+        <p class="text-xs eyebrow uppercase text-navy/40 font-semibold mb-4">진행 흐름</p>
+        <div id="mBeats" class="relative pl-2 mb-8"></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <p class="text-xs eyebrow uppercase text-navy/40 font-semibold mb-3">이런 걸 배웁니다</p>
+            <div id="mLearn" class="flex flex-wrap gap-2"></div>
+          </div>
+          <div>
+            <p class="text-xs eyebrow uppercase text-navy/40 font-semibold mb-3">추천 시간대</p>
+            <p id="mSlot" class="text-sm text-navy/70 flex items-center gap-2"></p>
+          </div>
+        </div>
+
+        <button id="mPick" class="btn-cta w-full mt-8 inline-flex items-center justify-center gap-2 font-semibold py-3.5 rounded-full"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const AXES = {
+  A: { key:'A', name:'창업가정신', tag:'창업 · 도전',   catch:'넥스트 파운더',  sub:'0을 1로 만드는' },
+  B: { key:'B', name:'리더십',     tag:'소통 · 조직',   catch:'리얼 리더',      sub:'사람을 이끄는 힘을 배우는' },
+  C: { key:'C', name:'자기경영',   tag:'성장 · 자기관리', catch:'셀프 CEO',      sub:'나를 먼저 경영하는' },
+  D: { key:'D', name:'진로설계',   tag:'진로 · 강점',   catch:'마이 로드맵',    sub:'나만의 길을 그리는' },
+  E: { key:'E', name:'브랜드·사업감각', tag:'브랜드 · 통찰', catch:'비즈니스 센스', sub:'세상을 읽고 브랜드를 만드는' },
+};
+
+const CEO = [
+  { id:'c1', axis:'B', icon:'solar:shield-star-line-duotone', t:'위기를 기회로 바꾼 턴어라운드', d:'무너지는 상황에서 조직을 다시 세운 회복탄력성의 리더십.',
+    instr:[{p:'3년 연속 적자 기업을 흑자로 전환한 제조업 대표', tag:'위기경영'},{p:'구조조정을 함께 넘긴 서비스 기업 COO 출신 대표', tag:'조직회복'}] },
+  { id:'c2', axis:'A', icon:'solar:rocket-2-line-duotone', t:'0을 1로: 맨손 창업의 기록', d:'아이디어 하나로 시작해 사업을 일으킨 창업가의 실전기.',
+    instr:[{p:'대학 재학 중 창업해 시리즈A 투자를 유치한 20대 파운더', tag:'초기창업'},{p:'두 번의 폐업 후 세 번째 창업에 성공한 연쇄 창업가', tag:'재도전'}] },
+  { id:'c3', axis:'B', icon:'solar:chat-round-like-line-duotone', t:'사람을 얻는 리더의 말', d:'말 한마디로 팀을 움직이는 소통과 동기부여의 기술.',
+    instr:[{p:'구성원 만족도 1위 서비스 기업 대표', tag:'조직문화'},{p:'HR 임원 출신, 100명 조직을 이끄는 대표', tag:'리더십 코칭'}] },
+  { id:'c4', axis:'E', icon:'solar:chart-2-line-duotone', t:'돈의 흐름을 읽는 눈', d:'숫자 뒤의 의사결정 — 경영자가 세상을 보는 방식.',
+    instr:[{p:'커머스 스케일업을 이끈 CFO 출신 대표', tag:'재무전략'},{p:'초기 스타트업 심사역 출신 액셀러레이터 대표', tag:'투자 관점'}] },
+  { id:'c5', axis:'E', icon:'solar:magic-stick-3-line-duotone', t:'브랜드는 어떻게 마음을 얻는가', d:'무명에서 팬덤까지 — 사람의 마음을 사는 브랜딩.',
+    instr:[{p:'무명 브랜드를 완판 D2C로 키운 마케팅 대표', tag:'브랜딩'},{p:'글로벌 진출 K-브랜드 크리에이티브 디렉터', tag:'크리에이티브'}] },
+];
+
+const SNU = [
+  { id:'s1', axis:'C', icon:'solar:notebook-bookmark-line-duotone', t:'나는 이렇게 공부했다: 자기주도 학습', d:'스스로 계획하고 끝까지 해내는 공부의 설계도.',
+    instr:[{p:'정시 최상위권으로 입학한 서울대 자연계 멘토', tag:'자기주도'},{p:'독학 재수로 합격한 서울대 인문계 멘토', tag:'학습전략'}] },
+  { id:'s2', axis:'C', icon:'solar:target-line-duotone', t:'꿈을 현실로: 목표와 실행', d:'막연한 꿈을 오늘의 행동으로 바꾸는 실행의 기술.',
+    instr:[{p:'휴학 중 창업·공모전을 병행한 서울대 경영대 멘토', tag:'목표설정'},{p:'다이어리로 삶을 설계하는 서울대 멘토', tag:'실행력'}] },
+  { id:'s3', axis:'D', icon:'solar:document-text-line-duotone', t:'합격을 만든 생기부와 입시 전략', d:'무엇을, 어떻게 준비했는가 — 합격생의 로드맵.',
+    instr:[{p:'학생부종합전형으로 합격한 서울대 사회대 멘토', tag:'학종'},{p:'지역균형·기회균형으로 합격한 서울대 멘토', tag:'입시설계'}] },
+  { id:'s4', axis:'C', icon:'solar:clock-circle-line-duotone', t:'시간을 지배하는 자기관리', d:'공부·활동·휴식을 모두 챙기는 하루의 루틴.',
+    instr:[{p:'학업·동아리·대외활동을 병행하는 서울대 공대 멘토', tag:'시간관리'},{p:'루틴으로 번아웃을 이긴 서울대 멘토', tag:'자기관리'}] },
+  { id:'s5', axis:'D', icon:'solar:compass-line-duotone', t:'강점으로 진로를 설계하다', d:'좋아하는 것과 잘하는 것 사이에서 길을 찾는 법.',
+    instr:[{p:'전공을 바꿔 진로를 재설계한 서울대 멘토', tag:'진로전환'},{p:'강점검사 기반 진로코칭 서울대 멘토', tag:'강점발견'}] },
+];
+
+/* activity: energy(오전 적합도) / closing(마무리 적합도) + 내러티브 */
+const ACTS = [
+  { id:'a1', axis:'A', icon:'solar:presentation-graph-line-duotone', t:'스타트업 피칭 배틀', d:'팀별 사업 아이디어를 무대에서 발표·경쟁', energy:4, closing:6,
+    hook:'3분 안에, 당신의 아이디어에 투자하게 만들어라.',
+    story:'막연한 생각도 무대 위에 서면 사업이 됩니다. 팀은 세상의 불편함 하나를 골라 하루 만에 사업 아이디어로 다듬고, 현직 경영자·멘토 앞에서 3분 피칭에 도전합니다. 날카로운 질문을 받고, 다시 답하고, 마지막엔 가상 투자를 유치하죠. 발표가 끝나는 순간, 아이디어를 \'파는 법\'이 몸에 남습니다.',
+    beats:['세상의 문제 1개 선정','솔루션·수익모델 설계','3분 투자 피칭','심사위원 Q&A 방어','가상 투자 유치 발표'], learn:['문제정의','설득 커뮤니케이션','비즈니스 모델'] },
+  { id:'a2', axis:'B', icon:'solar:map-point-wave-line-duotone', t:'무인도 생존 시뮬레이션', d:'제한된 자원으로 팀의 생존 전략 수립', energy:9, closing:2,
+    hook:'아무것도 없는 섬에서, 팀은 무엇을 먼저 정할까.',
+    story:'무인도에 표류했다는 설정 아래, 팀에게는 제한된 자원 카드와 시간만 주어집니다. 무엇을 남기고 무엇을 버릴지, 누가 결정을 내릴지 부딪히며 정하다 보면 자연스럽게 리더가 드러나고 역할이 나뉩니다. 위기 상황이 사람의 진짜 협업 방식을 보여주는 순간입니다.',
+    beats:['표류 상황 브리핑','생존 자원 우선순위 협상','역할 분담·의사결정','위기 이벤트 대응','생존 전략 발표'], learn:['팀 의사결정','우선순위 판단','협업 리더십'] },
+  { id:'a3', axis:'A', icon:'solar:wallet-money-line-duotone', t:'100만원 창업 챌린지', d:'가상 자본으로 하루 만에 사업 굴리기', energy:5, closing:4,
+    hook:'가상 자본 100만원, 하루 만에 얼마로 불릴 수 있을까.',
+    story:'각 팀은 100만원의 가상 자본으로 하루짜리 사업을 굴립니다. 무엇을 팔지, 얼마에 팔지, 어디에 돈을 쓸지 매 순간 선택해야 하고, 시장 상황 카드가 계획을 흔들기도 하죠. 숫자로 돌아오는 결과 앞에서, 돈이 어떻게 흐르는지 처음으로 실감하게 됩니다.',
+    beats:['아이템·가격 결정','자본 배분 계획','시장 변수 대응','판매·정산','손익 발표'], learn:['재무 감각','의사결정','사업 실행력'] },
+  { id:'a4', axis:'B', icon:'solar:scale-line-duotone', t:'리더의 딜레마 토론', d:'정답 없는 상황에서 내리는 선택과 책임', energy:3, closing:5,
+    hook:'옳은 답이 없을 때, 리더는 무엇을 기준으로 정하는가.',
+    story:'정답이 없는 상황이 주어집니다. 학생들은 서로 다른 입장을 맡아 근거를 세우고, 반박을 듣고, 자신의 기준을 다시 점검합니다. 승패를 가리는 토론이 아니라, 내 안의 \'판단 기준\'을 발견하는 시간입니다.',
+    beats:['딜레마 상황 제시','입장 배정·근거 설계','교차 토론','입장 전환 라운드','나의 기준 정리'], learn:['비판적 사고','가치 판단','논리적 표현'] },
+  { id:'a5', axis:'B', icon:'solar:posts-carousel-vertical-line-duotone', t:'미션 시티 퀘스트', d:'도시를 무대로 한 팀 미션 탐험', energy:9, closing:3,
+    hook:'도시가 통째로 팀의 미션 보드가 된다.',
+    story:'팀은 지도와 미션 리스트를 들고 도시로 나섭니다. 낯선 사람에게 말을 걸고, 단서를 모으고, 제한 시간 안에 목표 지점에 도착해야 하죠. 계획대로 되지 않는 현장에서, 팀은 빠르게 다시 계획을 짜는 법을 배웁니다.',
+    beats:['미션·지도 브리핑','동선 전략 수립','현장 미션 수행','돌발 상황 대응','미션 인증·복귀'], learn:['실행력','현장 대응','팀워크'] },
+  { id:'a6', axis:'E', icon:'solar:pallete-2-line-duotone', t:'나만의 브랜드 만들기', d:'로고·슬로건까지, 나를 브랜딩하기', energy:4, closing:4,
+    hook:'\'나\'라는 사람을 하나의 브랜드로 만든다면.',
+    story:'이름, 색, 한 줄 슬로건까지 — 학생은 자기 자신을 하나의 브랜드로 설계합니다. 내가 어떤 가치를 주는 사람인지 언어로 정리하다 보면, 막연했던 강점이 또렷한 정체성으로 바뀝니다. 완성된 브랜드는 짧은 소개로 발표하며 마무리됩니다.',
+    beats:['나의 강점·가치 탐색','브랜드 컨셉 정의','로고·슬로건 제작','브랜드 스토리 작성','브랜드 소개 발표'], learn:['자기이해','브랜딩','표현력'] },
+  { id:'a7', axis:'B', icon:'solar:hand-shake-line-duotone', t:'협상의 기술 롤플레이', d:'서로 다른 목표를 조율하는 협상 실습', energy:5, closing:3,
+    hook:'서로 다른 목표, 어떻게 둘 다 이기게 만들까.',
+    story:'학생들은 각자 다른 목표와 비밀 조건을 가진 역할을 맡습니다. 상대의 진짜 필요를 읽고, 양보할 것과 지킬 것을 나누며 합의를 향해 나아가죠. 이기고 지는 게 아니라, 함께 더 좋은 결론을 만드는 협상의 감각을 익힙니다.',
+    beats:['역할·목표 부여','상대 니즈 파악','제안·역제안','합의안 도출','협상 리뷰'], learn:['협상력','경청','전략적 사고'] },
+  { id:'a8', axis:'C', icon:'solar:letter-line-duotone', t:'비전보드 & 10년 후 나에게 편지', d:'미래를 그리고 오늘의 나에게 약속하기', energy:2, closing:10,
+    hook:'10년 뒤의 나는, 지금의 나에게 뭐라고 말할까.',
+    story:'캠프의 배움을 재료로, 학생은 자신의 10년 후를 이미지와 문장으로 그립니다. 이루고 싶은 모습을 비전보드에 붙이고, 오늘의 나에게 보내는 편지를 씁니다. 캠프가 이벤트로 끝나지 않고, 각자의 목표로 이어지게 하는 마무리 활동입니다.',
+    beats:['가치·목표 정리','비전보드 제작','10년 후 편지 작성','팀과 비전 공유','비전 선언'], learn:['목표설정','자기성찰','동기부여'] },
+  { id:'a9', axis:'B', icon:'solar:lock-keyhole-unlocked-line-duotone', t:'팀 방탈출 챌린지', d:'협업으로 단서를 풀어 시간 안에 탈출', energy:8, closing:2,
+    hook:'제한 시간 안에, 오직 협업으로만 열 수 있는 문.',
+    story:'잠긴 방 안에서 팀은 흩어진 단서를 모아 퍼즐을 풀어야 합니다. 혼자서는 절대 풀 수 없고, 서로의 발견을 빠르게 공유해야만 열리죠. 긴장과 환호 속에서, 팀은 협업이 곧 실력이라는 걸 몸으로 배웁니다.',
+    beats:['룰 브리핑·입장','단서 탐색','정보 공유·조합','퍼즐 해결','탈출·회고'], learn:['협업','문제해결','커뮤니케이션'] },
+  { id:'a10', axis:'B', icon:'solar:microphone-large-line-duotone', t:'즉흥 스피치 & 설득 대결', d:'주어진 주제로 3분 설득 스피치', energy:7, closing:4,
+    hook:'무대에 서기까지 3분, 사람을 움직이는 말의 힘.',
+    story:'제비뽑기로 주제를 받은 학생은 짧은 준비 후 무대에 섭니다. 떨리는 마음을 다잡고, 논리와 진심으로 청중을 설득하죠. 반복될수록 말은 정돈되고, 사람들 앞에 서는 두려움은 자신감으로 바뀝니다.',
+    beats:['즉석 주제 추첨','3분 스피치 준비','무대 발표','청중 설득·투표','피드백 코칭'], learn:['발표력','순발력','설득력'] },
+  { id:'a11', axis:'A', icon:'solar:lightbulb-bolt-line-duotone', t:'사회문제 해결 해커톤', d:'실제 문제를 팀 아이디어로 해결', energy:5, closing:5,
+    hook:'진짜 문제 하나를, 우리 팀의 아이디어로 푼다.',
+    story:'환경, 학교, 지역사회 같은 실제 문제 중 하나를 골라, 팀은 제한 시간 안에 해결 아이디어를 설계합니다. 조사하고, 토론하고, 프로토타입까지 만들어 발표하죠. 세상의 문제를 \'내가 바꿀 수 있는 것\'으로 바라보는 시선이 생깁니다.',
+    beats:['문제 선정·리서치','원인 분석','솔루션 아이디에이션','프로토타입 제작','해결안 발표'], learn:['창의적 문제해결','협업','기획력'] },
+  { id:'a12', axis:'D', icon:'solar:users-group-two-rounded-line-duotone', t:'명사와의 라운드테이블', d:'경영자·멘토와 둘러앉아 나누는 진짜 대화', energy:3, closing:6,
+    hook:'무대 위 강연이 아니라, 마주 앉아 나누는 진짜 대화.',
+    story:'현직 경영자와 서울대 멘토가 작은 테이블에 학생들과 둘러앉습니다. 정해진 대본 없이, 궁금한 것을 직접 묻고 솔직한 답을 듣죠. 롤모델의 시행착오와 선택의 순간을 가까이서 들으며, 학생은 자신의 진로를 새로운 눈으로 보게 됩니다.',
+    beats:['멘토 소개·아이스브레이킹','자유 질문','진로·경험 대화','조별 인사이트 정리','한 문장 다짐'], learn:['진로 탐색','질문력','롤모델링'] },
+  { id:'a13', axis:'B', icon:'solar:running-2-line-duotone', t:'리더십 서바이벌 게임', d:'몸으로 부딪히는 팀 리더십 미션', energy:9, closing:3,
+    hook:'머리로만 아는 리더십을, 몸으로 증명하는 시간.',
+    story:'팀 대항 미션들이 연속으로 주어집니다. 매 라운드 리더가 바뀌고, 몸으로 부딪히며 전략을 실행해야 하죠. 지시하는 리더와 함께 뛰는 리더의 차이를 직접 경험하며, 나에게 맞는 리더십을 찾아갑니다.',
+    beats:['팀 편성·룰 안내','라운드별 미션 수행','리더 교체제 운영','전략 조정','최종전·시상'], learn:['실전 리더십','팀워크','전략 실행'] },
+  { id:'a14', axis:'E', icon:'solar:chart-square-line-duotone', t:'회사 경영 보드게임', d:'재무제표로 배우는 회사 운영 시뮬레이션', energy:5, closing:3,
+    hook:'한 판의 게임으로 회사 하나를 굴려본다.',
+    story:'학생들은 가상의 회사를 맡아 채용, 투자, 생산, 판매를 결정합니다. 매 턴 재무제표의 숫자가 선택의 결과를 알려주죠. 이익과 위험 사이에서 저울질하는 동안, 경영이 결국 \'선택의 연속\'임을 자연스럽게 익힙니다.',
+    beats:['회사 세팅·룰 학습','경영 의사결정 턴','시장 이벤트 대응','재무제표 점검','경영 성과 결산'], learn:['재무 이해','경영 의사결정','리스크 관리'] },
+  { id:'a15', axis:'C', icon:'solar:videocamera-record-line-duotone', t:'캠프 성장 스토리 영상 제작', d:'2일의 성장을 팀 영상으로 남기기', energy:3, closing:9,
+    hook:'2일의 성장을, 우리 팀의 영상 한 편으로 남긴다.',
+    story:'팀은 캠프 동안 찍은 장면과 인터뷰를 모아 짧은 영상으로 엮습니다. 무엇을 배웠고 어떻게 변했는지 스스로 이야기로 정리하는 과정이죠. 상영회에서 서로의 성장을 확인하며, 캠프는 오래 기억될 한 편의 스토리로 마무리됩니다.',
+    beats:['스토리 기획','장면·인터뷰 촬영','편집·구성','팀 상영회','베스트 영상 시상'], learn:['스토리텔링','협업','자기성찰'] },
+];
+
+/* ================= STATE ================= */
+const state = { ceo:null, snu:null, acts:[] };
+
+/* ================= RENDER CARDS ================= */
+function card(item, group, index){
+  const detail = group==='act' ? `
+      <button class="detailBtn mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-navy/45 hover:text-gold anim"
+              onclick="event.stopPropagation(); openAct('${item.id}')">
+        <span class="iconify" data-icon="solar:book-2-linear" style="font-size:16px"></span> 내러티브 보기
+      </button>` : '';
+  return `
+  <div class="pick reveal group" data-group="${group}" data-id="${item.id}" style="--i:${index}">
+    <div class="core hairline bg-paper rounded-3xl p-5 h-full flex flex-col anim shadow-[0_10px_40px_-24px_rgba(18,36,54,.35)]">
+      <div class="flex items-start justify-between mb-4">
+        <span class="w-11 h-11 rounded-2xl bg-navy/5 grid place-items-center anim">
+          <span class="iconify text-navy" data-icon="${item.icon}" style="font-size:26px"></span>
+        </span>
+        <span class="chk w-7 h-7 rounded-full bg-gold grid place-items-center">
+          <span class="iconify text-navy" data-icon="solar:check-read-bold" style="font-size:16px"></span>
+        </span>
+      </div>
+      <h4 class="font-semibold text-[15px] leading-snug mb-2">${item.t}</h4>
+      <p class="muted text-sm text-navy/50 leading-relaxed">${item.d}</p>
+      ${detail}
+    </div>
+  </div>`;
+}
+document.getElementById('ceoGrid').innerHTML = CEO.map((x,i)=>card(x,'ceo',i)).join('');
+document.getElementById('snuGrid').innerHTML = SNU.map((x,i)=>card(x,'snu',i)).join('');
+document.getElementById('actGrid').innerHTML = ACTS.map((x,i)=>card(x,'act',i)).join('');
+
+/* ================= SELECTION LOGIC ================= */
+function byId(arr,id){ return arr.find(x=>x.id===id); }
+
+document.querySelectorAll('.pick').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    const g = el.dataset.group, id = el.dataset.id;
+    if(g==='ceo'){ state.ceo = (state.ceo===id)?null:id; }
+    else if(g==='snu'){ state.snu = (state.snu===id)?null:id; }
+    else {
+      const i = state.acts.indexOf(id);
+      if(i>-1) state.acts.splice(i,1);
+      else if(state.acts.length<6) state.acts.push(id);
+      else return; // 6개 초과 방지
+    }
+    syncUI();
+  });
+});
+
+function syncUI(){
+  document.querySelectorAll('.pick').forEach(el=>{
+    const g=el.dataset.group, id=el.dataset.id;
+    let on=false, dim=false;
+    if(g==='ceo') on = state.ceo===id;
+    if(g==='snu') on = state.snu===id;
+    if(g==='act'){ on = state.acts.includes(id); dim = !on && state.acts.length>=6; }
+    el.classList.toggle('on', on);
+    el.classList.toggle('dim', dim);
+  });
+  const lec = (state.ceo?1:0)+(state.snu?1:0);
+  document.getElementById('lecCount').textContent = lec;
+  document.getElementById('actCount').textContent = state.acts.length;
+  document.getElementById('dLec').textContent = lec;
+  document.getElementById('dAct').textContent = state.acts.length;
+
+  const ready = lec===2 && state.acts.length===6;
+  const gb = document.getElementById('genBtn'), db=document.getElementById('dockBtn');
+  gb.disabled = !ready; db.disabled = !ready;
+  document.getElementById('genLabel').textContent = ready ? '캠프 완성하기' : `특강 ${lec}/2 · 활동 ${state.acts.length}/6`;
+
+  // dock 노출: 하나라도 고르면
+  document.getElementById('dock').style.transform = (lec>0||state.acts.length>0) ? 'translateY(0)' : 'translateY(100%)';
+
+  if(ready && !document.getElementById('result').classList.contains('hidden')) generate(false);
+}
+
+document.getElementById('genBtn').addEventListener('click', ()=>generate(true));
+document.getElementById('dockBtn').addEventListener('click', ()=>generate(true));
+
+/* ================= GENERATION ================= */
+function generate(scroll){
+  const ceo = byId(CEO,state.ceo), snu = byId(SNU,state.snu);
+  const acts = state.acts.map(id=>byId(ACTS,id));
+
+  /* --- 축 분석 --- */
+  const items=[ceo,snu,...acts];
+  const count={};
+  items.forEach(x=>count[x.axis]=(count[x.axis]||0)+1);
+  const sorted=Object.keys(count).sort((a,b)=>count[b]-count[a]);
+  const dom=AXES[sorted[0]];
+  const sec=AXES[sorted[1]]||dom;
+
+  /* --- 제목/부제 --- */
+  document.getElementById('rTitle').textContent = `${dom.catch} : ${dom.sub} 2일`;
+  document.getElementById('rSub').innerHTML =
+    `『${ceo.t}』와 『${snu.t}』, 그리고 <b class="text-navy">${acts.length}개의 실전 미션</b>으로 완성하는 ` +
+    `<b class="text-navy">${dom.name}</b> 중심의 리더십 여정.`;
+
+  const tags=[...new Set([dom.tag, sec.tag, '경영자 특강', '서울대 멘토', ...acts.slice(0,2).map(a=>AXES[a.axis].name)])];
+  document.getElementById('rTags').innerHTML = tags.map(t=>
+    `<span class="rounded-full px-3 py-1.5 text-xs font-medium bg-navy/6 text-navy/70 hairline">${t}</span>`).join('');
+
+  /* --- 활동 시간대 배치 --- */
+  const pool=[...acts];
+  // 오전 2슬롯: energy 높은 순 2개
+  pool.sort((a,b)=>b.energy-a.energy);
+  const satAM = pool.shift();
+  const sunAM = pool.shift();
+  // 나머지 4 → 오후. closing 최고 = 일요일 대미
+  pool.sort((a,b)=>b.closing-a.closing);
+  const finale = pool.shift();               // 일 오후 마지막
+  // 남은 3개는 energy 높은 순으로 앞 오후에
+  pool.sort((a,b)=>b.energy-a.energy);
+  const satPM1=pool[0], satPM2=pool[1], sunPM1=pool[2];
+
+  const sat=buildDay('토요일 (DAY 1)', ceo, [satAM, satPM1, satPM2], false);
+  const sun=buildDay('일요일 (DAY 2)', snu, [sunAM, sunPM1, finale], true);
+  document.getElementById('daySat').innerHTML=sat;
+  document.getElementById('daySun').innerHTML=sun;
+
+  /* --- 추천 강사 --- */
+  const instrCards = [
+    {who:'현직 경영자 특강', topic:ceo.t, list:ceo.instr, icon:'solar:crown-line-duotone', color:'gold'},
+    {who:'서울대 멘토 특강', topic:snu.t, list:snu.instr, icon:'solar:square-academic-cap-2-line-duotone', color:'sage'},
+  ].map(b=>`
+    <div class="hairline bg-paper rounded-3xl p-6 shadow-[0_10px_40px_-24px_rgba(18,36,54,.3)]">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="w-9 h-9 rounded-xl bg-${b.color}/12 grid place-items-center">
+          <span class="iconify text-${b.color}" data-icon="${b.icon}" style="font-size:20px"></span>
+        </span>
+        <span class="text-xs eyebrow uppercase text-navy/40 font-semibold">${b.who}</span>
+      </div>
+      <p class="font-semibold text-navy mb-4 leading-snug">${b.topic}</p>
+      <div class="space-y-3">
+        ${b.list.map(i=>`
+          <div class="flex items-start gap-3">
+            <span class="mt-1 iconify text-gold shrink-0" data-icon="solar:user-check-rounded-bold" style="font-size:18px"></span>
+            <div><p class="text-sm text-navy/80 leading-snug">${i.p}</p>
+            <span class="inline-block mt-1 text-[11px] rounded-full px-2 py-0.5 bg-navy/6 text-navy/55">${i.tag}</span></div>
+          </div>`).join('')}
+      </div>
+    </div>`).join('');
+  document.getElementById('instructors').innerHTML=instrCards;
+
+  /* --- 활동 요약 --- */
+  document.getElementById('actSummary').innerHTML = acts.map(a=>`
+    <div class="hairline bg-paper rounded-2xl p-4 flex items-center gap-3">
+      <span class="w-10 h-10 rounded-xl bg-navy/5 grid place-items-center shrink-0">
+        <span class="iconify text-navy" data-icon="${a.icon}" style="font-size:22px"></span></span>
+      <div><p class="text-sm font-semibold text-navy leading-snug">${a.t}</p>
+      <p class="text-xs text-navy/45">${AXES[a.axis].name}</p></div>
+    </div>`).join('');
+
+  /* --- reveal --- */
+  const r=document.getElementById('result');
+  r.classList.remove('hidden');
+  document.querySelectorAll('#result .reveal, #result .hairline').forEach((el,i)=>{
+    el.classList.add('reveal'); el.classList.remove('in');
+    void el.offsetWidth; el.classList.add('in');
+  });
+  if(scroll) r.scrollIntoView({behavior:'smooth'});
+}
+
+function buildDay(label, lecture, dayActs, isSunday){
+  const rows = [];
+  const open = isSunday
+    ? {t:'09:30 – 09:50', title:'데이 오프닝 · 어제의 회고', tag:'오프닝', icon:'solar:sun-line-duotone'}
+    : {t:'09:30 – 10:00', title:'오리엔테이션 · 아이스브레이킹', tag:'오프닝', icon:'solar:hand-stars-line-duotone'};
+  rows.push(row(open.t, open.title, open.tag, open.icon, 'plain'));
+  rows.push(row(isSunday?'09:50 – 11:20':'10:00 – 11:30', lecture.t, isSunday?'서울대 멘토 특강':'경영자 특강', lecture.icon, 'lecture'));
+  rows.push(row(isSunday?'11:20 – 12:30':'11:30 – 12:40', dayActs[0].t, `오전 활동 · ${AXES[dayActs[0].axis].name}`, dayActs[0].icon, 'act'));
+  rows.push(row('12:30 – 13:30','점심 · 팀 네트워킹','점심','solar:cup-hot-line-duotone','plain'));
+  rows.push(row(isSunday?'13:30 – 15:00':'13:40 – 15:10', dayActs[1].t, `오후 활동 · ${AXES[dayActs[1].axis].name}`, dayActs[1].icon, 'act'));
+  rows.push(row(isSunday?'15:10 – 16:40':'15:20 – 16:50', dayActs[2].t, `오후 활동 · ${AXES[dayActs[2].axis].name}`, dayActs[2].icon, 'act'));
+  const close = isSunday
+    ? {t:'16:40 – 17:10', title:'수료식 · 비전 선언', tag:'클로징', icon:'solar:medal-ribbon-star-line-duotone'}
+    : {t:'16:50 – 17:10', title:'데일리 리뷰 · 소감 나눔', tag:'마무리', icon:'solar:notes-line-duotone'};
+  rows.push(row(close.t, close.title, close.tag, close.icon, 'plain'));
+
+  return `
+  <div class="hairline bg-paper rounded-3xl overflow-hidden shadow-[0_16px_50px_-28px_rgba(18,36,54,.4)]">
+    <div class="bg-navy text-cream px-6 py-4 flex items-center justify-between">
+      <span class="font-display text-xl">${label}</span>
+      <span class="text-gold2 text-xs eyebrow uppercase">특강 1 · 활동 3</span>
+    </div>
+    <div class="divide-y divide-navy/8">${rows.join('')}</div>
+  </div>`;
+}
+
+function row(time, title, tag, icon, kind){
+  const bg = kind==='lecture' ? 'bg-gold/8' : (kind==='act' ? 'bg-sage/6' : '');
+  const accent = kind==='lecture' ? 'text-gold' : (kind==='act' ? 'text-sage' : 'text-navy/40');
+  return `
+  <div class="flex items-center gap-4 px-5 py-3.5 ${bg}">
+    <span class="text-xs font-mono text-navy/45 w-24 shrink-0">${time}</span>
+    <span class="w-8 h-8 rounded-lg bg-white grid place-items-center shrink-0 hairline">
+      <span class="iconify ${accent}" data-icon="${icon}" style="font-size:18px"></span></span>
+    <div class="min-w-0">
+      <p class="text-sm font-semibold text-navy leading-snug truncate">${title}</p>
+      <p class="text-[11px] ${accent} font-medium">${tag}</p>
+    </div>
+  </div>`;
+}
+
+/* ================= ACTIVITY DETAIL MODAL ================= */
+let modalId=null;
+function slotText(a){
+  if(a.closing>=9) return {t:'오후 · 캠프의 대미를 장식하는 마무리 활동', ic:'solar:sunset-line-duotone'};
+  if(a.energy>=7)  return {t:'오전 · 에너지를 끌어올리는 활동적 시작', ic:'solar:sunrise-line-duotone'};
+  return {t:'오후 · 깊이 몰입하는 집중형 활동', ic:'solar:sun-2-line-duotone'};
+}
+function openAct(id){
+  const a=byId(ACTS,id); modalId=id;
+  document.getElementById('mIcon').setAttribute('data-icon', a.icon);
+  document.getElementById('mAxis').textContent = AXES[a.axis].name + ' · ' + AXES[a.axis].tag;
+  document.getElementById('mTitle').textContent = a.t;
+  document.getElementById('mHook').textContent = a.hook;
+  document.getElementById('mStory').textContent = a.story;
+  document.getElementById('mBeats').innerHTML = a.beats.map((b,i)=>`
+    <div class="flex items-start gap-4 pb-5 last:pb-0 relative">
+      ${i<a.beats.length-1?'<span class=\"absolute left-[15px] top-8 bottom-0 w-px bg-gold/25\"></span>':''}
+      <span class="num w-8 h-8 rounded-full bg-gold/15 text-gold grid place-items-center text-sm shrink-0 relative z-10">${i+1}</span>
+      <p class="text-[15px] text-navy/80 pt-1">${b}</p>
+    </div>`).join('');
+  document.getElementById('mLearn').innerHTML = a.learn.map(l=>
+    `<span class="rounded-full px-3 py-1.5 text-xs font-medium bg-navy/6 text-navy/70 hairline">${l}</span>`).join('');
+  const s=slotText(a);
+  document.getElementById('mSlot').innerHTML = `<span class="iconify text-gold" data-icon="${s.ic}" style="font-size:20px"></span> ${s.t}`;
+  renderPickBtn(a);
+  document.getElementById('modal').classList.remove('hide');
+  document.body.style.overflow='hidden';
+}
+function renderPickBtn(a){
+  const btn=document.getElementById('mPick');
+  const on=state.acts.includes(a.id);
+  const full=!on && state.acts.length>=6;
+  btn.disabled=full;
+  if(on){ btn.className='btn-cta w-full mt-8 inline-flex items-center justify-center gap-2 font-semibold py-3.5 rounded-full bg-cream hairline text-navy';
+    btn.innerHTML='<span class="iconify" data-icon="solar:trash-bin-trash-linear" style="font-size:20px"></span> 선택 해제하기'; }
+  else if(full){ btn.className='btn-cta w-full mt-8 inline-flex items-center justify-center gap-2 font-semibold py-3.5 rounded-full bg-navy text-cream';
+    btn.innerHTML='활동 6개가 이미 가득 찼어요'; }
+  else { btn.className='btn-cta w-full mt-8 inline-flex items-center justify-center gap-2 font-semibold py-3.5 rounded-full bg-gold text-navy';
+    btn.innerHTML='<span class="iconify" data-icon="solar:add-circle-bold" style="font-size:20px"></span> 이 활동 선택하기'; }
+  btn.onclick=()=>{
+    const i=state.acts.indexOf(a.id);
+    if(i>-1) state.acts.splice(i,1);
+    else if(state.acts.length<6) state.acts.push(a.id);
+    syncUI(); renderPickBtn(a);
+  };
+}
+function closeAct(){ document.getElementById('modal').classList.add('hide'); document.body.style.overflow=''; modalId=null; }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && modalId) closeAct(); });
+
+/* ================= SCROLL REVEAL ================= */
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.style.animationDelay=((e.target.style.getPropertyValue('--i')||0)*80)+'ms'; e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+syncUI();
+</script>
+</body>
+</html>
