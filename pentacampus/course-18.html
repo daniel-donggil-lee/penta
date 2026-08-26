@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>융합독서지도자 자격증 과정 — 펜타캠퍼스</title>
+  <meta name="description" content="2033 서·논술형 대입개편에 대응하는 융합독서 지도자 양성 자격증 과정. 30강 6모듈, 교과 융합 읽기부터 독서-쓰기 연계까지.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black:#0a0a0a; --gold:#C9A84C; --gold-light:#E8C96A; --white:#fff; --off:#f7f6f3; --gray:#888; --light:#e8e8e8; --r:12px; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 14px; left: 50%; transform: translateX(-50%); width: calc(100% - 48px); max-width: 1148px; z-index: 100; height: 58px; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,10,10,0.90); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.35); transition: top 0.35s ease, height 0.35s ease, padding 0.35s ease, max-width 0.35s ease, width 0.35s ease; }
+    nav.scrolled { top: 8px; height: 46px; padding: 0 22px; max-width: 520px; width: calc(100% - 48px); }
+    .nav-logo { font-size: 16px; font-weight: 700; letter-spacing: 3px; color: var(--white); text-transform: uppercase; text-decoration: none; text-shadow: 0 0 12px rgba(255,255,255,0.6), 0 0 28px rgba(255,255,255,0.3); }
+    .nav-logo em { color: var(--gold); font-style: normal; text-shadow: 0 0 14px rgba(201,168,76,1), 0 0 36px rgba(201,168,76,0.7), 0 0 70px rgba(201,168,76,0.4); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.45); text-decoration: none; letter-spacing: 0.5px; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-login { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: none; padding: 8px 18px; border-radius: 4px; transition: all 0.2s; letter-spacing: 0.3px; }
+    .nav-login:hover { color: var(--white); }
+    .nav-cta { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; color: var(--gold); text-decoration: none; border: 1px solid rgba(201,168,76,0.45); padding: 8px 22px; border-radius: 4px; transition: all 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: var(--black); }
+    .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; }
+    .nav-burger span { width: 22px; height: 1.8px; background: rgba(255,255,255,0.7); border-radius: 2px; display: block; transition: all 0.3s; }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.8px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.8px) rotate(-45deg); }
+    .nav-mobile { display: none; position: fixed; top: 84px; left: 24px; right: 24px; background: rgba(10,10,10,0.97); backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 16px 0; z-index: 99; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .nav-mobile.open { display: block; }
+    .nav-mobile a { display: block; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.6); text-decoration: none; padding: 12px 24px; letter-spacing: 0.3px; transition: color 0.15s, background 0.15s; }
+    .nav-mobile a:hover { color: var(--white); background: rgba(255,255,255,0.04); }
+    .nav-mobile a.mobile-cta { color: var(--gold); font-weight: 700; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 8px; padding-top: 16px; }
+
+    /* ── HERO ── */
+    .chero { background: var(--black); padding: 130px 0 0; position: relative; overflow: hidden; }
+    .chero-glow { position: absolute; top: -150px; right: -80px; width: 600px; height: 600px; background: radial-gradient(ellipse, rgba(201,168,76,0.09) 0%, transparent 65%); pointer-events: none; }
+    .chero-glow2 { position: absolute; bottom: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(ellipse, rgba(201,168,76,0.05) 0%, transparent 65%); pointer-events: none; }
+    .sec-in { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    .chero-in { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; padding-bottom: 64px; }
+
+    .breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+    .breadcrumb a { font-size: 11px; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.6); }
+    .breadcrumb span { font-size: 11px; color: rgba(255,255,255,0.15); }
+
+    .course-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .course-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; }
+
+    .chero-title { font-size: clamp(28px, 4vw, 48px); font-weight: 900; color: var(--white); letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; }
+    .chero-sub { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.85; max-width: 540px; margin-bottom: 32px; }
+
+    .meta-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+    .chip { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45); }
+    .chip svg { width: 13px; height: 13px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .chip + .chip::before { content: ''; width: 1px; height: 12px; background: rgba(255,255,255,0.12); }
+
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-gold { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--black); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; padding: 14px 28px; border-radius: 8px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,168,76,0.4); }
+    .btn-ghost { background: transparent; color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 600; letter-spacing: 0.3px; padding: 14px 24px; border-radius: 8px; text-decoration: none; border: 1px solid rgba(255,255,255,0.15); cursor: pointer; transition: border-color 0.2s, color 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.35); color: var(--white); }
+    .btn-ghost svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+
+    .enroll-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 84px; }
+    .ec-price { font-size: 26px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; }
+    .ec-price span { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.35); margin-left: 4px; }
+    .ec-divider { height: 1px; background: rgba(255,255,255,0.07); }
+    .ec-row { display: flex; justify-content: space-between; align-items: center; }
+    .ec-k { font-size: 11px; color: rgba(255,255,255,0.35); }
+    .ec-v { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.78); }
+    .ec-v-gold { color: var(--gold); }
+    .ec-btn { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--black); font-size: 13px; font-weight: 800; letter-spacing: 0.5px; padding: 15px; border-radius: 8px; text-decoration: none; text-align: center; display: block; transition: opacity 0.2s, transform 0.2s; }
+    .ec-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .ec-note { font-size: 11px; color: rgba(255,255,255,0.28); text-align: center; line-height: 1.6; }
+
+    /* ── 2033 배경 배너 ── */
+    .reform { background: linear-gradient(180deg, #0a0a0a 0%, #111 100%); padding: 4px 0 64px; }
+    .reform-card { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    .reform-inner { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2); border-radius: 16px; padding: 36px 40px; }
+    .reform-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .reform-h { font-size: clamp(20px, 2.6vw, 28px); font-weight: 900; color: var(--white); letter-spacing: -0.5px; line-height: 1.35; margin-bottom: 16px; }
+    .reform-p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.9; margin-bottom: 22px; }
+    .reform-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+    .rstat { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 20px 18px; }
+    .rstat-v { font-size: 26px; font-weight: 900; color: var(--gold); letter-spacing: -0.5px; margin-bottom: 6px; }
+    .rstat-k { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+    .reform-src { font-size: 11px; color: rgba(255,255,255,0.28); line-height: 1.7; }
+    .reform-src a { color: rgba(201,168,76,0.7); text-decoration: none; }
+    .reform-src a:hover { text-decoration: underline; }
+
+    /* ── BODY ── */
+    .course-body { max-width: 1100px; margin: 0 auto; padding: 72px 48px 80px; display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: start; }
+    .cleft { display: flex; flex-direction: column; gap: 56px; }
+
+    .sec-label { font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .sec-title { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; margin-bottom: 16px; }
+    .sec-desc { font-size: 14px; color: var(--gray); line-height: 1.9; }
+
+    .outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .outcome-item { display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; background: var(--off); border-radius: 8px; }
+    .outcome-item svg { width: 16px; height: 16px; stroke: var(--gold); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+    .outcome-item span { font-size: 13px; font-weight: 600; line-height: 1.5; color: #222; }
+
+    .req-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .req-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #444; line-height: 1.6; }
+    .req-item::before { content: '·'; color: var(--gold); font-size: 20px; line-height: 1.1; flex-shrink: 0; }
+
+    .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+    .feature-card { padding: 24px; border: 1px solid var(--light); border-radius: var(--r); transition: border-color 0.2s; }
+    .feature-card:hover { border-color: rgba(201,168,76,0.4); }
+    .feat-icon { font-size: 24px; margin-bottom: 12px; }
+    .feat-title { font-size: 14px; font-weight: 800; letter-spacing: -0.2px; margin-bottom: 6px; }
+    .feat-desc { font-size: 12px; color: var(--gray); line-height: 1.7; }
+
+    /* 펜타 5영역 매핑 */
+    .penta-map { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+    .penta-pill { display: flex; flex-direction: column; gap: 3px; padding: 14px 18px; border-radius: 10px; background: var(--off); border: 1px solid var(--light); min-width: 92px; }
+    .penta-pill.on { background: #fbf6e8; border-color: rgba(201,168,76,0.5); }
+    .pp-l { font-size: 18px; font-weight: 900; letter-spacing: -0.5px; }
+    .penta-pill.on .pp-l { color: var(--gold); }
+    .pp-k { font-size: 12px; font-weight: 700; color: #333; }
+    .pp-d { font-size: 11px; color: var(--gray); }
+
+    /* ── 커리큘럼 모듈 아코디언 ── */
+    .syllabus { border: 1px solid var(--light); border-radius: var(--r); overflow: hidden; margin-top: 20px; }
+    .si { border-bottom: 1px solid var(--light); }
+    .si:last-child { border-bottom: none; }
+    .si-header { display: grid; grid-template-columns: 64px 1fr auto; align-items: center; cursor: pointer; transition: background 0.15s; }
+    .si-header:hover { background: var(--off); }
+    .sin { padding: 22px 0; text-align: center; font-size: 13px; font-weight: 900; letter-spacing: 0.5px; color: var(--gold); border-right: 1px solid var(--light); }
+    .sic { padding: 20px 20px; }
+    .sit { font-size: 15px; font-weight: 800; letter-spacing: -0.2px; margin-bottom: 3px; }
+    .sisub { font-size: 12px; color: var(--gray); }
+    .si-arrow { padding: 20px 20px; color: #bbb; font-size: 12px; transition: transform 0.2s; }
+    .si.open .si-arrow { transform: rotate(180deg); }
+    .si-detail { display: none; padding: 6px 20px 14px 84px; background: var(--off); border-top: 1px solid var(--light); }
+    .si.open .si-detail { display: block; }
+
+    .lesson { padding: 16px 0; border-bottom: 1px dashed #dcdad3; }
+    .lesson:last-child { border-bottom: none; }
+    .lesson-t { font-size: 14px; font-weight: 800; letter-spacing: -0.2px; color: #1a1a1a; margin-bottom: 8px; }
+    .lesson-t b { display: inline-block; min-width: 40px; color: var(--gold); font-weight: 900; }
+    .lesson-r { display: flex; gap: 8px; margin-bottom: 5px; }
+    .lesson-tag { flex-shrink: 0; font-size: 10px; font-weight: 800; letter-spacing: 0.3px; color: #8a7a3f; background: #f3ecd6; border-radius: 4px; padding: 2px 7px; height: fit-content; margin-top: 2px; }
+    .lesson-x { font-size: 13px; color: #555; line-height: 1.65; }
+    .lesson-x b { color: #222; font-weight: 700; }
+
+    /* 교수진 / 운영 카드 */
+    .op-card { background: var(--off); border: 1px solid var(--light); border-radius: var(--r); padding: 28px 30px; margin-top: 20px; }
+    .op-row { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--light); }
+    .op-row:last-child { border-bottom: none; }
+    .op-k { flex-shrink: 0; width: 96px; font-size: 13px; font-weight: 800; color: var(--gold); }
+    .op-v { font-size: 14px; color: #444; line-height: 1.65; }
+
+    /* sticky sidebar */
+    .cright { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 16px; }
+    .sidebar-card { border: 1px solid var(--light); border-radius: var(--r); overflow: hidden; }
+    .sc-head { background: var(--black); padding: 22px 24px; }
+    .sc-label { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(201,168,76,0.6); margin-bottom: 8px; }
+    .sc-val { font-size: 22px; font-weight: 900; color: var(--white); letter-spacing: -0.5px; line-height: 1.3; }
+    .sc-rows { padding: 18px 24px; display: flex; flex-direction: column; gap: 13px; }
+    .sc-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .sc-k { font-size: 14px; color: var(--gray); flex-shrink: 0; }
+    .sc-v { font-size: 14px; font-weight: 700; text-align: right; }
+    .sc-btn { display: block; background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--black); font-size: 16px; font-weight: 800; letter-spacing: 0.5px; padding: 20px 24px; text-align: center; text-decoration: none; transition: opacity 0.2s; }
+    .sc-btn:hover { opacity: 0.88; }
+    .sidebar-back { font-size: 14px; color: var(--gray); text-align: center; display: block; text-decoration: none; letter-spacing: 0.3px; padding: 4px; transition: color 0.2s; }
+    .sidebar-back:hover { color: var(--black); }
+
+    /* CTA */
+    .cta-banner { background: var(--black); padding: 72px 48px; text-align: center; position: relative; overflow: hidden; }
+    .cta-banner-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 65%); pointer-events: none; }
+    .cta-label { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .cta-title { font-size: clamp(24px, 3.5vw, 40px); font-weight: 900; color: var(--white); letter-spacing: -1px; line-height: 1.2; margin-bottom: 12px; }
+    .cta-sub { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 32px; line-height: 1.7; }
+    .cta-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.05); padding: 36px 48px; display: flex; align-items: center; justify-content: space-between; }
+    .flogo { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .flogo em { color: var(--gold); font-style: normal; }
+    .fcopy { font-size: 11px; color: rgba(255,255,255,0.18); }
+
+    .rv { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .rv.on { opacity: 1; transform: none; }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .2s; } .d3 { transition-delay: .3s; }
+
+    @media (max-width: 960px) {
+      nav { padding: 0 20px; width: calc(100% - 32px); } .nav-links { display: none; } .nav-cta { display: none; } .nav-burger { display: flex; }
+      .sec-in, .reform-card { padding: 0 24px; }
+      .chero-in { grid-template-columns: 1fr; gap: 32px; padding-bottom: 48px; }
+      .enroll-card { position: static; }
+      .reform-inner { padding: 26px 22px; }
+      .reform-stats { grid-template-columns: 1fr; gap: 10px; }
+      .course-body { grid-template-columns: 1fr; padding: 48px 24px; gap: 48px; }
+      .cright { position: static; }
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .si-detail { padding-left: 24px; }
+      .cta-banner { padding: 56px 24px; }
+      footer { flex-direction: column; gap: 10px; text-align: center; padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo" style="text-decoration:none;">PENTA<em>CAMPUS</em></a>
+  <ul class="nav-links">
+    <li><a href="courses.html">커리큘럼</a></li>
+    <li><a href="instructors.html">강사진</a></li>
+  </ul>
+  <div style="display:flex; align-items:center; gap:6px;"><a href="https://campus-lms-iota.vercel.app/login" target="_blank" class="nav-login">로그인</a><a href="https://campus-lms-iota.vercel.app/signup" target="_blank" class="nav-cta">수강 신청</a></div>
+  <button class="nav-burger" id="nav-burger" aria-label="메뉴"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="nav-mobile">
+  <a href="courses.html" class="mobile-link">커리큘럼</a>
+  <a href="instructors.html" class="mobile-link">강사진</a>
+  <a href="https://campus-lms-iota.vercel.app/login" target="_blank" class="mobile-link">로그인</a>
+  <a href="https://campus-lms-iota.vercel.app/signup" target="_blank" class="mobile-cta">수강 신청 →</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="chero">
+  <div class="chero-glow"></div>
+  <div class="chero-glow2"></div>
+  <div class="sec-in">
+    <div class="chero-in">
+      <div class="rv">
+        <div class="breadcrumb">
+          <a href="index.html">홈</a><span>/</span>
+          <a href="courses.html">전체 과정</a><span>/</span>
+          <a href="#">전문가과정 · 자격증</a>
+        </div>
+        <div class="course-badge">전문가과정 · 자격증 · 2033 대입개편 대비</div>
+        <h1 class="chero-title">융합독서지도자<br>자격증 과정</h1>
+        <p class="chero-sub">읽고 이해하는 것을 넘어, 교과와 주제를 넘나들며 비판적·창의적으로 읽어내는 힘을 길러주는 지도자를 양성합니다. 2033 서·논술형 개편이 요구하는 새로운 읽기 역량을, 현장에서 바로 가르칠 수 있도록 30강 6모듈로 설계했습니다.</p>
+        <div class="meta-chips">
+          <div class="chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>총 30강 · 6모듈</div>
+          <div class="chip"><svg viewBox="0 0 24 24"><path d="M15 10l4.553-2.07A1 1 0 0 1 21 8.845v6.31a1 1 0 0 1-1.447.894L15 14"/><rect x="1" y="6" width="15" height="12" rx="2"/></svg>온라인 · 실시간+녹화</div>
+          <div class="chip"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>수료증·자격 발급</div>
+          <div class="chip"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>취업 연계</div>
+        </div>
+        <div class="hero-btns">
+          <a href="https://campus-lms-iota.vercel.app/signup" target="_blank" class="btn-gold">사전 관심 등록하기 →</a>
+          <a href="#syllabus" class="btn-ghost"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><polyline points="6 9 12 15 18 9"/></svg>커리큘럼 보기</a>
+        </div>
+      </div>
+
+      <div class="enroll-card rv d1">
+        <div class="ec-price">전문가과정<span>자격 발급</span></div>
+        <div class="ec-divider"></div>
+        <div class="ec-row"><span class="ec-k">총 강수</span><span class="ec-v">30강 (6모듈)</span></div>
+        <div class="ec-row"><span class="ec-k">수강 방식</span><span class="ec-v">온라인 실시간 + 녹화</span></div>
+        <div class="ec-row"><span class="ec-k">개강</span><span class="ec-v ec-v-gold">2026년 개강 예정</span></div>
+        <div class="ec-row"><span class="ec-k">수료 요건</span><span class="ec-v">과제·지도안 평가</span></div>
+        <div class="ec-row"><span class="ec-k">자격</span><span class="ec-v">펜타캠퍼스 자격</span></div>
+        <div class="ec-row"><span class="ec-k">취업 연계</span><span class="ec-v">펜타스쿨·가맹·방과후</span></div>
+        <div class="ec-divider"></div>
+        <a href="https://campus-lms-iota.vercel.app/signup" target="_blank" class="ec-btn">사전 관심 등록하기</a>
+        <div class="ec-note">개강 일정·수강료는 등록하신 분께<br>가장 먼저 안내드립니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 2033 배경 ── -->
+<section class="reform">
+  <div class="reform-card rv">
+    <div class="reform-inner">
+      <div class="reform-tag">WHY NOW · 2033 대입개편</div>
+      <h2 class="reform-h">수능이 30년 만에 바뀝니다.<br>'읽는 힘'을 가르치는 방식도 바뀌어야 합니다.</h2>
+      <p class="reform-p">국가교육위원회와 교육부는 수능에 서·논술형 문항을 도입하고 전 과목을 절대평가로 전환하는 개편을 추진하고 있습니다. 이르면 현재 초등학교 6학년이 치를 2033학년도 대입부터 적용됩니다. 오지선다에 정답을 고르는 독해가 아니라, 여러 자료를 넘나들며 스스로 생각을 세우는 '융합적 읽기'가 핵심 역량이 됩니다. 지금이 이 변화를 가르칠 지도자를 준비할 시점입니다.</p>
+      <div class="reform-stats">
+        <div class="rstat"><div class="rstat-v">2033~</div><div class="rstat-k">서·논술형 수능 도입<br>(현 초6 대입부터)</div></div>
+        <div class="rstat"><div class="rstat-v">30→50%</div><div class="rstat-k">서·논술형 문항 비율 확대<br>(2033 30% → 2037 50%+, 서울시교육청 제안)</div></div>
+        <div class="rstat"><div class="rstat-v">전 과목</div><div class="rstat-k">국어·수학·탐구까지<br>절대평가 확대 검토</div></div>
+      </div>
+      <p class="reform-src">출처: 국가교육위원회·교육부 대입개편 논의 보도 (경인일보 2026, 한국일보 2026, 뉴스1 2026). 국교위는 2026년 10월 중장기 국가교육발전계획(2028~2037)을 발표할 예정입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── BODY ── -->
+<div class="course-body">
+  <div class="cleft">
+
+    <!-- 1. 학습 성과 -->
+    <div class="rv">
+      <div class="sec-label">What you'll learn</div>
+      <h2 class="sec-title">이 과정에서 기르는 역량</h2>
+      <p class="sec-desc">30강을 통해 융합독서를 '설계하고 지도하고 평가하는' 전 과정을 손에 익힙니다.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>2033 서·논술형 개편이 요구하는 읽기 역량 이해</span></div>
+        <div class="outcome-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>문학·비문학·복합·매체 텍스트 유형별 지도법</span></div>
+        <div class="outcome-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>교과를 넘나드는 주제 중심 융합독서 설계</span></div>
+        <div class="outcome-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>사고를 여는 발문·하브루타·토론 운영</span></div>
+        <div class="outcome-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>읽기를 서·논술형 쓰기로 잇는 브릿지 설계</span></div>
+        <div class="outcome-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>독서력 진단·피드백과 학년별 지도 실무</span></div>
+      </div>
+    </div>
+
+    <!-- 2. 펜타 5영역 매핑 -->
+    <div class="rv">
+      <div class="sec-label">PENTA 5영역</div>
+      <h2 class="sec-title">이 과정이 다루는 문해력 영역</h2>
+      <p class="sec-desc">융합독서지도자 과정은 펜타 문해력 5영역 중 <b>독해·어휘·사고</b>를 중심으로 설계되었습니다.</p>
+      <div class="penta-map">
+        <div class="penta-pill on"><span class="pp-l">P</span><span class="pp-k">독해</span><span class="pp-d">핵심·추론·맥락</span></div>
+        <div class="penta-pill on"><span class="pp-l">E</span><span class="pp-k">어휘</span><span class="pp-d">개념어·배경지식</span></div>
+        <div class="penta-pill on"><span class="pp-l">N</span><span class="pp-k">사고</span><span class="pp-d">비판·질문·추론</span></div>
+        <div class="penta-pill"><span class="pp-l">T</span><span class="pp-k">표현</span><span class="pp-d">쓰기 연계</span></div>
+        <div class="penta-pill"><span class="pp-l">A</span><span class="pp-k">소통</span><span class="pp-d">토의·토론</span></div>
+      </div>
+    </div>
+
+    <!-- 3. 커리큘럼 -->
+    <div class="rv" id="syllabus">
+      <div class="sec-label">Curriculum</div>
+      <h2 class="sec-title">전체 커리큘럼 · 30강</h2>
+      <p class="sec-desc" style="margin-bottom:0">6모듈 × 5강 · 강별 학습목표·핵심내용·실습·평가로 구성</p>
+      <div class="syllabus">
+
+        <!-- 모듈 1 -->
+        <div class="si">
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">M1</div>
+            <div class="sic"><div class="sit">2033 개편과 융합독서의 시대</div><div class="sisub">1–5강 · 왜 융합독서인가</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="lesson"><div class="lesson-t"><b>1강</b> 2033 대입개편 완전정독</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">서·논술형·절대평가 개편의 실제 내용과 일정을 이해한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">개편 배경, 서울시교육청 비율 로드맵, 초6 대입 의미.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">개편 요약 1페이지 정리 후 학부모 설명 스크립트 작성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>2강</b> 문해력 위기와 독서교육 패러다임 전환</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">'정답 고르기'에서 '의미 구성'으로의 전환을 설명한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">디지털 시대 읽기 위기, 깊이 읽기(deep reading)의 가치.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">기존 독해수업 vs 융합독서 수업 비교표 만들기.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>3강</b> '융합독서'란 무엇인가</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">융합독서의 개념·범위와 흔한 오해를 구분한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">교과 융합·주제 융합·자료 융합의 세 층위.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">한 주제로 3개 교과를 잇는 미니 개념도 그리기.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>4강</b> 서·논술형이 요구하는 읽기 역량 5가지</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">평가가 요구하는 읽기 능력을 역량 단위로 분해한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">정보 통합·비판적 판단·근거 추출·관점 비교·재구성.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">역량별 체크리스트로 학생 진단 문항 초안 작성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>5강</b> 펜타 5영역과 독서지도 지형</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">독해·어휘·사고 영역이 지도에서 어떻게 맞물리는지 안다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">5영역 프레임으로 본 융합독서의 좌표.</div></div><div class="lesson-r"><span class="lesson-tag">평가</span><div class="lesson-x">모듈1 정리: 나의 독서지도 철학 한 문단 쓰기.</div></div></div>
+          </div>
+        </div>
+
+        <!-- 모듈 2 -->
+        <div class="si">
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">M2</div>
+            <div class="sic"><div class="sit">텍스트 유형별 읽기 전략</div><div class="sisub">6–10강 · 무엇을 어떻게 읽히나</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="lesson"><div class="lesson-t"><b>6강</b> 문학 텍스트 깊이 읽기</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">정서·형상·주제를 층위로 읽어내는 지도법을 익힌다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">시·소설·수필의 초점화, 인물·화자·상황 읽기.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">단편 1편으로 3층위 발문 세트 만들기.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>7강</b> 비문학 구조적 읽기</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">정보·논설 글의 논지와 근거 구조를 도식화한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">문단 기능, 논지 위계, 정의·예시·인과 구조.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">지문 1편 구조도(트리) 그려 재설명하기.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>8강</b> 복합·융합 지문 읽기</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">글+자료(도표·그래프)를 통합해 읽는 법을 가르친다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">텍스트-자료 연결, 수치·이미지의 논지 기여.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">글+그래프 복합 지문 자작 후 통합 질문 설계.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>9강</b> 매체·디지털 텍스트 비판적 읽기</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">뉴스·영상·SNS를 사실/의견/의도로 분별해 읽힌다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">출처 신뢰성, 프레이밍, 미디어 리터러시.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">동일 사건 2개 매체 비교 읽기 활동지 제작.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>10강</b> 읽기의 4층위 훈련</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">사실적·추론적·비판적·창의적 읽기를 단계로 지도한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">층위별 발문 사다리와 난이도 조절.</div></div><div class="lesson-r"><span class="lesson-tag">평가</span><div class="lesson-x">한 지문 4층위 발문 세트 완성·제출.</div></div></div>
+          </div>
+        </div>
+
+        <!-- 모듈 3 -->
+        <div class="si">
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">M3</div>
+            <div class="sic"><div class="sit">교과 융합 독서 설계</div><div class="sisub">11–15강 · 넘나들며 읽히기</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="lesson"><div class="lesson-t"><b>11강</b> 주제 중심 통합 독서 설계 원리</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">하나의 주제로 여러 텍스트를 엮는 설계 원리를 안다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">빅퀘스천, 텍스트 세트(text set) 구성법.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">빅퀘스천 1개 + 텍스트 세트 3편 큐레이션.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>12강</b> 인문·사회 융합 독서</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">역사·철학·시사를 연결해 맥락 읽기를 지도한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">개념-사례-쟁점의 삼각 읽기.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">시사 이슈 1건으로 인문·사회 융합 수업안 스케치.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>13강</b> 과학·수학 융합 독서</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">개념 이해와 데이터 리터러시를 독서로 잇는다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">과학 글의 논증, 표·그래프 해석, 단위·비교.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">과학 기사+데이터 융합 읽기 활동지 제작.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>14강</b> 예술·삶 융합 독서</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">감상과 자기 성찰을 잇는 독서 경험을 설계한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">미적 체험, 공감·성찰 질문, 삶으로의 전이.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">예술 텍스트 1편 감상-성찰 워크시트 만들기.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>15강</b> 배경지식·개념어 확장 설계</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">어휘(E)를 읽기 이해의 지렛대로 확장시킨다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">사고도구어, 개념어 지도, 어휘 사전 활동.</div></div><div class="lesson-r"><span class="lesson-tag">평가</span><div class="lesson-x">주제형 융합 독서 유닛(3차시) 설계안 제출.</div></div></div>
+          </div>
+        </div>
+
+        <!-- 모듈 4 -->
+        <div class="si">
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">M4</div>
+            <div class="sic"><div class="sit">질문 설계와 사고 확장</div><div class="sisub">16–20강 · 생각을 여는 대화</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="lesson"><div class="lesson-t"><b>16강</b> 좋은 발문의 조건과 유형</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">닫힌 질문과 열린 질문을 구분하고 설계한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">사실·해석·평가·적용 질문의 위계.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">한 텍스트로 발문 유형 4종 각 2개 작성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>17강</b> 하브루타 짝토론 독서</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">질문-대화 중심 짝활동을 운영한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">질문 만들기→짝토론→쉬우르 흐름.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">하브루타 40분 수업 진행표 작성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>18강</b> P4C·Shared Inquiry 적용</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">어린이 철학·공동탐구 토의를 독서에 접목한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">탐구 공동체, 해석적 질문, 근거로 말하기.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">해석적 질문 1개로 공동탐구 시나리오 설계.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>19강</b> 토의·토론으로 잇는 독서</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">읽기를 토의·토론 활동으로 확장한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">찬반·역할·피라미드 토론 포맷.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">독서 주제 1개로 토론 논제·규칙 설계.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>20강</b> 사고를 여는 질문 시퀀스 설계</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">한 차시의 질문 흐름을 사다리로 구성한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">도입-전개-심화-전이 질문 배치.</div></div><div class="lesson-r"><span class="lesson-tag">평가</span><div class="lesson-x">질문 시퀀스 1세트 시연 영상·대본 제출.</div></div></div>
+          </div>
+        </div>
+
+        <!-- 모듈 5 -->
+        <div class="si">
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">M5</div>
+            <div class="sic"><div class="sit">독서–쓰기 연계</div><div class="sisub">21–25강 · 읽기를 쓰기로</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="lesson"><div class="lesson-t"><b>21강</b> 읽고 요약하기</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">핵심을 뽑아 자기 말로 재구성하도록 지도한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">삭제·일반화·재구성의 요약 규칙.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">지문 1편 3단계 요약 지도 스크립트 작성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>22강</b> 읽고 의견 쓰기</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">근거 있는 반응 글쓰기를 이끈다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">주장-근거-예시, 텍스트 근거 인용.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">의견 쓰기 루브릭 초안 작성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>23강</b> 읽기→쓰기 브릿지 설계</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">읽기 활동을 서·논술형 쓰기로 연결한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">읽기 산출물→쓰기 과제 전환 설계.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">독서→서술형 문항 1세트 브릿지 설계.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>24강</b> 독서 포트폴리오·이력 설계</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">누적 독서 기록으로 성장을 가시화한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">독서 이력, 포트폴리오 평가, 성찰일지.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">한 학기 포트폴리오 양식 제작.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>25강</b> 융합 독서 프로젝트</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">'한 학기 한 권' 심화 프로젝트를 설계한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">장기 독서 프로젝트, 산출·발표 설계.</div></div><div class="lesson-r"><span class="lesson-tag">평가</span><div class="lesson-x">프로젝트 계획서(목표·일정·산출) 제출.</div></div></div>
+          </div>
+        </div>
+
+        <!-- 모듈 6 -->
+        <div class="si">
+          <div class="si-header" onclick="toggleSi(this)">
+            <div class="sin">M6</div>
+            <div class="sic"><div class="sit">학년별 지도 실무·진단·자격평가</div><div class="sisub">26–30강 · 현장으로</div></div>
+            <div class="si-arrow">▾</div>
+          </div>
+          <div class="si-detail">
+            <div class="lesson"><div class="lesson-t"><b>26강</b> 초등 고학년 융합독서 지도 실무</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">초4~6 발달에 맞춘 융합독서 수업을 운영한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">학년 사다리, 도서 선정, 수업 루틴.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">초등 고학년 8주 커리 골격 작성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>27강</b> 중등 융합독서·수행평가 연계 지도</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">중등 수행평가·서술형과 독서를 연계한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">교과 연계, 수행평가 루브릭 이해.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">중등 수행평가형 독서 과제 1건 설계.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>28강</b> 독서력 진단과 피드백</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">읽기 수준을 진단하고 맞춤 피드백을 준다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">진단 도구 활용, 강약점 해석, 처방 연결.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">진단 결과 기반 개별 피드백 리포트 작성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>29강</b> 한 편의 수업 설계 — 지도안 작성</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">배운 요소를 하나의 지도안으로 통합한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">목표·활동·발문·평가가 정렬된 지도안.</div></div><div class="lesson-r"><span class="lesson-tag">실습</span><div class="lesson-x">40~50분 완결 지도안 1편 완성.</div></div></div>
+            <div class="lesson"><div class="lesson-t"><b>30강</b> 자격 평가 — 지도안 발표 + 수료</div><div class="lesson-r"><span class="lesson-tag">목표</span><div class="lesson-x">지도안을 시연하고 동료·강사 피드백을 반영한다.</div></div><div class="lesson-r"><span class="lesson-tag">핵심</span><div class="lesson-x">시연·피드백·개선, 수료 기준 충족 확인.</div></div><div class="lesson-r"><span class="lesson-tag">평가</span><div class="lesson-x">최종 지도안 발표 통과 시 자격 발급.</div></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 4. 특징 -->
+    <div class="rv">
+      <div class="sec-label">Why this course</div>
+      <h2 class="sec-title">이 과정의 특징</h2>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feat-icon">🧭</div><div class="feat-title">개편을 가장 먼저 반영</div><div class="feat-desc">2033 서·논술형 개편 방향을 커리큘럼 전체에 녹인 선제형 과정입니다.</div></div>
+        <div class="feature-card"><div class="feat-icon">🛠️</div><div class="feat-title">설계·지도·평가 전 과정</div><div class="feat-desc">발문 하나부터 한 편의 지도안까지, 현장에서 그대로 쓰는 산출물 중심.</div></div>
+        <div class="feature-card"><div class="feat-icon">📹</div><div class="feat-title">녹화본 반복 학습</div><div class="feat-desc">전 강의 녹화 제공. 실시간 참여가 어려워도 완주할 수 있습니다.</div></div>
+        <div class="feature-card"><div class="feat-icon">🤝</div><div class="feat-title">수료 후 취업 연계</div><div class="feat-desc">펜타스쿨·가맹·학교 방과후로 이어지는 지도자 취업 경로를 안내합니다.</div></div>
+      </div>
+    </div>
+
+    <!-- 5. 추천 대상 -->
+    <div class="rv">
+      <div class="sec-label">For whom</div>
+      <h2 class="sec-title">이런 분께 추천합니다</h2>
+      <div class="req-list">
+        <div class="req-item">독서·논술 학원 강사, 공부방·교습소 운영자</div>
+        <div class="req-item">2033 개편에 맞춰 지도 역량을 업그레이드하려는 현직 교사</div>
+        <div class="req-item">자녀의 문해력을 근본부터 키워주고 싶은 학부모</div>
+        <div class="req-item">독서·문해력 분야로 강사 커리어를 시작하려는 예비 지도자</div>
+      </div>
+    </div>
+
+    <!-- 6. 운영 -->
+    <div class="rv">
+      <div class="sec-label">Operation</div>
+      <h2 class="sec-title">과정 운영</h2>
+      <div class="op-card">
+        <div class="op-row"><div class="op-k">주관</div><div class="op-v">펜타캠퍼스 (부설 평생교육원) · 한국미래교육진흥협회(가칭)</div></div>
+        <div class="op-row"><div class="op-k">교수진</div><div class="op-v">독서·문해력 교육 전문 교수진이 담당합니다. (개강 시 강사 프로필 공개 예정)</div></div>
+        <div class="op-row"><div class="op-k">수강 방식</div><div class="op-v">온라인 실시간(Zoom) + 녹화본 제공. 강별 실습 과제 첨삭.</div></div>
+        <div class="op-row"><div class="op-k">수료·자격</div><div class="op-v">과제·최종 지도안 평가 통과 시 펜타캠퍼스 자격 발급 (민간자격 등록 추진 중)</div></div>
+        <div class="op-row"><div class="op-k">개강·수강료</div><div class="op-v">2026년 개강 예정. 일정·수강료는 사전 관심 등록자에게 우선 안내드립니다.</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="cright rv d1">
+    <div class="sidebar-card">
+      <div class="sc-head">
+        <div class="sc-label">자격증 과정</div>
+        <div class="sc-val">융합독서지도자<br>30강 · 6모듈</div>
+      </div>
+      <div class="sc-rows">
+        <div class="sc-row"><span class="sc-k">중심 영역</span><span class="sc-v">독해·어휘·사고</span></div>
+        <div class="sc-row"><span class="sc-k">수강 방식</span><span class="sc-v">온라인+녹화</span></div>
+        <div class="sc-row"><span class="sc-k">개강</span><span class="sc-v" style="color:var(--gold)">2026 예정</span></div>
+        <div class="sc-row"><span class="sc-k">수료 요건</span><span class="sc-v">지도안 평가</span></div>
+        <div class="sc-row"><span class="sc-k">취업 연계</span><span class="sc-v">있음</span></div>
+      </div>
+      <a href="https://campus-lms-iota.vercel.app/signup" target="_blank" class="sc-btn">사전 관심 등록하기</a>
+    </div>
+    <a href="course-19.html" class="sidebar-back">→ 융합논술지도자 과정 보기</a>
+    <a href="courses.html" class="sidebar-back">← 전체 과정 목록 보기</a>
+  </div>
+</div>
+
+<!-- ── 하단 CTA ── -->
+<section class="cta-banner rv">
+  <div class="cta-banner-glow"></div>
+  <div class="cta-label">함께 들으면 좋은 과정</div>
+  <h2 class="cta-title">읽는 힘 다음은,<br>쓰는 힘입니다</h2>
+  <p class="cta-sub">융합독서로 세운 생각을 글로 완성하는 지도까지.<br>융합논술지도자 과정과 함께 2033 개편을 온전히 대비하세요.</p>
+  <div class="cta-btns">
+    <a href="course-19.html" class="btn-gold">융합논술지도자 과정 보기 →</a>
+    <a href="courses.html" class="btn-ghost"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>전체 과정 보기</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="flogo">PENTA<em>CAMPUS</em></div>
+  <div class="fcopy">© 2026 펜타캠퍼스. All rights reserved.</div>
+</footer>
+
+<script>
+  const ro = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); }
+  }), { threshold: 0.06 });
+  document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+  function toggleSi(header) { header.closest('.si').classList.toggle('open'); }
+
+  (function() {
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', function() { nav.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+  })();
+  const burger = document.getElementById('nav-burger');
+  const menu   = document.getElementById('nav-mobile');
+  if (burger && menu) { burger.addEventListener('click', () => { burger.classList.toggle('open'); menu.classList.toggle('open'); }); }
+
+  // 첫 모듈 기본 펼침
+  document.querySelector('.si')?.classList.add('open');
+</script>
+</body>
+</html>
